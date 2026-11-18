@@ -33,6 +33,8 @@ function viewHome(app){
     h("span",{class:"arrow","aria-hidden":"true"},"→")));
   app.append(h("button",{class:"cta alt",onclick:()=>{ sfx("tap"); location.hash="#talk"; }},
     h("div",{}, h("b",{},"AI와 상황극"), h("span",{}, "배운 표현을 실제 대화에 써 보기")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
+  { const er = earRate(); app.append(h("button",{class:"cta alt","data-cta":"abroad",onclick:()=>{ sfx("tap"); location.hash="#abroad"; }},
+    h("div",{}, h("b",{},"앵두와 해외살이"), h("span",{}, er==null ? "자막 없이 듣고 움직이며 귀 트이기" : `귀 트임 ${er}% · 자막 없이 듣고 움직이기`)), h("span",{class:"arrow","aria-hidden":"true"},"→"))); }
   const ic = installCard(); if (ic) app.append(ic);
   const bc = backupCard(); if (bc) app.append(bc);
   app.append(missionsCard(), raceCard());
@@ -45,7 +47,7 @@ function viewHome(app){
 
   const note = h("p",{class:"note"});
   const chip = (ok, on, off) => h("span",{class:"chip"+(ok?" ok":"")}, ok?on:off);
-  note.append(chip(!!caps.dict,"말하기 입력 켜짐","타이핑 입력"), chip(canSpeak(),"기기 음성","음성 없음"), chip(!!llm.engine, "AI 모델 준비됨", "AI 모델 미준비"), chip(store.ok,"이 기기에 저장","저장 안 됨 (사생활 보호 모드)"));
+  note.append(chip(!!caps.dict,"말하기 입력 켜짐","타이핑 입력"), chip(canSpeak(), hasClips() ? "원어민 녹음 음성" : "기기 음성","음성 없음"), chip(!!llm.engine, "AI 모델 준비됨", "AI 모델 미준비"), chip(store.ok,"이 기기에 저장","저장 안 됨 (사생활 보호 모드)"));
   const weak = Object.entries(S.errors||{}).filter(([k,v])=>v>=2).sort((a,b)=>b[1]-a[1])[0];
   if (weak) note.append(h("span",{class:"chip warn",title:"AI 대화에서 가장 자주 고친 유형"}, "약점: "+(ERR_KO[weak[0]]||"기타")+" "+weak[1]+"회"));
   app.append(note);
@@ -155,7 +157,9 @@ function taskListen(box, card, step){
   const m = header(box, "들리는 말, 무슨 뜻일까?");
   const play = h("button",{class:"speak jumbo",type:"button","aria-pressed":"false","aria-label":"다시 듣기",html:ICON.spk+"<span>다시 듣기</span>"}); play.onclick = () => say(card.en, 1, play, m);
   const slow = h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span>천천히</span>"}); slow.onclick = () => say(card.en, .75, slow, m);
-  box.append(h("div",{class:"row",style:"justify-content:center;gap:14px"}, play, slow));
+  const other = hasAltVoice(card.en) ? h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span>다른 목소리</span>"}) : null;
+  if (other) other.onclick = () => say(card.en, 1, other, m, {alt:true});
+  box.append(h("div",{class:"row",style:"justify-content:center;gap:14px;flex-wrap:wrap"}, play, slow, other));
   const pool = shuffle(allCards().filter(c=>c.id!==card.id)).sort((a,b)=>(b.tag===card.tag)-(a.tag===card.tag)).slice(0,3);
   const opts = shuffle([card, ...pool]); const t0 = Date.now();
   const wrap = h("div",{class:"opts"});

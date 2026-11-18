@@ -7,7 +7,7 @@ function route(){
   let name = (location.hash||"#home").slice(1);
   if (name === "words") { wordOnlyNext = true; history.replaceState(null, "", "#learn"); name = "learn"; }
   const v = VIEWS[name] ? name : "home";
-  closeSheet(); setFocusMode(false); speaker = null;
+  closeSheet(); setFocusMode(false); speaker = null; hush();
   const tab = TAB_OF[v] || v;
   document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   const app = $("#app"); app.replaceChildren();
@@ -86,6 +86,11 @@ function openSettings(){
     if (caps.dict) inner.append(sw("handsfree","핸즈프리 대화","AI가 말을 마치면 자동으로 듣기 시작 (일부 기기에선 동작하지 않아요)"));
     inner.append(sw("showKo","번역 먼저 보기","AI 대화에서 한국어 번역을 펼쳐 둬요"));
     inner.append(seg("원어민 말하기 속도", "", [0.8,1,1.2], "rate", o=>o===1?"보통":o<1?"천천히":"빠르게"));
+    if (hasClips() && "serviceWorker" in navigator && location.protocol.startsWith("http")) {
+      const dl = h("button",{class:"ghost",type:"button","data-act":"save-audio"}, S.audioSaved ? "다시 받기" : `받기 (약 ${typeof AUDIO_MB !== "undefined" ? AUDIO_MB : "?"}MB)`);
+      dl.onclick = async () => { dl.disabled = true; const r = await saveClipsOffline((n, t) => { dl.textContent = `받는 중 ${Math.round(n/t*100)}%`; });
+        S.audioSaved = !r.fail; save(); dl.disabled = false; dl.textContent = r.fail ? `${r.fail}개 실패 · 다시 받기` : "저장 완료"; toast(r.fail ? "인터넷 연결을 확인하고 다시 받아 주세요" : "원어민 음성을 이 기기에 저장했어요"); };
+      inner.append(h("div",{class:"setrow"}, h("span",{class:"lab"}, h("b",{},"원어민 음성 오프라인 저장"), h("small",{}, "들은 음성은 자동으로 저장돼요. 비행기 모드에서도 다 들으려면 한 번에 받아 두세요 (와이파이 추천)")), dl)); }
     const exp = h("button",{class:"ghost",type:"button",onclick:exportBackup},"기록 내보내기");
     const imp = h("button",{class:"ghost",type:"button",onclick:importBackup},"기록 가져오기");
     inner.append(h("div",{style:"display:flex;flex-direction:column;gap:8px"}, h("div",{class:"lab"}, h("b",{},"학습 기록 백업"), h("small",{class:"ctx"}, isIOS() ? "기록은 이 기기에만 저장돼요. 아이폰은 Safari와 홈 화면 앱의 기록도 따로라서, 옮길 땐 파일로 내보내고 가져오세요." : "기록은 이 기기에만 저장돼요. 기기를 바꿀 땐 파일로 옮기세요.")), h("div",{class:"row"}, exp, imp)));

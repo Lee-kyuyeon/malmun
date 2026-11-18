@@ -5,25 +5,63 @@ const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 const caps = { dict: !!SR, ready: true };
 try { localStorage.setItem("malmun.probe","1"); localStorage.removeItem("malmun.probe"); store.ok = true; } catch(e) {}
 
-/* speech out: the device's own English voice */
+/* speech out: sentences and words recorded with an open neural voice (audio/, made by tools/tts/gen.py) play from files;
+   anything else (AI replies, the learner's own saved sentences) falls back to the device's English voice */
 let enVoice = null;
-function pickVoice(){ try { const vs = speechSynthesis.getVoices(); enVoice = vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Google|Natural|Aria|Jenny|Ava|Allison/i.test(v.name)) || vs.find(v=>/^en[-_]US/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; } catch(e){} }
+const VOICE_RANK = [/premium/i, /enhanced/i, /neural|natural|online/i, /Samantha|Google|Aria|Jenny|Ava|Allison|Zoe|Evan|Nathan/i];
+function pickVoice(){ try { const vs = speechSynthesis.getVoices(); const us = vs.filter(v=>/^en[-_]US/i.test(v.lang));
+  const pool = us.length ? us : vs.filter(v=>/^en/i.test(v.lang)); const score = v => { const i = VOICE_RANK.findIndex(r=>r.test(v.name)); return i < 0 ? 9 : i; };
+  enVoice = pool.slice().sort((a,b)=>score(a)-score(b))[0] || null; } catch(e){} }
 try { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; } catch(e) {}
-function canSpeak(){ return "speechSynthesis" in window; }
-async function say(text, rate=1, btn, who){
-  if (!canSpeak()) return;
+function canSpeak(){ return "speechSynthesis" in window || hasClips(); }
+const hasClips = () => typeof AUDIO !== "undefined" && typeof chunkId === "function";
+/* which file plays this text: alt picks the second recorded voice when there is one */
+function clipFor(text, alt){
+  if (!hasClips() || !text) return null; const t = String(text).trim();
+  let k = chunkId(t), v = AUDIO[k];
+  if (!v && /^[A-Za-z'-]+$/.test(t)) { k = chunkId(t.toLowerCase()); v = AUDIO[k]; }
+  if (!v) return null;
+  return "audio/" + k + "-" + v[alt && v.length > 1 ? 1 : 0] + ".m4a";
+}
+const hasAltVoice = text => { const c1 = clipFor(text), c2 = clipFor(text, true); return !!c1 && c1 !== c2; };
+const player = typeof Audio !== "undefined" ? new Audio() : null;
+let stopCur = null, clipsUnlocked = false;
+/* iOS plays media only after a tap: start the shared player once inside the first tap so later automatic plays work */
+const SILENT = "data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQIAAAAAAA==";
+function unlockClips(){ if (clipsUnlocked || !player || !player.paused) return; clipsUnlocked = true;
+  try { player.src = SILENT; const p = player.play(); if (p) p.then(()=>player.pause()).catch(()=>{}); } catch(e) {} }
+addEventListener("pointerdown", unlockClips, {capture:true}); addEventListener("keydown", unlockClips, {capture:true});
+function playClip(src, rate, onStart){ return new Promise(res => {
+  let done = false; const end = ok => { if (done) return; done = true; if (stopCur === stop) stopCur = null; player.onended = player.onerror = player.onplaying = null; res(ok); };
+  const stop = () => { try { player.pause(); } catch(e) {} end(true); };
+  if (stopCur) stopCur(); stopCur = stop;
+  try { player.src = src; player.defaultPlaybackRate = player.playbackRate = rate; if ("preservesPitch" in player) player.preservesPitch = true;
+    player.onplaying = onStart; player.onended = () => end(true); player.onerror = () => end(false);
+    const p = player.play(); if (p) p.catch(() => end(false)); setTimeout(() => end(true), 20000);
+  } catch(e) { end(false); } }); }
+function hush(){ if (stopCur) stopCur(); try { speechSynthesis.cancel(); } catch(e) {} }
+function speakTTS(text, rate, onStart, m){ return new Promise(res => { if (!("speechSynthesis" in window)) return res();
+  try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang="en-US"; if (enVoice) u.voice=enVoice; u.rate = rate;
+    u.onstart = onStart; u.onboundary = () => { if (m) { m.classList.add("open"); setTimeout(()=>m.classList.remove("open"), 90); } };
+    u.onend = res; u.onerror = res; speechSynthesis.speak(u); setTimeout(res, 12000);
+  } catch(_) { res(); } }); }
+/* opts.alt: the other recorded voice · opts.exact: play at this rate, ignoring the speed setting */
+async function say(text, rate=1, btn, who, opts={}){
   const m = who || speaker;
   if (btn) btn.setAttribute("aria-pressed","true");
-  let flap = null;
-  await new Promise(res => { try {
-    speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang="en-US"; if (enVoice) u.voice=enVoice; u.rate = rate * (S.settings.rate||1);
-    u.onstart = () => { if (m) { setMood(m,"talk"); flap = setInterval(()=>m.classList.toggle("open", Math.random() > .35), 120); } };
-    u.onboundary = () => { if (m) { m.classList.add("open"); setTimeout(()=>m.classList.remove("open"), 90); } };
-    u.onend = res; u.onerror = res; speechSynthesis.speak(u); setTimeout(res, 12000);
-  } catch(_) { res(); } });
+  let flap = null; const onStart = () => { if (m && !flap) { setMood(m,"talk"); flap = setInterval(()=>m.classList.toggle("open", Math.random() > .35), 120); } };
+  const r = opts.exact ? rate : rate * (S.settings.rate||1);
+  const src = player && clipFor(text, opts.alt);
+  const ok = src ? await playClip(src, r, onStart) : false;
+  if (!ok) { if (stopCur) stopCur(); await speakTTS(text, r, onStart, m); }
   clearInterval(flap); if (m) { m.classList.remove("open"); if (m.classList.contains("talk")) setMood(m,"idle"); }
   if (btn) btn.setAttribute("aria-pressed","false");
 }
+/* lets the learner keep every recorded clip for offline use (the service worker stores what is fetched) */
+function clipList(){ return hasClips() ? Object.entries(AUDIO).flatMap(([k,v]) => [...v].map(i => "audio/"+k+"-"+i+".m4a")) : []; }
+async function saveClipsOffline(onProgress){ const list = clipList(); let n = 0, fail = 0; const q = list.slice();
+  const worker = async () => { while (q.length) { const u = q.shift(); try { const r = await fetch(u); if (!r.ok) fail++; } catch(e) { fail++; } n++; if (onProgress) onProgress(n, list.length); } };
+  await Promise.all([1,2,3,4,5,6].map(worker)); return {n, fail}; }
 function speakBtn(text, label="듣기", rate=1){ const b = h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span></span>"}); b.querySelector("span").textContent=label; b.onclick=()=>say(text,rate,b); return b; }
 
 /* speech in: the browser's speech recognition (Chrome on Android, Safari on iOS 14.5+) */
@@ -34,7 +72,7 @@ function micFor(field){
   b.hidden = !caps.dict;
   b.onclick = () => {
     if (rec) { try { rec.stop(); } catch(e){} return; }
-    try { speechSynthesis.cancel(); } catch(e){}
+    hush();
     const r = new SR(); rec = r;
     r.lang = "en-US"; r.interimResults = true; r.continuous = false; r.maxAlternatives = 1;
     const base = field.value.trim() ? field.value.trim()+" " : "";

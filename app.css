@@ -442,3 +442,29 @@ nav.tabs .tbadge.dot{min-width:10px;width:10px;height:10px;padding:0;top:6px;lef
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
 }
+
+/* ---------- 해외살이 (ears first) ---------- */
+.earmeter{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:14px 16px}
+.earmeter .ring{width:84px;height:84px}
+.scene-ctx{font-size:16px;margin:0}
+.chip.place{background:color-mix(in srgb,var(--sky) 22%,var(--surface));color:var(--ink);font-weight:700}
+.listen-card{display:flex;align-items:center;gap:12px;border:2px solid var(--line);background:var(--surface);border-radius:20px;padding:12px 14px}
+.listen-card .who{font-weight:700}
+.helps{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.help-shown{display:flex;flex-direction:column;gap:8px}
+.help-shown:empty{display:none}
+.keys{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chip.key{background:var(--butter);color:var(--on-butter);font-weight:700;font-size:14px}
+.subs{display:flex;flex-direction:column;gap:6px}
+.subs .prompt-en{font-size:18px;margin:0}
+.subs.ko .ctx{margin:0}
+.spk-name{font-size:12px;font-weight:700;color:var(--muted);display:block}
+.scene-q{margin:6px 0 0}
+.conseq{border:2px dashed var(--bad);background:var(--badbg);border-radius:16px;padding:10px 14px;font-size:15px}
+.conseq b{color:var(--bad)}
+.sub-line{padding:6px 0;border-top:1px solid var(--line)}
+.sub-line:first-of-type{border-top:0}
+.sub-line .prompt-en{font-size:17px;margin:0}
+.sub-line .ctx{margin:2px 0 0}
+.fb .subs{max-height:34vh;overflow:auto}
+.tip{background:var(--sunk);border-radius:12px;padding:8px 12px}

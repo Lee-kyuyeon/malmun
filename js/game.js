@@ -52,7 +52,8 @@ const MISSION_POOL = [
   {id:"shadow", ev:"shadow", n:2, t:"따라 말하기 {n}번"},
   {id:"goal", ev:"goal_met", n:1, t:"하루 목표 채우기", max:true},
   {id:"save", ev:"word_saved", n:2, t:"놓친 단어 {n}개 담기"},
-  {id:"listen", ev:"listen", n:3, t:"듣고 뜻 고르기 {n}번"}
+  {id:"listen", ev:"listen", n:3, t:"듣고 뜻 고르기 {n}번"},
+  {id:"abroad", ev:"abroad_scene", n:3, t:"해외살이 장면 {n}개 듣기"}
 ];
 function seeded(str){ let h = 2166136261; for (const c of str) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 10000) / 10000; }; }
 function ensureDaily(){
@@ -104,6 +105,7 @@ const BADGES = [
   {id:"gB2", t:"B2 졸업", d:"B2 단원 모두 완료", p:()=>[gradDone("B2")?1:0,1], r:80},
   {id:"early", t:"일찍 일어난 새", d:"오전 7시 전에 공부하기", p:()=>[S.earlyBird?1:0,1], r:10},
   {id:"owl", t:"올빼미", d:"밤 11시 이후에 공부하기", p:()=>[S.nightOwl?1:0,1], r:10},
+  {id:"ear10", t:"귀가 트였다", d:"해외살이 장면 10개를 자막 없이 알아듣기", p:()=>[(S.ear&&S.ear.clean)||0,10], r:20},
   {id:"perfect", t:"완벽주의자", d:"정확도 100%로 세션 끝내기", p:()=>[S.perfectSessions||0,1], r:15}
 ];
 let badgeBusy = false;
