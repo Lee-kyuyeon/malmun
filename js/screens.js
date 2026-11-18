@@ -129,6 +129,9 @@ function viewCourse(app){
   app.append(head);
   app.append(h("p",{class:"muted"}, S.placement ? `진단 결과 ${myLevel()} ${LEVEL_KO[myLevel()]}부터 시작했어요. 아래 단원은 건너뛰었지만 언제든 복습할 수 있어요.` : "아직 실력 진단 전이라 A1부터 시작해요. 진단하면 내 레벨에 맞는 단원부터 열려요."),
     h("div",{class:"row"}, h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash="#placement"; }}, S.placement ? "실력 다시 진단" : "실력 진단하기")));
+  { const cu = currentUnit(), ready = speakReady(cu);
+    app.append(h("button",{class:"cta alt","data-open":"speak",type:"button",onclick:()=>{ speakUnitNext = cu.id; location.hash = "#speak"; }},
+      h("div",{}, h("b",{},"30초 말하기"), h("span",{}, ready ? `${cu.lvl} · ${cu.tag} 표현으로 길게 답해 보기` : `이 단원 표현 ${SPEAK_MIN_LEARNED}개를 익히면 열려요 (지금 ${learnedIn(cu).length}개)`)), h("span",{class:"arrow","aria-hidden":"true"},"→"))); }
   LEVELS.forEach(L => {
     const us = units.filter(u=>u.lvl===L); if (!us.length) return;
     const sec = h("section",{class:"lvl-sec"}, h("div",{class:"lvl-h"}, h("b",{}, `${L} ${LEVEL_KO[L]}`), h("span",{}, LEVEL_CAN[L])));
@@ -172,6 +175,7 @@ function viewMe(app){
   const wl = Object.keys(S.words||{}); if (wl.length) { const cnt = [0,0,0,0,0,0]; wl.forEach(w => cnt[wordStage(w)]++); const mx = Math.max(...cnt, 1);
     app.append(h("section",{class:"card-s",id:"word-ladder"}, h("h2",{class:"sec-h"}, `단어 ${wl.length}개 학습 단계`), h("div",{class:"stagebars"}, ...STAGE_KO.map((t,i)=>h("div",{class:"hbar"}, h("span",{style:"font-size:12px"}, t), h("span",{class:"t"}, h("i",{style:`width:${cnt[i]/mx*100}%`})), h("span",{class:"v"}, cnt[i]+"개")))),
       h("button",{class:"ghost",type:"button",onclick:()=>{ wordOnlyNext = true; location.hash = "#learn"; }},"단어만 복습하기"))); }
+  { const sg = speakGrowth(); if (sg) app.append(sg); }
   const errs = Object.entries(S.errors||{}).sort((a,b)=>b[1]-a[1]);
   if (errs.length) app.append(h("p",{class:"note"}, "자주 고친 유형", ...errs.slice(0,4).map(([k,v])=>h("span",{class:"chip warn"}, (ERR_KO[k]||"기타")+" "+v))));
   app.append(h("div",{class:"menu"},

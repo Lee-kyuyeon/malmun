@@ -53,6 +53,7 @@ const MISSION_POOL = [
   {id:"goal", ev:"goal_met", n:1, t:"하루 목표 채우기", max:true},
   {id:"save", ev:"word_saved", n:2, t:"놓친 단어 {n}개 담기"},
   {id:"listen", ev:"listen", n:3, t:"듣고 뜻 고르기 {n}번"},
+  {id:"speakout", ev:"speakout", n:1, t:"30초 말하기 {n}번", need:()=>speakReady()},
   {id:"abroad", ev:"abroad_scene", n:3, t:"해외살이 장면 {n}개 듣기"}
 ];
 function seeded(str){ let h = 2166136261; for (const c of str) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); } return () => { h ^= h << 13; h ^= h >>> 17; h ^= h << 5; return ((h >>> 0) % 10000) / 10000; }; }

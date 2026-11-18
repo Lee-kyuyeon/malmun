@@ -15,7 +15,7 @@ const add = (text, voices, speed) => { const key = chunkId(text); const it = ite
   if (it.text !== text) throw new Error("hash clash: " + text + " / " + it.text);
   voices.forEach(v => { if (!it.voices.includes(vi(v))) it.voices.push(vi(v)); }); items.set(key, it); };
 DECK.forEach(c => { const n = parseInt(chunkId(c.en).slice(1), 36); const main = MAIN[n % MAIN.length]; const sex = main[1];
-  const pool = (c.lvl === "B1" || c.lvl === "B2") ? ALT_GB : ALT_US; const alt = pool[sex][Math.floor(n / 8) % pool[sex].length];
+  const pool = (c.lvl === "B1" || c.lvl === "B2" || c.lvl === "C1") ? ALT_GB : ALT_US; const alt = pool[sex][Math.floor(n / 8) % pool[sex].length];
   add(c.en, [main, alt]); (c.alts || []).forEach(a => add(a, [main])); });
 /* a lone word is read as a one-word sentence, a little slower: the model clips and blurs bare short words */
 Object.keys(WORDS).forEach(w => { add(w, ["af_heart"], 0.95); items.get(chunkId(w)).say = w[0].toUpperCase() + w.slice(1) + "."; });
