@@ -101,13 +101,35 @@ const LEVELS = ["A1","A2","B1","B2"];
 const LEVEL_KO = {A1:"기초", A2:"초급", B1:"중급", B2:"중상급"};
 const LEVEL_CAN = {A1:"인사하고 간단히 주문하기", A2:"익숙한 상황에서 짧게 대화하기", B1:"여행·일상 대화를 대부분 해내기", B2:"회의·의견 조율까지 자연스럽게"};
 const myLevel = () => LEVELS.includes(S.level) ? S.level : "A1";
+/* difficulty of one chunk: its length plus how rare its rarest content word is (frequency bands 1–3) */
+const DIFF = new Map();
+function chunkDifficulty(c){
+  if (DIFF.has(c.id)) return DIFF.get(c.id);
+  const t = toks(c.en); let band = 1; t.forEach(w => { const e = lookupTok(w); if (e && e.band > band) band = e.band; });
+  const d = t.length + 1.5 * (band - 1); DIFF.set(c.id, d); return d;
+}
+/* a unit's role-play: the same situation at the same level, else the nearest level of that situation */
+function scenFor(tag, L){
+  const li = LEVELS.indexOf(L);
+  return SCENARIOS.filter(x => x.tag === tag).sort((a,b) => Math.abs(LEVELS.indexOf(a.lvl)-li) - Math.abs(LEVELS.indexOf(b.lvl)-li) || LEVELS.indexOf(a.lvl) - LEVELS.indexOf(b.lvl))[0] || null;
+}
+/* the deck never changes while the app runs, so each unit's ordered card list is built once:
+   inside a unit, easiest first, so each new chunk builds on the last */
+let UNIT_CARDS = null;
+function unitCards(L, t){
+  if (!UNIT_CARDS) { UNIT_CARDS = new Map(); const groups = new Map();
+    DECK.forEach((c,i) => { const k = c.lvl+"|"+c.tag; if (!groups.has(k)) groups.set(k, []); groups.get(k).push([c,i]); });
+    groups.forEach((list,k) => UNIT_CARDS.set(k, list.sort((a,b)=>chunkDifficulty(a[0])-chunkDifficulty(b[0]) || a[1]-b[1]).map(([c])=>c.id))); }
+  return UNIT_CARDS.get(L+"|"+t) || [];
+}
 function buildCurriculum(){
   const like = S.settings.interests || [];
   const tags = [...new Set(DECK.map(c=>c.tag))].sort((a,b)=> (like.includes(b)-like.includes(a)));
   const units = [];
-  LEVELS.forEach(L => tags.forEach(t => { const cards = DECK.filter(c=>c.lvl===L && c.tag===t).map(c=>c.id);
+  LEVELS.forEach(L => tags.forEach(t => {
+    const cards = unitCards(L, t);
     if (!cards.length) return;
-    const scen = SCENARIOS.find(x=>x.tag===t && x.lvl===L) || null;
+    const scen = scenFor(t, L);
     const done = cards.filter(id=>mastery(id)>=2).length;
     units.push({id:L+"·"+t, lvl:L, tag:t, cards, scen, done, total:cards.length, complete: done/cards.length >= .8}); }));
   const startIdx = Math.max(0, units.findIndex(u=>u.lvl===myLevel()));
