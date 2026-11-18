@@ -126,7 +126,8 @@ async function scene(p, i, { wrong = false, help = 0 } = {}) {
     });
     await p.getByRole('button', { name: /카페에서 한 장면 연습하기/ }).click();
     await p.waitForFunction(() => abroad?.quick && abroad.cur.heard);
-    await p.getByRole('button', { name: '오트 우유', exact: true }).click();
+    const oat = await p.evaluate(() => abroad.e.scenes[0].opts.find(o => o[1] === true)[0]);
+    await p.getByRole('button', { name: oat, exact: true }).click();
     await p.getByRole('button', { name: '영어로 답해 보기' }).click();
     await p.locator('#answer').fill('An iced latte with almond milk, please.');
     await p.getByRole('button', { name: '확인', exact: true }).click();
