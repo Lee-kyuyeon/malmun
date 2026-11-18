@@ -2,6 +2,31 @@
 "use strict";
 /* ---------- PLACEMENT: self-assessment (DIALANG-style) → 10 adaptive items (CAT-style staircase) → 30s speaking sample (CAF) ---------- */
 const PLACE_ITEMS = 10;
+/* placement core, kept pure so it can be tested with simulated learners (tests/curriculum.js) */
+function placementPool(L, used){
+  /* typical items of a level: the middle half by difficulty, so A1 is not just "Hello?" and B2 not just the longest */
+  const all = DECK.filter(c=>c.lvl===L).sort((a,b)=>chunkDifficulty(a)-chunkDifficulty(b));
+  const mid = all.slice(Math.floor(all.length*.25), Math.ceil(all.length*.75));
+  const free = mid.filter(c=>!used.has(c.id)); return free.length ? free : all.filter(c=>!used.has(c.id));
+}
+function placementPick(theta, used){
+  const want = Math.max(0, Math.min(3, Math.round(theta)));
+  for (const d of [0,1,-1,2,-2,3,-3]) { const L = LEVELS[want+d]; if (!L) continue;
+    const pool = placementPool(L, used); if (pool.length) return pool[Math.random()*pool.length|0]; }
+  return null;
+}
+/* the first item moves a whole level so strong learners reach their level within 10 items, then the steps shrink */
+function placementUpdate(theta, i, ok){ const step = i === 0 ? 1 : i < 4 ? .5 : .25; return Math.max(0, Math.min(3, theta + (ok ? step : -step))); }
+/* the level is the highest one answered at least 60% right (rounding the staircase estimate placed learners a level too high
+   in simulation); a strong or weak 30-second speaking sample can move it by one level when the item answers allow it */
+function placementLevel(theta, results, speak){
+  const acc = L => { const r = (results||[]).filter(x=>x.lvl===L); return r.length ? r.filter(x=>x.ok).length / r.length : null; };
+  let best = 0; LEVELS.forEach((L,i) => { const a = acc(L); if (a !== null && a >= .6) best = Math.max(best, i); });
+  if (!results || !results.length) best = Math.max(0, Math.min(3, Math.floor(theta)));
+  if (speak === "strong" && best < 3 && (acc(LEVELS[best+1]) ?? 0) >= .5) best++;
+  if (speak === "weak" && best > 0 && (acc(LEVELS[best]) ?? 1) < .8) best--;
+  return LEVELS[best];
+}
 function viewPlacement(app){
   setFocusMode(true);
   const P = {theta:0, i:0, used:new Set(), results:[], wpm:null, words:0, stage:"self"};
@@ -21,16 +46,10 @@ function viewPlacement(app){
     pick.append(h("button",{class:"press",type:"button",onclick:()=>{ P.theta = 0; sfx("tap"); item(); }}, h("span",{}, h("b",{},"잘 모르겠어")), h("small",{},"쉬운 것부터")));
     box.append(pick);
   }
-  function pickCard(){
-    const want = Math.max(0, Math.min(3, Math.round(P.theta)));
-    for (const d of [0,1,-1,2,-2,3,-3]) { const L = LEVELS[want+d]; if (!L) continue;
-      const pool = DECK.filter(c=>c.lvl===L && !P.used.has(c.id)); if (pool.length) return pool[Math.random()*pool.length|0]; }
-    return null;
-  }
+  const pickCard = () => placementPick(P.theta, P.used);
   function answer(card, type, ok){
     P.results.push({id:card.id, lvl:card.lvl, type, ok});
-    const step = P.i < 4 ? .5 : .25;
-    P.theta = Math.max(0, Math.min(3, P.theta + (ok ? step : -step)));
+    P.theta = placementUpdate(P.theta, P.i, ok);
     sfx(ok ? "ding" : "tap"); P.i++;
     setTimeout(()=>{ if (location.hash === "#placement") item(); }, 380);
   }
@@ -67,14 +86,13 @@ function viewPlacement(app){
       const words = toks(ta.value).length, ms = Number(ta.dataset.speechMs||0);
       P.words = words; P.wpm = ms >= 3000 && words ? Math.round(words/(ms/60000)) : null;
       /* fluency nudges the estimate a quarter step: long, fluent answers up; very short ones down */
-      if (words >= 35 && (P.wpm||0) >= 100) P.theta = Math.min(3, P.theta + .25);
-      else if (words < 10) P.theta = Math.max(0, P.theta - .25);
+      P.speak = words >= 35 && (P.wpm||0) >= 100 ? "strong" : words < 10 ? "weak" : null;
       result(); };
     actionBar(done, skip);
   }
   function result(){
     setFocusMode(false); app.replaceChildren(); stopDict();
-    const rec = LEVELS[Math.max(0, Math.min(3, Math.round(P.theta)))];
+    const rec = placementLevel(P.theta, P.results, P.speak);
     const acc = t => { const r = P.results.filter(x=>x.type===t); return r.length ? r.filter(x=>x.ok).length/r.length : 0; };
     const listen = acc("listen"), spk = acc("recall");
     let chosen = rec;
@@ -89,7 +107,7 @@ function viewPlacement(app){
     const draw = () => {
       seg.replaceChildren(...LEVELS.map(L=>h("button",{type:"button","aria-pressed":String(L===chosen),onclick:()=>{ chosen = L; sfx("tap"); draw(); }}, L + (L===rec ? " · 추천" : ""))));
       const keep = S.level; S.level = chosen; const {units, startIdx} = buildCurriculum(); S.level = keep;
-      preview.replaceChildren(...units.slice(startIdx, startIdx+3).map((u,i)=>h("div",{class:"pu press "+(i===0?"now":"next")}, h("span",{class:"st"}, String(i+1)), h("span",{style:"min-width:0"}, h("div",{class:"tg"}, `${u.lvl} · ${u.tag}`), h("div",{class:"sb"}, `표현 ${u.total}개`+(u.scen?` · 미션: ${u.scen.t}`:""))), "")));
+      preview.replaceChildren(...units.slice(startIdx, startIdx+3).map((u,i)=>h("div",{class:"pu press "+(i===0?"now":"next")}, h("span",{class:"st"}, String(i+1)), h("span",{style:"min-width:0"}, h("div",{class:"tg"}, `${u.lvl} · ${u.tag}`), h("div",{class:"sb"}, `표현 ${u.total}개`+(u.scen?` · 미션: ${u.scen.t}${u.scen.lvl!==u.lvl?` (${u.scen.lvl})`:""}`:""))), "")));
     };
     draw();
     app.append(h("section",{class:"card-s"}, h("h2",{class:"sec-h"},"내 코스 미리보기"), h("p",{class:"ctx"},"너무 쉽거나 어려우면 시작 레벨을 바꿔도 돼."), seg, preview));
@@ -118,7 +136,7 @@ function viewCourse(app){
       const label = {done:"완료", now:"지금", skipped:"건너뜀", open:"진행 중", next:"예정"}[u.status];
       const btn = h("button",{class:"pu press "+u.status,type:"button","aria-label":`${u.lvl} ${u.tag} 단원, ${label}, ${u.done}/${u.total}`,onclick:()=>{ S.focusUnit = u.id; save(); sfx("tap"); location.hash="#learn"; }},
         h("span",{class:"st"}, u.status==="now" ? mascot(36) : u.status==="done" ? "✓" : String(i+1)),
-        h("span",{style:"min-width:0"}, h("div",{class:"tg"}, u.tag), h("div",{class:"sb"}, `${label} · ${u.done}/${u.total} 입에 붙음`+(u.scen?` · 미션: ${u.scen.t}`:"")), h("div",{class:"bar"}, h("i",{style:`width:${Math.round(u.done/u.total*100)}%`}))),
+        h("span",{style:"min-width:0"}, h("div",{class:"tg"}, u.tag), h("div",{class:"sb"}, `${label} · ${u.done}/${u.total} 입에 붙음`+(u.scen?` · 미션: ${u.scen.t}${u.scen.lvl!==u.lvl?` (${u.scen.lvl})`:""}`:"")), h("div",{class:"bar"}, h("i",{style:`width:${Math.round(u.done/u.total*100)}%`}))),
         h("span",{class:"mono muted","aria-hidden":"true"},"→"));
       sec.append(btn);
     });

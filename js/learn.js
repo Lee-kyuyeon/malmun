@@ -326,7 +326,7 @@ function renderRecap(){
       const bonus = lvlDone ? 30 : 10; earn(lvlDone ? `${u.lvl} 레벨 졸업` : `${u.lvl} · ${u.tag} 단원 완료`, bonus); s.cherries = (s.cherries||0) + bonus; checkBadges();
       app.append(h("section",{class:"card-s",style:"text-align:center"}, h("b",{class:"sec-h"}, lvlDone ? `${u.lvl} 레벨 졸업!` : `'${u.lvl} · ${u.tag}' 단원 완료!`), h("p",{html:`${CHERRY} 체리 +${bonus}`}),
         h("p",{class:"muted"}, nxt && nxt.id !== u.id ? `다음 단원 '${nxt.lvl} · ${nxt.tag}'이(가) 열렸어.` : "모든 단원을 끝냈어!"),
-        u.scen ? h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash="#talk"; }}, `단원 미션: ${u.scen.t}`) : "")); } }
+        u.scen ? h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash="#talk"; }}, `단원 미션: ${u.scen.t}${u.scen.lvl!==u.lvl?` (${u.scen.lvl})`:""}`) : "")); } }
   setTimeout(()=>setMood(m,"idle"), 1600);
   app.append(h("div",{class:"kpis"},
     h("div",{class:"kpi"}, h("b",{}, acc+"%"), h("span",{},"정확도 (말하기·조립)")),
