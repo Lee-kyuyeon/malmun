@@ -69,7 +69,9 @@ async function saveClipsOffline(onProgress){ const list = clipList(); let n = 0,
 function speakBtn(text, label="듣기", rate=1){ const b = h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span></span>"}); b.querySelector("span").textContent=label; b.onclick=()=>say(text,rate,b); return b; }
 
 /* speech in: the browser's speech recognition (Chrome on Android, Safari on iOS 14.5+) */
-let rec = null;
+let rec = null, micStalls = 0;
+/* stop for good: abort() where stop() never fires "end" (seen in iPhone home-screen apps) */
+function killDict(){ const r = rec; rec = null; if (!r) return; try { r.abort(); } catch(e) { try { r.stop(); } catch(_) {} } document.querySelectorAll(".mic.live").forEach(m=>m.classList.remove("live")); }
 function refreshMics(){ document.querySelectorAll(".mic").forEach(m=>m.hidden=!caps.dict); }
 function micFor(field){
   const b = h("button",{class:"mic",type:"button","aria-label":"말해서 입력",html:ICON.mic});
@@ -82,6 +84,11 @@ function micFor(field){
     const base = field.value.trim() ? field.value.trim()+" " : "";
     /* speaking time for fluency (WPM): from the first recognized sound to the last result */
     let tFirst = 0, tLast = 0;
+    /* no sound recognized within 8s: give up instead of showing "듣고 있어요…" forever; after two such stalls, switch to typing */
+    const watchdog = setTimeout(() => { if (rec !== r || tFirst) return; killDict(); field.placeholder = field.dataset.ph || "";
+      micStalls++; if (micStalls >= 2) { caps.dict = false; refreshMics(); toast("이 기기에서는 음성 인식이 응답하지 않아 타이핑으로 진행해요."); }
+      else toast("음성 인식이 응답하지 않아요. 한 번 더 눌러 보거나 입력해 주세요.");
+      if (typeof field._onStall === "function") field._onStall(micStalls); }, 8000);
     r.onresult = e => { let fin = "", inter = ""; const now = Date.now(); if (!tFirst) tFirst = now; tLast = now;
       for (let i=0;i<e.results.length;i++){ const x = e.results[i]; if (x.isFinal) fin += x[0].transcript; else inter += x[0].transcript; }
       field.value = (base + fin).trim(); field.placeholder = inter || "듣고 있어요…"; field.dispatchEvent(new Event("input")); };
@@ -90,14 +97,14 @@ function micFor(field){
       else if (e.error==="no-speech") toast("소리가 들리지 않았어요. 다시 눌러 말해 주세요.");
       else if (e.error==="network") toast("음성인식에 인터넷 연결이 필요해요.");
     };
-    r.onend = () => { b.classList.remove("live"); field.placeholder = field.dataset.ph || ""; if (rec === r) rec = null;
+    r.onend = () => { clearTimeout(watchdog); b.classList.remove("live"); field.placeholder = field.dataset.ph || ""; if (rec === r) rec = null;
       if (tFirst && tLast > tFirst) field.dataset.speechMs = String(Number(field.dataset.speechMs||0) + (tLast - tFirst) + 400);
       if (typeof field._onSpoken === "function" && field.value.trim()) field._onSpoken(); };
     try { r.start(); b.classList.add("live"); field.placeholder = "듣고 있어요…"; } catch(e) { rec = null; }
   };
   return b;
 }
-async function stopDict(){ const r = rec; if (!r) return; await new Promise(res => { r.addEventListener("end", res, {once:true}); try { r.stop(); } catch(e) { res(); } setTimeout(res, 1500); }); }
+async function stopDict(){ const r = rec; if (!r) return; await new Promise(res => { r.addEventListener("end", res, {once:true}); try { r.stop(); } catch(e) { res(); } setTimeout(res, 1500); }); if (rec === r) killDict(); }
 
 /* ---------- on-device LLM (WebLLM + WebGPU). Weights download once, then stay in the browser cache. ---------- */
 const WEBLLM_URL = "https://cdn.jsdelivr.net/npm/@mlc-ai/web-llm@0.2.86/+esm";

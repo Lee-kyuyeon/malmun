@@ -77,6 +77,19 @@ const closeSheets = async p => { while (await p.$('.sheet')) { await p.evaluate(
     const cu = await p.evaluate(() => ({ c: S.custom.map(c => c.en), q: location.search }));
     ok('shared_saved', cu.c.length === 1 && cu.c[0].startsWith('I was on cloud nine') && cu.q === '', cu);
     await ctx.close(); }
+  // iPhone home-screen apps can start speech recognition and never answer: the mic check must not trap onboarding
+  { const ctx = await b.newContext({ ...devices['iPhone 13'] });
+    await ctx.addInitScript(() => { class HungSR { start(){} stop(){} abort(){} addEventListener(){} } window.webkitSpeechRecognition = HungSR; window.SpeechRecognition = undefined; });
+    const p = await ctx.newPage(); p.on('pageerror', e => errs.push('pageerror: ' + e.message));
+    await p.goto(base + '/'); await p.waitForTimeout(600);
+    for (let i = 0; i < 2; i++) { await p.click('.actionbar .primary'); await p.waitForTimeout(250); }
+    await p.click('.mic'); await p.waitForTimeout(8500);
+    const st = await p.evaluate(() => ({ live: !!document.querySelector('.mic.live'), rec: !!rec, hint: document.body.innerText.includes('마이크가 안 돼도') }));
+    ok('hung_mic_stops', !st.live && !st.rec && st.hint, st);
+    await p.click('.mic'); await p.click('.actionbar .primary'); await p.waitForTimeout(600);
+    ok('hung_mic_onboarding_moves_on', await p.evaluate(() => location.hash === '#placement' && S.onboarded && !rec));
+    await ctx.close(); }
+
   await b.close();
   console.log(JSON.stringify({ R, errs: errs.filter(e => !/Failed to load resource|ERR_INTERNET/.test(e)), fails: Object.values(R).filter(v => v !== 'PASS').length }, null, 1));
 })();

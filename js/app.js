@@ -35,7 +35,7 @@ function actionBar(...kids){ const bar = h("div",{class:"actionbar"}, h("div",{c
 function viewOnboarding(app){
   setFocusMode(true);
   let step = 0; const picked = new Set(S.settings.interests||[]); let goalPick = S.settings.goal || 50;
-  const finishOb = (toPlacement) => { S.onboarded = true; S.settings.goal = goalPick; S.settings.interests = [...picked]; save(); sfx("tap"); location.hash = toPlacement ? "#placement" : "#home"; route(); };
+  const finishOb = (toPlacement) => { killDict(); S.onboarded = true; S.settings.goal = goalPick; S.settings.interests = [...picked]; save(); sfx("tap"); location.hash = toPlacement ? "#placement" : "#home"; route(); };
   const draw = () => {
     app.replaceChildren(); speaker = null;
     const skip = h("button",{class:"ghost",type:"button",onclick:()=>finishOb(false)},"건너뛰기");
@@ -65,7 +65,9 @@ function viewOnboarding(app){
       if (caps.dict) {
         const ta = h("textarea",{id:"ob-mic",rows:"1",placeholder:"마이크를 누르고 'Nice to meet you'","data-ph":"마이크를 누르고 'Nice to meet you'","aria-label":"마이크 테스트"});
         ta._onSpoken = () => { if (ta.value.trim()) { setMood(m,"happy"); sfx("ding"); toast("잘 들려! 준비 끝"); } };
-        ob.append(h("div",{class:"answer",style:"width:100%"}, micFor(ta), ta));
+        ta._onStall = () => { hint.textContent = "괜찮아요. 마이크가 안 돼도 타이핑으로 다 할 수 있어요. 아래 버튼으로 넘어가요."; };
+        const hint = h("p",{class:"ctx"}, "마이크 확인은 선택이에요. 안 되면 그냥 아래 버튼을 눌러요.");
+        ob.append(h("div",{class:"answer",style:"width:100%"}, micFor(ta), ta), hint);
       } else ob.append(h("p",{class:"ctx"},"이 브라우저는 음성 입력을 지원하지 않아 타이핑으로 진행해요. Android Chrome에서는 말로 답할 수 있어요."));
     }
     next.onclick = () => { sfx("tap"); if (step < 2) { step++; draw(); } else finishOb(true); };
