@@ -278,6 +278,246 @@ DECK.push(
  C("온라인·SNS","B2","Let's take this conversation offline.","이 얘기는 따로 직접 하자.",["Let us take this conversation offline."])
 );
 
+/* ---------- phase 2a: the first five situations up to ~10 per level ---------- */
+DECK.push(
+ C("카페·식당","A1","A coffee, please.","커피 한 잔 주세요.",["One coffee, please."]),
+ C("카페·식당","A1","Can I have some water?","물 좀 주실래요?",["Could I have some water?"]),
+ C("카페·식당","A1","It's delicious.","맛있어요.",["It is delicious.","This is delicious."]),
+ C("카페·식당","A1","Table for two, please.","두 명 자리 주세요.",["A table for two, please."]),
+ C("카페·식당","A1","I'm full.","배불러요.",["I am full."]),
+ C("카페·식당","A1","Where do I pay?","어디서 계산해요?",["Where can I pay?"]),
+ C("카페·식당","A2","Can I get a refill?","리필 되나요?",["Could I get a refill?"]),
+ C("카페·식당","A2","What's in this?","이 안에 뭐가 들어 있어요?",["What is in this?"]),
+ C("카페·식당","A2","Is it spicy?","매워요?",["Is this spicy?"]),
+ C("카페·식당","A2","We're ready to order.","이제 주문할게요.",["We are ready to order."]),
+ C("카페·식당","A2","Could I have a little more time?","시간 좀 더 주실래요?",["Can I have a little more time?"],"메뉴를 아직 못 골랐을 때."),
+ C("카페·식당","A2","Can I get the sauce on the side?","소스는 따로 주실래요?",["Could I get the sauce on the side?"],"on the side = 따로 곁들여."),
+ C("카페·식당","B1","Do you have any vegetarian options?","채식 메뉴 있나요?",[]),
+ C("카페·식당","B1","How long is the wait?","얼마나 기다려야 해요?",["How long is the wait for a table?"]),
+ C("카페·식당","B1","Could we get a table by the window?","창가 자리 있을까요?",["Can we get a table by the window?"]),
+ C("카페·식당","B1","I'd like my steak medium, please.","스테이크는 미디엄으로 해 주세요.",["I would like my steak medium, please."]),
+ C("카페·식당","B1","Could you pack up the leftovers?","남은 거 포장해 주실래요?",["Can you pack up the leftovers?"]),
+ C("카페·식당","B1","Is service included?","봉사료 포함인가요?",["Is the service charge included?"]),
+ C("카페·식당","B2","We'll get a few small plates to share.","나눠 먹을 작은 요리 몇 개로 할게요.",["We will get a few small plates to share."]),
+ C("카페·식당","B2","Could you recommend a wine that goes well with this?","이거랑 잘 어울리는 와인 추천해 주실래요?",[],"go well with = ~와 잘 어울리다."),
+ C("카페·식당","B2","The service here is top-notch.","여기 서비스 최고네요.",[],"top-notch = 최고 수준의."),
+ C("카페·식당","B2","I'm trying to cut back on sugar.","설탕을 줄이려고 해요.",["I am trying to cut back on sugar."],"cut back on = 양을 줄이다."),
+ C("카페·식당","B2","Let's grab a bite after work.","퇴근하고 간단히 뭐 좀 먹자.",["Let us grab a bite after work."],"grab a bite = 간단히 먹다."),
+ C("카페·식당","B2","My compliments to the chef.","셰프께 정말 맛있었다고 전해 주세요.",[]),
+ C("스몰토크","A1","What's your name?","이름이 뭐예요?",["What is your name?"]),
+ C("스몰토크","A1","Where are you from?","어디서 왔어요?",[]),
+ C("스몰토크","A1","Nice weather today.","오늘 날씨 좋네요.",["Nice weather today, isn't it?"]),
+ C("스몰토크","A1","See you later.","나중에 봐요.",["See you."]),
+ C("스몰토크","A1","Have a nice day.","좋은 하루 보내요.",["Have a good day."]),
+ C("스몰토크","A1","Me too.","저도요.",[]),
+ C("스몰토크","A2","What do you do?","무슨 일 하세요?",["What do you do for a living?"],"직업을 묻는 가장 흔한 말."),
+ C("스몰토크","A2","How was your weekend?","주말 어땠어?",[]),
+ C("스몰토크","A2","Have you been here before?","여기 와 본 적 있어요?",[]),
+ C("스몰토크","A2","It's freezing today.","오늘 엄청 춥다.",["It is freezing today."]),
+ C("스몰토크","A2","What are you up to this weekend?","이번 주말에 뭐 해?",[]),
+ C("스몰토크","A2","How do you know each other?","두 분 서로 어떻게 알아요?",[]),
+ C("스몰토크","B1","I don't think we've met.","처음 뵙는 것 같네요.",["I do not think we have met."]),
+ C("스몰토크","B1","Small world!","세상 참 좁다!",["It's a small world!"]),
+ C("스몰토크","B1","Did you hear about the new café?","새로 생긴 카페 얘기 들었어?",["Have you heard about the new café?"]),
+ C("스몰토크","B1","You seem to be in a good mood.","기분 좋아 보이네.",["You seem like you're in a good mood."]),
+ C("스몰토크","B1","Anyway, it was great talking to you.","아무튼, 얘기 즐거웠어요.",["Anyway, it was nice talking to you."],"대화를 끝내는 신호."),
+ C("스몰토크","B1","How's work been?","요즘 일은 좀 어때?",["How has work been?"]),
+ C("스몰토크","B2","I'm terrible with names.","제가 이름을 잘 못 외워요.",["I am terrible with names."]),
+ C("스몰토크","B2","Let's not talk shop.","일 얘기는 하지 말자.",["Let us not talk shop."],"talk shop = 가게(일) 얘기를 하다."),
+ C("스몰토크","B2","You haven't changed a bit.","하나도 안 변했네.",["You have not changed a bit."]),
+ C("스몰토크","B2","Long story short, we missed the train.","간단히 말하면, 기차를 놓쳤어.",[]),
+ C("스몰토크","B2","I'll leave you to it.","하던 거 마저 해.",["I will leave you to it."]),
+ C("스몰토크","B2","Sorry, I didn't catch your name.","죄송해요, 성함을 못 들었어요.",["Sorry, I did not catch your name."],"catch = (말을) 알아듣다."),
+ C("여행","A1","One ticket, please.","표 한 장 주세요.",["One ticket please."]),
+ C("여행","A1","Where is the bus stop?","버스 정류장이 어디예요?",["Where's the bus stop?"]),
+ C("여행","A1","How far is it?","얼마나 멀어요?",[]),
+ C("여행","A1","Can I have a map?","지도 한 장 주실래요?",["Could I have a map?"]),
+ C("여행","A1","I'm here on vacation.","휴가로 왔어요.",["I am here on vacation.","I'm here on holiday."]),
+ C("여행","A1","Take me to this address, please.","이 주소로 가 주세요.",["Please take me to this address."]),
+ C("여행","A2","What time does the train leave?","기차가 몇 시에 출발해요?",[]),
+ C("여행","A2","Can I check in early?","일찍 체크인할 수 있어요?",["Could I check in early?"]),
+ C("여행","A2","How do I get to the airport?","공항에 어떻게 가요?",["How can I get to the airport?"]),
+ C("여행","A2","Is there a direct bus?","직행버스 있어요?",[]),
+ C("여행","A2","Could you call a taxi for me?","택시 좀 불러 주실래요?",["Can you call a taxi for me?"]),
+ C("여행","A2","I'd like a room for two nights.","2박 할 방 주세요.",["I would like a room for two nights."]),
+ C("여행","B1","Is there a cheaper way to get there?","더 싸게 가는 방법 있어요?",[]),
+ C("여행","B1","I'd like to store my luggage for a few hours.","짐을 몇 시간 맡기고 싶어요.",["I would like to store my luggage for a few hours."]),
+ C("여행","B1","Which platform does it leave from?","몇 번 승강장에서 출발해요?",[]),
+ C("여행","B1","I missed my connecting flight.","환승 비행기를 놓쳤어요.",[]),
+ C("여행","B1","Do I need to transfer?","갈아타야 하나요?",["Do I have to transfer?"]),
+ C("여행","B1","Could you keep an eye on my bag?","가방 좀 봐 주실래요?",["Can you keep an eye on my bag?"],"keep an eye on = 눈을 떼지 않고 지켜보다."),
+ C("여행","B2","We'd like to go off the beaten path.","잘 안 알려진 곳에 가 보고 싶어요.",["We would like to go off the beaten path."],"사람들이 밟아 다진 길을 벗어나."),
+ C("여행","B2","Is it worth the detour?","돌아서 갈 만한 가치가 있나요?",[]),
+ C("여행","B2","The jet lag is really getting to me.","시차 때문에 정말 힘드네요.",[],"get to someone = 힘들게 하다."),
+ C("여행","B2","I'd like to file a complaint about the room.","방 문제로 정식 항의하고 싶어요.",["I would like to file a complaint about the room."]),
+ C("여행","B2","We got ripped off by the taxi driver.","택시 기사한테 바가지 썼어요.",[],"rip off = 바가지 씌우다."),
+ C("여행","B2","Is there a local spot you'd recommend?","추천할 만한 현지 맛집 있어요?",["Is there a local spot you would recommend?"]),
+ C("직장·면접","A1","Good morning, everyone.","좋은 아침이에요, 여러분.",[]),
+ C("직장·면접","A1","I'm busy right now.","지금 바빠요.",["I am busy right now."]),
+ C("직장·면접","A1","Here you go.","여기 있어요.",["Here you are."],"물건을 건넬 때."),
+ C("직장·면접","A1","Just a moment.","잠시만요.",["Just a minute."]),
+ C("직장·면접","A1","I'm new here.","여기 처음 왔어요.",["I am new here."]),
+ C("직장·면접","A1","Good job!","잘했어요!",["Great job!"]),
+ C("직장·면접","A2","Can you send me the file?","파일 보내 줄래요?",["Could you send me the file?"]),
+ C("직장·면접","A2","I'll be in a meeting until two.","두 시까지 회의예요.",["I will be in a meeting until two."]),
+ C("직장·면접","A2","Who's in charge of this?","이거 누가 담당이에요?",["Who is in charge of this?"]),
+ C("직장·면접","A2","Can we talk for a minute?","잠깐 얘기할 수 있어요?",["Could we talk for a minute?"]),
+ C("직장·면접","A2","I'm working from home today.","오늘 재택근무해요.",["I am working from home today."]),
+ C("직장·면접","A2","The deadline is Friday.","마감은 금요일이에요.",[]),
+ C("직장·면접","B1","I'll look into it.","제가 알아볼게요.",["I will look into it."],"look into = 자세히 들여다보다."),
+ C("직장·면접","B1","Can you give me a hand with this?","이거 좀 도와줄래요?",["Could you give me a hand with this?"],"give a hand = 손을 빌려주다."),
+ C("직장·면접","B1","Let's touch base tomorrow.","내일 잠깐 확인해요.",["Let us touch base tomorrow."],"야구에서 베이스를 밟듯 잠깐 연락하다."),
+ C("직장·면접","B1","I'm afraid I can't make it to the meeting.","미안하지만 회의에 못 갈 것 같아요.",["I'm afraid I cannot make it to the meeting."],"make it = 시간 맞춰 가다."),
+ C("직장·면접","B1","Could you clarify what you mean?","무슨 뜻인지 분명히 말씀해 주실래요?",["Can you clarify what you mean?"]),
+ C("직장·면접","B1","We're behind schedule.","일정이 밀렸어요.",["We are behind schedule."]),
+ C("직장·면접","B2","I'd like to propose a different approach.","다른 접근법을 제안하고 싶어요.",["I would like to propose a different approach."]),
+ C("직장·면접","B2","That's outside the scope of this project.","그건 이번 프로젝트 범위 밖이에요.",["That is outside the scope of this project."]),
+ C("직장·면접","B2","Can we push back the launch date?","출시일을 미룰 수 있을까요?",["Could we push back the launch date?"],"push back = 뒤로 미루다."),
+ C("직장·면접","B2","I'm stretched a bit thin right now.","요즘 일이 많아서 좀 벅차요.",["I am stretched a bit thin right now."],"얇게 늘어난 반죽처럼 여유가 없는."),
+ C("직장·면접","B2","Let's not reinvent the wheel.","있는 걸 굳이 새로 만들지 말자.",["Let us not reinvent the wheel."]),
+ C("직장·면접","B2","I'd be happy to take the lead on this.","이 건은 제가 기꺼이 맡을게요.",["I would be happy to take the lead on this."]),
+ C("감정·의견","A1","I'm happy.","행복해.",["I am happy."]),
+ C("감정·의견","A1","I'm sad.","슬퍼.",["I am sad."]),
+ C("감정·의견","A1","I love it!","정말 좋아!",[]),
+ C("감정·의견","A1","That's funny.","웃기다.",["That is funny."]),
+ C("감정·의견","A1","I'm hungry.","배고파.",["I am hungry."]),
+ C("감정·의견","A1","Really?","정말?",["Really?!"]),
+ C("감정·의견","A2","I'm so happy for you.","정말 잘됐다.",["I am so happy for you."]),
+ C("감정·의견","A2","That sounds fun.","재밌겠다.",["That sounds like fun."]),
+ C("감정·의견","A2","I'm worried about the test.","시험이 걱정돼.",["I am worried about the test."]),
+ C("감정·의견","A2","What do you think?","어떻게 생각해?",[]),
+ C("감정·의견","A2","I'm not sure about that.","그건 잘 모르겠어.",["I am not sure about that."]),
+ C("감정·의견","A2","That's too bad.","안됐다.",["That is too bad."]),
+ C("감정·의견","B1","It's up to you.","너한테 달렸어.",["It is up to you."]),
+ C("감정·의견","B1","I can't stand it.","못 참겠어.",["I cannot stand it."],"stand = 견디다."),
+ C("감정·의견","B1","I was really disappointed.","정말 실망했어.",[]),
+ C("감정·의견","B1","Honestly, I'm a bit overwhelmed.","솔직히 좀 벅차.",["Honestly, I am a bit overwhelmed."]),
+ C("감정·의견","B1","That makes me feel better.","그 말 들으니 기분이 나아지네.",[]),
+ C("감정·의견","B1","I'm not a big fan of it.","그거 별로 안 좋아해.",["I am not a big fan of it."],"싫다는 말을 부드럽게."),
+ C("감정·의견","B2","I'm over the moon!","너무 기뻐!",["I am over the moon!"],"기뻐서 달을 뛰어넘을 듯."),
+ C("감정·의견","B2","It really got on my nerves.","그거 진짜 신경 거슬렸어.",[]),
+ C("감정·의견","B2","I see your point, but I'm not convinced.","무슨 말인지 알지만 납득은 안 돼.",["I see your point, but I am not convinced."]),
+ C("감정·의견","B2","It was a blessing in disguise.","전화위복이었어.",[],"변장한 축복 = 처음엔 나빠 보였던 좋은 일."),
+ C("감정·의견","B2","I've had a change of heart.","마음이 바뀌었어.",["I have had a change of heart."]),
+ C("감정·의견","B2","Let's look on the bright side.","좋은 쪽으로 생각하자.",["Let us look on the bright side."])
+);
+
+/* ---------- phase 2b: the seven newer situations up to ~10 per level ---------- */
+DECK.push(
+ C("쇼핑","A1","It's too big.","너무 커요.",["It is too big."]),
+ C("쇼핑","A1","Do you have a bigger one?","더 큰 거 있어요?",[]),
+ C("쇼핑","A1","Where is the cashier?","계산대가 어디예요?",["Where's the cashier?"]),
+ C("쇼핑","A1","Just this, please.","이것만 할게요.",["Just this one, please."]),
+ C("쇼핑","A2","Is there a student discount?","학생 할인 있어요?",["Do you have a student discount?"]),
+ C("쇼핑","A2","Can you gift-wrap it?","선물 포장해 주실 수 있어요?",["Could you gift-wrap it?"]),
+ C("쇼핑","A2","I'm looking for a jacket.","재킷을 찾고 있어요.",["I am looking for a jacket."]),
+ C("쇼핑","A2","Do you have this in stock?","이거 재고 있어요?",[],"in stock = 재고가 있는."),
+ C("쇼핑","B1","What's your return policy?","반품 규정이 어떻게 돼요?",["What is your return policy?"]),
+ C("쇼핑","B1","It's cheaper online.","온라인이 더 싸네요.",["It is cheaper online."]),
+ C("쇼핑","B1","Do you price match?","다른 곳 최저가에 맞춰 주시나요?",[]),
+ C("쇼핑","B1","That was a total impulse buy.","완전 충동구매였어.",[]),
+ C("쇼핑","B2","I'm torn between these two.","이 두 개 사이에서 고민돼요.",["I am torn between these two."],"torn = 둘로 찢긴 마음."),
+ C("쇼핑","B2","It's worth splurging on good shoes.","좋은 신발엔 돈 좀 써도 괜찮아.",["It is worth splurging on good shoes."]),
+ C("쇼핑","B2","It's buy one, get one free.","하나 사면 하나 공짜예요.",["It is buy one, get one free."]),
+ C("쇼핑","B2","I'd like to speak to a manager, please.","매니저와 얘기하고 싶어요.",["I would like to speak to a manager, please."]),
+ C("전화·약속","A1","Call me later.","나중에 전화해.",[]),
+ C("전화·약속","A1","What's your number?","번호가 뭐야?",["What is your number?"]),
+ C("전화·약속","A1","I'm on my way.","가는 중이야.",["I am on my way."]),
+ C("전화·약속","A1","Let's meet at noon.","정오에 만나자.",["Let us meet at noon."]),
+ C("전화·약속","A2","Can I call you tonight?","오늘 밤에 전화해도 돼?",["Could I call you tonight?"]),
+ C("전화·약속","A2","Is this a good time to talk?","지금 통화 괜찮아?",[]),
+ C("전화·약속","A2","Let me check and call you back.","확인하고 다시 전화할게.",[]),
+ C("전화·약속","A2","I'll be there in ten minutes.","10분 안에 도착해.",["I will be there in ten minutes."]),
+ C("전화·약속","B1","Could you hold on a second?","잠깐만 기다려 줄래요?",["Can you hold on a second?"]),
+ C("전화·약속","B1","I'll put you through to her.","그분께 연결해 드릴게요.",["I will put you through to her."],"put through = 전화를 연결하다."),
+ C("전화·약속","B1","Can we make it a bit later?","조금 늦게 만날 수 있을까?",["Could we make it a bit later?"]),
+ C("전화·약속","B1","I'm calling about my appointment.","예약 건으로 전화드렸어요.",["I am calling about my appointment."]),
+ C("전화·약속","B2","Sorry, you caught me at a bad time.","미안, 지금 타이밍이 안 좋아.",[]),
+ C("전화·약속","B2","I'll give you a ring tomorrow.","내일 전화할게.",["I will give you a ring tomorrow."],"give a ring = 전화를 걸다."),
+ C("전화·약속","B2","We've been playing phone tag all day.","하루 종일 서로 엇갈리게 전화만 했어.",["We have been playing phone tag all day."],"술래잡기(tag)처럼 엇갈리는 전화."),
+ C("전화·약속","B2","Let's find a time that works for everyone.","모두 괜찮은 시간으로 정하자.",["Let us find a time that works for everyone."]),
+ C("병원·약국","A1","I feel sick.","속이 안 좋아요.",[]),
+ C("병원·약국","A1","My back hurts.","허리가 아파요.",["My back is hurting."]),
+ C("병원·약국","A1","I need some medicine.","약이 좀 필요해요.",[]),
+ C("병원·약국","A1","Call an ambulance!","구급차 불러 주세요!",["Please call an ambulance!"]),
+ C("병원·약국","A2","I can't sleep at night.","밤에 잠을 못 자요.",["I cannot sleep at night."]),
+ C("병원·약국","A2","Where does it hurt?","어디가 아파요?",[]),
+ C("병원·약국","A2","I feel dizzy.","어지러워요.",["I'm feeling dizzy."]),
+ C("병원·약국","A2","Take two pills a day.","하루에 두 알 드세요.",[]),
+ C("병원·약국","B1","I've been sneezing all morning.","아침 내내 재채기가 나요.",["I have been sneezing all morning."]),
+ C("병원·약국","B1","Do I need to make an appointment?","예약해야 하나요?",[]),
+ C("병원·약국","B1","I think I have food poisoning.","식중독인 것 같아요.",[]),
+ C("병원·약국","B1","How long will it take to recover?","회복하는 데 얼마나 걸려요?",[]),
+ C("병원·약국","B2","I'd like to get a full checkup.","종합 검진을 받고 싶어요.",["I would like to get a full checkup."]),
+ C("병원·약국","B2","Can I get this over the counter?","이거 처방전 없이 살 수 있나요?",["Is this available over the counter?"],"over the counter = 계산대 너머로 바로 파는."),
+ C("병원·약국","B2","I'm on the mend.","회복 중이에요.",["I am on the mend."],"mend = 수선하다, 고쳐지는 중."),
+ C("병원·약국","B2","I've been under the weather all week.","일주일 내내 몸이 안 좋았어.",["I have been under the weather all week."]),
+ C("집·생활","A1","Where are my keys?","내 열쇠 어디 있지?",[]),
+ C("집·생활","A1","Please close the door.","문 좀 닫아 줘.",["Close the door, please."]),
+ C("집·생활","A1","I'm going to bed.","자러 갈게.",["I am going to bed."]),
+ C("집·생활","A1","The water is hot.","물이 뜨거워.",[]),
+ C("집·생활","A2","Could you water the plants?","화분에 물 좀 줄래?",["Can you water the plants?"]),
+ C("집·생활","A2","The internet isn't working.","인터넷이 안 돼.",["The internet is not working."]),
+ C("집·생활","A2","I'll do the laundry.","빨래는 내가 할게.",["I will do the laundry."]),
+ C("집·생활","A2","Can you pick up some milk?","우유 좀 사 올래?",["Could you pick up some milk?"],"pick up = 가는 길에 사 오다."),
+ C("집·생활","B1","The washing machine is making a weird noise.","세탁기에서 이상한 소리가 나.",[]),
+ C("집·생활","B1","Can you help me move the couch?","소파 옮기는 거 좀 도와줄래?",["Could you help me move the couch?"]),
+ C("집·생활","B1","We need to clean up before the guests arrive.","손님 오기 전에 치워야 해.",[]),
+ C("집·생활","B1","I locked myself out.","문이 잠겨서 못 들어가.",[],"열쇠를 안에 두고 문을 잠가 버렸을 때."),
+ C("집·생활","B2","The neighbors keep complaining about the noise.","이웃들이 소음 때문에 계속 항의해.",[]),
+ C("집·생활","B2","Let's divide up the chores.","집안일 나눠서 하자.",["Let us divide up the chores."]),
+ C("집·생활","B2","The pipes froze overnight.","밤새 배관이 얼었어.",[]),
+ C("집·생활","B2","I'm thinking of moving to a bigger place.","더 큰 집으로 이사할까 생각 중이야.",["I am thinking of moving to a bigger place."]),
+ C("학교·공부","A1","Open your books.","책 펴세요.",["Please open your books."]),
+ C("학교·공부","A1","I'm late for class.","수업에 늦었어요.",["I am late for class."]),
+ C("학교·공부","A1","Can I borrow a pen?","펜 좀 빌려도 돼요?",["Could I borrow a pen?"]),
+ C("학교·공부","A1","Is this right?","이거 맞아요?",["Is this correct?"]),
+ C("학교·공부","A2","How do you say this in English?","이거 영어로 뭐라고 해요?",[]),
+ C("학교·공부","A2","Can you check my answer?","제 답 좀 봐 주실래요?",["Could you check my answer?"]),
+ C("학교·공부","A2","I passed the test!","시험 통과했어!",[]),
+ C("학교·공부","A2","What's the homework for tomorrow?","내일 숙제가 뭐예요?",["What is the homework for tomorrow?"]),
+ C("학교·공부","B1","I'm not following you.","무슨 말인지 잘 못 따라가겠어요.",["I am not following you."],"follow = (이야기를) 따라가다."),
+ C("학교·공부","B1","Could you give me an example?","예를 하나 들어 주실래요?",["Can you give me an example?"]),
+ C("학교·공부","B1","I need to work on my pronunciation.","발음을 연습해야 해요.",[]),
+ C("학교·공부","B1","Let's go over it one more time.","한 번 더 훑어보자.",["Let us go over it one more time."],"go over = 훑어보다, 복습하다."),
+ C("학교·공부","B2","I'd like to get a head start on next semester.","다음 학기 공부를 미리 시작하고 싶어요.",["I would like to get a head start on next semester."],"head start = 남보다 앞서 출발."),
+ C("학교·공부","B2","It finally clicked.","드디어 이해가 됐어.",[],"딸깍 맞물리듯 이해되다."),
+ C("학교·공부","B2","I'm burnt out from studying.","공부하느라 완전히 지쳤어.",["I am burnt out from studying.","I'm burned out from studying."]),
+ C("학교·공부","B2","Can you break it down for me?","쉽게 풀어서 설명해 줄래요?",["Could you break it down for me?"],"break down = 잘게 나누다."),
+ C("취미·여가","A1","I like reading.","독서를 좋아해요.",["I like to read."]),
+ C("취미·여가","A1","Let's play a game.","게임 하자.",["Let us play a game."]),
+ C("취미·여가","A1","I go swimming on Sundays.","일요일마다 수영해요.",[]),
+ C("취미·여가","A1","Do you like dogs?","강아지 좋아해요?",[]),
+ C("취미·여가","A2","I go to the gym three times a week.","일주일에 세 번 헬스장 가요.",[]),
+ C("취미·여가","A2","What kind of music do you like?","어떤 음악 좋아해요?",[]),
+ C("취미·여가","A2","Let's watch a movie tonight.","오늘 밤 영화 보자.",["Let us watch a movie tonight."]),
+ C("취미·여가","A2","I'm good at drawing.","그림을 잘 그려요.",["I am good at drawing."]),
+ C("취미·여가","B1","I've been into photography lately.","요즘 사진에 빠졌어요.",["I have been into photography lately."]),
+ C("취미·여가","B1","It's a good way to clear my head.","머리 식히기 좋아요.",["It is a good way to clear my head."]),
+ C("취미·여가","B1","We could go camping this weekend.","이번 주말에 캠핑 가도 좋겠다.",[]),
+ C("취미·여가","B1","I'm saving up for a new camera.","새 카메라 사려고 돈 모으는 중이에요.",["I am saving up for a new camera."]),
+ C("취미·여가","B2","Hiking is how I recharge.","등산이 나한테는 재충전 방법이야.",[]),
+ C("취미·여가","B2","I'm a total foodie.","나 완전 미식가야.",["I am a total foodie."]),
+ C("취미·여가","B2","It's not really my thing, but I'll give it a try.","내 취향은 아니지만 한번 해 볼게.",["It is not really my thing, but I will give it a try."]),
+ C("취미·여가","B2","I'd love to do it professionally someday.","언젠가 이걸 전문적으로 해 보고 싶어.",["I would love to do it professionally someday."]),
+ C("온라인·SNS","A1","I'm online now.","나 지금 접속해 있어.",["I am online now."]),
+ C("온라인·SNS","A1","Check your email.","이메일 확인해 봐.",[]),
+ C("온라인·SNS","A1","Like my photo!","내 사진에 좋아요 눌러 줘!",[]),
+ C("온라인·SNS","A1","Send it to me.","그거 나한테 보내 줘.",[]),
+ C("온라인·SNS","A2","Did you get my email?","내 이메일 받았어?",[]),
+ C("온라인·SNS","A2","I'll send you a friend request.","친구 신청 보낼게.",["I will send you a friend request."]),
+ C("온라인·SNS","A2","The file is too big to send.","파일이 너무 커서 못 보내.",[]),
+ C("온라인·SNS","A2","Can you turn on the subtitles?","자막 좀 켜 줄래?",["Could you turn on the subtitles?"]),
+ C("온라인·SNS","B1","I just updated the app.","방금 앱 업데이트했어.",[]),
+ C("온라인·SNS","B1","Make sure your account is private.","계정 꼭 비공개로 해 둬.",[]),
+ C("온라인·SNS","B1","I'll leave a comment.","댓글 남길게.",["I will leave a comment."]),
+ C("온라인·SNS","B1","I unsubscribed from that channel.","그 채널 구독 취소했어.",[]),
+ C("온라인·SNS","B2","Don't feed the trolls.","악플러는 상대하지 마.",["Do not feed the trolls."],"관심(먹이)을 주면 더 날뛰니까."),
+ C("온라인·SNS","B2","That post really struck a chord.","그 게시물 정말 와닿았어.",[],"strike a chord = 마음의 현을 울리다."),
+ C("온라인·SNS","B2","My feed is full of ads lately.","요즘 피드가 광고로 가득해.",[]),
+ C("온라인·SNS","B2","I'm trying to curate my feed.","보는 피드를 신중하게 골라 보려고 해.",["I am trying to curate my feed."],"curate = 큐레이터처럼 골라 담다.")
+);
+
 /* ---------- WORDS: headword → {pos, ko, band, forms, parts, story, idiom}
    band ≈ frequency: 1 = top ~1,000, 2 = ~1,001–3,000, 3 = rarer (approximate, after NGSL/COCA ranks).
    parts "a=b|c=d" = word parts and their meanings; story = one-line memory hook (etymology or image). ---------- */
@@ -630,3 +870,229 @@ W("year","명사","해, 년",1);
 W("yoga","명사","요가",2);
 W("do","동사","하다",1,{f:"doing"});
 W("essay","명사","에세이, 글",2);
+
+/* ---------- phase 2a words ---------- */
+const F = (w, forms) => { if (WORDS[w]) WORDS[w].forms.push(...forms.split(" ")); };
+F("change","changed"); F("talk","talking"); F("meet","met");
+W("airport","명사","공항",1,{p:"air=하늘|port=항구",s:"하늘(air)의 항구(port)"});
+W("anyway","부사","아무튼",1,{p:"any=어떤|way=길",s:"어떤 길로 가든 결국 → 아무튼"});
+W("approach","명사·동사","접근법, 다가가다",2,{p:"ap=~쪽으로|proach=가까이",s:"문제 쪽으로 가까이 다가가는 방법"});
+W("bad","형용사","나쁜",1);
+W("base","명사","기지, 베이스",1,{s:"touch base = 야구에서 베이스를 밟고 가듯 잠깐 연락해 확인하다",i:1});
+W("beat","동사","밟아 다지다, 이기다",1,{f:"beaten",s:"off the beaten path = 사람들이 밟아 다진 길을 벗어난 곳",i:1});
+W("behind","전치사","뒤에, 뒤처진",1);
+W("better","형용사","더 나은",1);
+W("bite","명사","한 입",2,{s:"grab a bite = 한 입 낚아채듯 간단히 먹다",i:1});
+W("blessing","명사","축복",2,{p:"bless=축복하다|ing=~것",s:"blessing in disguise = 변장한 축복, 처음엔 나빠 보였던 좋은 일",i:1});
+W("bright","형용사","밝은",1,{s:"look on the bright side = 밝은 쪽을 보다 → 좋게 생각하다"});
+W("bus","명사","버스",1);
+W("busy","형용사","바쁜",1);
+W("cafe","명사","카페",2);
+W("cheap","형용사","싼",2,{f:"cheaper"});
+W("chef","명사","요리사",2);
+W("clarify","동사","분명히 하다",3,{p:"clar=맑은|ify=~하게 하다",s:"흐린 말을 맑게(clear) 만들다"});
+W("coffee","명사","커피",1);
+W("complaint","명사","불만, 항의",2,{p:"com=강조|plain=슬퍼하다|t=~것",s:"크게 슬퍼하며 하소연하는 것"});
+W("compliment","명사","칭찬",2,{f:"compliments",p:"com=함께|pli=채우다|ment=~것",s:"상대의 마음을 가득 채워 주는 말"});
+W("connect","동사","연결하다",1,{f:"connecting",p:"con=함께|nect=묶다",s:"함께 묶다 → connecting flight = 이어지는 비행편"});
+W("convinced","형용사","확신하는, 납득한",2,{p:"con=완전히|vinc=이기다|ed=~된",s:"상대 말에 완전히 져서(이겨져서) 믿게 된"});
+W("cut","동사","자르다 · (cut back on) 줄이다",1);
+W("date","명사","날짜",1);
+W("deadline","명사","마감",2,{p:"dead=죽은|line=선",s:"넘으면 끝장나는 선 = 마감"});
+W("delicious","형용사","맛있는",2,{p:"de=강조|lic=끌어당기다|ious=~한",s:"혀를 강하게 끌어당기는 맛"});
+W("detour","명사","돌아가는 길",3,{p:"de=벗어나|tour=돌다",s:"원래 길에서 벗어나 빙 도는 길"});
+W("direct","형용사","곧장 가는, 직행의",1,{p:"di=떨어져|rect=곧은",s:"곧게(rect) 뻗은"});
+W("disappointed","형용사","실망한",2,{p:"dis=반대|appoint=정하다|ed=~된",s:"기대해서 정해 둔 것이 뒤집힌 → 실망한"});
+W("disguise","명사","변장",3,{p:"dis=벗어나|guise=모습",s:"원래 모습(guise)에서 벗어나게 꾸미기"});
+W("driver","명사","운전기사",1,{p:"drive=운전하다|er=~하는 사람"});
+W("early","부사·형용사","일찍",1);
+W("eye","명사","눈",1,{s:"keep an eye on = 눈을 떼지 않고 지켜보다",i:1});
+W("fan","명사","팬, 좋아하는 사람",2,{s:"not a big fan of = 열성 팬은 아니다 → 별로 안 좋아한다"});
+W("far","형용사·부사","먼",1);
+W("few","형용사","몇몇의",1);
+W("freezing","형용사","몹시 추운",2,{p:"freeze=얼다|ing=~하는",s:"얼어붙을 만큼"});
+W("funny","형용사","웃긴",1,{p:"fun=재미|ny=~한"});
+W("grab","동사","잡다, 간단히 먹다",2);
+W("happy","형용사","행복한",1);
+W("honestly","부사","솔직히",1,{p:"honest=솔직한|ly=~하게"});
+W("hour","명사","시간",1,{f:"hours"});
+W("hungry","형용사","배고픈",1);
+W("jet","명사","제트기",2,{s:"jet lag = 제트기로 시간대를 넘어 몸이 뒤처지는(lag) 것"});
+W("job","명사","일, 직업",1);
+W("lag","명사","지연, 뒤처짐",3);
+W("launch","명사·동사","출시, 출시하다",2,{s:"배를 물에 띄우듯 제품을 세상에 내보내다"});
+W("lead","명사·동사","선두, 이끌다",1,{s:"take the lead = 앞장서서 맡다"});
+W("leftovers","명사","남은 음식",3,{p:"left=남은|over=넘어서|s=것들",s:"먹고 남아 넘친 것들"});
+W("local","형용사","현지의, 동네의",1);
+W("map","명사","지도",1);
+W("medium","형용사","중간의",2,{p:"medi=가운데|um=~것",s:"가운데(medi) — media, middle과 같은 뿌리"});
+W("minute","명사","분, 잠깐",1);
+W("moment","명사","순간, 잠깐",1);
+W("mood","명사","기분",2);
+W("moon","명사","달",1,{s:"over the moon = 동요에서 소가 달을 뛰어넘을 만큼 기쁜",i:1});
+W("morning","명사","아침",1);
+W("name","명사","이름",1,{f:"names"});
+W("nerve","명사","신경",2,{f:"nerves",s:"get on my nerves = 신경 위에 올라타 긁듯 거슬리다",i:1});
+W("night","명사","밤, 박",1,{f:"nights"});
+W("notch","명사","눈금, 홈",3,{s:"top-notch = 나무에 새긴 눈금 중 맨 위 → 최고 수준",i:1});
+W("option","명사","선택지",1,{f:"options"});
+W("outside","전치사","~밖에",1,{p:"out=밖|side=쪽"});
+W("overwhelmed","형용사","벅찬, 압도된",3,{p:"over=위로|whelm=뒤덮다|ed=~된",s:"파도가 위로 뒤덮어 버린 느낌"});
+W("pack","동사","싸다, 포장하다",1);
+W("path","명사","길",2);
+W("plate","명사","접시, 요리",1,{f:"plates"});
+W("platform","명사","승강장",2,{p:"plat=평평한|form=모양",s:"평평한(plat) 단 = 승강장, 발표대"});
+W("project","명사","프로젝트",1,{p:"pro=앞으로|ject=던지다",s:"앞으로 던져 놓은 계획"});
+W("propose","동사","제안하다",2,{p:"pro=앞에|pose=놓다",s:"앞에 내놓다 → 제안하다"});
+W("ready","형용사","준비된",1);
+W("refill","명사","리필",3,{p:"re=다시|fill=채우다"});
+W("reinvent","동사","새로 발명하다",3,{p:"re=다시|in=안으로|vent=오다",s:"reinvent the wheel = 이미 있는 바퀴를 다시 발명하다 → 헛수고",i:1});
+W("rip","동사","찢다 · (rip off) 바가지 씌우다",3,{f:"ripped",s:"지갑을 찢어 빼 가듯"});
+W("sad","형용사","슬픈",1);
+W("sauce","명사","소스",2);
+W("scope","명사","범위",2,{s:"telescope(망원경)의 scope: 볼 수 있는 범위"});
+W("seem","동사","~처럼 보이다",1);
+W("service","명사","서비스, 봉사료",1,{p:"serv=섬기다|ice=~것"});
+W("shop","명사","가게",1,{s:"talk shop = 가게(일) 얘기를 하다",i:1});
+W("short","형용사","짧은",1,{s:"long story short = 긴 이야기를 짧게 하면"});
+W("spicy","형용사","매운",2,{p:"spice=향신료|y=~한"});
+W("spot","명사","장소, 곳",1);
+W("stand","동사","서다, 견디다",1);
+W("steak","명사","스테이크",2);
+W("stop","명사","정류장",1);
+W("store","동사","맡기다, 보관하다",1);
+W("story","명사","이야기",1);
+W("stretch","동사","늘이다",2,{f:"stretched",s:"stretched thin = 반죽을 얇게 늘인 것처럼 여유가 없는",i:1});
+W("sugar","명사","설탕",1);
+W("table","명사","테이블, 자리",1);
+W("taxi","명사","택시",1);
+W("terrible","형용사","끔찍한, 아주 못하는",1,{p:"terr=겁주다|ible=~할 만한",s:"겁에 질릴 만한(terror) 정도로"});
+W("thin","형용사","얇은",1);
+W("ticket","명사","표",1);
+W("top","명사","맨 위",1);
+W("touch","동사","닿다",1);
+W("train","명사","기차",1);
+W("transfer","동사","갈아타다",2,{p:"trans=건너|fer=나르다",s:"이쪽에서 저쪽으로 건너(trans) 옮겨 가다"});
+W("vacation","명사","휴가",2,{p:"vac=비다|ation=~것",s:"일정이 텅 빈(vacant) 기간"});
+W("vegetarian","명사·형용사","채식주의자, 채식의",3,{p:"veget=자라다|arian=~하는 사람",s:"땅에서 자라는 것(vegetable)만 먹는 사람"});
+W("water","명사","물",1);
+W("weather","명사","날씨",1);
+W("wheel","명사","바퀴",2);
+W("wine","명사","와인",2);
+W("world","명사","세상",1,{s:"Small world! = 세상 참 좁다"});
+W("worried","형용사","걱정하는",1,{p:"worry=걱정하다|ed=~된"});
+W("worth","형용사","~할 가치가 있는",1);
+
+/* ---------- phase 2b words ---------- */
+F("big","bigger"); F("call","calling"); F("minute","minutes"); F("play","playing"); F("make","making"); F("time","times");
+W("account","명사","계정",1,{p:"ac=~에|count=세다",s:"숫자를 세어 기록해 두는 장부 → 계정"});
+W("ad","명사","광고",2,{f:"ads",s:"advertisement를 줄인 말"});
+W("ambulance","명사","구급차",3,{p:"ambul=걷다·움직이다|ance=~것",s:"전쟁터를 따라 움직이던(ambulant) 이동 병원에서"});
+W("bed","명사","침대",1);
+W("book","명사","책",1,{f:"books"});
+W("burnt","형용사","타 버린 · (burnt out) 완전히 지친",2,{s:"초가 다 타 버리듯(burn out) 기운이 바닥난"});
+W("buy","명사·동사","구매, 사다",1);
+W("camera","명사","카메라",1);
+W("camp","동사","캠핑하다",2,{f:"camping"});
+W("cashier","명사","계산원, 계산대",2,{p:"cash=현금|ier=~하는 사람"});
+W("channel","명사","채널",2);
+W("checkup","명사","건강 검진",3,{p:"check=확인하다|up=완전히",s:"몸을 구석구석 완전히(up) 확인하는 것"});
+W("chord","명사","화음, 현",3,{s:"strike a chord = 마음의 현을 울리다 → 와닿다",i:1});
+W("chore","명사","집안일",3,{f:"chores"});
+W("class","명사","수업",1);
+W("clean","동사","치우다",1);
+W("clear","동사·형용사","맑게 하다, 분명한",1,{s:"clear my head = 머릿속을 맑게 비우다"});
+W("click","동사","딸깍 맞물리다 · 이해되다",2,{f:"clicked",s:"퍼즐 조각이 딸깍 맞물리듯 이해되다"});
+W("close","동사","닫다",1);
+W("complain","동사","불평하다, 항의하다",2,{f:"complaining",p:"com=강조|plain=슬퍼하다",s:"크게 슬퍼하며 하소연하다"});
+W("couch","명사","소파",2);
+W("counter","명사","계산대",2,{s:"over the counter = 계산대 너머로 바로 파는 → 처방전 없이 사는",i:1});
+W("curate","동사","골라 담다",3,{p:"cur=돌보다|ate=하다",s:"박물관 큐레이터(curator)처럼 정성껏 골라 돌보다"});
+W("discount","명사","할인",2,{p:"dis=떨어뜨려|count=세다",s:"셈(가격)에서 일부를 떨어뜨리는 것"});
+W("divide","동사","나누다",2,{p:"di=따로|vide=가르다"});
+W("dizzy","형용사","어지러운",3);
+W("dog","명사","개",1,{f:"dogs"});
+W("door","명사","문",1);
+W("draw","동사","그리다",1,{f:"drawing"});
+W("email","명사","이메일",1,{p:"e=전자|mail=우편",s:"electronic mail을 줄인 말"});
+W("english","명사","영어",1);
+W("example","명사","예",1);
+W("feed","명사·동사","피드, 먹이를 주다",2,{s:"Don't feed the trolls = 악플러에게 관심이라는 먹이를 주지 마라",i:1});
+W("finally","부사","드디어",1,{p:"final=마지막|ly=~하게"});
+W("find","동사","찾다",1);
+W("follow","동사","따라가다, 이해하다",1,{f:"following"});
+W("food","명사","음식",1);
+W("foodie","명사","미식가",3,{p:"food=음식|ie=~하는 사람"});
+W("friend","명사","친구",1);
+W("freeze","동사","얼다",2,{f:"froze"});
+W("gift","명사","선물",1);
+W("guest","명사","손님",1,{f:"guests"});
+W("gym","명사","헬스장",2,{s:"gymnasium을 줄인 말"});
+W("hot","형용사","뜨거운",1);
+W("impulse","명사","충동",3,{p:"im=안으로|pulse=밀다",s:"안에서 확 밀어 올리는 힘 = 충동"});
+W("internet","명사","인터넷",1,{p:"inter=사이|net=그물",s:"컴퓨터 사이(inter)를 잇는 그물(net)"});
+W("jacket","명사","재킷",2);
+W("key","명사","열쇠",1,{f:"keys"});
+W("kind","명사","종류",1);
+W("laundry","명사","빨래",2,{p:"laund=씻다(lave)|ry=~것",s:"lavatory(세면실)와 같은 뿌리: 씻는 일"});
+W("lock","동사","잠그다",1,{f:"locked",s:"locked myself out = 나를 밖에 두고 문을 잠가 버렸다"});
+W("machine","명사","기계",1);
+W("manager","명사","관리자, 매니저",1,{p:"manage=관리하다|er=~하는 사람",s:"라틴어 manus(손): 손으로 다루는 사람"});
+W("match","동사","맞추다",1);
+W("medicine","명사","약",1,{p:"medic=치료하다|ine=~것",s:"medic(치료)에서: 치료하는 것"});
+W("mend","동사","고치다, 회복하다",3,{s:"on the mend = 수선(mend) 중 → 회복 중",i:1});
+W("milk","명사","우유",1);
+W("move","동사","옮기다, 이사하다",1,{f:"moving"});
+W("neighbor","명사","이웃",2,{f:"neighbors",p:"neigh=가까이|bor=사는 사람",s:"가까이(nigh) 사는 사람"});
+W("noon","명사","정오",2);
+W("open","동사","열다",1);
+W("overnight","부사","밤사이에",2,{p:"over=넘어|night=밤",s:"밤을 넘기는 동안"});
+W("pass","동사","통과하다",1,{f:"passed"});
+W("pen","명사","펜",1);
+W("photography","명사","사진 촬영",2,{p:"photo=빛|graph=그리다|y=~것",s:"빛(photo)으로 그리는(graph) 것"});
+W("pill","명사","알약",2,{f:"pills"});
+W("pipe","명사","배관",2,{f:"pipes"});
+W("plant","명사","식물, 화분",1,{f:"plants"});
+W("poisoning","명사","중독",3,{p:"poison=독|ing=~됨",s:"food poisoning = 음식의 독에 당함 = 식중독"});
+W("policy","명사","규정, 정책",1);
+W("private","형용사","비공개의",1);
+W("professionally","부사","전문적으로",3,{p:"pro=앞에서|fess=말하다|ion=~것|al=~의|ly=~하게",s:"사람들 앞에서 공언(profess)할 만큼 → 직업으로서"});
+W("pronunciation","명사","발음",2,{p:"pro=앞으로|nunci=알리다|ation=~것",s:"소리를 앞으로 내어 알리는 것. pronounce와 철자가 달라요(nun)"});
+W("read","동사","읽다",1,{f:"reading"});
+W("recharge","동사","재충전하다",3,{p:"re=다시|charge=채우다"});
+W("recover","동사","회복하다",2,{p:"re=다시|cover=얻다",s:"잃은 것을 다시 얻다"});
+W("request","명사","요청, 신청",2,{p:"re=다시|quest=찾다",s:"다시 찾아 구하다"});
+W("save","동사","모으다, 저축하다",1,{f:"saving"});
+W("semester","명사","학기",3,{p:"se=6|mester=달",s:"라틴어 '6개월'에서 = 한 학기"});
+W("shoe","명사","신발",1,{f:"shoes"});
+W("sick","형용사","아픈, 속이 안 좋은",1);
+W("sleep","동사","자다",1);
+W("sneeze","동사","재채기하다",3,{f:"sneezing"});
+W("someday","부사","언젠가",2,{p:"some=어떤|day=날"});
+W("splurge","동사","돈을 펑펑 쓰다",3,{f:"splurging"});
+W("stock","명사","재고",2,{s:"in stock = 창고에 쌓여 있는"});
+W("strike","동사","치다",2,{f:"struck"});
+W("subtitle","명사","자막",3,{f:"subtitles",p:"sub=아래|title=제목",s:"화면 아래(sub)에 붙는 글"});
+W("sunday","명사","일요일",1,{f:"sundays",s:"해(sun)의 날"});
+W("swim","동사","수영하다",1,{f:"swimming"});
+W("thing","명사","것, 일 · (my thing) 내 취향",1);
+W("torn","형용사","찢긴, 갈피를 못 잡는",3,{s:"마음이 둘로 찢긴(tear-torn) 상태"});
+W("total","형용사","완전한",1);
+W("troll","명사","악플러",3,{f:"trolls",s:"북유럽 전설 속 다리 밑 괴물 트롤에서"});
+W("unsubscribe","동사","구독을 취소하다",3,{f:"unsubscribed",p:"un=되돌리다|sub=아래|scribe=쓰다",s:"아래에 이름을 써서(subscribe) 신청한 것을 되돌리다"});
+W("update","동사","업데이트하다",1,{f:"updated",p:"up=위로|date=날짜",s:"최신 날짜로 끌어올리다"});
+W("wash","동사","씻다, 빨다",1,{f:"washing"});
+W("watch","동사","보다",1);
+W("weird","형용사","이상한",2);
+W("wrap","동사","포장하다",2);
+
+/* ---------- role-play scenes for the seven newer situations ---------- */
+SCENARIOS.push(
+ {id:"exchange",tag:"쇼핑",lvl:"A2",t:"옷 가게에서 교환하기",d:"점원 Mia에게 사이즈 교환 부탁하기",persona:"Mia, a friendly clerk at a clothing store",setting:"The learner bought a jacket that doesn't fit and wants to exchange it.",missions:["교환하고 싶다고 말하기","원하는 사이즈·색 말하기","영수증이 있다고 말하기"]},
+ {id:"resched",tag:"전화·약속",lvl:"B1",t:"전화로 약속 바꾸기",d:"친구 Jordan에게 저녁 약속 변경하기",persona:"Jordan, a friend who planned dinner with the learner tonight",setting:"A phone call. Something came up and the learner needs to move tonight's dinner.",missions:["약속을 바꿔야 한다고 말하기","이유를 짧게 말하기","새 날짜와 시간 정하기"]},
+ {id:"pharmacy",tag:"병원·약국",lvl:"A2",t:"약국에서 증상 설명하기",d:"약사 Ellen에게 감기약 문의",persona:"Ellen, a careful pharmacist",setting:"The learner walks into a pharmacy feeling sick.",missions:["증상 말하기","언제부터 아팠는지 말하기","약 먹는 방법 묻기"]},
+ {id:"repair",tag:"집·생활",lvl:"B1",t:"집주인에게 수리 요청하기",d:"집주인 Mr. Brooks에게 고장 신고",persona:"Mr. Brooks, a busy but fair landlord",setting:"A phone call. Something in the learner's apartment is broken.",missions:["무엇이 고장 났는지 설명하기","언제 고치러 올 수 있는지 묻기","고맙다고 정중히 말하기"]},
+ {id:"office",tag:"학교·공부",lvl:"A2",t:"교수님께 질문하기",d:"면담 시간에 Grant 교수님 찾아가기",persona:"Professor Grant, a kind instructor during office hours",setting:"The learner visits office hours with questions about today's lecture.",missions:["이해 안 된 부분 말하기","예를 들어 달라고 하기","과제 마감일 묻기"]},
+ {id:"club",tag:"취미·여가",lvl:"A1",t:"동호회에서 취미 이야기",d:"등산 동호회 Noah와 첫 인사",persona:"Noah, a cheerful member of a weekend hiking club",setting:"The learner joins a hobby club meetup for the first time.",missions:["내 취미 말하기","얼마나 자주 하는지 말하기","다음에 같이 하자고 제안하기"]},
+ {id:"social",tag:"온라인·SNS",lvl:"B1",t:"친구와 SNS 이야기",d:"친구 Zoe와 요즘 본 영상 수다",persona:"Zoe, a friend who loves posting and watching videos online",setting:"Two friends chatting about something that went viral this week.",missions:["최근에 본 영상 이야기하기","그 영상에 대한 내 의견 말하기","링크를 보내 달라고 하기"]}
+);

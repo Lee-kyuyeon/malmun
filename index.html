@@ -605,7 +605,7 @@ async function llmJSON(system, user, maxTokens=280){
 const CONTR = {"i'm":"i am","i've":"i have","i'll":"i will","i'd":"i would","it's":"it is","that's":"that is","what's":"what is","how's":"how is","you're":"you are","we're":"we are","they're":"they are","she's":"she is","he's":"he is","there's":"there is","where's":"where is","let's":"let us","can't":"can not","cannot":"can not","couldn't":"could not","don't":"do not","doesn't":"does not","didn't":"did not","isn't":"is not","aren't":"are not","won't":"will not","wouldn't":"would not","you've":"you have","we've":"we have","you'll":"you will","we'll":"we will"};
 const NUM = {"1":"one","2":"two","3":"three","4":"four","5":"five","6":"six","7":"seven","8":"eight","9":"nine","10":"ten","11":"eleven","12":"twelve"};
 function toks(s){
-  return s.toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9' -]/g," ").replace(/-/g," ").split(/\s+/).filter(Boolean)
+  return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’‘]/g,"'").replace(/[^a-z0-9' -]/g," ").replace(/-/g," ").split(/\s+/).filter(Boolean)
     .flatMap(w => (CONTR[w]||NUM[w]||w.replace(/^'+|'+$/g,"")).split(" ")).filter(Boolean);
 }
 function lcs(a,b){ const m=a.length,n=b.length,dp=Array.from({length:m+1},()=>new Array(n+1).fill(0));
@@ -628,7 +628,7 @@ function diffView(best){
 }
 
 /* ---------- WORDS: the learner's missed words → word notebook (frequency first, word parts for long words) ---------- */
-const FUNC_WORDS = new Set("i me my mine you your yours we our us he him his she her it its they them their a an the to of in on at for with and or but is am are was were be been being does did done have has had having will would can could should shall may might must this that these those there here what where when how who whom which why not no so up out about as by from if then than too very just let s ll d ve re t m into over under after before again all any some each every both more most less much many own same such only also yet still even now well get got gotten going gone came took made put say said see seen give know want need like one two three ten seven first oh hi hey yes please".split(" "));
+const FUNC_WORDS = new Set("i me my mine you your yours we our us he him his she her it its they them their a an the to of in on at for with and or but is am are was were be been being does did done have has had having will would can could should shall may might must this that these those there here what where when how who whom which why not no so up out about as by from if then than too very just let s ll d ve re t m into over under after before again all any some each every both more most less much many own same such only also yet still even now well get got gotten going gone came took made put say said see seen give know want need like one two three ten seven first oh hi hey yes please getting other off another myself yourself".split(" "));
 const WORD_FORM = new Map(); Object.values(WORDS).forEach(w => [w.w, ...w.forms].forEach(f => WORD_FORM.set(f, w)));
 const BAND_KO = {1:"자주 씀 · 상위 1,000", 2:"꽤 씀 · 상위 3,000", 3:"가끔 씀"};
 function wordEntry(w){ return WORDS[w] || (S.wordCache||{})[w] || null; }
