@@ -353,6 +353,7 @@ body.focus .toast{top:calc(12px + env(safe-area-inset-top,0px));bottom:auto}
 .menu button:first-child{border-top:0}
 .menu button small{display:block;font-size:12px;color:var(--muted)}
 /* words */
+.ipa{font-family:"Noto Sans","Segoe UI","Lucida Sans Unicode","Arial Unicode MS",Arial,sans-serif;font-size:16px;color:var(--muted);letter-spacing:0;overflow-wrap:anywhere}
 .wordbig{font-family:var(--f-display);font-weight:400;font-size:40px;line-height:1.1;overflow-wrap:anywhere}
 .parts{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px}
 .part{border:2px solid var(--line);border-radius:14px;padding:8px 12px;text-align:center;background:var(--bg);min-width:64px}
@@ -745,9 +746,9 @@ function wordChips(res, src){
 async function ensureEntry(w){
   if (wordEntry(w)) return wordEntry(w);
   if (!llm.engine) return null;
-  const r = await llmJSON('You are an English vocabulary tutor for Korean learners. Answer with one JSON object: {"pos": Korean part of speech, "ko": short Korean meaning, "parts": array of {"p": word part, "m": its Korean meaning} if the word is built from clear parts (else []), "story": one short Korean memory hook based on real etymology, or ""}. Do not invent etymology.', `Word: ${w}`, 260);
+  const r = await llmJSON('You are an English vocabulary tutor for Korean learners. Answer with one JSON object: {"pos": Korean part of speech, "ko": short Korean meaning, "ipa": American IPA between slashes like /ˈwɔtər/, "parts": array of {"p": word part, "m": its Korean meaning} if the word is built from clear parts (else []), "story": one short Korean memory hook based on real etymology, or ""}. Do not invent etymology.', `Word: ${w}`, 260);
   if (!r || !r.ko) return null;
-  const entry = {w, pos:String(r.pos||""), ko:String(r.ko), band:3, forms:[], parts:(Array.isArray(r.parts)?r.parts:[]).filter(x=>x&&x.p&&x.m).slice(0,4).map(x=>({p:String(x.p),m:String(x.m)})), story:String(r.story||""), idiom:false, ai:true};
+  const entry = {w, pos:String(r.pos||""), ko:String(r.ko), band:3, forms:[], parts:(Array.isArray(r.parts)?r.parts:[]).filter(x=>x&&x.p&&x.m).slice(0,4).map(x=>({p:String(x.p),m:String(x.m)})), story:String(r.story||""), idiom:false, ai:true, ipa: /^\/[^\/]{1,40}\/$/.test(String(r.ipa||"").trim()) ? String(r.ipa).trim() : ""};
   S.wordCache = S.wordCache || {}; S.wordCache[w] = entry; save(); return entry;
 }
 function openWord(w, src){
@@ -756,7 +757,7 @@ function openWord(w, src){
     const body = h("div",{style:"display:flex;flex-direction:column;gap:12px"}); inner.append(body);
     const draw = () => {
       body.replaceChildren();
-      body.append(h("div",{class:"row",style:"justify-content:space-between;align-items:center"}, h("span",{class:"wordbig"}, w), speakBtn(w,"듣기")));
+      body.append(h("div",{class:"row",style:"justify-content:space-between;align-items:center;flex-wrap:nowrap"}, h("div",{style:"min-width:0"}, h("div",{class:"wordbig"}, w), entry && entry.ipa ? h("div",{class:"ipa","aria-label":"발음기호"}, entry.ipa) : ""), speakBtn(w,"듣기")));
       if (entry) {
         body.append(h("p",{}, h("span",{class:"ctx"}, entry.pos+" · "), h("b",{}, entry.ko)), h("div",{class:"row"}, h("span",{class:"chip band"+entry.band}, BAND_KO[entry.band]), entry.ai ? h("span",{class:"chip"},"앵두가 정리한 뜻") : ""));
         const pv = partsView(entry); if (pv.childNodes.length) body.append(pv);
@@ -778,7 +779,7 @@ function wordCard(id){
 }
 function wordInfo(entry){
   const box = h("div",{style:"display:flex;flex-direction:column;gap:8px"});
-  box.append(h("p",{}, h("b",{}, entry.w), " · ", entry.ko));
+  box.append(h("p",{}, h("b",{}, entry.w), entry.ipa ? h("span",{class:"ipa"}, " "+entry.ipa) : "", " · ", entry.ko));
   const pv = partsView(entry); if (pv.childNodes.length) box.append(pv);
   box.append(h("div",{class:"row"}, speakBtn(entry.w,"단어 듣기"), h("button",{class:"ghost",type:"button",onclick:()=>openWord(entry.w)},"단어 카드")));
   return box;
@@ -1401,7 +1402,7 @@ function taskShadow(box, card, step){
 function taskWordMean(box, card, step){
   const m = header(box, "이 단어, 무슨 뜻일까?");
   const e = card.word; const t0 = Date.now();
-  box.append(h("div",{class:"row",style:"justify-content:center;gap:14px;align-items:center"}, h("span",{class:"wordbig"}, e.w), speakBtn(e.w,"듣기")));
+  box.append(h("div",{class:"row",style:"justify-content:center;gap:14px;align-items:center"}, h("div",{style:"text-align:center;min-width:0"}, h("div",{class:"wordbig"}, e.w), e.ipa ? h("div",{class:"ipa"}, e.ipa) : ""), speakBtn(e.w,"듣기")));
   const pool = shuffle(Object.values(WORDS).filter(x=>x.w!==e.w && x.pos===e.pos && x.ko!==e.ko)).slice(0,3);
   const opts = shuffle([e, ...(pool.length===3 ? pool : shuffle(Object.values(WORDS).filter(x=>x.w!==e.w)).slice(0,3))]);
   const wrap = h("div",{class:"opts"});
@@ -1948,7 +1949,7 @@ function viewWords(app){
   const box = h("div",{class:"cards"});
   list.forEach(e => { const m = mastery("w:"+e.w);
     box.append(h("button",{class:"card",style:"border-left:0;border-right:0;border-bottom:0;background:transparent;text-align:left;width:100%",onclick:()=>openWord(e.w),"aria-label":e.w+" 단어 카드"},
-      h("div",{class:"en"}, e.w, " ", h("span",{class:"chip band"+e.band,style:"font-weight:400"}, BAND_KO[e.band].split(" · ")[0]), (e.parts&&e.parts.length) ? h("span",{class:"chip",style:"font-weight:400;margin-left:4px"},"해부") : ""),
+      h("div",{class:"en"}, e.w, " ", e.ipa ? h("span",{class:"ipa",style:"font-size:13px;font-weight:400"}, e.ipa+" ") : "", h("span",{class:"chip band"+e.band,style:"font-weight:400"}, BAND_KO[e.band].split(" · ")[0]), (e.parts&&e.parts.length) ? h("span",{class:"chip",style:"font-weight:400;margin-left:4px"},"해부") : ""),
       h("div",{class:"ko"}, e.pos+" · "+e.ko),
       h("div",{class:"m"}, h("div",{class:"meter"}, ...[0,1,2,3,4].map(k=>h("i",{class:k<=m-1||(k===0&&m>0)?"on":""}))), h("span",{}, MASTERY_LABEL[m])))); });
   app.append(box);
