@@ -2,6 +2,7 @@
    Help comes one rung at a time (slower → key words → subtitles → translation). Like real life, you can ask for one repeat:
    a scene counts as "heard by ear" only when the first action was right, no help was used, and it was heard at most twice. Classic script: shares globals with the other js/ files. */
 "use strict";
+const EP_ICON = {arrive:"✈️", cafe:"☕", neighbor:"🏠", pharmacy:"💊", transit:"🚋", firstday:"💼"};
 const EAR_HELP = ["천천히 듣기", "핵심 단어 보기", "영어 자막 보기", "한국어 번역 보기"];
 let abroad = null;
 function earState(){ if (!S.ear) S.ear = {clean:0, scenes:0, eps:{}, firstListens:[]}; return S.ear; }
@@ -21,20 +22,30 @@ const epUnlocked = i => i === 0 || LEVELS.indexOf(EPISODES[i].lvl) <= LEVELS.ind
 function viewAbroad(app){
   abroad = null;
   const ear = S.ear || {}, rate = earRate();
-  app.append(h("div",{class:"top"}, h("div",{}, h("p",{class:"eyebrow"},"귀 트이기"), h("h1",{class:"title"},"앵두와 해외살이")), mascot(48, "happy")));
-  app.append(h("p",{class:"muted"},"시애틀에 막 이사 왔어요. 자막 없이 먼저 듣고, 들은 대로 움직여 보세요. 못 알아들으면 이야기 속에서 일이 꼬여요."));
-  app.append(h("section",{class:"card-s earmeter"},
-    h("div",{class:"ring",html:ringSvg((rate||0)/100, 84, 9, "var(--sky)")}, h("div",{class:"lbl"}, h("b",{}, rate==null ? "–" : rate+"%"), h("span",{},"처음 듣기"))),
-    h("div",{style:"min-width:0"}, h("b",{}, "처음 듣고 이해한 장면"), h("p",{class:"ctx"}, rate==null ? "첫 에피소드를 들으면 여기에 내 귀 상태가 나와요." : `처음 들은 최근 ${Math.min(30,(ear.firstListens||[]).length)}장면 중 ${rate}%를 도움 없이 두 번 안에 알아들었어요.`))));
-  app.append(h("h2",{class:"sec-h"},"에피소드"));
+  /* a travel diary, not a syllabus: a boarding pass on top, then the days of the stay as stops on a route */
+  const done = EPISODES.filter(e => S.ear && S.ear.eps && S.ear.eps[e.id]).length;
+  app.append(h("p",{class:"eyebrow trip-eyebrow"},"귀 트이기 · 앵두와 해외살이"));
+  app.append(h("section",{class:"pass","aria-label":`서울에서 시애틀, 체류 ${done+1}일째`},
+    h("div",{class:"pass-main"},
+      h("div",{class:"pass-row"}, h("div",{}, h("b",{},"ICN"), h("span",{},"서울")), h("div",{class:"pass-plane","aria-hidden":"true"},"✈"), h("div",{}, h("b",{},"SEA"), h("span",{},"시애틀"))),
+      h("div",{class:"pass-meta"}, h("span",{}, h("small",{},"승객"), "나 + 앵두"), h("span",{}, h("small",{},"체류"), `${done+1}일째`), h("span",{}, h("small",{},"좌석"), "귀 트이기"))),
+    h("div",{class:"pass-stub"}, h("div",{class:"stamp-ring"+(rate==null?" empty":"")}, h("b",{}, rate==null ? "–" : rate+"%"), h("span",{},"처음 듣기")))));
+  app.append(h("p",{class:"muted trip-lead"}, rate==null ? "막 도착했어요. 자막 없이 먼저 듣고, 들은 대로 움직여 보세요. 못 알아들으면 이야기 속에서 일이 꼬여요."
+    : `처음 들은 최근 ${Math.min(30,(ear.firstListens||[]).length)}장면 중 ${rate}%를 도움 없이 두 번 안에 알아들었어요.`));
+  const route_ = h("ol",{class:"route"});
   EPISODES.forEach((e, i) => {
     const rec = (S.ear && S.ear.eps && S.ear.eps[e.id]) || null, open = epUnlocked(i);
-    app.append(h("button",{class:"pu press "+(rec ? "done" : open ? "now" : "next"),type:"button","data-ep":e.id,disabled:!open,"aria-label":`${i+1}화 ${e.t}${rec ? `, ${rec.best}/${e.scenes.length} 장면 알아들음` : open ? "" : ", 잠김"}`,
-      onclick:()=>{ sfx("tap"); startEpisode(e); }},
-      h("span",{class:"st"}, rec ? "✓" : String(i+1)),
-      h("span",{style:"min-width:0"}, h("div",{class:"tg"}, `${i+1}화 · ${e.t}`), h("div",{class:"sb"}, `${e.lvl} · ${e.d}`+(rec ? ` · 최고 ${rec.best}/${e.scenes.length}` : open ? "" : " · 앞 이야기를 들으면 열려요"))),
-      h("span",{class:"mono muted","aria-hidden":"true"}, open ? "→" : "🔒")));
+    const state = rec ? "done" : open ? "open" : "fog";
+    route_.append(h("li",{class:"stop "+state},
+      h("span",{class:"pin","aria-hidden":"true"}, EP_ICON[e.id] || "📍"),
+      h("button",{class:"postcard",type:"button","data-ep":e.id,disabled:!open,"aria-label":`Day ${i+1} ${e.t}${rec ? `, ${rec.best}/${e.scenes.length} 장면 귀로 해결` : open ? "" : ", 아직 못 가 본 곳"}`,
+        onclick:()=>{ sfx("tap"); startEpisode(e); }},
+        h("span",{class:"day"}, `DAY ${i+1} · ${e.lvl}`),
+        h("b",{class:"pc-t"}, e.t),
+        h("span",{class:"pc-d"}, open ? e.d : "앞 이야기를 들으면 갈 수 있어요"),
+        rec ? h("span",{class:"pc-stamp"}, `귀로 해결 ${rec.best}/${e.scenes.length}`) : open ? h("span",{class:"pc-go"}, "들으러 가기 →") : "")));
   });
+  app.append(route_);
   app.append(h("p",{class:"note"}, h("span",{class:"chip"}, hasClips() ? "원어민 음성 녹음 · 기기 음성 아님" : "기기 음성")));
 }
 
