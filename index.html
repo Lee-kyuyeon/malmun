@@ -9,6 +9,11 @@
 <meta name="theme-color" content="#F2F8F4" media="(prefers-color-scheme: light)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="재잘">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
 <meta property="og:title" content="재잘">
 <meta property="og:description" content="하루 5분, 입으로 굳히는 영어 덩어리 표현. 폰 안에서 돌아가는 AI와 상황극까지.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cpath d=%27M47 31c-7-13-1-20 4-21-1 7 1 14-1 21z%27 fill=%27%23FF7A6B%27/%3E%3Ccircle cx=%2750%27 cy=%2758%27 r=%2734%27 fill=%27%23FFD45C%27/%3E%3Ccircle cx=%2739%27 cy=%2752%27 r=%277%27 fill=%27%231F2A26%27/%3E%3Ccircle cx=%2761%27 cy=%2752%27 r=%277%27 fill=%27%231F2A26%27/%3E%3Cpath d=%27M42 62q8-7 16 0q-8 8-16 0z%27 fill=%27%23FF9A3C%27/%3E%3C/svg%3E">
@@ -380,6 +385,8 @@ mark.w{background:var(--butter);color:var(--on-butter);border-radius:6px;padding
 .seg2 button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 2px 0 var(--line)}
 .blank{display:inline-block;min-width:3ch;border-bottom:3px solid var(--butter-d);font-family:var(--f-mono);font-weight:700;color:var(--butter-d)}
 /* game */
+.steps{display:flex;flex-direction:column;gap:8px;padding-left:22px;font-size:15px;line-height:1.5}
+.install .primary{flex:1}
 .topr{display:flex;align-items:center;gap:6px}
 .tchip{display:inline-flex;align-items:center;gap:4px;min-height:40px;padding:0 10px;border-radius:14px;font-family:var(--f-display);font-size:17px;color:var(--ink)}
 .tchip svg{width:20px;height:20px}
@@ -1124,7 +1131,9 @@ const TAB_OF = {learn:"course", science:"me", placement:"me"};
 let session = null, talk = null;
 const inSession = () => !!(session && !session.done) || !!(talk && talk.active);
 function route(){
-  const name = (location.hash||"#home").slice(1); const v = VIEWS[name] ? name : "home";
+  let name = (location.hash||"#home").slice(1);
+  if (name === "words") { wordOnlyNext = true; history.replaceState(null, "", "#learn"); name = "learn"; }
+  const v = VIEWS[name] ? name : "home";
   closeSheet(); setFocusMode(false); speaker = null;
   const tab = TAB_OF[v] || v;
   document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
@@ -1266,6 +1275,7 @@ function viewHome(app){
     h("span",{class:"arrow","aria-hidden":"true"},"→")));
   app.append(h("button",{class:"cta alt",onclick:()=>{ sfx("tap"); location.hash="#talk"; }},
     h("div",{}, h("b",{},"AI와 상황극"), h("span",{}, "배운 표현을 실제 대화에 써 보기")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
+  const ic = installCard(); if (ic) app.append(ic);
   app.append(missionsCard(), raceCard());
 
   if (!S.placement) app.append(h("button",{class:"cta alt",onclick:()=>{ location.hash="#placement"; }},
@@ -2015,6 +2025,7 @@ function viewMe(app){
   const errs = Object.entries(S.errors||{}).sort((a,b)=>b[1]-a[1]);
   if (errs.length) app.append(h("p",{class:"note"}, "자주 고친 유형", ...errs.slice(0,4).map(([k,v])=>h("span",{class:"chip warn"}, (ERR_KO[k]||"기타")+" "+v))));
   app.append(h("div",{class:"menu"},
+    !isStandalone() ? h("button",{type:"button","data-open":"install",onclick:installApp}, h("span",{}, "홈 화면에 추가", h("small",{},"앱처럼 열고 오프라인에서도 연습")), h("span",{"aria-hidden":"true"},"→")) : "",
     h("button",{type:"button",onclick:openSettings}, h("span",{}, "설정", h("small",{},"하루 목표, 효과음, 핸즈프리, 기록 백업")), h("span",{"aria-hidden":"true"},"→")),
     h("button",{type:"button",onclick:()=>{ location.hash="#science"; }}, h("span",{}, "이 앱이 효과적인 이유", h("small",{},"제2언어 습득 연구와 인기 앱 분석")), h("span",{"aria-hidden":"true"},"→"))));
 }
@@ -2102,6 +2113,37 @@ function viewScience(app){
   ].forEach(([t,b]) => RE.append(h("article",{}, h("h3",{}, t), h("p",{class:"use"}, b))));
   app.append(RE);
 }
+
+/* ---------- install as a home-screen app (PWA) ---------- */
+let installEvt = null;
+const isStandalone = () => matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+const isIOS = () => /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+const canInstall = () => !isStandalone() && (!!installEvt || isIOS() || /Android|Chrome/.test(navigator.userAgent));
+window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); installEvt = e; if (/^#?(home|me)?$/.test(location.hash.slice(1)) && !inSession()) route(); });
+window.addEventListener("appinstalled", () => { installEvt = null; S.installed = true; save(); toast("홈 화면에 재잘을 추가했어!"); if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); if (!inSession()) route(); });
+async function installApp(){
+  if (installEvt) { const e = installEvt; installEvt = null; e.prompt(); try { const r = await e.userChoice; if (r && r.outcome === "accepted") return; } catch(err) {} return; }
+  openSheet("홈 화면에 추가", inner => {
+    const steps = isIOS()
+      ? ["Safari 아래쪽(또는 위쪽)의 공유 버튼을 눌러요", "'홈 화면에 추가'를 골라요", "오른쪽 위 '추가'를 누르면 끝!"]
+      : ["Chrome 오른쪽 위 ⋮ 메뉴를 눌러요", "'홈 화면에 추가' 또는 '앱 설치'를 골라요", "'설치'를 누르면 홈 화면에 앵두 아이콘이 생겨요"];
+    inner.append(h("section",{class:"celebrate"}, mascot(96,"happy"), h("p",{class:"muted"}, "홈 화면에 추가하면 주소창 없이 앱처럼 열리고, 인터넷이 없어도 연습할 수 있어요.")),
+      h("ol",{class:"steps"}, ...steps.map(t=>h("li",{}, t))),
+      isIOS() ? h("p",{class:"ctx"},"iPhone은 Safari에서만 추가할 수 있어요.") : h("p",{class:"ctx"},"메뉴에 안 보이면 페이지를 한 번 새로고침해 보세요."),
+      h("button",{class:"primary",type:"button",onclick:closeSheet},"알겠어"));
+  });
+}
+function installCard(){
+  if (!canInstall() || S.installHide) return null;
+  const card = h("section",{class:"card-s install",id:"install-card"},
+    h("div",{style:"display:flex;gap:12px;align-items:center"}, h("img",{src:"icons/icon-192.png",alt:"",width:"48",height:"48",style:"border-radius:12px;flex:none"}),
+      h("div",{style:"min-width:0"}, h("b",{},"홈 화면에 재잘 추가"), h("div",{class:"ctx"},"앱처럼 바로 열리고, 오프라인에서도 연습할 수 있어요"))),
+    h("div",{class:"row"}, h("button",{class:"primary",type:"button","data-act":"install",onclick:installApp}, installEvt ? "설치하기" : "추가하는 방법"),
+      h("button",{class:"ghost",type:"button",onclick:()=>{ S.installHide = true; save(); card.remove(); }},"나중에")));
+  return card;
+}
+if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(()=>{}));
+if (isStandalone() && navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(()=>{});
 
 /* on open: spend streak freezes for missed days and greet learners coming back after a break */
 if (S.onboarded) { applyFreezes(); S.bestStreak = Math.max(S.bestStreak||0, streakNow()); checkBadges(); const t = dayKey();
