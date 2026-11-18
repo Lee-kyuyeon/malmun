@@ -10,20 +10,20 @@ function placementPool(L, used){
   const free = mid.filter(c=>!used.has(c.id)); return free.length ? free : all.filter(c=>!used.has(c.id));
 }
 function placementPick(theta, used){
-  const want = Math.max(0, Math.min(3, Math.round(theta)));
+  const want = Math.max(0, Math.min(LEVELS.length-1, Math.round(theta)));
   for (const d of [0,1,-1,2,-2,3,-3]) { const L = LEVELS[want+d]; if (!L) continue;
     const pool = placementPool(L, used); if (pool.length) return pool[Math.random()*pool.length|0]; }
   return null;
 }
 /* the first item moves a whole level so strong learners reach their level within 10 items, then the steps shrink */
-function placementUpdate(theta, i, ok){ const step = i === 0 ? 1 : i < 4 ? .5 : .25; return Math.max(0, Math.min(3, theta + (ok ? step : -step))); }
+function placementUpdate(theta, i, ok){ const step = i === 0 ? 1 : i < 4 ? .5 : .25; return Math.max(0, Math.min(LEVELS.length-1, theta + (ok ? step : -step))); }
 /* the level is the highest one answered at least 60% right (rounding the staircase estimate placed learners a level too high
    in simulation); a strong or weak 30-second speaking sample can move it by one level when the item answers allow it */
 function placementLevel(theta, results, speak){
   const acc = L => { const r = (results||[]).filter(x=>x.lvl===L); return r.length ? r.filter(x=>x.ok).length / r.length : null; };
   let best = 0; LEVELS.forEach((L,i) => { const a = acc(L); if (a !== null && a >= .6) best = Math.max(best, i); });
-  if (!results || !results.length) best = Math.max(0, Math.min(3, Math.floor(theta)));
-  if (speak === "strong" && best < 3 && (acc(LEVELS[best+1]) ?? 0) >= .5) best++;
+  if (!results || !results.length) best = Math.max(0, Math.min(LEVELS.length-1, Math.floor(theta)));
+  if (speak === "strong" && best < LEVELS.length-1 && (acc(LEVELS[best+1]) ?? 0) >= .5) best++;
   if (speak === "weak" && best > 0 && (acc(LEVELS[best]) ?? 1) < .8) best--;
   return LEVELS[best];
 }

@@ -4,10 +4,10 @@
 const fs = require('fs'), vm = require('vm'); const ctx = {}; vm.createContext(ctx);
 vm.runInContext(fs.readFileSync(process.argv[2], 'utf8') + ';this.D=DECK;this.SC=SCENARIOS;this.W=WORDS;this.IG=WORD_IGNORE;', ctx);
 const D = ctx.D, W = ctx.W, IG = new Set(ctx.IG), errs = [], warn = [];
-const LEVELS = ["A1", "A2", "B1", "B2"], MIN_PER_CELL = 25;
+const LEVELS = ["A1", "A2", "B1", "B2", "C1"], MIN_PER_CELL = 25;
 const STOP = new Set("i me my mine you your yours we our us he him his she her it its they them their a an the to of in on at for with and or but is am are was were be been being does did done have has had having will would can could should shall may might must this that these those there here what where when how who whom which why not no so up out about as by from if then than too very just let s ll d ve re t m into over under after before again all any some each every both more most less much many own same such only also yet still even now well get got gotten going gone came took made put say said see seen give know want need like one two three ten seven first oh hi hey yes please getting other off another myself yourself".split(" "));
 /* word counts per level: outside this range is a warning to review, not an error (short idioms are fine at B2) */
-const LEN = { A1: [1, 7], A2: [2, 10], B1: [3, 14], B2: [3, 18] };
+const LEN = { A1: [1, 7], A2: [2, 10], B1: [3, 14], B2: [3, 18], C1: [4, 22] };
 const words = en => (en.match(/[A-Za-z][A-Za-z'’-]*|\d+/g) || []);
 const HANGUL = /[가-힣]/;
 

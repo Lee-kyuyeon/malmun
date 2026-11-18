@@ -103,6 +103,7 @@ const BADGES = [
   {id:"gA2", t:"A2 졸업", d:"A2 단원 모두 완료", p:()=>[gradDone("A2")?1:0,1], r:40},
   {id:"gB1", t:"B1 졸업", d:"B1 단원 모두 완료", p:()=>[gradDone("B1")?1:0,1], r:50},
   {id:"gB2", t:"B2 졸업", d:"B2 단원 모두 완료", p:()=>[gradDone("B2")?1:0,1], r:80},
+  {id:"gC1", t:"C1 졸업", d:"C1 단원 모두 완료", p:()=>[gradDone("C1")?1:0,1], r:100},
   {id:"early", t:"일찍 일어난 새", d:"오전 7시 전에 공부하기", p:()=>[S.earlyBird?1:0,1], r:10},
   {id:"owl", t:"올빼미", d:"밤 11시 이후에 공부하기", p:()=>[S.nightOwl?1:0,1], r:10},
   {id:"ear10", t:"귀가 트였다", d:"해외살이 장면 10개를 자막 없이 알아듣기", p:()=>[(S.ear&&S.ear.clean)||0,10], r:20},
@@ -138,7 +139,7 @@ const ACC = [
 ];
 const SLOT_KO = {hat:"모자", eyes:"안경", extra:"장식", neck:"목"};
 const FREEZE_PRICE = 30, FREEZE_MAX = 2, BOOST_PRICE = 40, BOOST_MIN = 15;
-function accUnlocked(a){ if (!a.badge) return true; if (a.badge === "grad") return ["gA1","gA2","gB1","gB2"].some(b=>S.badges[b]); return !!S.badges[a.badge]; }
+function accUnlocked(a){ if (!a.badge) return true; if (a.badge === "grad") return ["gA1","gA2","gB1","gB2","gC1"].some(b=>S.badges[b]); return !!S.badges[a.badge]; }
 function openShop(){
   let preview = {...S.outfit};
   openSheet("앵두 꾸미기", inner => {

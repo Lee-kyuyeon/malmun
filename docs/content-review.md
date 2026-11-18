@@ -117,3 +117,19 @@
 ## 6. 한계
 - 새 표현과 뜻은 Claude가 작성하고 검수했습니다. 원어민 검수는 거치지 않았습니다. 앱을 쓰며 어색한 표현을 발견하면 content.js에서 바로 고칠 수 있습니다(영어 문장을 바꾸면 그 표현의 학습 기록은 새로 시작됩니다).
 - 빈도 구간은 NGSL·COCA를 참고한 근사치입니다.
+
+## 7. C1 추가 (2026-11-18, 2차)
+
+- 상황 12개 × C1 25개 = 표현 300개 추가 → 총 1,501개, 단원 60개, 하루 6개 기준 약 250일
+- 성격: 완곡·헤징(I'd be inclined to, That's not to say), 담화 표지(Having said that, Going forward), 관용구(acquired taste, cut it fine, pull one's weight), 정중한 반박·협상(push back, escalate), 추상적 의견(The way the algorithm amplifies outrage is concerning 등)
+- C1 상황극 12개(거래처 저녁, 네트워킹, 항공 보상 협상, 입사 조건 협상, 토론, 불량품 협상, 일정 조율, 치료 상담, 보증금 분쟁, 세미나, 부업 상담, SNS 규제 토론) → 상황극 36개, 60단원 중 36단원이 같은 레벨 상황극
+- 단어 326개 추가(사전 1,362개, 전부 발음기호), 8글자 이상 단어에 단어 해부·이야기
+- 전수 검수에서 고친 것(미국식 기준): give it a miss → skip it, lost marks → lost points, secondhand bookshops → used bookstores, the damp → the humidity. "I'm after", "Fancy seeing you here!"는 영국식이라는 설명을 붙여 유지
+
+| 레벨 | 평균 단어 수 | 평균 난이도 | 드문 단어 포함 비율 |
+|---|---|---|---|
+| B2 | 7.58 | 9.05 | 31% |
+| C1 | 9.98 | 11.48 | 29% |
+
+- 드문 단어 비율은 C1이 B2와 비슷합니다. C1의 어려움은 낯선 단어보다 흔한 단어로 이루어진 관용·완곡 표현(It's not that I disagree…)에서 오도록 썼기 때문입니다.
+- 진단: 레벨 5단계로 확장. 시뮬레이션에서 C1 학습자가 B2부터 시작하면 0.97, C1부터 0.99로 정확히 판정
