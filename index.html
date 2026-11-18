@@ -5,206 +5,331 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>말문</title>
 <meta name="description" content="하루 5분, 입으로 굳히는 영어 덩어리 표현. 폰 안에서 돌아가는 AI와 상황극까지.">
-<meta name="theme-color" content="#0D1512" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#EEF1EE" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111A16" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F2F8F4" media="(prefers-color-scheme: light)">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta property="og:title" content="말문">
 <meta property="og:description" content="하루 5분, 입으로 굳히는 영어 덩어리 표현. 폰 안에서 돌아가는 AI와 상황극까지.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2316705E'/%3E%3Cg fill='%23F2B13C'%3E%3Crect x='12' y='28' width='6' height='16' rx='2'/%3E%3Crect x='22' y='18' width='6' height='30' rx='2'/%3E%3Crect x='32' y='24' width='6' height='22' rx='2'/%3E%3Crect x='42' y='14' width='6' height='34' rx='2'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cpath d=%27M47 31c-7-13-1-20 4-21-1 7 1 14-1 21z%27 fill=%27%23FF7A6B%27/%3E%3Ccircle cx=%2750%27 cy=%2758%27 r=%2734%27 fill=%27%23FFD45C%27/%3E%3Ccircle cx=%2739%27 cy=%2752%27 r=%277%27 fill=%27%231F2A26%27/%3E%3Ccircle cx=%2761%27 cy=%2752%27 r=%277%27 fill=%27%231F2A26%27/%3E%3Cpath d=%27M42 62q8-7 16 0q-8 8-16 0z%27 fill=%27%23FF9A3C%27/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jua&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
 <style>
-/* Layout: one phone-width column, a VU-meter strip as the signature, bottom tab bar. */
+/* Layout: one phone-width column; a parrot-chick mascot reacts to everything; chunky press-down buttons; actions live in the thumb zone. */
 :root{
-  --bg:#EEF1EE; --surface:#FFFFFF; --sunk:#E2E8E4; --ink:#122019; --muted:#56665E; --line:#CBD6CF;
-  --amber:#E39B0B; --on-amber:#1B1406; --teal:#16705E; --on-teal:#FFFFFF;
-  --good:#1D7F47; --goodbg:#DCF0E3; --bad:#B83A26; --badbg:#F7E0DA;
-  --f-display:"Black Han Sans","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --bg:#F2F8F4; --surface:#FFFFFF; --sunk:#E5EFE9; --ink:#1F2A26; --muted:#62716B; --line:#D3E2D9;
+  --mint:#2DBE8C; --mint-d:#1F9B71; --on-mint:#FFFFFF;
+  --butter:#FFD45C; --butter-d:#E3B12F; --on-butter:#3A2A00;
+  --coral:#FF7A6B; --coral-d:#DB5B4D; --sky:#79C2FF;
+  --good:#17905F; --goodbg:#DDF5E8; --bad:#D9493D; --badbg:#FFE6E1;
+  --teal:var(--mint); --on-teal:var(--on-mint); --amber:var(--butter); --on-amber:var(--on-butter);
+  --f-display:"Jua","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
   --f-body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  --r:14px;
+  --r:20px; --press:4px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0D1512; --surface:#15201B; --sunk:#1C2A24; --ink:#E6EEEA; --muted:#93A59C; --line:#2A3A33;
-  --amber:#F2B13C; --on-amber:#1B1406; --teal:#4FC3A6; --on-teal:#06231C;
-  --good:#5BD08B; --goodbg:#163325; --bad:#FF8A73; --badbg:#3A1E19; color-scheme:dark}}
+  --bg:#111A16; --surface:#1A2520; --sunk:#23302A; --ink:#EAF3EE; --muted:#9DAEA6; --line:#2E3D37;
+  --mint:#4FD6A6; --mint-d:#2B9A73; --on-mint:#06221A; --butter:#FFD45C; --butter-d:#BF9426; --on-butter:#3A2A00;
+  --coral:#FF8E81; --coral-d:#BF5A4E; --sky:#8ACBFF; --good:#6EE0A6; --goodbg:#163527; --bad:#FF8E81; --badbg:#3A201C; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0D1512; --surface:#15201B; --sunk:#1C2A24; --ink:#E6EEEA; --muted:#93A59C; --line:#2A3A33;
-  --amber:#F2B13C; --on-amber:#1B1406; --teal:#4FC3A6; --on-teal:#06231C;
-  --good:#5BD08B; --goodbg:#163325; --bad:#FF8A73; --badbg:#3A1E19; color-scheme:dark}
+  --bg:#111A16; --surface:#1A2520; --sunk:#23302A; --ink:#EAF3EE; --muted:#9DAEA6; --line:#2E3D37;
+  --mint:#4FD6A6; --mint-d:#2B9A73; --on-mint:#06221A; --butter:#FFD45C; --butter-d:#BF9426; --on-butter:#3A2A00;
+  --coral:#FF8E81; --coral-d:#BF5A4E; --sky:#8ACBFF; --good:#6EE0A6; --goodbg:#163527; --bad:#FF8E81; --badbg:#3A201C; color-scheme:dark}
 html,body{height:100%}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
 img{max-width:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-tap-highlight-color:transparent;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 *{box-sizing:border-box}
 button{font:inherit;color:inherit;cursor:pointer}
-button:focus-visible,textarea:focus-visible,a:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-.wrap{max-width:560px;margin:0 auto;padding-block:18px 110px;display:flex;flex-direction:column;gap:18px}
+button:focus-visible,textarea:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.wrap{max-width:560px;margin:0 auto;padding-block:14px 120px;display:flex;flex-direction:column;gap:18px}
+body.focus .wrap{padding-bottom:160px}
 h1,h2,h3{text-wrap:balance;margin:0}
-.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.title{font-family:var(--f-display);font-weight:400;font-size:32px;line-height:1.15}
+.eyebrow{font-size:13px;font-weight:700;color:var(--mint-d)}
 .muted{color:var(--muted)}
 .mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 p{margin:0}
+.lead{font-size:15px;max-width:65ch}
 
-/* hero */
-.hero{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end}
-.brand{font-family:var(--f-display);font-size:64px;line-height:.9;letter-spacing:-.01em}
-.brand small{display:block;font-family:var(--f-body);font-size:14px;font-weight:500;color:var(--muted);margin-top:10px;letter-spacing:0}
-.ring{width:96px;height:96px;position:relative}
+/* chunky press-down surfaces */
+.press{border:2px solid var(--line);background:var(--surface);border-radius:16px;box-shadow:0 var(--press) 0 var(--line);transition:transform .08s,box-shadow .08s}
+.press:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+
+/* mascot: a parrot chick (original). moods: idle · happy · oops · think · talk */
+.mascot{display:block;overflow:visible}
+.mascot .m-all{transform-origin:50% 90%;animation:bob 3.2s ease-in-out infinite}
+.mascot .eye{transform-box:fill-box;transform-origin:center;animation:blink 4.6s infinite}
+.mascot .beak-lo{transform-box:fill-box;transform-origin:50% 0;transition:transform .07s}
+.mascot.open .beak-lo{transform:scaleY(1.9) translateY(1px)}
+.mascot .wing{transform-box:fill-box;transform-origin:85% 15%}
+.mascot .wing.r{transform-origin:15% 15%}
+.mascot.happy .m-all{animation:hop .55s ease-out 2}
+.mascot.happy .wing.l{animation:flapL .18s ease-in-out 6}
+.mascot.happy .wing.r{animation:flapR .18s ease-in-out 6}
+.mascot.oops .m-all{animation:tilt .9s ease-in-out 1 forwards}
+.mascot.oops .tear{opacity:1}
+.mascot .tear{opacity:0;transition:opacity .3s}
+.mascot.think .pupil{animation:look 1.4s ease-in-out infinite}
+.mascot.talk .m-all{animation:none}
+@keyframes bob{50%{transform:translateY(-2px)}}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+@keyframes hop{0%{transform:translateY(0) scale(1,1)}30%{transform:translateY(-14px) scale(.95,1.05)}60%{transform:translateY(0) scale(1.06,.94)}100%{transform:translateY(0)}}
+@keyframes flapL{50%{transform:rotate(-28deg)}}
+@keyframes flapR{50%{transform:rotate(28deg)}}
+@keyframes tilt{30%{transform:rotate(-10deg)}100%{transform:rotate(-7deg)}}
+@keyframes look{0%,100%{transform:translateX(0)}30%{transform:translateX(-2px)}70%{transform:translateX(2px)}}
+
+/* home */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-family:var(--f-display);font-size:30px;line-height:1;color:var(--mint-d);display:flex;align-items:center;gap:8px}
+.iconbtn{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;padding:0}
+.iconbtn svg{width:22px;height:22px}
+.greet{display:grid;grid-template-columns:auto 1fr;gap:6px;align-items:end}
+.bubble{position:relative;background:var(--surface);border:2px solid var(--line);border-radius:20px;padding:12px 16px;font-size:15px;line-height:1.45;margin-bottom:22px}
+.bubble::before{content:"";position:absolute;left:-9px;bottom:16px;width:14px;height:14px;background:var(--surface);border-left:2px solid var(--line);border-bottom:2px solid var(--line);transform:rotate(45deg)}
+.bubble b{font-family:var(--f-display);font-weight:400;font-size:20px;display:block;margin-bottom:2px}
+.today{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;padding:16px}
+.ring{width:92px;height:92px;position:relative}
 .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
 .ring .lbl{position:absolute;inset:0;display:grid;place-content:center;text-align:center;line-height:1.1}
-.ring .lbl b{font-family:var(--f-mono);font-size:20px}
+.ring .lbl b{font-family:var(--f-display);font-weight:400;font-size:24px}
 .ring .lbl span{font-size:11px;color:var(--muted)}
-
-/* VU strip */
-.vu{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 14px 10px}
-.vu-bars{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;align-items:end;height:64px;margin-top:10px}
-.vu-bars i{display:block;border-radius:3px 3px 1px 1px;background:var(--sunk);min-height:4px}
-.vu-bars i.on{background:var(--teal)}
-.vu-bars i.today{background:var(--amber)}
-.vu-axis{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;margin-top:4px;font-family:var(--f-mono);font-size:10px;color:var(--muted);text-align:center}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-.stat{display:flex;flex-direction:column}
-.stat b{font-family:var(--f-mono);font-size:22px;font-variant-numeric:tabular-nums}
-.stat span{font-size:12px;color:var(--muted)}
-
-.cta{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;border:0;border-radius:var(--r);
-  padding:18px 20px;background:var(--amber);color:var(--on-amber);text-align:left}
-.cta b{font-family:var(--f-display);font-size:24px;font-weight:400;display:block;line-height:1.1}
+.stamps{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.stamp{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:11px;color:var(--muted)}
+.stamp i{width:100%;max-width:32px;aspect-ratio:1;border-radius:50%;background:var(--sunk);display:grid;place-items:center}
+.stamp i svg{width:18px;height:18px;opacity:.35}
+.stamp.on i{background:var(--butter)}
+.stamp.on i svg{opacity:1}
+.stamp.now span{color:var(--ink);font-weight:700}
+.streakline{font-size:14px;color:var(--muted);margin-bottom:10px}
+.streakline b{color:var(--ink);font-family:var(--f-display);font-weight:400;font-size:18px}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;border:0;border-radius:22px;
+  padding:18px 20px;background:var(--butter);color:var(--on-butter);text-align:left;box-shadow:0 5px 0 var(--butter-d);transition:transform .08s,box-shadow .08s}
+.cta:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--butter-d)}
+.cta b{font-family:var(--f-display);font-weight:400;font-size:24px;display:block;line-height:1.15}
 .cta span{font-size:13px;opacity:.85}
-.cta .arrow{font-family:var(--f-mono);font-size:28px}
-.cta.alt{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
-.cta.alt b{font-size:20px}
+.cta .arrow{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.55);font-size:22px;flex:none}
+.cta.alt{background:var(--surface);color:var(--ink);border:2px solid var(--line);box-shadow:0 5px 0 var(--line)}
+.cta.alt:active:not(:disabled){box-shadow:0 1px 0 var(--line)}
+.cta.alt .arrow{background:var(--sunk)}
+.cta.alt b{font-size:21px}
 .cta:disabled{opacity:.5;cursor:default}
-
-.note{font-size:13px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
-.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:3px 10px;border-radius:99px;background:var(--sunk);color:var(--muted)}
+.units{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.unit{display:flex;align-items:center;gap:10px;padding:12px;min-width:0}
+.unit .u-ring{width:40px;height:40px;flex:none}
+.unit .u-t{font-weight:700;font-size:14px;line-height:1.3}
+.unit .u-s{font-size:12px;color:var(--muted)}
+.note{font-size:13px;color:var(--muted);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 10px;border-radius:99px;background:var(--sunk);color:var(--muted)}
 .chip.ok{background:var(--goodbg);color:var(--good)}
+.chip.warn{background:var(--badbg);color:var(--bad)}
+.sec-h{font-family:var(--f-display);font-weight:400;font-size:20px}
 
 /* session */
 .topbar{display:flex;align-items:center;gap:12px}
-.x{border:0;background:transparent;font-size:22px;line-height:1;padding:6px;color:var(--muted)}
-.prog{flex:1;height:10px;border-radius:99px;background:var(--sunk);overflow:hidden}
-.prog i{display:block;height:100%;background:var(--teal);transition:width .3s}
-.combo{font-family:var(--f-mono);font-size:13px;color:var(--amber);min-width:44px;text-align:right}
-.task{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:flex;flex-direction:column;gap:16px}
-.task h2{font-size:15px;font-weight:500;color:var(--muted)}
-.prompt-ko{font-size:24px;font-weight:700;line-height:1.35}
-.prompt-en{font-size:22px;font-weight:600;line-height:1.35}
+.x{border:0;background:transparent;font-size:26px;line-height:1;padding:8px;color:var(--muted);min-width:44px;min-height:44px}
+.prog{flex:1;height:16px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.prog i{display:block;height:100%;background:var(--mint);border-radius:99px;transition:width .35s;box-shadow:inset 0 -4px 0 rgba(0,0,0,.08)}
+.combo{font-family:var(--f-display);font-size:16px;color:var(--coral);min-width:56px;text-align:right;display:flex;align-items:center;gap:2px;justify-content:flex-end}
+.combo svg{width:18px;height:18px}
+.task{background:transparent;padding:4px 2px;display:flex;flex-direction:column;gap:18px}
+.task h2{font-family:var(--f-display);font-weight:400;font-size:22px;color:var(--ink)}
+.asker{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:center}
+.asker .bubble{margin-bottom:0}
+.asker .bubble::before{bottom:auto;top:50%;margin-top:-7px}
+.prompt-ko{font-size:22px;font-weight:700;line-height:1.35}
+.prompt-en{font-size:21px;font-weight:700;line-height:1.35}
 .ctx{font-size:13px;color:var(--muted)}
-.speak{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--bg);border-radius:99px;padding:8px 14px;font-size:14px}
-.speak[aria-pressed="true"]{border-color:var(--teal);color:var(--teal)}
+.speak{display:inline-flex;align-items:center;gap:8px;border:2px solid var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-size:14px;min-height:44px;box-shadow:0 3px 0 var(--line)}
+.speak:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.speak[aria-pressed="true"]{border-color:var(--sky);color:var(--ink);background:color-mix(in srgb,var(--sky) 18%,var(--surface))}
+.speak.jumbo{width:84px;height:84px;padding:0;border-radius:24px;justify-content:center;background:var(--sky);border-color:transparent;color:#06263f;box-shadow:0 5px 0 color-mix(in srgb,var(--sky) 60%,#000)}
+.speak.jumbo svg{width:34px;height:34px}
+.speak.jumbo span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.opts{display:grid;gap:8px}
-.opt{border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:14px 16px;text-align:left;font-size:16px}
-.opt.right{border-color:var(--good);background:var(--goodbg)}
-.opt.wrong{border-color:var(--bad);background:var(--badbg)}
-.answer{display:flex;gap:8px;align-items:stretch}
-textarea{flex:1;min-width:0;resize:none;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:12px;padding:12px 14px;font:inherit;font-size:17px;min-height:54px}
-.mic{flex:none;width:54px;border-radius:12px;border:1px solid var(--line);background:var(--bg);display:grid;place-items:center}
-.mic svg{width:22px;height:22px}
-.mic.live{background:var(--bad);border-color:var(--bad);color:#fff;animation:pulse 1.2s infinite}
-@keyframes pulse{50%{opacity:.7}}
-@media (prefers-reduced-motion:reduce){.mic.live{animation:none}.prog i{transition:none}}
-.primary{border:0;border-radius:12px;padding:15px;font-weight:700;background:var(--teal);color:var(--on-teal);width:100%;font-size:16px}
-.primary:disabled{opacity:.45;cursor:default}
-.ghost{border:1px solid var(--line);background:transparent;border-radius:12px;padding:12px 14px;font-size:14px}
-.tiles{display:flex;flex-wrap:wrap;gap:8px;min-height:48px}
-.tiles.slot{border-bottom:2px dashed var(--line);padding-bottom:10px}
-.tile{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 12px;font-size:16px}
-.tile[disabled]{opacity:.25}
-.fb{border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.opts{display:grid;gap:10px}
+.opt{border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:15px 16px;text-align:left;font-size:16px;box-shadow:0 4px 0 var(--line);transition:transform .08s,box-shadow .08s}
+.opt:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.opt.right{border-color:var(--good);background:var(--goodbg);box-shadow:0 4px 0 var(--good)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg);box-shadow:0 4px 0 var(--bad)}
+.opt.right::after{content:" ✓";font-weight:700;color:var(--good)}
+.opt.wrong::after{content:" ✕";font-weight:700;color:var(--bad)}
+.answer{display:flex;flex-direction:column;align-items:center;gap:12px}
+.answer textarea{width:100%}
+textarea{flex:1;min-width:0;resize:none;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:16px;padding:12px 14px;font:inherit;font-size:17px;min-height:56px}
+.mic{flex:none;width:88px;height:88px;border-radius:50%;border:0;background:var(--mint);color:var(--on-mint);display:grid;place-items:center;box-shadow:0 6px 0 var(--mint-d);position:relative;transition:transform .08s,box-shadow .08s}
+.mic:active{transform:translateY(4px);box-shadow:0 2px 0 var(--mint-d)}
+.mic svg{width:36px;height:36px}
+.mic.live{background:var(--coral);box-shadow:0 6px 0 var(--coral-d)}
+.mic.live::after{content:"";position:absolute;inset:-8px;border-radius:50%;border:3px solid var(--coral);animation:ring 1.2s ease-out infinite}
+.mic-hint{font-size:13px;color:var(--muted);text-align:center}
+.composer .mic{width:56px;height:56px;box-shadow:0 4px 0 var(--mint-d)}
+.composer .mic svg{width:24px;height:24px}
+.composer .answer{flex-direction:row;align-items:stretch}
+@keyframes ring{from{transform:scale(.9);opacity:1}to{transform:scale(1.25);opacity:0}}
+.primary{border:0;border-radius:16px;padding:16px;font-weight:700;background:var(--mint);color:var(--on-mint);width:100%;font-size:17px;box-shadow:0 5px 0 var(--mint-d);transition:transform .08s,box-shadow .08s;min-height:52px}
+.primary:active:not(:disabled){transform:translateY(4px);box-shadow:0 1px 0 var(--mint-d)}
+.primary:disabled{opacity:.45;cursor:default;background:var(--sunk);color:var(--muted);box-shadow:0 5px 0 var(--line)}
+.ghost{border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:12px 14px;font-size:14px;min-height:44px;box-shadow:0 3px 0 var(--line)}
+.ghost:active{transform:translateY(2px);box-shadow:0 1px 0 var(--line)}
+.tiles{display:flex;flex-wrap:wrap;gap:8px;min-height:56px}
+.tiles.slot{border-bottom:2px dashed var(--line);padding-bottom:12px;align-content:flex-start}
+.tile{border:2px solid var(--line);background:var(--surface);border-radius:14px;padding:9px 14px;font-size:17px;box-shadow:0 4px 0 var(--line);transition:transform .08s,box-shadow .08s}
+.tile:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.tile[disabled]{opacity:.25;box-shadow:none}
+.actionbar{position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--bg);border-top:2px solid var(--line);
+  padding:12px max(16px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.actionbar .in{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+/* feedback sheet (bottom, thumb zone) */
+.fb{position:fixed;left:0;right:0;bottom:0;z-index:30;border-radius:24px 24px 0 0;
+  padding:16px max(16px,env(safe-area-inset-right,0px)) calc(14px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  animation:up .25s ease-out;max-height:70vh;overflow:auto}
+.fb .in{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
 .fb.good{background:var(--goodbg)}
 .fb.bad{background:var(--badbg)}
-.fb .head{font-weight:700}
+.fb .head{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:400;font-size:24px}
 .fb.good .head{color:var(--good)}
 .fb.bad .head{color:var(--bad)}
+.fb .primary{margin-top:6px}
+.fb.bad .primary{background:var(--coral);box-shadow:0 5px 0 var(--coral-d);color:#fff}
+.fb.bad .primary:active{box-shadow:0 1px 0 var(--coral-d)}
+@keyframes up{from{transform:translateY(100%)}to{transform:none}}
 .diff{font-size:17px;line-height:1.7}
-.diff .miss{background:var(--amber);color:var(--on-amber);border-radius:4px;padding:0 3px}
+.diff .miss{background:var(--butter);color:var(--on-butter);border-radius:6px;padding:0 4px}
 .diff .extra{text-decoration:line-through;color:var(--bad)}
-.xpfloat{font-family:var(--f-mono);font-weight:600;color:var(--amber)}
+.xpfloat{font-family:var(--f-display);font-size:18px;color:var(--butter-d);margin-left:auto}
 
 /* talk */
 .scen{display:grid;gap:10px}
-.scen button{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:var(--r);padding:14px 16px}
-.scen .lvl{font-family:var(--f-mono);font-size:12px;padding:2px 8px;border-radius:6px;background:var(--sunk)}
+.scen button{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;text-align:left;border:2px solid var(--line);background:var(--surface);border-radius:18px;padding:14px 16px;box-shadow:0 4px 0 var(--line);transition:transform .08s,box-shadow .08s}
+.scen button:active:not(:disabled){transform:translateY(3px);box-shadow:0 1px 0 var(--line)}
+.scen button:disabled{opacity:.5}
+.scen .lvl{font-family:var(--f-mono);font-size:12px;font-weight:600;padding:3px 8px;border-radius:8px;background:var(--butter);color:var(--on-butter)}
 .scen .t{font-weight:700}
 .scen .d{font-size:13px;color:var(--muted)}
 .missions{display:flex;gap:6px;flex-wrap:wrap}
+.missions .chip.ok{animation:pop .35s ease-out}
+@keyframes pop{50%{transform:scale(1.15)}}
 .chat{display:flex;flex-direction:column;gap:10px}
-.msg{max-width:88%;padding:12px 14px;border-radius:16px;display:flex;flex-direction:column;gap:6px;min-width:0;overflow-wrap:anywhere}
-.msg.ai{align-self:flex-start;background:var(--surface);border:1px solid var(--line);border-bottom-left-radius:4px}
-.msg.me{align-self:flex-end;background:var(--teal);color:var(--on-teal);border-bottom-right-radius:4px}
+.airow{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:end;align-self:flex-start;max-width:92%}
+.msg{max-width:88%;padding:12px 14px;border-radius:20px;display:flex;flex-direction:column;gap:6px;min-width:0;overflow-wrap:anywhere}
+.airow .msg{max-width:100%}
+.msg.ai{align-self:flex-start;background:var(--surface);border:2px solid var(--line);border-bottom-left-radius:6px}
+.msg.me{align-self:flex-end;background:var(--mint);color:var(--on-mint);border-bottom-right-radius:6px}
 .msg .ko{font-size:13px;color:var(--muted)}
 .msg .tools{display:flex;gap:6px}
-.msg .tools button{border:0;background:var(--sunk);border-radius:99px;font-size:12px;padding:4px 10px}
-.recast{align-self:flex-end;max-width:88%;font-size:14px;border-left:3px solid var(--amber);padding:6px 10px;background:var(--surface);border-radius:6px}
+.msg .tools button{border:0;background:var(--sunk);border-radius:99px;font-size:12px;padding:6px 12px;min-height:32px}
+.recast{align-self:flex-end;max-width:88%;font-size:14px;border-left:4px solid var(--butter);padding:8px 12px;background:var(--surface);border-radius:10px}
 .recast b{display:block}
 .sugg{display:flex;gap:8px;flex-wrap:wrap}
-.sugg button{border:1px dashed var(--line);background:transparent;border-radius:99px;padding:6px 12px;font-size:14px;text-align:left}
-.typing{color:var(--muted);font-size:14px}
+.sugg button{border:2px dashed var(--line);background:var(--surface);border-radius:99px;padding:8px 14px;font-size:14px;text-align:left;min-height:40px}
+.typing{color:var(--muted);font-size:14px;display:flex;align-items:center;gap:8px}
+.dots{display:inline-flex;gap:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:dot 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes dot{0%,80%,100%{opacity:.25;transform:none}40%{opacity:1;transform:translateY(-3px)}}
 .composer{position:sticky;bottom:calc(76px + env(safe-area-inset-bottom,0px));background:var(--bg);padding-top:8px;display:flex;flex-direction:column;gap:8px}
+body.focus .composer{bottom:calc(8px + env(safe-area-inset-bottom,0px))}
+.hf{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
 
 /* deck */
-.filters{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
-.filters button{flex:none;border:1px solid var(--line);background:transparent;border-radius:99px;padding:6px 12px;font-size:13px}
-.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-.cards{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
-.card{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 16px;border-top:1px solid var(--line);align-items:center}
+.filters{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+.filters button{flex:none;border:2px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 14px;font-size:13px;min-height:38px}
+.filters button[aria-pressed="true"]{background:var(--mint);color:var(--on-mint);border-color:var(--mint)}
+.cards{display:flex;flex-direction:column;border:2px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.card{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 16px;border-top:2px solid var(--line);align-items:center}
 .card:first-child{border-top:0}
-.card .en{font-weight:600;min-width:0}
+.card .en{font-weight:700;min-width:0}
 .card .ko{font-size:13px;color:var(--muted);grid-column:1}
 .card .m{grid-row:1/3;grid-column:2;display:flex;flex-direction:column;align-items:end;gap:4px}
-.meter{display:flex;gap:2px}
-.meter i{width:6px;height:14px;border-radius:2px;background:var(--sunk)}
-.meter i.on{background:var(--teal)}
+.meter{display:flex;gap:3px}
+.meter i{width:8px;height:16px;border-radius:4px;background:var(--sunk)}
+.meter i.on{background:var(--mint)}
 .card .m span{font-size:11px;color:var(--muted)}
 
 /* science */
-.prin{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
-.prin article{padding:16px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:6px}
+.prin{display:flex;flex-direction:column;border:2px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.prin article{padding:16px;border-top:2px solid var(--line);display:flex;flex-direction:column;gap:6px}
 .prin article:first-child{border-top:0}
 .prin h3{font-size:17px}
 .prin .src{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 .prin .use{font-size:14px}
-.prin .use b{color:var(--teal)}
-.lead{font-size:15px;max-width:65ch}
+.prin .use b{color:var(--mint-d)}
 
 /* recap */
-.big{font-family:var(--f-display);font-size:40px;line-height:1}
+.celebrate{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;padding-top:10px}
+.big{font-family:var(--f-display);font-size:48px;line-height:1;color:var(--butter-d)}
 .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.kpi b{font-family:var(--f-mono);font-size:24px;display:block}
+.kpi{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:12px 14px;box-shadow:0 4px 0 var(--line)}
+.kpi b{font-family:var(--f-display);font-weight:400;font-size:28px;display:block}
 .kpi span{font-size:12px;color:var(--muted)}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:60}
+
+/* sheet (settings) */
+.scrim{position:fixed;inset:0;z-index:45;background:rgba(10,20,15,.45);animation:fade .2s}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:46;background:var(--surface);border-radius:26px 26px 0 0;max-height:88vh;overflow:auto;animation:up .25s ease-out;
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet .in{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.sheet .grab{width:44px;height:5px;border-radius:99px;background:var(--line);margin:4px auto 6px}
+@keyframes fade{from{opacity:0}}
+.setrow{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px}
+.setrow .lab{display:flex;flex-direction:column}
+.setrow .lab small{font-size:12px;color:var(--muted)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{border:2px solid var(--line);background:var(--surface);border-radius:12px;padding:8px 12px;min-height:40px;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--mint);border-color:var(--mint);color:var(--on-mint);font-weight:700}
+.switch{appearance:none;-webkit-appearance:none;width:52px;height:32px;border-radius:99px;background:var(--sunk);border:2px solid var(--line);position:relative;flex:none;cursor:pointer;transition:background .15s}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .15s}
+.switch:checked{background:var(--mint);border-color:var(--mint)}
+.switch:checked::after{left:22px}
+
+/* onboarding */
+.ob{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;padding-top:12px}
+.ob .dots-step{display:flex;gap:6px}
+.ob .dots-step i{width:8px;height:8px;border-radius:50%;background:var(--line)}
+.ob .dots-step i.on{background:var(--mint);width:22px;border-radius:99px}
+.pick{display:grid;gap:10px;width:100%}
+.pick button{display:flex;justify-content:space-between;align-items:center;text-align:left;padding:14px 16px;font-size:16px}
+.pick button[aria-pressed="true"]{border-color:var(--mint);box-shadow:0 4px 0 var(--mint-d);background:color-mix(in srgb,var(--mint) 12%,var(--surface))}
+.pick button small{color:var(--muted);font-size:13px}
 
 /* tab bar */
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
-nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);
+nav.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:2px solid var(--line);
   padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+body.focus nav.tabs{display:none}
 nav.tabs .in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,1fr)}
-nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;text-decoration:none;color:var(--muted);font-size:11px}
-nav.tabs a svg{width:22px;height:22px}
-nav.tabs a[aria-current="page"]{color:var(--ink)}
-nav.tabs a[aria-current="page"] svg{color:var(--amber)}
-.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;z-index:30;max-width:calc(100% - 32px)}
-@media (max-width:380px){.brand{font-size:52px}.ring{width:84px;height:84px}}
+nav.tabs a{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 0;text-decoration:none;color:var(--muted);font-size:11px;border-radius:14px;min-height:48px}
+nav.tabs a svg{width:24px;height:24px}
+nav.tabs a[aria-current="page"]{color:var(--mint-d);background:color-mix(in srgb,var(--mint) 12%,transparent);font-weight:700}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:14px;font-size:14px;z-index:70;max-width:calc(100% - 32px);animation:fade .2s}
+body.focus .toast{top:calc(12px + env(safe-area-inset-top,0px));bottom:auto}
 /* on-device model setup */
 .models{display:grid;gap:8px}
-.model{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);background:var(--bg);border-radius:12px;padding:12px 14px;text-align:left}
-.model[aria-checked="true"]{border-color:var(--teal);box-shadow:inset 0 0 0 1px var(--teal)}
-.model .dot{width:16px;height:16px;border-radius:50%;border:2px solid var(--line)}
-.model[aria-checked="true"] .dot{border-color:var(--teal);background:radial-gradient(var(--teal) 45%,transparent 50%)}
+.model{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:12px 14px;text-align:left;box-shadow:0 3px 0 var(--line)}
+.model[aria-checked="true"]{border-color:var(--mint);box-shadow:0 3px 0 var(--mint-d)}
+.model .dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--line)}
+.model[aria-checked="true"] .dot{border-color:var(--mint);background:radial-gradient(var(--mint) 45%,transparent 50%)}
 .model .nm{font-weight:700}
 .model .sub{font-size:12px;color:var(--muted)}
 .model .sz{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 .dl{display:flex;flex-direction:column;gap:6px}
-.dl .bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
-.dl .bar i{display:block;height:100%;width:0;background:var(--amber);transition:width .2s}
+.dl .bar{height:12px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.dl .bar i{display:block;height:100%;width:0;background:var(--butter);transition:width .2s}
 .dl .txt{font-family:var(--f-mono);font-size:11px;color:var(--muted);overflow-wrap:anywhere}
+.card-s{background:var(--surface);border:2px solid var(--line);border-radius:var(--r);padding:16px;display:flex;flex-direction:column;gap:12px}
+.card-s.today{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
+.lab{display:flex;flex-direction:column;gap:2px}
+.lab small{font-size:12px;color:var(--muted)}
+@media (max-width:380px){.title{font-size:28px}.ring{width:80px;height:80px}.units{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+}
 </style>
 </head>
 <body>
@@ -285,10 +410,13 @@ const ICON = {
 
 /* ---------- state & persistence ---------- */
 const LS_KEY = "malmun.v1";
-const DAILY_GOAL = 50, NEW_PER_DAY = 6;
-function blank(){ return {v:1,cards:{},xp:0,streak:0,lastDay:null,hist:{},custom:[],newDay:null,newCount:0,talks:0,sessions:0,errors:{},updatedAt:0}; }
+const NEW_PER_DAY = 6;
+const SETTINGS_DEFAULT = {goal:50, sound:true, haptic:true, handsfree:false, autosubmit:true, showKo:false, rate:1, interests:[]};
+function blank(){ return {v:1,cards:{},xp:0,streak:0,lastDay:null,hist:{},custom:[],newDay:null,newCount:0,talks:0,sessions:0,errors:{},settings:{...SETTINGS_DEFAULT},onboarded:false,updatedAt:0}; }
+function hydrate(obj){ const s = Object.assign(blank(), obj||{}); s.settings = Object.assign({...SETTINGS_DEFAULT}, (obj&&obj.settings)||{}); return s; }
 let S = blank();
-try { const raw = localStorage.getItem(LS_KEY); if (raw) S = Object.assign(blank(), JSON.parse(raw)); } catch(e) {}
+try { const raw = localStorage.getItem(LS_KEY); if (raw) { S = hydrate(JSON.parse(raw)); if (!("onboarded" in JSON.parse(raw)) && (S.sessions || Object.keys(S.cards).length)) S.onboarded = true; } } catch(e) {}
+const goal = () => S.settings.goal || 50;
 const store = { ok:false };
 function save(){
   S.updatedAt = Date.now();
@@ -296,6 +424,69 @@ function save(){
 }
 function allCards(){ return DECK.concat(S.custom||[]); }
 function cardById(id){ return allCards().find(c=>c.id===id); }
+
+
+/* ---------- mascot: an original parrot chick. moods: idle · happy · oops · think · talk ---------- */
+const MASCOT_SVG = `<svg class="mascot" viewBox="0 0 100 100" aria-hidden="true">
+<g class="m-all">
+ <path d="M47 31c-7-13-1-20 4-21-1 7 1 14-1 21z" fill="#FF7A6B"/><path d="M53 32c2-12 9-17 15-16-3 6-8 12-12 17z" fill="#FF9A8C"/>
+ <ellipse class="wing l" cx="22" cy="63" rx="8" ry="13" fill="#F2BE3A"/><ellipse class="wing r" cx="78" cy="63" rx="8" ry="13" fill="#F2BE3A"/>
+ <circle cx="50" cy="60" r="30" fill="#FFD45C"/><ellipse cx="50" cy="72" rx="17" ry="13" fill="#FFE9A6"/>
+ <circle cx="32" cy="66" r="4.5" fill="#FF7A6B" opacity=".45"/><circle cx="68" cy="66" r="4.5" fill="#FF7A6B" opacity=".45"/>
+ <g class="eye"><circle cx="39" cy="53" r="8" fill="#fff"/><g class="pupil"><circle cx="40" cy="54" r="4.6" fill="#1F2A26"/><circle cx="41.6" cy="52.2" r="1.6" fill="#fff"/></g></g>
+ <g class="eye"><circle cx="61" cy="53" r="8" fill="#fff"/><g class="pupil"><circle cx="60" cy="54" r="4.6" fill="#1F2A26"/><circle cx="61.6" cy="52.2" r="1.6" fill="#fff"/></g></g>
+ <path class="tear" d="M31 58c-2 3-2 5 0 6 2-1 2-3 0-6z" fill="#79C2FF"/>
+ <path d="M43 61q7-6 14 0q-7 7-14 0z" fill="#FF9A3C"/><path class="beak-lo" d="M45 63q5 6 10 0q-5 2-10 0z" fill="#E2762A"/>
+ <path d="M42 89l-3 5M42 89l0 6M58 89l3 5M58 89l0 6" stroke="#E2762A" stroke-width="2.4" stroke-linecap="round"/>
+</g></svg>`;
+function mascot(size=72, mood="idle"){ const t = document.createElement("template"); t.innerHTML = MASCOT_SVG.trim(); const el = t.content.firstChild; el.style.width = size+"px"; el.style.height = size+"px"; setMood(el, mood); return el; }
+const MOODS = ["happy","oops","think","talk"];
+function setMood(el, mood){ if (!el) return; el.classList.remove(...MOODS); if (mood && mood !== "idle") { void el.getBoundingClientRect(); el.classList.add(mood); } }
+let speaker = null; /* the mascot whose beak follows the voice */
+
+/* ---------- juice: sound, haptics, confetti ---------- */
+const reduced = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+let actx = null;
+function tone(freq, start, dur, type="sine", vol=.18){
+  const o = actx.createOscillator(), g = actx.createGain(); o.type = type; o.frequency.setValueAtTime(freq, actx.currentTime+start);
+  g.gain.setValueAtTime(0.0001, actx.currentTime+start); g.gain.exponentialRampToValueAtTime(vol, actx.currentTime+start+.015);
+  g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime+start+dur); o.connect(g).connect(actx.destination); o.start(actx.currentTime+start); o.stop(actx.currentTime+start+dur+.02);
+}
+const SFX = {
+  ding:()=>{ tone(1046,0,.12); tone(1318,.09,.22); },
+  bloop:()=>{ tone(330,0,.16,"triangle",.2); tone(247,.12,.24,"triangle",.18); },
+  combo:()=>{ [784,988,1175,1568].forEach((f,i)=>tone(f,i*.06,.14,"square",.06)); },
+  fanfare:()=>{ [523,659,784,1046].forEach((f,i)=>tone(f,i*.12,.22,"triangle",.16)); tone(1046,.5,.5,"sine",.14); },
+  tap:()=>{ tone(660,0,.05,"sine",.08); }
+};
+function sfx(name){ if (!S.settings.sound) return; try { actx = actx || new (window.AudioContext||window.webkitAudioContext)(); if (actx.state==="suspended") actx.resume(); SFX[name] && SFX[name](); } catch(e){} }
+function haptic(p){ if (S.settings.haptic && navigator.vibrate) { try { navigator.vibrate(p); } catch(e){} } }
+function confetti(){
+  if (reduced()) return;
+  const c = h("canvas",{class:"confetti","aria-hidden":"true"}); document.body.append(c);
+  const W = c.width = innerWidth*devicePixelRatio, H = c.height = innerHeight*devicePixelRatio, x = c.getContext("2d");
+  const cols = ["#2DBE8C","#FFD45C","#FF7A6B","#79C2FF","#B794F6"];
+  const P = Array.from({length:110},()=>({x:W/2+(Math.random()-.5)*W*.3, y:H*.35, vx:(Math.random()-.5)*14*devicePixelRatio, vy:(-Math.random()*16-6)*devicePixelRatio, s:(5+Math.random()*6)*devicePixelRatio, r:Math.random()*6, vr:(Math.random()-.5)*.4, c:cols[Math.random()*cols.length|0]}));
+  const t0 = performance.now();
+  (function frame(t){ const k = (t-t0)/1500; x.clearRect(0,0,W,H);
+    P.forEach(p=>{ p.vy += .55*devicePixelRatio; p.x += p.vx; p.y += p.vy; p.r += p.vr; x.save(); x.translate(p.x,p.y); x.rotate(p.r); x.globalAlpha = Math.max(0,1-k); x.fillStyle=p.c; x.fillRect(-p.s/2,-p.s/3,p.s,p.s*.66); x.restore(); });
+    if (k < 1) requestAnimationFrame(frame); else c.remove(); })(t0);
+}
+function countUp(el, to, ms=900){ if (reduced()) { el.textContent = to; return; } const t0 = performance.now(); (function f(t){ const k = Math.min(1,(t-t0)/ms); el.textContent = Math.round(to*(1-Math.pow(1-k,3))); if (k<1) requestAnimationFrame(f); })(t0); }
+const FLAME = '<svg viewBox="0 0 24 24"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-2 1-3 2-4 0 2 1 3 2 3-1-3 0-6 1-9z" fill="#FF7A6B"/><path d="M12 12c1 1.5 2.5 2 2.5 4a2.5 2.5 0 0 1-5 0c0-1.5 1.5-2 2.5-4z" fill="#FFD45C"/></svg>';
+
+/* ---------- bottom sheet ---------- */
+function openSheet(title, build){
+  closeSheet();
+  const scrim = h("div",{class:"scrim",onclick:closeSheet});
+  const inner = h("div",{class:"in"}, h("div",{class:"grab","aria-hidden":"true"}), h("div",{class:"row",style:"justify-content:space-between"}, h("h2",{class:"sec-h"}, title), h("button",{class:"x","aria-label":"닫기",onclick:closeSheet},"×")));
+  const sheet = h("div",{class:"sheet",role:"dialog","aria-modal":"true","aria-label":title}, inner);
+  build(inner); document.body.append(scrim, sheet);
+  const f = sheet.querySelector("button,input"); if (f) f.focus();
+}
+function closeSheet(){ document.querySelectorAll(".scrim,.sheet").forEach(x=>x.remove()); }
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
+function setFocusMode(on){ document.body.classList.toggle("focus", !!on); }
 
 /* ---------- device features (all optional; the core loop works with none) ---------- */
 const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -307,10 +498,18 @@ let enVoice = null;
 function pickVoice(){ try { const vs = speechSynthesis.getVoices(); enVoice = vs.find(v=>/en[-_]US/i.test(v.lang)&&/Samantha|Google|Natural|Aria|Jenny|Ava|Allison/i.test(v.name)) || vs.find(v=>/^en[-_]US/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang)) || null; } catch(e){} }
 try { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; } catch(e) {}
 function canSpeak(){ return "speechSynthesis" in window; }
-async function say(text, rate=1, btn){
+async function say(text, rate=1, btn, who){
   if (!canSpeak()) return;
+  const m = who || speaker;
   if (btn) btn.setAttribute("aria-pressed","true");
-  await new Promise(res => { try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang="en-US"; if (enVoice) u.voice=enVoice; u.rate = rate; u.onend=res; u.onerror=res; speechSynthesis.speak(u); setTimeout(res, 9000); } catch(_) { res(); } });
+  let flap = null;
+  await new Promise(res => { try {
+    speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang="en-US"; if (enVoice) u.voice=enVoice; u.rate = rate * (S.settings.rate||1);
+    u.onstart = () => { if (m) { setMood(m,"talk"); flap = setInterval(()=>m.classList.toggle("open", Math.random() > .35), 120); } };
+    u.onboundary = () => { if (m) { m.classList.add("open"); setTimeout(()=>m.classList.remove("open"), 90); } };
+    u.onend = res; u.onerror = res; speechSynthesis.speak(u); setTimeout(res, 12000);
+  } catch(_) { res(); } });
+  clearInterval(flap); if (m) { m.classList.remove("open"); if (m.classList.contains("talk")) setMood(m,"idle"); }
   if (btn) btn.setAttribute("aria-pressed","false");
 }
 function speakBtn(text, label="듣기", rate=1){ const b = h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span></span>"}); b.querySelector("span").textContent=label; b.onclick=()=>say(text,rate,b); return b; }
@@ -338,7 +537,8 @@ function micFor(field){
       else if (e.error==="network") toast("음성인식에 인터넷 연결이 필요해요.");
     };
     r.onend = () => { b.classList.remove("live"); field.placeholder = field.dataset.ph || ""; if (rec === r) rec = null;
-      if (tFirst && tLast > tFirst) field.dataset.speechMs = String(Number(field.dataset.speechMs||0) + (tLast - tFirst) + 400); };
+      if (tFirst && tLast > tFirst) field.dataset.speechMs = String(Number(field.dataset.speechMs||0) + (tLast - tFirst) + 400);
+      if (typeof field._onSpoken === "function" && field.value.trim()) field._onSpoken(); };
     try { r.start(); b.classList.add("live"); field.placeholder = "듣고 있어요…"; } catch(e) { rec = null; }
   };
   return b;
@@ -457,46 +657,130 @@ let session = null, talk = null;
 const inSession = () => !!(session && !session.done) || !!(talk && talk.active);
 function route(){
   const name = (location.hash||"#home").slice(1); const v = VIEWS[name] ? name : "home";
+  closeSheet(); setFocusMode(false); speaker = null;
   document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.tab===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
-  const app = $("#app"); app.replaceChildren(); VIEWS[v](app); window.scrollTo(0,0);
+  const app = $("#app"); app.replaceChildren();
+  if (!S.onboarded && v !== "science") { viewOnboarding(app); window.scrollTo(0,0); return; }
+  VIEWS[v](app); window.scrollTo(0,0);
 }
 window.addEventListener("hashchange", () => { stopDict(); session = null; if (talk) talk.active = false; route(); });
+const MASCOT_NAME = "따삐";
+const ringSvg = (pct, size=96, stroke=9, color="var(--mint)") => { const r = size/2 - stroke/2 - 1, C = 2*Math.PI*r;
+  return `<svg viewBox="0 0 ${size} ${size}"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--sunk)" stroke-width="${stroke}"/><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-Math.max(0,Math.min(1,pct)))}"/></svg>`; };
+function asker(box, text, mood="idle", size=60){
+  const m = mascot(size, mood); speaker = m;
+  box.append(h("div",{class:"asker"}, m, h("div",{class:"bubble"}, h("h2",{}, text))));
+  box.mascot = m; return m;
+}
+function actionBar(...kids){ const bar = h("div",{class:"actionbar"}, h("div",{class:"in"}, ...kids)); $("#app").append(bar); return bar; }
+
+/* ---------- ONBOARDING (goal → situations → sound & mic) ---------- */
+function viewOnboarding(app){
+  setFocusMode(true);
+  let step = 0; const picked = new Set(S.settings.interests||[]); let goalPick = S.settings.goal || 50;
+  const finishOb = (celebrate) => { S.onboarded = true; S.settings.goal = goalPick; S.settings.interests = [...picked]; save(); if (celebrate) { confetti(); sfx("fanfare"); } location.hash = "#home"; route(); };
+  const draw = () => {
+    app.replaceChildren(); speaker = null;
+    const skip = h("button",{class:"ghost",type:"button",onclick:()=>finishOb(false)},"건너뛰기");
+    app.append(h("div",{class:"top"}, h("div",{class:"ob"}, h("div",{class:"dots-step","aria-label":`${step+1}/3 단계`}, ...[0,1,2].map(i=>h("i",{class:i===step?"on":""})))), skip));
+    const ob = h("section",{class:"ob"}); app.append(ob);
+    const next = h("button",{class:"primary"}, step < 2 ? "다음" : "시작하기");
+    if (step === 0) {
+      const m = mascot(120,"happy"); speaker = m;
+      ob.append(m, h("h1",{class:"title"}, `안녕, 나는 ${MASCOT_NAME}야!`), h("p",{class:"muted"},"네 말을 따라 하며 영어 말문을 틔워 줄게. 하루에 얼마나 할까?"));
+      const pick = h("div",{class:"pick",role:"radiogroup","aria-label":"하루 목표"});
+      [[10,"가볍게","하루 1분"],[30,"꾸준히","하루 3분"],[50,"제대로","하루 5분 · 추천"],[100,"불태우기","하루 10분"]].forEach(([g,t,d]) =>
+        pick.append(h("button",{class:"press",type:"button",role:"radio","aria-pressed":String(g===goalPick),"aria-checked":String(g===goalPick),onclick:()=>{ goalPick=g; sfx("tap"); draw(); }}, h("span",{}, h("b",{}, t), " ", h("small",{}, d)), h("span",{class:"mono"}, g+" XP"))));
+      ob.append(pick);
+    } else if (step === 1) {
+      ob.append(mascot(96,"think"), h("h1",{class:"title"},"어떤 상황에서 영어가 필요해?"), h("p",{class:"muted"},"고른 상황의 표현부터 먼저 보여 줄게. 여러 개 골라도 돼."));
+      const pick = h("div",{class:"pick"});
+      [...new Set(DECK.map(c=>c.tag))].forEach(t => pick.append(h("button",{class:"press",type:"button","aria-pressed":String(picked.has(t)),onclick:()=>{ picked.has(t)?picked.delete(t):picked.add(t); sfx("tap"); draw(); }}, h("b",{}, t), h("small",{}, DECK.filter(c=>c.tag===t).length+"개 표현"))));
+      ob.append(pick);
+    } else {
+      const m = mascot(110); speaker = m;
+      ob.append(m, h("h1",{class:"title"},"소리랑 마이크를 확인해 볼까?"), h("p",{class:"muted"},"내가 먼저 말해 볼게. 들리면 따라 해 봐!"));
+      const hear = h("button",{class:"speak",type:"button",html:ICON.spk+"<span>소리 듣기</span>"}); hear.onclick = () => say("Hi! Nice to meet you.", 1, hear, m);
+      ob.append(h("div",{class:"row",style:"justify-content:center"}, hear));
+      if (caps.dict) {
+        const ta = h("textarea",{id:"ob-mic",rows:"1",placeholder:"마이크를 누르고 'Nice to meet you'","data-ph":"마이크를 누르고 'Nice to meet you'","aria-label":"마이크 테스트"});
+        ta._onSpoken = () => { if (ta.value.trim()) { setMood(m,"happy"); sfx("ding"); toast("잘 들려! 준비 끝"); } };
+        ob.append(h("div",{class:"answer",style:"width:100%"}, micFor(ta), ta));
+      } else ob.append(h("p",{class:"ctx"},"이 브라우저는 음성 입력을 지원하지 않아 타이핑으로 진행해요. Android Chrome에서는 말로 답할 수 있어요."));
+    }
+    next.onclick = () => { sfx("tap"); if (step < 2) { step++; draw(); } else finishOb(true); };
+    actionBar(next);
+  };
+  draw();
+}
+
+/* ---------- SETTINGS (bottom sheet) ---------- */
+function openSettings(){
+  openSheet("설정", inner => {
+    const set = (k, v) => { S.settings[k] = v; save(); sfx("tap"); };
+    const seg = (label, sub, opts, key, fmt) => { const box = h("div",{class:"seg",role:"group","aria-label":label});
+      const draw = () => box.replaceChildren(...opts.map(o => h("button",{type:"button","aria-pressed":String(S.settings[key]===o),onclick:()=>{ set(key,o); draw(); if (key==="rate") say("Nice to meet you.",1); }}, fmt(o))));
+      draw(); return h("div",{style:"display:flex;flex-direction:column;gap:8px"}, h("div",{class:"lab"}, h("b",{}, label), sub ? h("small",{class:"ctx"}, sub) : ""), box); };
+    const sw = (key, label, sub) => { const id = "set-"+key; const cb = h("input",{type:"checkbox",class:"switch",id,role:"switch"}); cb.checked = !!S.settings[key]; cb.onchange = () => set(key, cb.checked);
+      return h("label",{class:"setrow",for:id}, h("span",{class:"lab"}, h("b",{}, label), sub ? h("small",{}, sub) : ""), cb); };
+    inner.append(seg("하루 목표", "목표 링이 이만큼 차면 오늘 완료", [10,30,50,100], "goal", o=>o+" XP"));
+    inner.append(sw("sound","효과음","정답·오답·축하 소리"));
+    if (navigator.vibrate) inner.append(sw("haptic","진동","정답·오답 때 짧게 떨림"));
+    if (caps.dict) inner.append(sw("autosubmit","말 끝나면 바로 채점","마이크를 다시 누르지 않아도 돼요"));
+    if (caps.dict) inner.append(sw("handsfree","핸즈프리 대화","AI가 말을 마치면 자동으로 듣기 시작 (일부 기기에선 동작하지 않아요)"));
+    inner.append(sw("showKo","번역 먼저 보기","AI 대화에서 한국어 번역을 펼쳐 둬요"));
+    inner.append(seg("원어민 말하기 속도", "", [0.8,1,1.2], "rate", o=>o===1?"보통":o<1?"천천히":"빠르게"));
+    const file = h("input",{type:"file",accept:"application/json,.json",hidden:true,id:"import-file"});
+    file.onchange = () => { const f = file.files && file.files[0]; if (!f) return; const rd = new FileReader();
+      rd.onload = () => { try { const o = JSON.parse(String(rd.result)); if (!o || typeof o.cards !== "object") throw 0; S = hydrate(o); S.onboarded = true; save(); closeSheet(); toast("학습 기록을 복원했어요"); route(); } catch(e) { toast("말문 백업 파일이 아니에요. 다시 골라 주세요."); } };
+      rd.readAsText(f); };
+    const exp = h("button",{class:"ghost",type:"button"},"기록 내보내기");
+    exp.onclick = () => { const blob = new Blob([JSON.stringify(S)],{type:"application/json"}); const a = h("a",{href:URL.createObjectURL(blob),download:`malmun-${dayKey()}.json`}); document.body.append(a); a.click(); a.remove(); toast("백업 파일을 저장했어요"); };
+    const imp = h("button",{class:"ghost",type:"button",onclick:()=>file.click()},"기록 가져오기");
+    inner.append(h("div",{style:"display:flex;flex-direction:column;gap:8px"}, h("div",{class:"lab"}, h("b",{},"학습 기록 백업"), h("small",{class:"ctx"},"기록은 이 기기에만 저장돼요. 기기를 바꿀 땐 파일로 옮기세요.")), h("div",{class:"row"}, exp, imp, file)));
+  });
+}
 
 /* ---------- HOME ---------- */
 function viewHome(app){
-  const today = S.hist[dayKey()]||0, pct = Math.min(1, today/DAILY_GOAL), C = 2*Math.PI*42;
-  const ring = h("div",{class:"ring",html:`<svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="42" fill="none" stroke="var(--sunk)" stroke-width="9"/><circle cx="48" cy="48" r="42" fill="none" stroke="var(--amber)" stroke-width="9" stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct)}"/></svg>`},
-    h("div",{class:"lbl"}, h("b",{}, String(today)), h("span",{}, "/ "+DAILY_GOAL+" XP")));
-  app.append(h("section",{class:"hero"}, h("h1",{class:"brand"},"말문", h("small",{},"하루 5분, 입으로 굳히는 영어 덩어리 표현")), ring));
-
-  const days = [...Array(14)].map((_,i)=>{ const d=new Date(Date.now()-(13-i)*DAY); return {k:dayKey(d), d}; });
-  const max = Math.max(DAILY_GOAL, ...days.map(x=>S.hist[x.k]||0));
-  const bars = h("div",{class:"vu-bars",role:"img","aria-label":"최근 14일 학습량"});
-  const axis = h("div",{class:"vu-axis"});
-  days.forEach((x,i)=>{ const v=S.hist[x.k]||0; bars.append(h("i",{class:(i===13?"today":v?"on":""),style:`height:${Math.max(6,Math.round(v/max*100))}%`,title:`${x.k} · ${v} XP`})); axis.append(h("span",{}, i%2===1||i===13? String(x.d.getDate()) : "")); });
-  const known = Object.keys(S.cards).filter(id=>mastery(id)>=3).length;
-  app.append(h("section",{class:"vu"}, h("div",{class:"eyebrow"},"최근 14일 · 일일 목표 "+DAILY_GOAL+" XP"), bars, axis,
-    h("div",{class:"stats"},
-      h("div",{class:"stat"}, h("b",{}, streakNow()+"일"), h("span",{},"연속 학습")),
-      h("div",{class:"stat"}, h("b",{}, String(dueList().length)), h("span",{},"복습할 표현")),
-      h("div",{class:"stat"}, h("b",{}, known+"/"+allCards().length), h("span",{},"입에 붙은 표현")))));
-
+  const today = S.hist[dayKey()]||0, g = goal();
   const due = dueList().length, fresh = allCards().filter(c=>!S.cards[c.id]).length;
-  app.append(h("button",{class:"cta",onclick:()=>location.hash="#learn"},
-    h("div",{}, h("b",{}, S.sessions? "오늘의 5분 이어가기":"첫 5분 시작하기"), h("span",{}, `복습 ${due}개 · 새 표현 ${Math.min(fresh, Math.max(0, NEW_PER_DAY-(S.newDay===dayKey()?S.newCount:0)))}개`)),
+  const newLeft = Math.min(fresh, Math.max(0, NEW_PER_DAY-(S.newDay===dayKey()?S.newCount:0)));
+  const gear = h("button",{class:"iconbtn press",type:"button","aria-label":"설정",onclick:openSettings,html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'});
+  app.append(h("div",{class:"top"}, h("div",{class:"logo"}, mascot(34), "말문"), gear));
+
+  const hr = new Date().getHours();
+  const hello = hr < 5 ? "아직 안 잤어?" : hr < 11 ? "좋은 아침!" : hr < 17 ? "반가워!" : hr < 22 ? "좋은 저녁!" : "자기 전에 딱 5분!";
+  const line = today >= g ? "오늘 목표 달성! AI랑 대화로 마무리해 볼까?" : due ? `잊어버리기 직전인 표현이 ${due}개 있어. 지금 꺼내면 오래 가!` : S.sessions ? `새 표현 ${newLeft}개가 기다려. 같이 입에 붙여 보자!` : "처음이지? 5분이면 표현 6개를 입에 붙일 수 있어.";
+  const m = mascot(92, today >= g ? "happy" : "idle"); speaker = m;
+  m.addEventListener("click", () => { setMood(m,"happy"); sfx("tap"); haptic(10); setTimeout(()=>setMood(m,"idle"), 1300); });
+  app.append(h("section",{class:"greet"}, m, h("div",{class:"bubble"}, h("b",{}, hello), line)));
+
+  const days = [...Array(7)].map((_,i)=>{ const d=new Date(Date.now()-(6-i)*DAY); return {k:dayKey(d), d}; });
+  const WD = ["일","월","화","수","목","금","토"];
+  const stamps = h("div",{class:"stamps",role:"list","aria-label":"최근 7일 출석"}, ...days.map((x,i)=>{ const on = (S.hist[x.k]||0) > 0;
+    return h("div",{class:"stamp"+(on?" on":"")+(i===6?" now":""),role:"listitem","aria-label":`${WD[x.d.getDay()]}요일 ${on?"학습함":"쉼"}`}, h("i",{html:FLAME}), h("span",{}, i===6 ? "오늘" : WD[x.d.getDay()])); }));
+  const ring = h("div",{class:"ring",html:ringSvg(today/g, 96, 10, today>=g?"var(--mint)":"var(--butter)")}, h("div",{class:"lbl"}, h("b",{}, String(today)), h("span",{}, "/ "+g+" XP")));
+  app.append(h("section",{class:"card-s today"}, ring, h("div",{style:"min-width:0"}, h("p",{class:"streakline",html:FLAME.replace("<svg",'<svg width="18" height="18" style="vertical-align:-3px"')}, " ", h("b",{}, streakNow()+"일"), " 연속 학습 중"), stamps)));
+
+  app.append(h("button",{class:"cta",onclick:()=>{ sfx("tap"); location.hash="#learn"; }},
+    h("div",{}, h("b",{}, S.sessions? "오늘의 5분 이어가기":"첫 5분 시작하기"), h("span",{}, `복습 ${due}개 · 새 표현 ${newLeft}개`)),
     h("span",{class:"arrow","aria-hidden":"true"},"→")));
-  app.append(h("button",{class:"cta alt",onclick:()=>location.hash="#talk"},
+  app.append(h("button",{class:"cta alt",onclick:()=>{ sfx("tap"); location.hash="#talk"; }},
     h("div",{}, h("b",{},"AI와 상황극"), h("span",{}, "배운 표현을 실제 대화에 써 보기")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
+
+  const tags = [...new Set(allCards().map(c=>c.tag))];
+  const units = h("div",{class:"units"});
+  tags.forEach(t => { const cs = allCards().filter(c=>c.tag===t); const done = cs.filter(c=>mastery(c.id)>=2).length;
+    units.append(h("button",{class:"unit press",type:"button",onclick:()=>{ deckFilter=t; location.hash="#deck"; }},
+      h("span",{class:"u-ring",html:ringSvg(done/cs.length, 40, 6)}), h("span",{style:"min-width:0;text-align:left"}, h("div",{class:"u-t"}, t), h("div",{class:"u-s"}, `${done}/${cs.length} 입에 붙음`)))); });
+  app.append(h("h2",{class:"sec-h"},"상황별 진행"), units);
 
   const note = h("p",{class:"note"});
   const chip = (ok, on, off) => h("span",{class:"chip"+(ok?" ok":"")}, ok?on:off);
-  note.append(
-    chip(!!caps.dict,"말하기 입력 켜짐","타이핑 입력"),
-    chip(canSpeak(),"기기 음성","음성 없음"),
-    chip(!!llm.engine, "AI 모델 준비됨", "AI 모델 미준비"),
-    chip(store.ok,"이 기기에 저장","저장 안 됨 (사생활 보호 모드)"));
+  note.append(chip(!!caps.dict,"말하기 입력 켜짐","타이핑 입력"), chip(canSpeak(),"기기 음성","음성 없음"), chip(!!llm.engine, "AI 모델 준비됨", "AI 모델 미준비"), chip(store.ok,"이 기기에 저장","저장 안 됨 (사생활 보호 모드)"));
   const weak = Object.entries(S.errors||{}).filter(([k,v])=>v>=2).sort((a,b)=>b[1]-a[1])[0];
-  if (weak && typeof ERR_KO !== "undefined") note.append(h("span",{class:"chip",title:"AI 대화에서 가장 자주 고친 유형"}, "약점: "+(ERR_KO[weak[0]]||"기타")+" "+weak[1]+"회"));
+  if (weak) note.append(h("span",{class:"chip warn",title:"AI 대화에서 가장 자주 고친 유형"}, "약점: "+(ERR_KO[weak[0]]||"기타")+" "+weak[1]+"회"));
   app.append(note);
 }
 
@@ -505,7 +789,9 @@ function buildSession(){
   const k = dayKey(); if (S.newDay !== k) { S.newDay = k; S.newCount = 0; }
   const due = dueList().slice(0, 8);
   const newBudget = Math.max(0, Math.min(NEW_PER_DAY - S.newCount, 10 - due.length));
-  const fresh = allCards().filter(c=>!S.cards[c.id]).slice(0, Math.max(newBudget, due.length? 0 : 3)).map(c=>c.id);
+  const like = new Set(S.settings.interests||[]);
+  const pool = allCards().filter(c=>!S.cards[c.id]).map((c,i)=>({c,i})).sort((a,b)=>(like.has(b.c.tag)-like.has(a.c.tag)) || a.i-b.i).map(x=>x.c);
+  const fresh = pool.slice(0, Math.max(newBudget, due.length? 0 : 3)).map(c=>c.id);
   let extra = [];
   if (due.length + fresh.length < 5) extra = Object.entries(S.cards).filter(([id])=>!due.includes(id)&&cardById(id)).sort((a,b)=>a[1].due-b[1].due).slice(0, 5-due.length-fresh.length).map(([id])=>id);
   const steps = [];
@@ -522,20 +808,22 @@ function buildSession(){
 }
 function viewLearnStart(app){
   session = buildSession();
-  if (!session.steps.length) { app.append(h("h2",{},"오늘 분량을 모두 마쳤어요"), h("p",{class:"muted"},"내일 다시 오면 잊어버리기 직전의 표현부터 꺼내 드려요.")); return; }
+  if (!session.steps.length) { const m = mascot(110,"happy"); app.append(h("section",{class:"celebrate"}, m, h("h1",{class:"title"},"오늘 분량을 다 했어!"), h("p",{class:"muted"},"내일 다시 오면 잊어버리기 직전의 표현부터 꺼내 줄게."))); return; }
   renderStep();
 }
 function renderStep(){
-  const app = $("#app"); app.replaceChildren(); stopDict();
+  const app = $("#app"); app.replaceChildren(); stopDict(); setFocusMode(true);
   const s = session; if (s.i >= s.steps.length) return renderRecap();
   const step = s.steps[s.i], card = cardById(step.id);
   if (!card) { s.i++; return renderStep(); }
+  const combo = h("span",{class:"combo","aria-label": s.combo>=2 ? `${s.combo}연속 정답` : ""});
+  if (s.combo >= 2) combo.innerHTML = FLAME + `<span>${s.combo}</span>`;
   app.append(h("div",{class:"topbar"}, h("button",{class:"x","aria-label":"그만하기",onclick:()=>{ session=null; location.hash="#home"; route(); }},"×"),
-    h("div",{class:"prog",role:"progressbar","aria-valuemin":"0","aria-valuemax":String(s.steps.length),"aria-valuenow":String(s.i)}, h("i",{style:`width:${s.i/s.steps.length*100}%`})),
-    h("span",{class:"combo"}, s.combo>=2 ? "x"+Math.min(2,1+s.combo*0.2).toFixed(1) : "")));
+    h("div",{class:"prog",role:"progressbar","aria-valuemin":"0","aria-valuemax":String(s.steps.length),"aria-valuenow":String(s.i)}, h("i",{style:`width:${Math.max(4, s.i/s.steps.length*100)}%`})), combo));
   const box = h("section",{class:"task"}); app.append(box);
   ({listen:taskListen, tiles:taskTiles, recall:taskRecall, shadow:taskShadow})[step.type](box, card, step);
 }
+const PRAISE = ["완벽해!","최고야!","원어민 같아!","입에 착 붙었어!","잘했어!"];
 function finish(box, card, step, score, ms, extra, opts={}){
   /* self-reported practice (no mic) earns XP but never touches the memory model: nothing was retrieved */
   const s = session, prod = step.type !== "listen" && !opts.selfReport;
@@ -547,18 +835,25 @@ function finish(box, card, step, score, ms, extra, opts={}){
   const gain = Math.round((prod ? 10*score : 4) * mult) + (prod && score>=0.99 && ms<5000 ? 3 : 0);
   if (gain) { s.xp += gain; addXP(gain); } else save();
   const good = score >= 0.92, ok = score >= 0.6;
-  const fb = h("div",{class:"fb "+(ok?"good":"bad")}, h("div",{class:"head"}, good ? "정확해요" : ok ? "거의 맞았어요" : "다시 볼게요", gain ? h("span",{class:"xpfloat"}," +"+gain+" XP") : ""));
-  if (extra) fb.append(extra);
-  if (card.note) fb.append(h("div",{class:"ctx"}, card.note));
-  const next = h("button",{class:"primary",onclick:()=>{ s.i++; renderStep(); }}, s.i+1 >= s.steps.length ? "결과 보기" : "다음");
-  box.append(fb, next); next.focus();
+  /* feedback in the thumb zone, with the mascot reacting (sound + haptics follow settings) */
+  $("#app").querySelectorAll(".actionbar").forEach(x=>x.remove());
+  setMood(box.mascot, ok ? "happy" : "oops");
+  if (ok) { sfx(prod && s.combo>0 && s.combo%3===0 ? "combo" : "ding"); haptic(15); } else { sfx("bloop"); haptic([30,40,30]); }
+  const head = h("div",{class:"head"}, mascot(44, ok?"happy":"oops"), h("span",{}, good ? PRAISE[Math.random()*PRAISE.length|0] : ok ? "거의 맞았어!" : "괜찮아, 다시 볼게"), gain ? h("span",{class:"xpfloat"},"+"+gain+" XP") : "");
+  const inner = h("div",{class:"in"}, head);
+  if (extra) inner.append(extra);
+  if (card.note) inner.append(h("div",{class:"ctx"}, card.note));
+  const next = h("button",{class:"primary",onclick:()=>{ sfx("tap"); s.i++; renderStep(); }}, s.i+1 >= s.steps.length ? "결과 보기" : "다음");
+  inner.append(next);
+  $("#app").append(h("div",{class:"fb "+(ok?"good":"bad"),role:"status"}, inner)); next.focus();
 }
-function header(box, label){ box.append(h("h2",{},label)); }
+function header(box, label, mood){ return asker(box, label, mood); }
 
 function taskListen(box, card, step){
-  header(box, "듣고 뜻 고르기");
-  const play = speakBtn(card.en, "다시 듣기");
-  box.append(h("div",{class:"row"}, play, speakBtn(card.en,"천천히",0.75)));
+  const m = header(box, "들리는 말, 무슨 뜻일까?");
+  const play = h("button",{class:"speak jumbo",type:"button","aria-pressed":"false","aria-label":"다시 듣기",html:ICON.spk+"<span>다시 듣기</span>"}); play.onclick = () => say(card.en, 1, play, m);
+  const slow = h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span>천천히</span>"}); slow.onclick = () => say(card.en, .75, slow, m);
+  box.append(h("div",{class:"row",style:"justify-content:center;gap:14px"}, play, slow));
   const pool = shuffle(allCards().filter(c=>c.id!==card.id)).sort((a,b)=>(b.tag===card.tag)-(a.tag===card.tag)).slice(0,3);
   const opts = shuffle([card, ...pool]); const t0 = Date.now();
   const wrap = h("div",{class:"opts"});
@@ -569,31 +864,34 @@ function taskListen(box, card, step){
     reveal.hidden = false; finish(box, card, step, o.id===card.id?1:0.3, Date.now()-t0);
   },"data-id":o.id}, o.ko)));
   box.append(wrap, reveal);
-  setTimeout(()=>{ if (document.contains(play)) play.click(); }, 250);
+  setTimeout(()=>{ if (document.contains(play)) play.click(); }, 300);
 }
 function taskTiles(box, card, step){
-  header(box, "단어를 순서대로 놓기");
+  header(box, "단어를 순서대로 놓아 볼래?");
   box.append(h("p",{class:"prompt-ko"}, card.ko));
   const words = card.en.split(/\s+/); const picked = []; const t0 = Date.now();
   const slot = h("div",{class:"tiles slot","aria-label":"내가 만든 문장"}), bank = h("div",{class:"tiles"});
   const check = h("button",{class:"primary",disabled:true}, "확인");
-  const draw = () => { slot.replaceChildren(...picked.map((p,k)=>h("button",{class:"tile",onclick:()=>{ picked.splice(k,1); bankBtns[p].disabled=false; draw(); }}, words[p])));
+  const draw = () => { slot.replaceChildren(...picked.map((p,k)=>h("button",{class:"tile",onclick:()=>{ picked.splice(k,1); bankBtns[p].disabled=false; sfx("tap"); draw(); }}, words[p])));
     check.disabled = picked.length !== words.length; };
-  const bankBtns = shuffle(words.map((w,i)=>i)).reduce((acc,i)=>{ const b=h("button",{class:"tile",onclick:()=>{ picked.push(i); b.disabled=true; draw(); }}, words[i]); acc[i]=b; bank.append(b); return acc; }, {});
-  check.onclick = () => { check.remove(); bank.querySelectorAll("button").forEach(b=>b.disabled=true); slot.querySelectorAll("button").forEach(b=>b.disabled=true);
+  const bankBtns = shuffle(words.map((w,i)=>i)).reduce((acc,i)=>{ const b=h("button",{class:"tile",onclick:()=>{ picked.push(i); b.disabled=true; sfx("tap"); draw(); }}, words[i]); acc[i]=b; bank.append(b); return acc; }, {});
+  check.onclick = () => { bank.querySelectorAll("button").forEach(b=>b.disabled=true); slot.querySelectorAll("button").forEach(b=>b.disabled=true);
     const ans = picked.map(i=>words[i]).join(" "); const g = grade(ans, card); const ex = h("div",{class:"row"}, speakBtn(card.en,"정답 듣기"));
     if (g.score < 0.99) { const d = diffView({...g, target:card.en, T:toks(card.en), r:lcs(g.A,toks(card.en))}); ex.prepend(d.right); }
     finish(box, card, step, g.score, Date.now()-t0, ex); };
-  box.append(slot, bank, check);
+  box.append(slot, bank); actionBar(check);
 }
 function answerBox(box, ph, onSubmit){
   const ta = h("textarea",{id:"answer",rows:"2",placeholder:ph,"data-ph":ph,autocomplete:"off",autocapitalize:"off",spellcheck:"false","aria-label":"영어로 답하기"});
   const send = h("button",{class:"primary",disabled:true}, "확인");
   ta.addEventListener("input", ()=> send.disabled = !ta.value.trim());
   ta.addEventListener("keydown", e=>{ if (e.key==="Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); if (!send.disabled) send.click(); } });
-  send.onclick = async () => { await stopDict(); send.remove(); ta.disabled = true; box.querySelectorAll(".mic").forEach(m=>m.remove()); onSubmit(ta.value); };
-  box.append(h("div",{class:"answer"}, ta, micFor(ta)), send);
-  if (!matchMedia("(pointer:coarse)").matches) ta.focus();
+  send.onclick = async () => { await stopDict(); ta.disabled = true; box.querySelectorAll(".mic").forEach(m=>m.remove()); onSubmit(ta.value); };
+  ta._onSpoken = () => { if (S.settings.autosubmit && !send.disabled) setTimeout(()=>{ if (document.contains(send) && !ta.disabled) send.click(); }, 350); };
+  const mic = micFor(ta);
+  box.append(h("div",{class:"answer"}, mic, caps.dict ? h("p",{class:"mic-hint"}, S.settings.autosubmit ? "누르고 말하면 끝나는 대로 채점해요" : "누르고 말한 뒤 확인을 눌러요") : "", ta));
+  actionBar(send);
+  if (!matchMedia("(pointer:coarse)").matches && !caps.dict) ta.focus();
   return ta;
 }
 function resultExtra(ans, card){
@@ -603,52 +901,61 @@ function resultExtra(ans, card){
   return {g, ex};
 }
 function taskRecall(box, card, step){
-  header(box, "영어로 말해 보기");
-  box.append(h("p",{class:"prompt-ko"}, card.ko), h("p",{class:"ctx"}, card.tag+" · "+card.lvl));
+  header(box, "영어로 말해 볼래?");
+  box.append(h("p",{class:"prompt-ko"}, card.ko), h("div",{class:"row"}, h("span",{class:"chip"}, card.tag+" · "+card.lvl)));
   const t0 = Date.now();
   const hint = h("button",{class:"ghost",type:"button"}, "첫 단어 힌트");
-  hint.onclick = () => { hint.replaceWith(h("span",{class:"chip"}, card.en.split(" ")[0]+" …")); };
-  box.append(h("div",{class:"row"}, hint));
-  answerBox(box, caps.dict ? "마이크를 누르고 말하거나 입력하세요" : "영어로 입력하세요", ans => { const {g, ex} = resultExtra(ans, card); finish(box, card, step, g.score, Date.now()-t0, ex); });
+  hint.onclick = () => { sfx("tap"); hint.replaceWith(h("span",{class:"chip ok"}, card.en.split(" ")[0]+" …")); };
+  box.lastChild.append(hint);
+  answerBox(box, caps.dict ? "또는 여기에 입력" : "영어로 입력하세요", ans => { const {g, ex} = resultExtra(ans, card); finish(box, card, step, g.score, Date.now()-t0, ex); });
 }
 function taskShadow(box, card, step){
-  header(box, "따라 말하기 (섀도잉)");
+  const m = header(box, "내 말을 따라 해 봐!");
   box.append(h("p",{class:"prompt-en"}, card.en), h("p",{class:"ctx"}, card.ko));
-  box.append(h("div",{class:"row"}, speakBtn(card.en,"원어민 속도"), speakBtn(card.en,"천천히",0.75)));
+  const fast = h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span>원어민 속도</span>"}); fast.onclick = () => say(card.en, 1, fast, m);
+  const slow = h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span>천천히</span>"}); slow.onclick = () => say(card.en, .75, slow, m);
+  box.append(h("div",{class:"row"}, fast, slow));
   const t0 = Date.now();
   if (caps.dict) {
-    answerBox(box, "들은 그대로 소리 내어 따라 하세요", ans => { const {g, ex} = resultExtra(ans, card); finish(box, card, step, g.score, Date.now()-t0, ex); });
+    answerBox(box, "또는 여기에 입력", ans => { const {g, ex} = resultExtra(ans, card); finish(box, card, step, g.score, Date.now()-t0, ex); });
   } else {
     box.append(h("p",{class:"ctx"},"마이크 없이도 효과가 있어요. 두 번 듣고 소리 내어 세 번 따라 한 뒤 눌러 주세요."));
     const done = h("button",{class:"primary"}, "세 번 따라 했어요");
-    done.onclick = () => { done.remove(); finish(box, card, step, 1, 6000, null, {selfReport:true}); };
-    box.append(done);
+    done.onclick = () => { finish(box, card, step, 1, 6000, null, {selfReport:true}); };
+    actionBar(done);
   }
 }
 function renderRecap(){
-  const s = session; s.done = true; S.sessions++; save();
+  const s = session; s.done = true; S.sessions++; save(); setFocusMode(false);
   const app = $("#app"); app.replaceChildren();
   const mins = Math.max(1, Math.round((Date.now()-s.started)/60000));
   const acc = s.total ? Math.round(s.right/s.total*100) : 100;
   const worst = Object.entries(s.misses).sort((a,b)=>b[1]-a[1])[0];
-  app.append(h("p",{class:"eyebrow"},"오늘의 5분 · 완료"), h("h1",{class:"big"}, "+"+s.xp+" XP"));
+  const m = mascot(130,"happy"); speaker = m;
+  const xp = h("h1",{class:"big"}, "+0 XP"); const n = h("span",{}, "0");
+  xp.replaceChildren("+", n, " XP");
+  app.append(h("section",{class:"celebrate"}, m, h("p",{class:"eyebrow"},"오늘의 5분 완료!"), xp,
+    h("p",{class:"streakline",html:FLAME.replace("<svg",'<svg width="20" height="20" style="vertical-align:-4px"')}, " ", h("b",{}, streakNow()+"일"), " 연속! 내일도 만나")));
+  countUp(n, s.xp); confetti(); sfx("fanfare"); haptic([20,60,20,60,40]);
+  setTimeout(()=>setMood(m,"idle"), 1600);
   app.append(h("div",{class:"kpis"},
     h("div",{class:"kpi"}, h("b",{}, acc+"%"), h("span",{},"정확도 (말하기·조립)")),
     h("div",{class:"kpi"}, h("b",{}, streakNow()+"일"), h("span",{},"연속 학습")),
     h("div",{class:"kpi"}, h("b",{}, String(s.steps.length)), h("span",{},"푼 문제")),
     h("div",{class:"kpi"}, h("b",{}, mins+"분"), h("span",{},"걸린 시간"))));
   if (worst) { const c = cardById(worst[0]);
-    app.append(h("section",{class:"task"}, h("h2",{},"한 가지만 기억하기"), h("p",{class:"prompt-en"}, c.en), h("p",{class:"ctx"}, c.ko + (c.note? " · "+c.note : "")), h("div",{class:"row"}, speakBtn(c.en,"듣기")))); }
-  else app.append(h("p",{class:"muted"},"틀린 표현 없이 끝냈어요. 다음 복습은 기억이 흐려지기 직전으로 미뤄 둘게요."));
+    app.append(h("section",{class:"card-s"}, h("h2",{class:"sec-h"},"이것 하나만 기억하자"), h("p",{class:"prompt-en"}, c.en), h("p",{class:"ctx"}, c.ko + (c.note? " · "+c.note : "")), h("div",{class:"row"}, speakBtn(c.en,"듣기")))); }
+  else app.append(h("p",{class:"muted",style:"text-align:center"},"틀린 표현 없이 끝냈어! 다음 복습은 기억이 흐려지기 직전으로 미뤄 둘게."));
   app.append(h("button",{class:"cta",onclick:()=>{ location.hash="#talk"; }}, h("div",{}, h("b",{},"배운 표현으로 AI와 대화"), h("span",{},"말로 써 봐야 오래 남아요")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
   app.append(h("button",{class:"cta alt",onclick:()=>{ session=null; location.hash="#home"; route(); }}, h("div",{}, h("b",{},"홈으로")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
 }
 
 /* ---------- TALK: AI role-play with recasts, hints, missions ---------- */
 function viewTalk(app){
-  app.append(h("p",{class:"eyebrow"},"AI 상황극"), h("h1",{style:"font-family:var(--f-display);font-weight:400;font-size:36px"},"말로 써 봐야 남아요"),
-    h("p",{class:"lead muted"},"상황을 고르면 AI가 역할을 맡아요. 틀린 문장은 대화를 끊지 않고 자연스러운 표현으로 고쳐 보여 드려요. AI 대화는 이 기기 안에서 처리돼요. 음성 입력은 브라우저의 음성인식 서비스를 써요."));
-  const setup = h("section",{class:"task"});
+  const m = mascot(80); speaker = m;
+  app.append(h("p",{class:"eyebrow"},"AI 상황극"), h("section",{class:"greet"}, m, h("div",{class:"bubble"}, h("b",{},"말로 써 봐야 남아!"), "상황을 고르면 내가 역할을 맡을게. 틀려도 괜찮아, 힌트 주고 다시 말할 기회를 줄게.")),
+    h("p",{class:"ctx"},"AI 대화는 이 기기 안에서 처리돼요. 음성 입력은 브라우저의 음성인식 서비스를 써요."));
+  const setup = h("section",{class:"card-s"});
   const list = h("div",{class:"scen"});
   SCENARIOS.forEach(sc => list.append(h("button",{onclick:()=>startTalk(sc)}, h("span",{class:"lvl"}, sc.lvl), h("div",{}, h("div",{class:"t"}, sc.t), h("div",{class:"d"}, sc.d)), h("span",{class:"mono muted","aria-hidden":"true"},"→"))));
   app.append(setup, list);
@@ -737,17 +1044,21 @@ function addCustom(items, tag, lvl, note){
 }
 function startTalk(sc){
   talk = {sc, turns:[], missions:new Set(), feedback:[], speech:[], pendingFix:null, active:true, busy:false, started:Date.now()};
-  const app = $("#app"); app.replaceChildren(); stopDict();
+  const app = $("#app"); app.replaceChildren(); stopDict(); setFocusMode(true);
   const ms = h("div",{class:"missions"});
   const drawMissions = () => ms.replaceChildren(...sc.missions.map((m,i)=>h("span",{class:"chip"+(talk.missions.has(i)?" ok":"")}, (talk.missions.has(i)?"✓ ":"")+m)));
   drawMissions();
   app.append(h("div",{class:"topbar"}, h("button",{class:"x","aria-label":"대화 끝내기",onclick:()=>endTalk()},"×"), h("div",{style:"flex:1;min-width:0"}, h("div",{style:"font-weight:700"}, sc.t), h("div",{class:"ctx"}, sc.d))), ms);
-  const chat = h("div",{class:"chat"}); const sugg = h("div",{class:"sugg"}); const status = h("p",{class:"typing",hidden:true},"상대가 말하는 중…");
+  const chat = h("div",{class:"chat"}); const sugg = h("div",{class:"sugg"}); const status = h("p",{class:"typing",hidden:true}, h("span",{class:"dots","aria-hidden":"true"}, h("i"), h("i"), h("i")), "상대가 생각하는 중");
   const ta = h("textarea",{id:"talk-input",rows:"2",placeholder:"영어로 답하기","data-ph":"영어로 답하기",autocomplete:"off",spellcheck:"false","aria-label":"영어로 답하기"});
   const send = h("button",{class:"primary"},"보내기");
   const hintBtn = h("button",{class:"ghost",type:"button"},"뭐라고 하지?");
   const finishBtn = h("button",{class:"ghost",type:"button",onclick:()=>endTalk()},"대화 마치고 피드백 받기");
-  app.append(chat, status, h("div",{class:"composer"}, sugg, h("div",{class:"answer"}, ta, micFor(ta)), h("div",{class:"row"}, send, hintBtn), finishBtn));
+  const mic = micFor(ta);
+  const hf = h("input",{type:"checkbox",class:"switch",id:"hf-toggle",role:"switch"}); hf.checked = !!S.settings.handsfree;
+  hf.onchange = () => { S.settings.handsfree = hf.checked; save(); sfx("tap"); toast(hf.checked ? "AI가 말을 마치면 바로 들을게요" : "핸즈프리를 껐어요"); };
+  app.append(chat, status, h("div",{class:"composer"}, sugg, h("div",{class:"answer"}, ta, mic), h("div",{class:"row"}, send, hintBtn),
+    caps.dict ? h("label",{class:"hf",for:"hf-toggle"}, hf, "핸즈프리: AI가 말을 마치면 자동으로 듣기") : "", finishBtn));
   send.style.width = "auto"; send.style.flex = "1";
   let lastSugg = [];
   hintBtn.onclick = () => {
@@ -755,17 +1066,21 @@ function startTalk(sc){
     sugg.replaceChildren(...lastSugg.map(t=>h("button",{onclick:()=>{ ta.value=t; ta.dispatchEvent(new Event("input")); }}, t))); if (!lastSugg.length) toast("상대가 먼저 말할 때까지 기다려 주세요."); };
   ta.addEventListener("keydown", e=>{ if (e.key==="Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); send.click(); } });
   const addAI = (r) => {
+    /* the partner is the mascot: its beak follows the voice (a light take on viseme-driven avatars) */
+    const av = mascot(42); speaker = av;
     const b = h("div",{class:"msg ai"}, h("div",{}, r.reply));
-    const ko = h("div",{class:"ko",hidden:true}, r.reply_ko||"");
-    const sp = h("button",{type:"button"},"듣기"); sp.onclick = () => say(r.reply, 1);
+    const ko = h("div",{class:"ko",hidden:!S.settings.showKo}, r.reply_ko||"");
+    const sp = h("button",{type:"button"},"듣기"); sp.onclick = () => say(r.reply, 1, null, av);
     const tr = h("button",{type:"button"},"번역"); tr.onclick = () => ko.hidden = !ko.hidden;
-    b.append(ko, h("div",{class:"tools"}, sp, tr)); chat.append(b);
-    say(r.reply, 1);
+    b.append(ko, h("div",{class:"tools"}, sp, tr)); chat.append(h("div",{class:"airow"}, av, b));
+    say(r.reply, 1, null, av).then(() => {
+      if (S.settings.handsfree && caps.dict && talk && talk.active && !talk.busy && !rec && document.contains(mic)) { try { mic.click(); } catch(e){} }
+    });
   };
   const recastBubble = (f) => h("div",{class:"recast"}, h("span",{class:"ctx"},"이렇게 말하면 더 자연스러워요"), h("b",{}, f.corrected), f.note ? h("span",{class:"ctx"}, f.note) : "");
   /* show the partner's reply that was held back while the learner got a chance to self-repair */
   function continueAI(r){
-    (Array.isArray(r.missions_done)?r.missions_done:[]).forEach(i=>{ i = Number(i); if (Number.isInteger(i) && i>=0 && i<sc.missions.length && !talk.missions.has(i)) { talk.missions.add(i); addXP(10); toast("미션 완료 · "+sc.missions[i]); } });
+    (Array.isArray(r.missions_done)?r.missions_done:[]).forEach(i=>{ i = Number(i); if (Number.isInteger(i) && i>=0 && i<sc.missions.length && !talk.missions.has(i)) { talk.missions.add(i); addXP(10); sfx("combo"); haptic(20); toast("미션 완료 · "+sc.missions[i]); } });
     drawMissions();
     talk.turns.push({role:"ai", text:r.reply}); addAI(r);
     lastSugg = (Array.isArray(r.suggestions)?r.suggestions:[]).map(String).slice(0,3);
@@ -795,7 +1110,7 @@ function startTalk(sc){
       repaired = sim(retry, fix.corrected) >= 0.8 || toks(retry).join(" ") === toks(fix.corrected).join(" ");
     }
     if (repaired) {
-      chat.append(h("div",{class:"recast"}, h("b",{},"스스로 고쳤어요"), h("span",{class:"ctx"}, fix.corrected)));
+      chat.append(h("div",{class:"recast"}, h("b",{},"스스로 고쳤어요!"), h("span",{class:"ctx"}, fix.corrected))); sfx("ding"); haptic(15);
       addXP(8);
       const last = [...talk.turns].reverse().find(t=>t.role==="me"); if (last) last.text = retry;
     } else { chat.append(recastBubble(fix)); addXP(2); }
@@ -866,7 +1181,9 @@ Respond as JSON.`, 480);
   } catch(e) { r = null; }
   talk = null;
   app.replaceChildren();
-  app.append(h("p",{class:"eyebrow"}, t.sc.t+" · 대화 피드백"), h("h1",{class:"big"}, t.missions.size+"/"+t.sc.missions.length+" 미션"));
+  const allDone = t.missions.size === t.sc.missions.length;
+  app.append(h("section",{class:"celebrate"}, mascot(110, allDone ? "happy" : "idle"), h("p",{class:"eyebrow"}, t.sc.t+" · 대화 피드백"), h("h1",{class:"big"}, t.missions.size+"/"+t.sc.missions.length+" 미션")));
+  if (allDone) { confetti(); sfx("fanfare"); haptic([20,60,20]); }
   app.append(h("div",{class:"kpis"},
     h("div",{class:"kpi"}, h("b",{}, mlu), h("span",{},"복잡성 · 평균 발화 길이 (단어)")),
     h("div",{class:"kpi"}, h("b",{}, acc+"%"), h("span",{},"정확성 · 고칠 곳 없던 턴")),
@@ -915,7 +1232,7 @@ Respond as JSON.`, 480);
 let deckFilter = "전체";
 function viewDeck(app){
   const cards = allCards(); const tags = ["전체", ...new Set(cards.map(c=>c.tag))];
-  app.append(h("p",{class:"eyebrow"},"표현함 · "+cards.length+"개"), h("h1",{style:"font-family:var(--f-display);font-weight:400;font-size:36px"},"입에 붙일 덩어리들"),
+  app.append(h("p",{class:"eyebrow"},"표현함 · "+cards.length+"개"), h("h1",{class:"title"},"입에 붙일 덩어리들"),
     h("p",{class:"lead muted"},"단어 하나가 아니라 통째로 쓰는 표현을 모읍니다. 막대가 다섯 칸 차면 몇 주 동안 잊지 않는 상태예요."));
   const fl = h("div",{class:"filters",role:"group","aria-label":"상황별 보기"}); const list = h("div",{class:"cards"});
   const draw = () => { fl.replaceChildren(...tags.map(t=>h("button",{"aria-pressed":String(t===deckFilter),onclick:()=>{ deckFilter=t; draw(); }}, t)));
@@ -929,7 +1246,7 @@ function viewDeck(app){
 
 /* ---------- SCIENCE ---------- */
 function viewScience(app){
-  app.append(h("p",{class:"eyebrow"},"이 앱이 이렇게 생긴 이유"), h("h1",{style:"font-family:var(--f-display);font-weight:400;font-size:36px"},"연구가 정한 설계"),
+  app.append(h("p",{class:"eyebrow"},"이 앱이 이렇게 생긴 이유"), h("h1",{class:"title"},"연구가 정한 설계"),
     h("p",{class:"lead muted"},"기능마다 근거가 있어요. 왼쪽은 제2언어 습득과 기억 연구에서 확인된 원리, 오른쪽은 그 원리가 화면에서 어떻게 쓰였는지예요."));
   const P = [
     ["덩어리로 배우기","Wray (2002); Boers et al. (2006), Language Teaching Research","원어민 발화의 큰 부분은 미리 조립된 표현이고, 이런 덩어리를 많이 쓰는 학습자가 더 유창하게 들립니다.","<b>적용</b> 모든 학습 단위가 단어가 아닌 문장 덩어리입니다."],
