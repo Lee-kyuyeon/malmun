@@ -1,6 +1,6 @@
 /* 재잘 · 해외살이: ears first. Each scene plays with no subtitles; the learner acts on what they heard and sees what happens.
-   Help comes one rung at a time (slower → key words → subtitles → translation); a scene counts as "heard by ear" when the first
-   action was right and no more than the slower replay was used. Classic script: shares globals with the other js/ files. */
+   Help comes one rung at a time (slower → key words → subtitles → translation). Like real life, you can ask for one repeat:
+   a scene counts as "heard by ear" only when the first action was right, no help was used, and it was heard at most twice. Classic script: shares globals with the other js/ files. */
 "use strict";
 const EAR_HELP = ["천천히 듣기", "핵심 단어 보기", "영어 자막 보기", "한국어 번역 보기"];
 let abroad = null;
@@ -34,7 +34,7 @@ function startEpisode(e){ abroad = {e, i:0, res:[]}; renderScene(); }
 function renderScene(){
   const app = $("#app"); app.replaceChildren(); setFocusMode(true); hush();
   const a = abroad, e = a.e; if (a.i >= e.scenes.length) return renderEpisodeEnd();
-  const sc = e.scenes[a.i]; const st = {help:0, tries:0, solved:false}; a.cur = st;
+  const sc = e.scenes[a.i]; const st = {help:0, tries:0, solved:false, replays:0}; a.cur = st;
   app.append(h("div",{class:"topbar"}, h("button",{class:"x","aria-label":"그만하기",onclick:()=>{ abroad = null; location.hash = "#abroad"; route(); }},"×"),
     h("div",{class:"prog",role:"progressbar","aria-valuemin":"0","aria-valuemax":String(e.scenes.length),"aria-valuenow":String(a.i)}, h("i",{style:`width:${Math.max(4, a.i/e.scenes.length*100)}%`}))));
   const box = h("section",{class:"task scene"}); app.append(box);
@@ -44,8 +44,10 @@ function renderScene(){
   /* a newer play (or leaving the scene) stops an older one between lines */
   const playAll = async (rate=1, btn) => { const run = st.run = (st.run||0) + 1; for (let k = 0; k < sc.lines.length; k++) { if (abroad !== a || a.cur !== st || st.run !== run) return; await say(sc.lines[k].en, rate, btn, null, {exact:true}); if (k < sc.lines.length-1) await new Promise(r=>setTimeout(r, 350)); } };
   const play = h("button",{class:"speak jumbo",type:"button","aria-pressed":"false","aria-label":"다시 듣기",html:ICON.spk+"<span>다시 듣기</span>"});
-  play.onclick = () => playAll(1, play);
-  box.append(h("div",{class:"listen-card"}, m, h("div",{style:"min-width:0;flex:1"}, h("div",{class:"who"}, who), h("div",{class:"ctx"},"자막 없이 들어 보세요. 몇 번이고 다시 들어도 괜찮아요.")), play));
+  /* the automatic first play is free, so is one "say that again?"; more replays still work but are recorded */
+  const replayNote = h("div",{class:"ctx"}, "자막 없이 들어 보세요. 실제 대화처럼 한 번은 다시 말해 달라고 할 수 있어요.");
+  play.onclick = () => { if (!st.solved) { st.replays++; if (st.replays === 2) replayNote.textContent = "여러 번 들었어요. 괜찮아요, 대신 이번 장면은 '여러 번 듣고 해결'로 기록돼요."; } playAll(1, play); };
+  box.append(h("div",{class:"listen-card"}, m, h("div",{style:"min-width:0;flex:1"}, h("div",{class:"who"}, who), replayNote), play));
   /* the help ladder: each press opens one more rung */
   const helpBox = h("div",{class:"helps"}), shown = h("div",{class:"help-shown"});
   const helpBtn = h("button",{class:"ghost",type:"button","data-act":"help"}, EAR_HELP[0]);
@@ -68,14 +70,14 @@ function renderScene(){
       conseq.hidden = false; conseq.replaceChildren(h("b",{},"이런…"), " "+out, h("span",{class:"ctx"}, " 다시 들어 보고 골라 봐요.")); }
   }}, label)));
   box.append(conseq, wrap);
-  setTimeout(() => { if (abroad === a && a.cur === st) play.click(); }, 400);
+  setTimeout(() => { if (abroad === a && a.cur === st) playAll(1, play); }, 400);
 }
 function solved(box, sc, st, m){
-  const a = abroad, e = a.e; const clean = st.tries === 0 && st.help <= 1;
-  a.res.push({clean, tries:st.tries, help:st.help});
+  const a = abroad, e = a.e; const clean = st.tries === 0 && st.help === 0 && st.replays <= 1;
+  a.res.push({clean, tries:st.tries, help:st.help, replays:st.replays});
   setMood(m, "happy"); sfx(clean ? "ding" : "tap"); haptic(15);
   $("#app").querySelectorAll(".actionbar").forEach(x=>x.remove());
-  const inner = h("div",{class:"in"}, h("div",{class:"head"}, mascot(44, "happy"), h("span",{}, clean ? "자막 없이 알아들었어!" : st.help >= 3 ? "자막 보고 해결! 다음엔 귀로만 해 보자" : "해결! 조금만 더 들으면 귀로만 될 거야")));
+  const inner = h("div",{class:"in"}, h("div",{class:"head"}, mascot(44, "happy"), h("span",{}, clean ? "자막 없이 알아들었어!" : st.help >= 3 ? "자막 보고 해결! 다음엔 귀로만 해 보자" : st.tries === 0 && st.help === 0 ? "여러 번 듣고 해결! 다음엔 두 번 안에 잡아 보자" : "해결! 조금만 더 들으면 귀로만 될 거야")));
   inner.append(h("div",{class:"subs"}, ...sc.lines.map(l=>h("div",{class:"sub-line"}, h("p",{class:"prompt-en"}, h("b",{class:"spk-name"}, e.cast[l.who].name+" "), tapText(l.en, {en:l.en, ko:l.ko})), h("p",{class:"ctx"}, l.ko)))));
   inner.append(h("div",{class:"row"}, ...sc.lines.map((l,k)=>speakBtn(l.en, sc.lines.length > 1 ? `${k+1}번 다시 듣기` : "다시 듣기"))));
   if (sc.tip) inner.append(h("div",{class:"ctx tip"}, "귀 팁 · "+sc.tip));

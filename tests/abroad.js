@@ -70,24 +70,30 @@ async function scene(p, i, { wrong = false, help = 0 } = {}) {
     await p.screenshot({ path: out + '/ab-help.png' });
     const right2 = await p.evaluate(() => abroad.e.scenes[1].opts.find(o => o[1] === true)[0]);
     await p.click(`.opt:text-is("${right2}")`); await p.waitForSelector('.fb'); await p.click('.fb button.primary'); await p.waitForTimeout(150);
-    for (let i = 2; i < 5; i++) await scene(p, i, { help: i === 2 ? 1 : 0 });
+    // one "say that again" is free; a second replay is recorded; the slower replay counts as help
+    await p.click('.listen-card .speak.jumbo'); await scene(p, 2);
+    await p.click('.listen-card .speak.jumbo'); await p.click('.listen-card .speak.jumbo');
+    ok('replay_note', (await p.textContent('.listen-card')).includes('여러 번 들었어요'));
+    await scene(p, 3);
+    const N = await p.evaluate(() => abroad.e.scenes.length), lines = await p.evaluate(() => abroad.e.scenes.reduce((n, s) => n + s.lines.length, 0));
+    for (let i = 4; i < N; i++) await scene(p, i, { help: i === 4 ? 1 : 0 });
     await p.waitForTimeout(300);
-    const ear = await p.evaluate(() => S.ear);
-    ok('episode_end_stats', ear.eps.arrive.best === 3 && ear.clean === 3 && ear.scenes === 5 && ear.recent.join('') === '00111', ear);
-    ok('episode_end_screen', (await p.textContent('.celebrate')).includes('3장면') && (await p.$$('.card-s .sub-line')).length === 5);
+    const ear = await p.evaluate(() => S.ear), clean = N - 5 + 1, want = '0010' + '0' + '1'.repeat(N - 5);
+    ok('episode_end_stats', ear.eps.arrive.best === clean && ear.clean === clean && ear.scenes === N && ear.recent.join('') === want, { ear, want });
+    ok('episode_end_screen', (await p.textContent('.celebrate')).includes(`${clean}장면`) && (await p.$$('.card-s .sub-line')).length === lines);
     await p.screenshot({ path: out + '/ab-end.png', fullPage: true });
     // 4) replaying adds to the meter, but the total only grows by the improvement
     await p.click('.actionbar .ghost'); await p.waitForTimeout(200);
-    for (let i = 0; i < 5; i++) await scene(p, i);
+    for (let i = 0; i < N; i++) await scene(p, i);
     await p.waitForTimeout(300);
     const ear2 = await p.evaluate(() => ({ e: S.ear, open: epUnlocked(1) }));
-    ok('replay_counts_improvement_only', ear2.e.clean === 5 && ear2.e.eps.arrive.best === 5 && ear2.e.eps.arrive.plays === 2 && ear2.e.recent.length === 10 && ear2.open, ear2);
+    ok('replay_counts_improvement_only', ear2.e.clean === N && ear2.e.eps.arrive.best === N && ear2.e.eps.arrive.plays === 2 && ear2.e.recent.length === 2 * N && ear2.open, ear2);
     await ctx.close(); }
 
-  // 5) a B1 learner can start the B1 episode right away
+  // 5) a B1 learner can start every episode up to B1 right away; B2 ones wait for the one before
   { const { p, ctx } = await open({ level: 'B1' }, '#abroad');
-    const st = await p.$$eval('[data-ep]', bs => bs.map(x => x.disabled));
-    ok('level_unlocks', st.every(d => !d), st);
+    const st = await p.evaluate(() => [...document.querySelectorAll('[data-ep]')].map((x, i) => [EPISODES[i].lvl, x.disabled]));
+    ok('level_unlocks', st.every(([l, d], i) => i === 0 || d === (l === 'B2')), st);
     await ctx.close(); }
 
   await b.close();
