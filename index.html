@@ -326,6 +326,32 @@ body.focus .toast{top:calc(12px + env(safe-area-inset-top,0px));bottom:auto}
 .card-s.today{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center}
 .lab{display:flex;flex-direction:column;gap:2px}
 .lab small{font-size:12px;color:var(--muted)}
+
+/* course path */
+.lvl-sec{display:flex;flex-direction:column;gap:10px}
+.lvl-h{display:flex;align-items:baseline;gap:8px}
+.lvl-h b{font-family:var(--f-display);font-weight:400;font-size:22px}
+.lvl-h span{font-size:13px;color:var(--muted)}
+.lvl-badge{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-display);font-size:18px;padding:4px 12px;border-radius:99px;background:var(--butter);color:var(--on-butter)}
+.pu{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;text-align:left;width:100%}
+.pu .st{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:var(--sunk);font-weight:700;color:var(--muted)}
+.pu.done .st{background:var(--mint);color:var(--on-mint)}
+.pu.now{border-color:var(--butter-d);box-shadow:0 4px 0 var(--butter-d);background:color-mix(in srgb,var(--butter) 14%,var(--surface))}
+.pu.now .st{background:var(--butter)}
+.pu.skipped{opacity:.6}
+.pu .bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden;margin-top:6px}
+.pu .bar i{display:block;height:100%;background:var(--mint)}
+.pu .tg{font-weight:700}
+.pu .sb{font-size:12px;color:var(--muted)}
+.statgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.hbar{display:grid;grid-template-columns:72px minmax(0,1fr) 48px;gap:10px;align-items:center;font-size:14px}
+.hbar .t{height:12px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.hbar .t i{display:block;height:100%;border-radius:99px;background:var(--mint)}
+.hbar .v{font-family:var(--f-mono);font-size:13px;text-align:right}
+.menu{display:flex;flex-direction:column;border:2px solid var(--line);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.menu button{display:flex;justify-content:space-between;align-items:center;padding:16px;border:0;border-top:2px solid var(--line);background:transparent;text-align:left;min-height:56px;font-size:16px}
+.menu button:first-child{border-top:0}
+.menu button small{display:block;font-size:12px;color:var(--muted)}
 @media (max-width:380px){.title{font-size:28px}.ring{width:80px;height:80px}.units{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
@@ -337,10 +363,10 @@ body.focus .toast{top:calc(12px + env(safe-area-inset-top,0px));bottom:auto}
 <main class="wrap" id="app" aria-live="polite"></main>
 <nav class="tabs" aria-label="메뉴"><div class="in">
   <a href="#home" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>홈</a>
-  <a href="#learn" data-tab="learn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 18V8M8 18V4M12 18v-7M16 18V7M20 18v-4"/></svg>오늘의 5분</a>
+  <a href="#course" data-tab="course"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8.5 18H14a3 3 0 0 0 0-6h-4a3 3 0 0 1 0-6h5.5"/></svg>코스</a>
   <a href="#talk" data-tab="talk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H9l-5 4z"/></svg>AI 대화</a>
   <a href="#deck" data-tab="deck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="5" width="14" height="15" rx="2"/><path d="M8 3h12v15"/></svg>표현함</a>
-  <a href="#science" data-tab="science"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>원리</a>
+  <a href="#me" data-tab="me"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>나</a>
 </div></nav>
 
 <script>
@@ -382,15 +408,63 @@ const DECK = [
  {id:"c33",tag:"감정·의견",lvl:"A2",en:"To be honest, I'm a bit nervous.",ko:"솔직히 좀 긴장돼.",alts:["Honestly, I'm a bit nervous.","To be honest, I am a bit nervous."],note:""},
  {id:"c34",tag:"감정·의견",lvl:"A2",en:"That sounds like a plan.",ko:"좋아, 그렇게 하자.",alts:["Sounds like a plan."],note:""},
  {id:"c35",tag:"감정·의견",lvl:"B1",en:"I'm down for that.",ko:"나 그거 좋아, 콜.",alts:["I am down for that.","I'm down."],note:"친구 사이 캐주얼 표현."},
- {id:"c36",tag:"감정·의견",lvl:"A1",en:"No worries.",ko:"괜찮아, 신경 쓰지 마.",alts:["No worries at all."],note:"Thank you / Sorry 에 대한 가벼운 답."}
+ {id:"c36",tag:"감정·의견",lvl:"A1",en:"No worries.",ko:"괜찮아, 신경 쓰지 마.",alts:["No worries at all."],note:"Thank you / Sorry 에 대한 가벼운 답."},
+ /* ---- added for the A1–B2 curriculum: every situation × level has at least 4 chunks ---- */
+ {id:"c37",tag:"감정·의견",lvl:"A1",en:"That's great!",ko:"잘됐다!",alts:["That is great!"],note:"좋은 소식에 바로 반응하는 말."},
+ {id:"c38",tag:"감정·의견",lvl:"A1",en:"I'm a little tired today.",ko:"오늘 좀 피곤해.",alts:["I am a little tired today.","I'm a bit tired today."],note:"a little = 조금. 감정을 부드럽게."},
+ {id:"c39",tag:"감정·의견",lvl:"A1",en:"I don't like it.",ko:"그거 마음에 안 들어.",alts:["I do not like it."],note:""},
+ {id:"c40",tag:"감정·의견",lvl:"B1",en:"It's not my cup of tea.",ko:"내 취향은 아니야.",alts:["It is not my cup of tea."],note:"싫다는 말을 부드럽게 돌려 말하기."},
+ {id:"c41",tag:"감정·의견",lvl:"B2",en:"I have mixed feelings about it.",ko:"그건 좋기도 하고 싫기도 해.",alts:["I've got mixed feelings about it."],note:"한마디로 정하기 어려울 때."},
+ {id:"c42",tag:"감정·의견",lvl:"B2",en:"That's easier said than done.",ko:"말이야 쉽지.",alts:["That is easier said than done."],note:""},
+ {id:"c43",tag:"감정·의견",lvl:"B2",en:"I'm on the fence about it.",ko:"아직 마음을 못 정했어.",alts:["I am on the fence about it."],note:"on the fence = 어느 쪽도 아닌."},
+ {id:"c44",tag:"감정·의견",lvl:"B2",en:"Let's agree to disagree.",ko:"생각이 다른 걸로 하고 넘어가자.",alts:["Let us agree to disagree."],note:"논쟁을 기분 좋게 마무리하는 말."},
+ {id:"c45",tag:"스몰토크",lvl:"A1",en:"Nice to meet you.",ko:"만나서 반가워요.",alts:["Nice to meet you too."],note:""},
+ {id:"c46",tag:"스몰토크",lvl:"B1",en:"It's been ages since we last talked.",ko:"마지막으로 얘기한 지 엄청 오래됐네.",alts:["It has been ages since we last talked."],note:"ages = 아주 오랜 시간."},
+ {id:"c47",tag:"스몰토크",lvl:"B1",en:"Speaking of which, did you see the game?",ko:"말 나온 김에, 경기 봤어?",alts:["Speaking of which, did you watch the game?"],note:"Speaking of which = 말 나온 김에."},
+ {id:"c48",tag:"스몰토크",lvl:"B1",en:"I've been meaning to ask you.",ko:"물어보려고 했었어.",alts:["I have been meaning to ask you."],note:"미뤄 둔 질문을 꺼낼 때."},
+ {id:"c49",tag:"스몰토크",lvl:"B2",en:"I'll let you get back to work.",ko:"이제 일 보세요.",alts:["I will let you get back to work."],note:"대화를 자연스럽게 끝내는 말."},
+ {id:"c50",tag:"스몰토크",lvl:"B2",en:"We should catch up properly sometime.",ko:"언제 제대로 얘기 좀 하자.",alts:["We should catch up sometime."],note:"catch up = 근황을 나누다."},
+ {id:"c51",tag:"스몰토크",lvl:"B2",en:"That rings a bell.",ko:"어디서 들어 본 것 같아.",alts:["That name rings a bell."],note:""},
+ {id:"c52",tag:"스몰토크",lvl:"B2",en:"I couldn't help overhearing.",ko:"우연히 듣게 됐는데요.",alts:["I could not help overhearing."],note:"남의 대화에 끼어들 때 정중하게."},
+ {id:"c53",tag:"여행",lvl:"A1",en:"Where is the restroom?",ko:"화장실이 어디예요?",alts:["Where's the restroom?","Where is the bathroom?"],note:"영국에서는 toilet도 흔해요."},
+ {id:"c54",tag:"여행",lvl:"A2",en:"Can I have a window seat?",ko:"창가 자리로 주실 수 있어요?",alts:["Could I have a window seat?","Can I get a window seat?"],note:"통로 쪽은 aisle seat."},
+ {id:"c55",tag:"여행",lvl:"B1",en:"My flight was delayed.",ko:"비행기가 지연됐어요.",alts:[],note:""},
+ {id:"c56",tag:"여행",lvl:"B1",en:"Is breakfast included?",ko:"조식 포함인가요?",alts:["Does it include breakfast?"],note:""},
+ {id:"c57",tag:"여행",lvl:"B1",en:"I'd like to change my reservation.",ko:"예약을 변경하고 싶어요.",alts:["I would like to change my reservation."],note:"I'd like to ~ = 정중한 요청의 기본형."},
+ {id:"c58",tag:"여행",lvl:"B1",en:"Could you recommend a good place to eat around here?",ko:"근처에 괜찮은 식당 추천해 주실래요?",alts:["Can you recommend a good place to eat around here?"],note:""},
+ {id:"c59",tag:"여행",lvl:"B2",en:"My luggage didn't show up on the carousel.",ko:"수하물이 컨베이어에 안 나왔어요.",alts:["My luggage did not show up on the carousel."],note:"show up = 나타나다."},
+ {id:"c60",tag:"여행",lvl:"B2",en:"Is there any way I could get an upgrade?",ko:"혹시 업그레이드받을 방법이 있을까요?",alts:["Is there any way I can get an upgrade?"],note:"Is there any way ~? 아주 공손한 부탁."},
+ {id:"c61",tag:"여행",lvl:"B2",en:"I was charged twice for the same room.",ko:"같은 방값이 두 번 청구됐어요.",alts:[],note:""},
+ {id:"c62",tag:"여행",lvl:"B2",en:"We'd like to make the most of our time here.",ko:"여기 있는 동안 알차게 보내고 싶어요.",alts:["We would like to make the most of our time here."],note:"make the most of = 최대한 활용하다."},
+ {id:"c63",tag:"직장·면접",lvl:"A1",en:"I work in sales.",ko:"영업 일을 해요.",alts:["I work in sales now."],note:"I work in + 분야."},
+ {id:"c64",tag:"직장·면접",lvl:"A1",en:"See you tomorrow.",ko:"내일 봐요.",alts:["See you tomorrow!"],note:""},
+ {id:"c65",tag:"직장·면접",lvl:"A1",en:"I have a question.",ko:"질문이 있어요.",alts:["I've got a question."],note:""},
+ {id:"c66",tag:"직장·면접",lvl:"A1",en:"Thank you for your help.",ko:"도와줘서 고마워요.",alts:["Thanks for your help."],note:"Thank you for + 명사/-ing."},
+ {id:"c67",tag:"직장·면접",lvl:"A2",en:"Let me check my schedule.",ko:"일정 좀 확인해 볼게요.",alts:["Let me check my calendar."],note:""},
+ {id:"c68",tag:"직장·면접",lvl:"B2",en:"Let's circle back to this next week.",ko:"이건 다음 주에 다시 얘기해요.",alts:["Let us circle back to this next week."],note:"circle back = 나중에 다시 다루다."},
+ {id:"c69",tag:"직장·면접",lvl:"B2",en:"Could you elaborate on that?",ko:"그 부분을 좀 더 자세히 설명해 주시겠어요?",alts:["Can you elaborate on that?"],note:""},
+ {id:"c70",tag:"직장·면접",lvl:"B2",en:"We need to get everyone on the same page.",ko:"모두 같은 이해를 갖게 해야 해요.",alts:[],note:"on the same page = 같은 생각을 공유하는."},
+ {id:"c71",tag:"직장·면접",lvl:"B2",en:"Let me play devil's advocate for a second.",ko:"잠깐 일부러 반대 입장에서 말해 볼게요.",alts:["Let me play devil's advocate."],note:"반론을 부드럽게 꺼내는 회의 표현."},
+ {id:"c72",tag:"카페·식당",lvl:"A2",en:"Can I get it without ice?",ko:"얼음 빼고 주세요.",alts:["Could I get it without ice?","Can I have it without ice?"],note:"without = ~없이."},
+ {id:"c73",tag:"카페·식당",lvl:"A2",en:"Could we see the menu, please?",ko:"메뉴판 좀 볼 수 있을까요?",alts:["Can we see the menu, please?","Could we have the menu, please?"],note:""},
+ {id:"c74",tag:"카페·식당",lvl:"B1",en:"What would you recommend?",ko:"뭘 추천하세요?",alts:["What do you recommend?"],note:"고민될 땐 점원에게 넘기기."},
+ {id:"c75",tag:"카페·식당",lvl:"B1",en:"I'm allergic to peanuts.",ko:"땅콩 알레르기가 있어요.",alts:["I am allergic to peanuts."],note:"allergic to + 음식."},
+ {id:"c76",tag:"카페·식당",lvl:"B1",en:"Could we split the bill?",ko:"따로 계산할 수 있을까요?",alts:["Can we split the bill?","Could we split the check?"],note:""},
+ {id:"c77",tag:"카페·식당",lvl:"B1",en:"I think there's a mistake on the bill.",ko:"계산서에 착오가 있는 것 같아요.",alts:["I think there is a mistake on the bill."],note:"I think 로 시작해 부드럽게 지적."},
+ {id:"c78",tag:"카페·식당",lvl:"B2",en:"This isn't quite what I ordered.",ko:"제가 주문한 거랑 좀 다른데요.",alts:["This is not quite what I ordered."],note:"not quite = 딱 그건 아닌."},
+ {id:"c79",tag:"카페·식당",lvl:"B2",en:"Could you go easy on the salt?",ko:"소금은 조금만 넣어 주실래요?",alts:["Can you go easy on the salt?"],note:"go easy on = 적게 쓰다."},
+ {id:"c80",tag:"카페·식당",lvl:"B2",en:"We're celebrating, so we'd like something special.",ko:"축하하는 자리라 특별한 걸 먹고 싶어요.",alts:["We are celebrating, so we would like something special."],note:""},
+ {id:"c81",tag:"카페·식당",lvl:"B2",en:"It's on me tonight.",ko:"오늘은 내가 살게.",alts:["It is on me tonight.","Tonight is on me."],note:"It's on me = 내가 낼게."}
 ];
 const SCENARIOS = [
- {id:"cafe",lvl:"A1",t:"카페에서 주문하기",d:"바리스타 Jamie와 음료 주문",persona:"Jamie, a cheerful barista at a busy café in Seattle",setting:"The learner is at the counter ordering.",missions:["음료 주문하기","사이즈나 옵션 말하기","매장/포장 답하기"]},
- {id:"hotel",lvl:"A2",t:"호텔 체크인",d:"프런트 직원 Priya와 체크인",persona:"Priya, a polite front-desk clerk at a hotel in London",setting:"The learner arrives to check in.",missions:["예약자 이름 말하기","체크아웃 시간 묻기","주변 추천 받기"]},
- {id:"smalltalk",lvl:"A2",t:"동료와 스몰토크",d:"월요일 아침, 동료 Alex와 주말 이야기",persona:"Alex, a friendly coworker chatting by the coffee machine on Monday morning",setting:"Casual small talk at work.",missions:["주말에 한 일 말하기","상대에게 질문 하나 하기","점심 약속 잡기"]},
- {id:"interview",lvl:"B1",t:"영어 면접 자기소개",d:"면접관 Morgan의 질문에 답하기",persona:"Morgan, a hiring manager interviewing the learner for a marketing role",setting:"A job interview over video call.",missions:["간단히 자기소개하기","강점 하나 예시와 함께 말하기","면접관에게 질문하기"]},
- {id:"directions",lvl:"A1",t:"길 묻기",d:"뉴욕 거리에서 행인 Sam에게 길 묻기",persona:"Sam, a helpful local walking in New York",setting:"The learner is lost and stops Sam on the street.",missions:["가려는 곳 말하기","걸어갈 수 있는지 묻기","고맙다고 인사하기"]},
- {id:"weekend",lvl:"A2",t:"친구와 주말 계획",d:"친구 Riley와 토요일 약속 정하기",persona:"Riley, a close friend texting about weekend plans",setting:"Two friends planning Saturday.",missions:["하고 싶은 것 제안하기","시간과 장소 정하기","약속 확정하기"]}
+ {id:"cafe",tag:"카페·식당",lvl:"A1",t:"카페에서 주문하기",d:"바리스타 Jamie와 음료 주문",persona:"Jamie, a cheerful barista at a busy café in Seattle",setting:"The learner is at the counter ordering.",missions:["음료 주문하기","사이즈나 옵션 말하기","매장/포장 답하기"]},
+ {id:"hotel",tag:"여행",lvl:"A2",t:"호텔 체크인",d:"프런트 직원 Priya와 체크인",persona:"Priya, a polite front-desk clerk at a hotel in London",setting:"The learner arrives to check in.",missions:["예약자 이름 말하기","체크아웃 시간 묻기","주변 추천 받기"]},
+ {id:"smalltalk",tag:"스몰토크",lvl:"A2",t:"동료와 스몰토크",d:"월요일 아침, 동료 Alex와 주말 이야기",persona:"Alex, a friendly coworker chatting by the coffee machine on Monday morning",setting:"Casual small talk at work.",missions:["주말에 한 일 말하기","상대에게 질문 하나 하기","점심 약속 잡기"]},
+ {id:"interview",tag:"직장·면접",lvl:"B1",t:"영어 면접 자기소개",d:"면접관 Morgan의 질문에 답하기",persona:"Morgan, a hiring manager interviewing the learner for a marketing role",setting:"A job interview over video call.",missions:["간단히 자기소개하기","강점 하나 예시와 함께 말하기","면접관에게 질문하기"]},
+ {id:"directions",tag:"여행",lvl:"A1",t:"길 묻기",d:"뉴욕 거리에서 행인 Sam에게 길 묻기",persona:"Sam, a helpful local walking in New York",setting:"The learner is lost and stops Sam on the street.",missions:["가려는 곳 말하기","걸어갈 수 있는지 묻기","고맙다고 인사하기"]},
+ {id:"weekend",tag:"감정·의견",lvl:"A2",t:"친구와 주말 계획",d:"친구 Riley와 토요일 약속 정하기",persona:"Riley, a close friend texting about weekend plans",setting:"Two friends planning Saturday.",missions:["하고 싶은 것 제안하기","시간과 장소 정하기","약속 확정하기"]},
+ {id:"meeting",tag:"직장·면접",lvl:"B2",t:"회의에서 의견 조율하기",d:"팀장 Dana와 일정 연기를 두고 조율",persona:"Dana, a team lead in a project meeting who wants to keep the original deadline",setting:"A work meeting where the learner wants to push the deadline by one week.",missions:["내 의견과 이유 말하기","상대 의견에 공감 표시하기","절충안 제안하기"]},
+ {id:"complaint",tag:"카페·식당",lvl:"B2",t:"식당에서 정중하게 불만 말하기",d:"서버 Chris에게 잘못 나온 주문 알리기",persona:"Chris, a busy but friendly server at a restaurant",setting:"The learner's dish came out wrong and the bill seems off.",missions:["주문이 잘못 나왔다고 말하기","원하는 해결 방법 요청하기","계산서 착오 확인하기"]}
 ];
 
 /* ---------- utilities ---------- */
@@ -652,15 +726,17 @@ function streakNow(){ const k=dayKey(), y=dayKey(new Date(Date.now()-DAY)); retu
 function dueList(){ const now=Date.now(); return Object.entries(S.cards).filter(([id,c])=>c.due<=now && cardById(id)).sort((a,b)=>a[1].due-b[1].due).map(([id])=>id); }
 
 /* ---------- router ---------- */
-const VIEWS = {home:viewHome, learn:viewLearnStart, talk:viewTalk, deck:viewDeck, science:viewScience};
+const VIEWS = {home:viewHome, course:viewCourse, learn:viewLearnStart, talk:viewTalk, deck:viewDeck, me:viewMe, science:viewScience, placement:viewPlacement};
+const TAB_OF = {learn:"course", science:"me", placement:"me"};
 let session = null, talk = null;
 const inSession = () => !!(session && !session.done) || !!(talk && talk.active);
 function route(){
   const name = (location.hash||"#home").slice(1); const v = VIEWS[name] ? name : "home";
   closeSheet(); setFocusMode(false); speaker = null;
-  document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.tab===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+  const tab = TAB_OF[v] || v;
+  document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   const app = $("#app"); app.replaceChildren();
-  if (!S.onboarded && v !== "science") { viewOnboarding(app); window.scrollTo(0,0); return; }
+  if (!S.onboarded && v !== "science" && v !== "placement") { viewOnboarding(app); window.scrollTo(0,0); return; }
   VIEWS[v](app); window.scrollTo(0,0);
 }
 window.addEventListener("hashchange", () => { stopDict(); session = null; if (talk) talk.active = false; route(); });
@@ -678,13 +754,13 @@ function actionBar(...kids){ const bar = h("div",{class:"actionbar"}, h("div",{c
 function viewOnboarding(app){
   setFocusMode(true);
   let step = 0; const picked = new Set(S.settings.interests||[]); let goalPick = S.settings.goal || 50;
-  const finishOb = (celebrate) => { S.onboarded = true; S.settings.goal = goalPick; S.settings.interests = [...picked]; save(); if (celebrate) { confetti(); sfx("fanfare"); } location.hash = "#home"; route(); };
+  const finishOb = (toPlacement) => { S.onboarded = true; S.settings.goal = goalPick; S.settings.interests = [...picked]; save(); sfx("tap"); location.hash = toPlacement ? "#placement" : "#home"; route(); };
   const draw = () => {
     app.replaceChildren(); speaker = null;
     const skip = h("button",{class:"ghost",type:"button",onclick:()=>finishOb(false)},"건너뛰기");
     app.append(h("div",{class:"top"}, h("div",{class:"ob"}, h("div",{class:"dots-step","aria-label":`${step+1}/3 단계`}, ...[0,1,2].map(i=>h("i",{class:i===step?"on":""})))), skip));
     const ob = h("section",{class:"ob"}); app.append(ob);
-    const next = h("button",{class:"primary"}, step < 2 ? "다음" : "시작하기");
+    const next = h("button",{class:"primary"}, step < 2 ? "다음" : "실력 진단 시작하기");
     if (step === 0) {
       const m = mascot(120,"happy"); speaker = m;
       ob.append(m, h("h1",{class:"title"}, `안녕, 나는 ${MASCOT_NAME}야!`), h("p",{class:"muted"},"네 말을 따라 하며 영어 말문을 틔워 줄게. 하루에 얼마나 할까?"));
@@ -741,12 +817,33 @@ function openSettings(){
   });
 }
 
+/* ---------- CURRICULUM: units = (CEFR level × situation), ordered A1→B2, interests first within a level ---------- */
+const LEVELS = ["A1","A2","B1","B2"];
+const LEVEL_KO = {A1:"기초", A2:"초급", B1:"중급", B2:"중상급"};
+const LEVEL_CAN = {A1:"인사하고 간단히 주문하기", A2:"익숙한 상황에서 짧게 대화하기", B1:"여행·일상 대화를 대부분 해내기", B2:"회의·의견 조율까지 자연스럽게"};
+const myLevel = () => LEVELS.includes(S.level) ? S.level : "A1";
+function buildCurriculum(){
+  const like = S.settings.interests || [];
+  const tags = [...new Set(DECK.map(c=>c.tag))].sort((a,b)=> (like.includes(b)-like.includes(a)));
+  const units = [];
+  LEVELS.forEach(L => tags.forEach(t => { const cards = DECK.filter(c=>c.lvl===L && c.tag===t).map(c=>c.id);
+    if (!cards.length) return;
+    const scen = SCENARIOS.find(x=>x.tag===t && x.lvl===L) || null;
+    const done = cards.filter(id=>mastery(id)>=2).length;
+    units.push({id:L+"·"+t, lvl:L, tag:t, cards, scen, done, total:cards.length, complete: done/cards.length >= .8}); }));
+  const startIdx = Math.max(0, units.findIndex(u=>u.lvl===myLevel()));
+  let cur = units.findIndex((u,i)=>i>=startIdx && !u.complete); if (cur < 0) cur = units.length-1;
+  units.forEach((u,i)=>{ u.status = u.complete ? "done" : i===cur ? "now" : i<startIdx ? "skipped" : i<cur ? "open" : "next"; });
+  return {units, cur, startIdx};
+}
+function currentUnit(){ const c = buildCurriculum(); return c.units[c.cur]; }
+
 /* ---------- HOME ---------- */
 function viewHome(app){
   const today = S.hist[dayKey()]||0, g = goal();
   const due = dueList().length, fresh = allCards().filter(c=>!S.cards[c.id]).length;
   const newLeft = Math.min(fresh, Math.max(0, NEW_PER_DAY-(S.newDay===dayKey()?S.newCount:0)));
-  const gear = h("button",{class:"iconbtn press",type:"button","aria-label":"설정",onclick:openSettings,html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'});
+  const gear = h("button",{class:"iconbtn press",type:"button","aria-label":"설정",onclick:()=>{ location.hash="#me"; },html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'});
   app.append(h("div",{class:"top"}, h("div",{class:"logo"}, mascot(34), "말문"), gear));
 
   const hr = new Date().getHours();
@@ -764,17 +861,16 @@ function viewHome(app){
   app.append(h("section",{class:"card-s today"}, ring, h("div",{style:"min-width:0"}, h("p",{class:"streakline",html:FLAME.replace("<svg",'<svg width="18" height="18" style="vertical-align:-3px"')}, " ", h("b",{}, streakNow()+"일"), " 연속 학습 중"), stamps)));
 
   app.append(h("button",{class:"cta",onclick:()=>{ sfx("tap"); location.hash="#learn"; }},
-    h("div",{}, h("b",{}, S.sessions? "오늘의 5분 이어가기":"첫 5분 시작하기"), h("span",{}, `복습 ${due}개 · 새 표현 ${newLeft}개`)),
+    h("div",{}, h("b",{}, S.sessions? "오늘의 5분 이어가기":"첫 5분 시작하기"), h("span",{}, `${currentUnit().lvl} · ${currentUnit().tag} 단원 · 복습 ${due}개 · 새 표현 ${newLeft}개`)),
     h("span",{class:"arrow","aria-hidden":"true"},"→")));
   app.append(h("button",{class:"cta alt",onclick:()=>{ sfx("tap"); location.hash="#talk"; }},
     h("div",{}, h("b",{},"AI와 상황극"), h("span",{}, "배운 표현을 실제 대화에 써 보기")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
 
-  const tags = [...new Set(allCards().map(c=>c.tag))];
-  const units = h("div",{class:"units"});
-  tags.forEach(t => { const cs = allCards().filter(c=>c.tag===t); const done = cs.filter(c=>mastery(c.id)>=2).length;
-    units.append(h("button",{class:"unit press",type:"button",onclick:()=>{ deckFilter=t; location.hash="#deck"; }},
-      h("span",{class:"u-ring",html:ringSvg(done/cs.length, 40, 6)}), h("span",{style:"min-width:0;text-align:left"}, h("div",{class:"u-t"}, t), h("div",{class:"u-s"}, `${done}/${cs.length} 입에 붙음`)))); });
-  app.append(h("h2",{class:"sec-h"},"상황별 진행"), units);
+  if (!S.placement) app.append(h("button",{class:"cta alt",onclick:()=>{ location.hash="#placement"; }},
+    h("div",{}, h("b",{},"실력 진단하고 맞춤 코스 받기"), h("span",{},"3~4분이면 내 레벨에 맞는 단원부터 시작해요")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
+  const u = currentUnit();
+  app.append(h("h2",{class:"sec-h"},"지금 단원"), h("button",{class:"unit press",type:"button",style:"width:100%",onclick:()=>{ location.hash="#course"; }},
+    h("span",{class:"u-ring",html:ringSvg(u.done/u.total, 40, 6)}), h("span",{style:"min-width:0;text-align:left;flex:1"}, h("div",{class:"u-t"}, `${u.lvl} ${LEVEL_KO[u.lvl]} · ${u.tag}`), h("div",{class:"u-s"}, `${u.done}/${u.total} 입에 붙음 · 코스 전체 보기`)), h("span",{class:"mono muted","aria-hidden":"true"},"→")));
 
   const note = h("p",{class:"note"});
   const chip = (ok, on, off) => h("span",{class:"chip"+(ok?" ok":"")}, ok?on:off);
@@ -789,8 +885,11 @@ function buildSession(){
   const k = dayKey(); if (S.newDay !== k) { S.newDay = k; S.newCount = 0; }
   const due = dueList().slice(0, 8);
   const newBudget = Math.max(0, Math.min(NEW_PER_DAY - S.newCount, 10 - due.length));
-  const like = new Set(S.settings.interests||[]);
-  const pool = allCards().filter(c=>!S.cards[c.id]).map((c,i)=>({c,i})).sort((a,b)=>(like.has(b.c.tag)-like.has(a.c.tag)) || a.i-b.i).map(x=>x.c);
+  /* new chunks come from the chosen/current unit, then the following units, then the learner's own saved chunks */
+  const cur = buildCurriculum(); let from = cur.cur;
+  if (S.focusUnit) { const fi = cur.units.findIndex(u=>u.id===S.focusUnit); if (fi > -1) from = fi; S.focusUnit = null; }
+  const order = cur.units.slice(from).concat(cur.units.slice(0, from).filter(u=>u.status!=="skipped")).flatMap(u=>u.cards);
+  const pool = order.map(cardById).concat((S.custom||[])).filter(c=>c && !S.cards[c.id]);
   const fresh = pool.slice(0, Math.max(newBudget, due.length? 0 : 3)).map(c=>c.id);
   let extra = [];
   if (due.length + fresh.length < 5) extra = Object.entries(S.cards).filter(([id])=>!due.includes(id)&&cardById(id)).sort((a,b)=>a[1].due-b[1].due).slice(0, 5-due.length-fresh.length).map(([id])=>id);
@@ -804,7 +903,7 @@ function buildSession(){
   const seenListen = new Set(); const fixed = [];
   for (const s of out) { if (s.type==="tiles" && !seenListen.has(s.id)) { const j = out.findIndex(x=>x.type==="listen"&&x.id===s.id); if (j>-1 && !fixed.includes(out[j])) fixed.push(out[j]); seenListen.add(s.id); }
     if (s.type==="listen") { if (fixed.includes(s)) continue; seenListen.add(s.id); } fixed.push(s); }
-  return {steps: fixed, i:0, combo:0, xp:0, right:0, total:0, misses:{}, retried:new Set(), started:Date.now(), done:false};
+  const unit = cur.units[from]; return {steps: fixed, i:0, combo:0, xp:0, right:0, total:0, misses:{}, retried:new Set(), started:Date.now(), done:false, unit: unit && {id:unit.id, complete:unit.complete, lvl:unit.lvl}};
 }
 function viewLearnStart(app){
   session = buildSession();
@@ -937,6 +1036,11 @@ function renderRecap(){
   app.append(h("section",{class:"celebrate"}, m, h("p",{class:"eyebrow"},"오늘의 5분 완료!"), xp,
     h("p",{class:"streakline",html:FLAME.replace("<svg",'<svg width="20" height="20" style="vertical-align:-4px"')}, " ", h("b",{}, streakNow()+"일"), " 연속! 내일도 만나")));
   countUp(n, s.xp); confetti(); sfx("fanfare"); haptic([20,60,20,60,40]);
+  if (s.unit && !s.unit.complete) { const after = buildCurriculum(); const u = after.units.find(x=>x.id===s.unit.id);
+    if (u && u.complete) { const lvlDone = after.units.filter(x=>x.lvl===u.lvl).every(x=>x.complete||x.status==="skipped"); const nxt = after.units[after.cur];
+      app.append(h("section",{class:"card-s",style:"text-align:center"}, h("b",{class:"sec-h"}, lvlDone ? `${u.lvl} 레벨 졸업!` : `'${u.lvl} · ${u.tag}' 단원 완료!`),
+        h("p",{class:"muted"}, nxt && nxt.id !== u.id ? `다음 단원 '${nxt.lvl} · ${nxt.tag}'이(가) 열렸어.` : "모든 단원을 끝냈어!"),
+        u.scen ? h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash="#talk"; }}, `단원 미션: ${u.scen.t}`) : "")); } }
   setTimeout(()=>setMood(m,"idle"), 1600);
   app.append(h("div",{class:"kpis"},
     h("div",{class:"kpi"}, h("b",{}, acc+"%"), h("span",{},"정확도 (말하기·조립)")),
@@ -957,7 +1061,8 @@ function viewTalk(app){
     h("p",{class:"ctx"},"AI 대화는 이 기기 안에서 처리돼요. 음성 입력은 브라우저의 음성인식 서비스를 써요."));
   const setup = h("section",{class:"card-s"});
   const list = h("div",{class:"scen"});
-  SCENARIOS.forEach(sc => list.append(h("button",{onclick:()=>startTalk(sc)}, h("span",{class:"lvl"}, sc.lvl), h("div",{}, h("div",{class:"t"}, sc.t), h("div",{class:"d"}, sc.d)), h("span",{class:"mono muted","aria-hidden":"true"},"→"))));
+  const li = LEVELS.indexOf(myLevel());
+  [...SCENARIOS].sort((a,b)=>Math.abs(LEVELS.indexOf(a.lvl)-li)-Math.abs(LEVELS.indexOf(b.lvl)-li)).forEach(sc => list.append(h("button",{onclick:()=>startTalk(sc)}, h("span",{class:"lvl"}, sc.lvl), h("div",{}, h("div",{class:"t"}, sc.t), h("div",{class:"d"}, sc.d + (sc.lvl===myLevel() ? " · 내 레벨" : ""))), h("span",{class:"mono muted","aria-hidden":"true"},"→"))));
   app.append(setup, list);
   const gate = () => list.querySelectorAll("button").forEach(b => b.disabled = !llm.engine);
   gate();
@@ -1228,24 +1333,177 @@ Respond as JSON.`, 480);
   app.append(h("button",{class:"cta alt",onclick:()=>{ location.hash="#talk"; route(); }}, h("div",{}, h("b",{},"다른 상황 고르기")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
 }
 
+/* ---------- PLACEMENT: self-assessment (DIALANG-style) → 10 adaptive items (CAT-style staircase) → 30s speaking sample (CAF) ---------- */
+const PLACE_ITEMS = 10;
+function viewPlacement(app){
+  setFocusMode(true);
+  const P = {theta:0, i:0, used:new Set(), results:[], wpm:null, words:0, stage:"self"};
+  const total = 1 + PLACE_ITEMS + (caps.dict ? 1 : 0);
+  const bar = (n) => h("div",{class:"topbar"},
+    h("button",{class:"x","aria-label":"진단 그만하기",onclick:()=>{ location.hash = "#home"; }},"×"),
+    h("div",{class:"prog",role:"progressbar","aria-valuemin":"0","aria-valuemax":String(total),"aria-valuenow":String(n)}, h("i",{style:`width:${Math.max(4, n/total*100)}%`})),
+    h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash = "#home"; }},"나중에"));
+  const clear = (n) => { app.replaceChildren(bar(n)); stopDict(); const box = h("section",{class:"task"}); app.append(box); return box; };
+
+  function self(){
+    const box = clear(0);
+    asker(box, "영어로 어느 정도 말할 수 있어?");
+    box.append(h("p",{class:"ctx"},"가장 가까운 걸 골라 줘. 그다음 짧은 문제로 확인할게."));
+    const pick = h("div",{class:"pick"});
+    LEVELS.forEach((L,i) => pick.append(h("button",{class:"press",type:"button",onclick:()=>{ P.theta = i; sfx("tap"); item(); }}, h("span",{}, h("b",{}, LEVEL_CAN[L])), h("small",{}, L))));
+    pick.append(h("button",{class:"press",type:"button",onclick:()=>{ P.theta = 0; sfx("tap"); item(); }}, h("span",{}, h("b",{},"잘 모르겠어")), h("small",{},"쉬운 것부터")));
+    box.append(pick);
+  }
+  function pickCard(){
+    const want = Math.max(0, Math.min(3, Math.round(P.theta)));
+    for (const d of [0,1,-1,2,-2,3,-3]) { const L = LEVELS[want+d]; if (!L) continue;
+      const pool = DECK.filter(c=>c.lvl===L && !P.used.has(c.id)); if (pool.length) return pool[Math.random()*pool.length|0]; }
+    return null;
+  }
+  function answer(card, type, ok){
+    P.results.push({id:card.id, lvl:card.lvl, type, ok});
+    const step = P.i < 4 ? .5 : .25;
+    P.theta = Math.max(0, Math.min(3, P.theta + (ok ? step : -step)));
+    sfx(ok ? "ding" : "tap"); P.i++;
+    setTimeout(()=>{ if (location.hash === "#placement") item(); }, 380);
+  }
+  function item(){
+    if (P.i >= PLACE_ITEMS) return caps.dict ? speak() : result();
+    const card = pickCard(); if (!card) return result(); P.used.add(card.id);
+    const box = clear(1 + P.i); const type = P.i % 2 === 0 ? "listen" : "recall";
+    const dunno = h("button",{class:"ghost",type:"button"},"잘 모르겠어"); dunno.onclick = () => { dunno.disabled = true; answer(card, type, false); };
+    if (type === "listen") {
+      const m = asker(box, "들리는 말, 무슨 뜻일까?");
+      const play = h("button",{class:"speak jumbo",type:"button","aria-pressed":"false","aria-label":"다시 듣기",html:ICON.spk+"<span>다시 듣기</span>"}); play.onclick = () => say(card.en, 1, play, m);
+      box.append(h("div",{class:"row",style:"justify-content:center"}, play));
+      const others = shuffle(DECK.filter(c=>c.id!==card.id && c.lvl===card.lvl)).slice(0,3);
+      const wrap = h("div",{class:"opts"});
+      shuffle([card, ...others]).forEach(o => wrap.append(h("button",{class:"opt","data-id":o.id,onclick:(e)=>{ wrap.querySelectorAll("button").forEach(b=>b.disabled=true); e.currentTarget.style.borderColor="var(--sky)"; answer(card, type, o.id===card.id); }}, o.ko)));
+      box.append(wrap, h("div",{class:"row"}, dunno));
+      setTimeout(()=>{ if (document.contains(play)) play.click(); }, 300);
+    } else {
+      asker(box, "영어로 말해 볼래?");
+      box.append(h("p",{class:"prompt-ko"}, card.ko), h("div",{class:"row"}, dunno));
+      answerBox(box, caps.dict ? "또는 여기에 입력" : "영어로 입력하세요", ans => answer(card, type, grade(ans, card).score >= 0.8));
+    }
+  }
+  function speak(){
+    const box = clear(1 + PLACE_ITEMS);
+    asker(box, "마지막! 영어로 30초 자기소개해 줘", "happy");
+    box.append(h("div",{class:"row"}, ...["이름","하는 일","취미","영어 공부하는 이유"].map(t=>h("span",{class:"chip"}, t))),
+      h("p",{class:"ctx"},"틀려도 괜찮아. 말이 끊기면 마이크를 다시 눌러서 이어 말해 줘."));
+    const ta = h("textarea",{id:"intro",rows:"4",placeholder:"마이크를 누르고 말하기","data-ph":"마이크를 누르고 말하기","aria-label":"자기소개"});
+    box.append(h("div",{class:"answer"}, micFor(ta), ta));
+    const done = h("button",{class:"primary"},"다 말했어");
+    const skip = h("button",{class:"ghost",type:"button",onclick:()=>result()},"건너뛰기");
+    done.onclick = async () => { await stopDict();
+      const words = toks(ta.value).length, ms = Number(ta.dataset.speechMs||0);
+      P.words = words; P.wpm = ms >= 3000 && words ? Math.round(words/(ms/60000)) : null;
+      /* fluency nudges the estimate a quarter step: long, fluent answers up; very short ones down */
+      if (words >= 35 && (P.wpm||0) >= 100) P.theta = Math.min(3, P.theta + .25);
+      else if (words < 10) P.theta = Math.max(0, P.theta - .25);
+      result(); };
+    actionBar(done, skip);
+  }
+  function result(){
+    setFocusMode(false); app.replaceChildren(); stopDict();
+    const rec = LEVELS[Math.max(0, Math.min(3, Math.round(P.theta)))];
+    const acc = t => { const r = P.results.filter(x=>x.type===t); return r.length ? r.filter(x=>x.ok).length/r.length : 0; };
+    const listen = acc("listen"), spk = acc("recall");
+    let chosen = rec;
+    const m = mascot(110,"happy"); speaker = m; confetti(); sfx("fanfare");
+    app.append(h("section",{class:"celebrate"}, m, h("p",{class:"eyebrow"},"실력 진단 결과"), h("h1",{class:"title"}, "추천 시작 레벨"), h("span",{class:"lvl-badge",style:"font-size:28px"}, `${rec} ${LEVEL_KO[rec]}`), h("p",{class:"muted"}, "이 레벨의 목표: "+LEVEL_CAN[rec]+". 지금 실력에 딱 맞는 출발점이야.")));
+    const hb = (lab, pct, val) => h("div",{class:"hbar"}, h("span",{}, lab), h("span",{class:"t"}, h("i",{style:`width:${Math.round(pct*100)}%`})), h("span",{class:"v"}, val));
+    app.append(h("section",{class:"card-s"}, h("h2",{class:"sec-h"},"영역별 결과"), hb("듣기", listen, Math.round(listen*100)+"%"), hb("말하기", spk, Math.round(spk*100)+"%"),
+      hb("유창성", P.wpm ? Math.min(1, P.wpm/140) : 0, P.wpm ? P.wpm+" WPM" : "–"),
+      h("p",{class:"ctx"}, "듣기·말하기는 진단 문제 정답률, 유창성은 자기소개의 분당 단어 수예요.")));
+    const seg = h("div",{class:"seg",role:"group","aria-label":"시작 레벨 고르기"});
+    const preview = h("div",{style:"display:flex;flex-direction:column;gap:8px"});
+    const draw = () => {
+      seg.replaceChildren(...LEVELS.map(L=>h("button",{type:"button","aria-pressed":String(L===chosen),onclick:()=>{ chosen = L; sfx("tap"); draw(); }}, L + (L===rec ? " · 추천" : ""))));
+      const keep = S.level; S.level = chosen; const {units, startIdx} = buildCurriculum(); S.level = keep;
+      preview.replaceChildren(...units.slice(startIdx, startIdx+3).map((u,i)=>h("div",{class:"pu press "+(i===0?"now":"next")}, h("span",{class:"st"}, String(i+1)), h("span",{style:"min-width:0"}, h("div",{class:"tg"}, `${u.lvl} · ${u.tag}`), h("div",{class:"sb"}, `표현 ${u.total}개`+(u.scen?` · 미션: ${u.scen.t}`:""))), "")));
+    };
+    draw();
+    app.append(h("section",{class:"card-s"}, h("h2",{class:"sec-h"},"내 코스 미리보기"), h("p",{class:"ctx"},"너무 쉽거나 어려우면 시작 레벨을 바꿔도 돼."), seg, preview));
+    const go = h("button",{class:"cta",onclick:()=>{
+      S.level = chosen; S.placement = {date:dayKey(), theta:+P.theta.toFixed(2), level:rec, listen:+listen.toFixed(2), speak:+spk.toFixed(2), wpm:P.wpm};
+      /* chunks already answered correctly skip "new" and go straight to spaced review */
+      P.results.filter(r=>r.ok && !S.cards[r.id]).forEach(r=>schedule(r.id, 3));
+      save(); sfx("tap"); location.hash = "#course"; }},
+      h("div",{}, h("b",{},"이 레벨로 코스 시작"), h("span",{},"진단에서 맞힌 표현은 복습으로 넘겨 둘게")), h("span",{class:"arrow","aria-hidden":"true"},"→"));
+    app.append(go);
+  }
+  self();
+}
+
+/* ---------- COURSE: the learning path ---------- */
+function viewCourse(app){
+  const {units} = buildCurriculum();
+  const head = h("div",{class:"top"}, h("div",{}, h("p",{class:"eyebrow"},"내 코스"), h("h1",{class:"title"},"한 단원씩, 입에 붙이기")), h("span",{class:"lvl-badge"}, myLevel()));
+  app.append(head);
+  app.append(h("p",{class:"muted"}, S.placement ? `진단 결과 ${myLevel()} ${LEVEL_KO[myLevel()]}부터 시작했어요. 아래 단원은 건너뛰었지만 언제든 복습할 수 있어요.` : "아직 실력 진단 전이라 A1부터 시작해요. 진단하면 내 레벨에 맞는 단원부터 열려요."),
+    h("div",{class:"row"}, h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash="#placement"; }}, S.placement ? "실력 다시 진단" : "실력 진단하기")));
+  LEVELS.forEach(L => {
+    const us = units.filter(u=>u.lvl===L); if (!us.length) return;
+    const sec = h("section",{class:"lvl-sec"}, h("div",{class:"lvl-h"}, h("b",{}, `${L} ${LEVEL_KO[L]}`), h("span",{}, LEVEL_CAN[L])));
+    us.forEach((u,i) => {
+      const label = {done:"완료", now:"지금", skipped:"건너뜀", open:"진행 중", next:"예정"}[u.status];
+      const btn = h("button",{class:"pu press "+u.status,type:"button","aria-label":`${u.lvl} ${u.tag} 단원, ${label}, ${u.done}/${u.total}`,onclick:()=>{ S.focusUnit = u.id; save(); sfx("tap"); location.hash="#learn"; }},
+        h("span",{class:"st"}, u.status==="now" ? mascot(36) : u.status==="done" ? "✓" : String(i+1)),
+        h("span",{style:"min-width:0"}, h("div",{class:"tg"}, u.tag), h("div",{class:"sb"}, `${label} · ${u.done}/${u.total} 입에 붙음`+(u.scen?` · 미션: ${u.scen.t}`:"")), h("div",{class:"bar"}, h("i",{style:`width:${Math.round(u.done/u.total*100)}%`}))),
+        h("span",{class:"mono muted","aria-hidden":"true"},"→"));
+      sec.append(btn);
+    });
+    app.append(sec);
+  });
+}
+
+/* ---------- ME: level, diagnosis, stats, settings, why it works ---------- */
+function viewMe(app){
+  const m = mascot(76); speaker = m;
+  app.append(h("section",{class:"greet"}, m, h("div",{class:"bubble"}, h("b",{}, `지금 레벨 ${myLevel()} · ${LEVEL_KO[myLevel()]}`), "지금 목표는 '"+LEVEL_CAN[myLevel()]+"'야. 같이 해 보자!")));
+  const P = S.placement;
+  const diag = h("section",{class:"card-s"}, h("h2",{class:"sec-h"},"실력 진단"));
+  if (P) {
+    const bar = (lab, pct, val) => h("div",{class:"hbar"}, h("span",{}, lab), h("span",{class:"t"}, h("i",{style:`width:${Math.round(Math.max(0,Math.min(1,pct))*100)}%`})), h("span",{class:"v"}, val));
+    diag.append(h("p",{class:"ctx"}, `${P.date} 진단 · 추천 ${P.level} · 선택 ${myLevel()}`),
+      bar("듣기", P.listen, Math.round(P.listen*100)+"%"), bar("말하기", P.speak, Math.round(P.speak*100)+"%"),
+      bar("유창성", P.wpm ? P.wpm/140 : 0, P.wpm ? P.wpm+" WPM" : "–"));
+  } else diag.append(h("p",{class:"muted"},"아직 진단 전이에요. 3~4분이면 내 레벨과 맞춤 코스가 나와요."));
+  diag.append(h("button",{class:"primary",onclick:()=>{ location.hash="#placement"; }}, P ? "다시 진단하기" : "진단 시작"));
+  app.append(diag);
+  const known = Object.keys(S.cards).filter(id=>mastery(id)>=3).length;
+  const kpi = (v, l) => h("div",{class:"kpi"}, h("b",{}, v), h("span",{}, l));
+  app.append(h("div",{class:"statgrid"}, kpi(String(S.xp), "총 XP"), kpi(streakNow()+"일", "연속 학습"), kpi(known+"/"+allCards().length, "입에 붙은 표현"), kpi(String(S.talks||0), "AI 대화")));
+  const errs = Object.entries(S.errors||{}).sort((a,b)=>b[1]-a[1]);
+  if (errs.length) app.append(h("p",{class:"note"}, "자주 고친 유형", ...errs.slice(0,4).map(([k,v])=>h("span",{class:"chip warn"}, (ERR_KO[k]||"기타")+" "+v))));
+  app.append(h("div",{class:"menu"},
+    h("button",{type:"button",onclick:openSettings}, h("span",{}, "설정", h("small",{},"하루 목표, 효과음, 핸즈프리, 기록 백업")), h("span",{"aria-hidden":"true"},"→")),
+    h("button",{type:"button",onclick:()=>{ location.hash="#science"; }}, h("span",{}, "이 앱이 효과적인 이유", h("small",{},"제2언어 습득 연구와 인기 앱 분석")), h("span",{"aria-hidden":"true"},"→"))));
+}
+
 /* ---------- DECK ---------- */
-let deckFilter = "전체";
+let deckFilter = "전체", deckLevel = "모든 레벨";
 function viewDeck(app){
   const cards = allCards(); const tags = ["전체", ...new Set(cards.map(c=>c.tag))];
   app.append(h("p",{class:"eyebrow"},"표현함 · "+cards.length+"개"), h("h1",{class:"title"},"입에 붙일 덩어리들"),
     h("p",{class:"lead muted"},"단어 하나가 아니라 통째로 쓰는 표현을 모읍니다. 막대가 다섯 칸 차면 몇 주 동안 잊지 않는 상태예요."));
-  const fl = h("div",{class:"filters",role:"group","aria-label":"상황별 보기"}); const list = h("div",{class:"cards"});
+  const fl = h("div",{class:"filters",role:"group","aria-label":"상황별 보기"}); const fl2 = h("div",{class:"filters",role:"group","aria-label":"레벨별 보기"}); const list = h("div",{class:"cards"});
+  const lv = ["모든 레벨", ...LEVELS];
   const draw = () => { fl.replaceChildren(...tags.map(t=>h("button",{"aria-pressed":String(t===deckFilter),onclick:()=>{ deckFilter=t; draw(); }}, t)));
-    list.replaceChildren(...cards.filter(c=>deckFilter==="전체"||c.tag===deckFilter).sort((a,b)=>mastery(b.id)-mastery(a.id)).map(c=>{ const m = mastery(c.id);
+    fl2.replaceChildren(...lv.map(t=>h("button",{"aria-pressed":String(t===deckLevel),onclick:()=>{ deckLevel=t; draw(); }}, t)));
+    list.replaceChildren(...cards.filter(c=>(deckFilter==="전체"||c.tag===deckFilter) && (deckLevel==="모든 레벨"||c.lvl===deckLevel)).sort((a,b)=>mastery(b.id)-mastery(a.id)).map(c=>{ const m = mastery(c.id);
       const row = h("button",{class:"card",style:"border-left:0;border-right:0;border-bottom:0;background:transparent;text-align:left;width:100%",onclick:()=>say(c.en,1),"aria-label":c.en+" 듣기"},
         h("div",{class:"en"}, c.en), h("div",{class:"ko"}, c.ko),
         h("div",{class:"m"}, h("div",{class:"meter"}, ...[0,1,2,3,4].map(k=>h("i",{class:k<=m-1||(k===0&&m>0)?"on":""}))), h("span",{}, MASTERY_LABEL[m])));
       return row; })); };
-  draw(); app.append(fl, list);
+  draw(); app.append(fl, fl2, list);
 }
 
 /* ---------- SCIENCE ---------- */
 function viewScience(app){
+  app.append(h("div",{class:"row"}, h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash="#me"; }},"← 나")));
   app.append(h("p",{class:"eyebrow"},"이 앱이 이렇게 생긴 이유"), h("h1",{class:"title"},"연구가 정한 설계"),
     h("p",{class:"lead muted"},"기능마다 근거가 있어요. 왼쪽은 제2언어 습득과 기억 연구에서 확인된 원리, 오른쪽은 그 원리가 화면에서 어떻게 쓰였는지예요."));
   const P = [
