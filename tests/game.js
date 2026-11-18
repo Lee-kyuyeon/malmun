@@ -88,7 +88,7 @@ const closeSheets = async p => { while (await p.$('.sheet')) { await p.evaluate(
     await p.evaluate(() => { location.hash = '#me'; }); await p.waitForTimeout(900);
     ok('celebration_sheet', !!(await p.$('.sheet')), await p.evaluate(() => document.querySelector('.sheet')?.getAttribute('aria-label')));
     await closeSheets(p);
-    ok('me_badges_grid', (await p.$$('#badges .badge')).length === 6); await p.click('[data-open="badges"]'); await p.waitForTimeout(300); ok('all_badges_sheet', (await p.$$('.sheet .badge')).length === 19); await closeSheets(p);
+    ok('me_badges_grid', (await p.$$('#badges .badge')).length === 6); await p.click('[data-open="badges"]'); await p.waitForTimeout(300); ok('all_badges_sheet', (await p.$$('.sheet .badge')).length === 20); await closeSheets(p);
     ok('me_calendar', !!(await p.$('#calendar .cal .d.today')));
     await p.screenshot({ path: out + '/g-me.png', fullPage: true });
     await ctx.close(); }
