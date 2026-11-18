@@ -19,8 +19,21 @@ function earRate(){ const r = (S.ear && S.ear.firstListens) || []; return r.leng
 /* open: the first one, anything at or below my level, and the one after each finished episode */
 const epUnlocked = i => i === 0 || LEVELS.indexOf(EPISODES[i].lvl) <= LEVELS.indexOf(myLevel()) || !!(S.ear && S.ear.eps && S.ear.eps[EPISODES[i-1].id]);
 
+/* the 연습 tab: listening (해외살이) and speaking (AI role-play) side by side; the tab reopens the one used last */
+function practiceSwitch(cur){
+  const go = mode => { if (mode === cur) return; S.practiceMode = mode; save(); sfx("tap"); location.hash = mode === "talk" ? "#talk" : "#abroad"; };
+  return h("div",{class:"seg2 practice-seg",role:"group","aria-label":"연습 고르기"},
+    h("button",{type:"button","aria-pressed":String(cur==="listen"),"data-mode":"listen",onclick:()=>go("listen")}, "🎧 듣기 · 해외살이"),
+    h("button",{type:"button","aria-pressed":String(cur==="talk"),"data-mode":"talk",onclick:()=>go("talk")}, "💬 말하기 · AI 상황극"));
+}
+function viewPractice(app){
+  const talkMode = S.practiceMode === "talk";
+  history.replaceState(null, "", talkMode ? "#talk" : "#abroad");
+  (talkMode ? viewTalk : viewAbroad)(app);
+}
 function viewAbroad(app){
-  abroad = null;
+  abroad = null; S.practiceMode = "listen";
+  app.append(practiceSwitch("listen"));
   const ear = S.ear || {}, rate = earRate();
   /* a travel diary, not a syllabus: a boarding pass on top, then the days of the stay as stops on a route */
   const done = EPISODES.filter(e => S.ear && S.ear.eps && S.ear.eps[e.id]).length;
@@ -69,10 +82,10 @@ function renderScene(){
       if (!active() || st.run !== run || st.solved) return;
       const played = await say(line.en, rate, btn, null, {exact:true});
       if (!active() || st.run !== run || st.solved) return;
-      if (!played) { replayNote.textContent = "음성이 재생되지 않았어요. 다시 듣거나 도움을 열어 보세요."; return; }
+      if (!played) { replayNote.textContent = "음성이 재생되지 않았어요. 다시 듣거나 도움을 열어 보세요."; revealQuiz(); return; }
     }
     if (!st.heard) st.firstListen = markSceneSeen(e.id, a.i);
-    st.heard = true;
+    st.heard = true; revealQuiz();
   };
   const play = h("button",{class:"speak jumbo",type:"button","aria-pressed":"false","aria-label":"다시 듣기",html:ICON.spk+"<span>다시 듣기</span>"});
   /* the automatic first play is free, so is one "say that again?"; more replays still work but are recorded */
@@ -88,10 +101,13 @@ function renderScene(){
     if (lvl === 3) shown.append(h("div",{class:"subs"}, ...sc.lines.map(l=>h("p",{class:"prompt-en"}, h("b",{class:"spk-name"}, e.cast[l.who].name+" "), tapText(l.en, {en:l.en, ko:l.ko})))));
     if (lvl === 4) shown.append(h("div",{class:"subs ko"}, ...sc.lines.map(l=>h("p",{class:"ctx"}, l.ko))));
   };
-  helpBtn.onclick = () => { if (st.help >= EAR_HELP.length) return; st.help++; sfx("tap"); showHelp(st.help);
+  helpBtn.onclick = () => { if (st.help >= EAR_HELP.length) return; st.help++; sfx("tap"); showHelp(st.help); if (st.help >= 3) revealQuiz();
     if (st.help >= EAR_HELP.length) helpBtn.remove(); else helpBtn.textContent = EAR_HELP[st.help]; };
   helpBox.append(helpBtn); box.append(helpBox, shown);
-  box.append(h("h2",{class:"scene-q"}, sc.q));
+  /* like real life, you don't know the question in advance: it and the choices appear once the scene has been heard */
+  const quiz = h("div",{class:"quiz",hidden:true}), waitNote = h("p",{class:"quiz-wait"}, "끝까지 듣고 나면 질문이 나와요.");
+  function revealQuiz(){ if (!quiz.hidden) return; quiz.hidden = false; waitNote.remove(); }
+  quiz.append(h("h2",{class:"scene-q"}, sc.q));
   const conseq = h("div",{class:"conseq",role:"status",hidden:true});
   const wrap = h("div",{class:"opts"});
   shuffle(sc.opts).forEach(([label, out]) => wrap.append(h("button",{class:"opt",type:"button",onclick:(ev)=>{
@@ -100,7 +116,7 @@ function renderScene(){
     else { st.tries++; b.classList.add("wrong"); b.disabled = true; setMood(m, "oops"); sfx("bloop"); haptic([30,40,30]);
       conseq.hidden = false; conseq.replaceChildren(h("b",{},"이런…"), " "+out, h("span",{class:"ctx"}, " 다시 들어 보고 골라 봐요.")); }
   }}, label)));
-  box.append(conseq, wrap);
+  quiz.append(conseq, wrap); box.append(waitNote, quiz);
   setTimeout(() => { if (active() && !st.run && !st.solved) playAll(1, play); }, 400);
 }
 function solved(box, sc, st, m){

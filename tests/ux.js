@@ -24,8 +24,9 @@ const fs = require('fs');
   await p.screenshot({ path: out + '/home.png', fullPage: true });
   // B) settings sheet
   await p.click('button[aria-label="설정"]'); await p.waitForTimeout(300);
-  const gearGoesTo = await p.evaluate(() => location.hash);
-  await p.click('.menu button:has-text("설정")'); await p.waitForTimeout(300);
+  /* the home gear opens the settings sheet itself (it used to send you to the 나 tab) */
+  const gearGoesTo = await p.evaluate(() => location.hash + (document.querySelector('.sheet[aria-label="설정"]') ? ' +sheet' : ''));
+  if (!gearGoesTo.endsWith('+sheet')) throw new Error('gear did not open settings: ' + gearGoesTo);
   await p.screenshot({ path: out + '/settings.png' });
   await p.click('.sheet .seg button:has-text("30 XP")');
   await p.click('label[for="set-sound"]');

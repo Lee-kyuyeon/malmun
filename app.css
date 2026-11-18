@@ -11,14 +11,8 @@
   --f-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
   --r:20px; --press:4px;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#111A16; --surface:#1A2520; --sunk:#23302A; --ink:#EAF3EE; --muted:#9DAEA6; --line:#2E3D37;
-  --mint:#4FD6A6; --mint-d:#2B9A73; --on-mint:#06221A; --butter:#FFD45C; --butter-d:#BF9426; --on-butter:#3A2A00;
-  --coral:#FF8E81; --coral-d:#BF5A4E; --sky:#8ACBFF; --good:#6EE0A6; --goodbg:#163527; --bad:#FF8E81; --badbg:#3A201C; color-scheme:dark}}
-:root[data-theme="dark"]{
-  --bg:#111A16; --surface:#1A2520; --sunk:#23302A; --ink:#EAF3EE; --muted:#9DAEA6; --line:#2E3D37;
-  --mint:#4FD6A6; --mint-d:#2B9A73; --on-mint:#06221A; --butter:#FFD45C; --butter-d:#BF9426; --on-butter:#3A2A00;
-  --coral:#FF8E81; --coral-d:#BF5A4E; --sky:#8ACBFF; --good:#6EE0A6; --goodbg:#163527; --bad:#FF8E81; --badbg:#3A201C; color-scheme:dark}
+/* light only: the app always uses the light palette, whatever the phone's theme */
+:root{color-scheme:light}
 html,body{height:100%}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);-webkit-text-size-adjust:100%}
 [hidden]{display:none!important}
@@ -502,3 +496,17 @@ nav.tabs .tbadge.dot{min-width:10px;width:10px;height:10px;padding:0;top:6px;lef
 .pc-go{font-size:13px;font-weight:700;color:color-mix(in srgb,var(--sky) 50%,var(--ink));margin-top:4px}
 .pc-stamp{position:absolute;top:10px;right:10px;font-size:11px;font-weight:700;padding:3px 8px;border:2px solid var(--good);color:var(--good);border-radius:8px;transform:rotate(6deg);background:var(--surface)}
 .stop.done .postcard .pc-t{padding-right:78px}
+
+/* menu flow: 연습 switch, next-practice card, folded course levels */
+.practice-seg{margin-bottom:6px}
+.practice-seg button{font-size:14px}
+.next-practice .np-k{display:block;font-size:12px;font-weight:700;color:color-mix(in srgb,var(--sky) 55%,var(--ink));margin-bottom:2px}
+details.lvl-sec>summary{list-style:none;cursor:pointer}
+details.lvl-sec>summary::-webkit-details-marker{display:none}
+details.lvl-sec.folded>summary .lvl-h{border:2px dashed var(--line);border-radius:16px;padding:12px 14px;opacity:.85}
+details.lvl-sec[open]>summary .lvl-h{margin-bottom:8px}
+details.lvl-sec{display:block}
+details.lvl-sec>.pu{margin-top:10px;width:100%}
+.more-btn{align-self:center;margin-top:10px}
+.quiz{display:flex;flex-direction:column;gap:12px}
+.quiz-wait{border:2px dashed var(--line);border-radius:16px;padding:14px;text-align:center;color:var(--muted);margin:6px 0 0}

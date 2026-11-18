@@ -110,7 +110,9 @@ function openSettings(){
 const LEVELS = ["A1","A2","B1","B2"];
 const LEVEL_KO = {A1:"기초", A2:"초급", B1:"중급", B2:"중상급"};
 const LEVEL_CAN = {A1:"인사하고 간단히 주문하기", A2:"익숙한 상황에서 짧게 대화하기", B1:"여행·일상 대화를 대부분 해내기", B2:"회의·의견 조율까지 자연스럽게"};
-const myLevel = () => LEVELS.includes(S.level) ? S.level : "A1";
+/* without a placement test, start at B1: the app is aimed at university students, for whom A1-A2 is too easy */
+const DEFAULT_LEVEL = "B1";
+const myLevel = () => LEVELS.includes(S.level) ? S.level : DEFAULT_LEVEL;
 /* difficulty of one chunk: its length plus how rare its rarest content word is (frequency bands 1–3) */
 const DIFF = new Map();
 function chunkDifficulty(c){

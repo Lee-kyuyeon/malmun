@@ -2,8 +2,8 @@
 "use strict";
 /* ---------- TALK: AI role-play with recasts, hints, missions ---------- */
 function viewTalk(app, preferredTag){
-  const m = mascot(80); speaker = m;
-  app.append(h("p",{class:"eyebrow"},"AI 상황극"), h("section",{class:"greet"}, m, h("div",{class:"bubble"}, h("b",{},"말로 써 봐야 남아!"), "상황을 고르면 내가 역할을 맡을게. 틀려도 괜찮아, 힌트 주고 다시 말할 기회를 줄게.")),
+  const m = mascot(80); speaker = m; S.practiceMode = "talk";
+  app.append(practiceSwitch("talk"), h("p",{class:"eyebrow"},"AI 상황극"), h("section",{class:"greet"}, m, h("div",{class:"bubble"}, h("b",{},"말로 써 봐야 남아!"), "상황을 고르면 내가 역할을 맡을게. 틀려도 괜찮아, 힌트 주고 다시 말할 기회를 줄게.")),
     h("p",{class:"ctx"},"AI 대화는 이 기기 안에서 처리돼요. 음성 입력은 브라우저의 음성인식 서비스를 써요."));
   const setup = h("section",{class:"card-s"});
   const list = h("div",{class:"scen"});
@@ -95,6 +95,7 @@ function addCustom(items, tag, lvl, note){
   return n;
 }
 function startTalk(sc){
+  S.lastTalkT = Date.now();
   talk = {sc, turns:[], missions:new Set(), feedback:[], speech:[], pendingFix:null, active:true, busy:false, started:Date.now()};
   const app = $("#app"); app.replaceChildren(); stopDict(); setFocusMode(true);
   const ms = h("div",{class:"missions"});

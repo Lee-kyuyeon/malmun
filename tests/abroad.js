@@ -44,8 +44,16 @@ async function scene(p, i, { wrong = false, help = 0 } = {}) {
     ok('clip_lookup_all_content', r.deck === 0 && r.words === 0 && r.lines === 0, r);
     ok('clip_lookup_word_case_and_unknown', /^audio\/x[0-9a-z]+-\d\.m4a$/.test(r.cap || '') && r.none === null, r);
     ok('clip_second_voice', r.alt, r);
-    ok('home_chip_recorded_voice', (await p.textContent('.note')).includes('원어민 녹음 음성'));
-    ok('home_abroad_cta', !!(await p.$('[data-cta="abroad"]')));
+    const ctas = await p.$$eval('.cta', c => c.map(x => x.innerText.split(String.fromCharCode(10))[0]));
+    ok('home_next_practice_listen', !!(await p.$('.next-practice[data-cta="listen"]')) && !ctas.some(t => t.includes('AI와 상황극') || t === '앵두와 해외살이') && ctas.length <= 3, ctas);
+    await p.click('nav.tabs a[data-tab="talk"]'); await p.waitForTimeout(400);
+    ok('practice_tab_opens_listening', await p.evaluate(() => location.hash === '#abroad' && !!document.querySelector('.practice-seg [data-mode="listen"][aria-pressed="true"]') && document.querySelector('nav.tabs a[data-tab="talk"]').getAttribute('aria-current') === 'page'));
+    await p.click('.practice-seg [data-mode="talk"]'); await p.waitForTimeout(400);
+    ok('practice_switch_to_talk', await p.evaluate(() => location.hash === '#talk' && !!document.querySelector('.scen')));
+    await p.click('nav.tabs a[data-tab="home"]'); await p.waitForTimeout(300); await p.click('nav.tabs a[data-tab="talk"]'); await p.waitForTimeout(400);
+    ok('practice_tab_remembers_mode', await p.evaluate(() => location.hash === '#talk'));
+    await p.evaluate(() => { location.hash = '#me'; }); await p.waitForTimeout(500);
+    ok('me_device_chips', (await p.textContent('[data-note="device"]')).includes('원어민 녹음 음성'));
     await ctx.close(); }
 
   // 2) episode list: A1 learner sees the first episode open and A2+ ones locked

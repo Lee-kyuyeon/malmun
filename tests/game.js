@@ -121,7 +121,7 @@ const closeSheets = async p => { while (await p.$('.sheet')) { await p.evaluate(
   // 5) last-week race matches hist (Wed: Mon..Wed)
   { const mon = new Date(T(12) - 2 * DAY), tue = new Date(T(12) - DAY), lmon = new Date(T(12) - 9 * DAY), lwed = new Date(T(12) - 7 * DAY), lthu = new Date(T(12) - 6 * DAY);
     const hist = { [key(mon)]: 40, [key(tue)]: 20, [key(lmon)]: 30, [key(lwed)]: 50, [key(lthu)]: 999 };
-    const { p, ctx } = await open({ hist, lastDay: key(tue), streak: 2 });
+    const { p, ctx } = await open({ hist, lastDay: key(tue), streak: 2 }, 12, { hash: '#me' });
     const tw = await p.getAttribute('[data-tw]', 'data-tw'), lw = await p.getAttribute('[data-lw]', 'data-lw');
     ok('race_values', tw === '60' && lw === '80', { tw, lw });
     await ctx.close(); }

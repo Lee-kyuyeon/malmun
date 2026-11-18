@@ -5,7 +5,7 @@ function viewHome(app){
   const today = S.hist[dayKey()]||0, g = goal();
   const due = dueList().length, fresh = allCards().filter(c=>!S.cards[c.id]).length;
   const newLeft = Math.min(fresh, Math.max(0, NEW_PER_DAY-(S.newDay===dayKey()?S.newCount:0)));
-  const gear = h("button",{class:"iconbtn press",type:"button","aria-label":"설정",onclick:()=>{ location.hash="#me"; },html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'});
+  const gear = h("button",{class:"iconbtn press",type:"button","aria-label":"설정",onclick:()=>{ sfx("tap"); openSettings(); },html:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>'});
   const cher = h("button",{class:"tchip press",type:"button","aria-label":`체리 ${S.cherries||0}개, 앵두 꾸미기`,"data-chip":"cherry",onclick:openShop,html:CHERRY}, String(S.cherries||0));
   const fl = h("button",{class:"tchip press",type:"button","aria-label":`${streakNow()}일 연속, 달력 보기`,"data-chip":"streak",onclick:openCalendar,html:FLAME}, String(streakNow()));
   app.append(h("div",{class:"top"}, h("div",{class:"logo"}, mascot(34, today > 0 ? "idle" : (angerMood() || "idle")), "재잘"), h("div",{class:"topr"}, fl, cher, gear)));
@@ -31,26 +31,31 @@ function viewHome(app){
   app.append(h("button",{class:"cta",onclick:()=>{ sfx("tap"); location.hash="#learn"; }},
     h("div",{}, h("b",{}, S.sessions? "오늘의 5분 이어가기":"첫 5분 시작하기"), h("span",{}, `${currentUnit().lvl} · ${currentUnit().tag} 단원 · 복습 ${due}개 · 새 표현 ${newLeft}개`)),
     h("span",{class:"arrow","aria-hidden":"true"},"→")));
-  app.append(h("button",{class:"cta alt",onclick:()=>{ sfx("tap"); location.hash="#talk"; }},
-    h("div",{}, h("b",{},"AI와 상황극"), h("span",{}, "배운 표현을 실제 대화에 써 보기")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
-  { const er = earRate(); app.append(h("button",{class:"cta alt","data-cta":"abroad",onclick:()=>{ sfx("tap"); location.hash="#abroad"; }},
-    h("div",{}, h("b",{},"앵두와 해외살이"), h("span",{}, er==null ? "자막 없이 듣고 움직이며 귀 트이기" : `처음 듣기 ${er}% · 자막 없이 듣고 움직이기`)), h("span",{class:"arrow","aria-hidden":"true"},"→"))); }
+  app.append(nextPracticeCard());
   const ic = installCard(); if (ic) app.append(ic);
   const bc = backupCard(); if (bc) app.append(bc);
-  app.append(missionsCard(), raceCard());
+  app.append(missionsCard());
 
   if (!S.placement) app.append(h("button",{class:"cta alt",onclick:()=>{ location.hash="#placement"; }},
     h("div",{}, h("b",{},"실력 진단하고 맞춤 코스 받기"), h("span",{},"3~4분이면 내 레벨에 맞는 단원부터 시작해요")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
-  const u = currentUnit();
-  app.append(h("h2",{class:"sec-h"},"지금 단원"), h("button",{class:"unit press",type:"button",style:"width:100%",onclick:()=>{ location.hash="#course"; }},
-    h("span",{class:"u-ring",html:ringSvg(u.done/u.total, 40, 6)}), h("span",{style:"min-width:0;text-align:left;flex:1"}, h("div",{class:"u-t"}, `${u.lvl} ${LEVEL_KO[u.lvl]} · ${u.tag}`), h("div",{class:"u-s"}, `${u.done}/${u.total} 입에 붙음 · 코스 전체 보기`)), h("span",{class:"mono muted","aria-hidden":"true"},"→")));
-
-  const note = h("p",{class:"note"});
-  const chip = (ok, on, off) => h("span",{class:"chip"+(ok?" ok":"")}, ok?on:off);
-  note.append(chip(!!caps.dict,"말하기 입력 켜짐","타이핑 입력"), chip(canSpeak(), hasClips() ? "원어민 녹음 음성" : "기기 음성","음성 없음"), chip(!!llm.engine, "AI 모델 준비됨", "AI 모델 미준비"), chip(store.ok,"이 기기에 저장","저장 안 됨 (사생활 보호 모드)"));
+  /* the one thing worth knowing from AI chats; device status lives in 나 */
   const weak = Object.entries(S.errors||{}).filter(([k,v])=>v>=2).sort((a,b)=>b[1]-a[1])[0];
-  if (weak) note.append(h("span",{class:"chip warn",title:"AI 대화에서 가장 자주 고친 유형"}, "약점: "+(ERR_KO[weak[0]]||"기타")+" "+weak[1]+"회"));
-  app.append(note);
+  if (weak) app.append(h("p",{class:"note"}, h("span",{class:"chip warn",title:"AI 대화에서 가장 자주 고친 유형"}, "약점: "+(ERR_KO[weak[0]]||"기타")+" "+weak[1]+"회")));
+}
+
+/* home shows one next practice instead of a button per mode: the next unheard 해외살이 day,
+   or the unit's role-play when listening was done more recently and this browser can run the AI */
+function nextPracticeCard(){
+  const eps = (S.ear && S.ear.eps) || {}, lastListen = Math.max(0, ...Object.values(eps).map(r=>r.t||0));
+  const ep = EPISODES.find((e,i) => epUnlocked(i) && !eps[e.id]);
+  const u = currentUnit(), aiOk = "gpu" in navigator && llm.gpu !== null;
+  const talkFirst = aiOk && (!ep || lastListen > (S.lastTalkT||0));
+  const card = (mode, b, sub, go) => h("button",{class:"cta alt next-practice","data-cta":mode,onclick:()=>{ sfx("tap"); S.practiceMode = mode; save(); go(); }},
+    h("div",{}, h("small",{class:"np-k"}, mode === "listen" ? "🎧 다음 연습 · 듣기" : "💬 다음 연습 · 말하기"), h("b",{}, b), h("span",{}, sub)), h("span",{class:"arrow","aria-hidden":"true"},"→"));
+  if (!talkFirst && ep) { const i = EPISODES.indexOf(ep), er = earRate();
+    return card("listen", `해외살이 Day ${i+1} · ${ep.t}`, er==null ? "자막 없이 듣고, 들은 대로 움직여 봐요" : `처음 듣기 ${er}% · 자막 없이 듣고 움직이기`, () => { location.hash = "#abroad"; }); }
+  if (talkFirst && u.scen) return card("talk", `AI 상황극 · ${u.scen.t}`, `${u.tag} 단원에서 배운 표현을 말로 써 보기`, () => { location.hash = "#talk"; });
+  return card("listen", "앵두와 해외살이", "다시 들으면 처음보다 훨씬 잘 들려요", () => { location.hash = "#abroad"; });
 }
 
 /* ---------- LEARN: build a 5-minute interleaved session ---------- */

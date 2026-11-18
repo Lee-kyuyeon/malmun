@@ -127,11 +127,14 @@ function viewCourse(app){
   const {units} = buildCurriculum();
   const head = h("div",{class:"top"}, h("div",{}, h("p",{class:"eyebrow"},"내 코스"), h("h1",{class:"title"},"한 단원씩, 입에 붙이기")), h("span",{class:"lvl-badge"}, myLevel()));
   app.append(head);
-  app.append(h("p",{class:"muted"}, S.placement ? `진단 결과 ${myLevel()} ${LEVEL_KO[myLevel()]}부터 시작했어요. 아래 단원은 건너뛰었지만 언제든 복습할 수 있어요.` : "아직 실력 진단 전이라 A1부터 시작해요. 진단하면 내 레벨에 맞는 단원부터 열려요."),
+  app.append(h("p",{class:"muted"}, S.placement ? `진단 결과 ${myLevel()} ${LEVEL_KO[myLevel()]}부터 시작했어요. 아래 단원은 건너뛰었지만 언제든 복습할 수 있어요.` : "아직 실력 진단 전이라 B1(중급)부터 시작해요. 진단하면 내 레벨에 맞는 단원부터 열려요."),
     h("div",{class:"row"}, h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash="#placement"; }}, S.placement ? "실력 다시 진단" : "실력 진단하기")));
   LEVELS.forEach(L => {
     const us = units.filter(u=>u.lvl===L); if (!us.length) return;
-    const sec = h("section",{class:"lvl-sec"}, h("div",{class:"lvl-h"}, h("b",{}, `${L} ${LEVEL_KO[L]}`), h("span",{}, LEVEL_CAN[L])));
+    /* a level with nothing left to do (all skipped or finished) folds away so the current unit is near the top */
+    const settled = us.every(u => u.status === "skipped" || u.status === "done");
+    const head = h("div",{class:"lvl-h"}, h("b",{}, `${L} ${LEVEL_KO[L]}`), h("span",{}, settled ? `${us.filter(u=>u.status==="done").length ? "완료·" : ""}건너뜀 ${us.length}단원 · 눌러서 펼치기` : LEVEL_CAN[L]));
+    const sec = settled ? h("details",{class:"lvl-sec folded"}, h("summary",{}, head)) : h("section",{class:"lvl-sec"}, head);
     us.forEach((u,i) => {
       const label = {done:"완료", now:"지금", skipped:"건너뜀", open:"진행 중", next:"예정"}[u.status];
       const btn = h("button",{class:"pu press "+u.status,type:"button","aria-label":`${u.lvl} ${u.tag} 단원, ${label}, ${u.done}/${u.total}`,onclick:()=>{ S.focusUnit = u.id; save(); sfx("tap"); location.hash="#learn"; }},
@@ -142,6 +145,7 @@ function viewCourse(app){
     });
     app.append(sec);
   });
+  setTimeout(() => { const now = app.querySelector(".pu.now"); if (now && now.getBoundingClientRect().top > innerHeight * .6) now.scrollIntoView({block:"center", behavior: reduced() ? "auto" : "smooth"}); }, 60);
 }
 
 /* ---------- ME: level, diagnosis, stats, settings, why it works ---------- */
@@ -168,12 +172,15 @@ function viewMe(app){
   app.append(h("section",{class:"card-s",id:"calendar"}, h("h2",{class:"sec-h"},"연속 기록 달력"), calendarEl(), h("button",{class:"ghost",type:"button","data-act":"share-card",onclick:shareCard},"기록 카드 공유")));
   const known = Object.keys(S.cards).filter(id=>!id.startsWith("w:") && mastery(id)>=3).length;
   const kpi = (v, l) => h("div",{class:"kpi"}, h("b",{}, v), h("span",{}, l));
+  app.append(raceCard());
   app.append(h("div",{class:"statgrid"}, kpi(String(S.xp), "총 XP"), kpi(streakNow()+"일", "연속 학습"), kpi((S.bestStreak||0)+"일", "최고 연속"), kpi(String(S.cherries||0), "체리"), kpi(known+"/"+allCards().length, "입에 붙은 표현"), kpi(String(S.talks||0), "AI 대화"), kpi(String(Object.keys(S.words||{}).length), "내 단어장"), kpi(String(Object.keys(S.words||{}).filter(w=>mastery("w:"+w)>=3).length), "외운 단어")));
   const wl = Object.keys(S.words||{}); if (wl.length) { const cnt = [0,0,0,0,0,0]; wl.forEach(w => cnt[wordStage(w)]++); const mx = Math.max(...cnt, 1);
     app.append(h("section",{class:"card-s",id:"word-ladder"}, h("h2",{class:"sec-h"}, `단어 ${wl.length}개 학습 단계`), h("div",{class:"stagebars"}, ...STAGE_KO.map((t,i)=>h("div",{class:"hbar"}, h("span",{style:"font-size:12px"}, t), h("span",{class:"t"}, h("i",{style:`width:${cnt[i]/mx*100}%`})), h("span",{class:"v"}, cnt[i]+"개")))),
       h("button",{class:"ghost",type:"button",onclick:()=>{ wordOnlyNext = true; location.hash = "#learn"; }},"단어만 복습하기"))); }
   const errs = Object.entries(S.errors||{}).sort((a,b)=>b[1]-a[1]);
   if (errs.length) app.append(h("p",{class:"note"}, "자주 고친 유형", ...errs.slice(0,4).map(([k,v])=>h("span",{class:"chip warn"}, (ERR_KO[k]||"기타")+" "+v))));
+  { const chip = (ok, on, off) => h("span",{class:"chip"+(ok?" ok":"")}, ok?on:off);
+    app.append(h("p",{class:"note","data-note":"device"}, chip(!!caps.dict,"말하기 입력 켜짐","타이핑 입력"), chip(canSpeak(), hasClips() ? "원어민 녹음 음성" : "기기 음성","음성 없음"), chip(!!llm.engine, "AI 모델 준비됨", "AI 모델 미준비"), chip(store.ok,"이 기기에 저장","저장 안 됨 (사생활 보호 모드)"))); }
   app.append(h("div",{class:"menu"},
     !isStandalone() ? h("button",{type:"button","data-open":"install",onclick:installApp}, h("span",{}, "홈 화면에 추가", h("small",{},"앱처럼 열고 오프라인에서도 연습")), h("span",{"aria-hidden":"true"},"→")) : "",
     h("button",{type:"button",onclick:openSettings}, h("span",{}, "설정", h("small",{},"하루 목표, 효과음, 핸즈프리, 기록 백업")), h("span",{"aria-hidden":"true"},"→")),
@@ -193,14 +200,19 @@ function viewDeck(app){
     h("p",{class:"lead muted"},"단어 하나가 아니라 통째로 쓰는 표현을 모읍니다. 막대가 다섯 칸 차면 몇 주 동안 잊지 않는 상태예요."));
   const fl = h("div",{class:"filters",role:"group","aria-label":"상황별 보기"}); const fl2 = h("div",{class:"filters",role:"group","aria-label":"레벨별 보기"}); const list = h("div",{class:"cards"});
   const lv = ["모든 레벨", ...LEVELS];
-  const draw = () => { fl.replaceChildren(...tags.map(t=>h("button",{"aria-pressed":String(t===deckFilter),onclick:()=>{ deckFilter=t; draw(); }}, t)));
-    fl2.replaceChildren(...lv.map(t=>h("button",{"aria-pressed":String(t===deckLevel),onclick:()=>{ deckLevel=t; draw(); }}, t)));
-    list.replaceChildren(...cards.filter(c=>(deckFilter==="전체"||c.tag===deckFilter) && (deckLevel==="모든 레벨"||c.lvl===deckLevel)).sort((a,b)=>mastery(b.id)-mastery(a.id)).map(c=>{ const m = mastery(c.id);
+  const draw = () => { fl.replaceChildren(...tags.map(t=>h("button",{"aria-pressed":String(t===deckFilter),onclick:refilter(()=>{ deckFilter=t; })}, t)));
+    fl2.replaceChildren(...lv.map(t=>h("button",{"aria-pressed":String(t===deckLevel),onclick:refilter(()=>{ deckLevel=t; })}, t)));
+    /* 1,200+ rows at once made a page ~120 screens long: draw 60 at a time */
+    const shown = cards.filter(c=>(deckFilter==="전체"||c.tag===deckFilter) && (deckLevel==="모든 레벨"||c.lvl===deckLevel)).sort((a,b)=>mastery(b.id)-mastery(a.id));
+    list.replaceChildren(...shown.slice(0, deckShow).map(c=>{ const m = mastery(c.id);
       const row = h("button",{class:"card",style:"border-left:0;border-right:0;border-bottom:0;background:transparent;text-align:left;width:100%",onclick:()=>say(c.en,1),"aria-label":c.en+" 듣기"},
         h("div",{class:"en"}, c.en), h("div",{class:"ko"}, c.ko),
         h("div",{class:"m"}, h("div",{class:"meter"}, ...[0,1,2,3,4].map(k=>h("i",{class:k<=m-1||(k===0&&m>0)?"on":""}))), h("span",{}, MASTERY_LABEL[m])));
-      return row; })); };
-  draw(); app.append(fl, fl2, list);
+      return row; }));
+    more.hidden = shown.length <= deckShow; more.textContent = `더 보기 (${shown.length - deckShow}개 남음)`; };
+  let deckShow = 60; const more = h("button",{class:"ghost more-btn",type:"button","data-act":"deck-more",onclick:()=>{ deckShow += 60; draw(); }});
+  const refilter = fn => () => { deckShow = 60; fn(); draw(); };
+  draw(); app.append(fl, fl2, list, more);
 }
 
 function viewWords(app){
