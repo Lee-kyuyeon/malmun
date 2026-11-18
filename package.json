@@ -1,0 +1,11 @@
+{
+  "name": "jaejal",
+  "private": true,
+  "description": "재잘 · 하루 5분 영어 말문 (static PWA, no build step)",
+  "scripts": {
+    "test": "node tests/run.js"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  }
+}

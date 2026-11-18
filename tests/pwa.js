@@ -1,0 +1,38 @@
+const { chromium, devices } = require('playwright');
+const base = process.argv[2], out = process.argv[3]; const R = {}, errs = [];
+const ok = (n, c, x) => { R[n] = c ? 'PASS' : 'FAIL ' + JSON.stringify(x ?? ''); };
+(async () => {
+  const b = await chromium.launch(); const ctx = await b.newContext({ ...devices['Pixel 7'] });
+  await ctx.addInitScript(() => { if (!localStorage.getItem('malmun.v1')) localStorage.setItem('malmun.v1', JSON.stringify({ onboarded: true })); });
+  const p = await ctx.newPage();
+  p.on('pageerror', e => errs.push('pageerror: ' + e.message)); p.on('console', m => { if (m.type() === 'error') errs.push('console: ' + m.text()); });
+  await p.goto(base + '/'); await p.waitForTimeout(800);
+  const man = await p.evaluate(async () => { const l = document.querySelector('link[rel=manifest]'); const r = await fetch(l.href); return { ct: r.headers.get('content-type'), j: await r.json() }; });
+  ok('manifest', man.j.display === 'standalone' && man.j.icons.some(i => i.sizes === '512x512' && i.purpose === 'maskable') && man.j.icons.some(i => i.sizes === '192x192'), man);
+  const icons = await p.evaluate(async () => Promise.all(['icons/icon-192.png', 'icons/icon-512.png', 'icons/maskable-512.png', 'icons/apple-touch-icon.png'].map(async u => (await fetch(u)).status)));
+  ok('icons_200', icons.every(s => s === 200), icons);
+  await p.evaluate(() => navigator.serviceWorker.ready); await p.reload(); await p.waitForTimeout(800);
+  ok('sw_controls', await p.evaluate(() => !!navigator.serviceWorker.controller));
+  const cdp = await ctx.newCDPSession(p);
+  const inst = await cdp.send('Page.getInstallabilityErrors');
+  ok('installable', inst.installabilityErrors.length === 0, inst.installabilityErrors);
+  const man2 = await cdp.send('Page.getAppManifest'); ok('manifest_no_errors', (man2.errors || []).length === 0, man2.errors);
+  ok('install_card', !!(await p.$('#install-card')));
+  await p.screenshot({ path: out + '/pwa-home.png' });
+  await p.click('#install-card [data-act="install"]'); await p.waitForTimeout(300);
+  ok('install_howto', (await p.$$('.sheet .steps li')).length === 3);
+  await p.evaluate(() => closeSheet());
+  // offline launch
+  await ctx.setOffline(true); await p.reload(); await p.waitForTimeout(1000);
+  ok('offline_home', !!(await p.$('#missions')) && !!(await p.$('.greet')));
+  await p.evaluate(() => { location.hash = '#learn'; }); await p.waitForTimeout(500);
+  ok('offline_learn', !!(await p.$('.task')));
+  await ctx.setOffline(false);
+  await p.goto(base + '/#words'); await p.waitForTimeout(600);
+  ok('words_shortcut', await p.evaluate(() => location.hash === '#learn' && !!session && !!session.wordOnly));
+  await p.goto(base + '/#me'); await p.waitForTimeout(600); await p.evaluate(() => closeSheet());
+  ok('me_install_item', !!(await p.$('[data-open="install"]')));
+  await b.close();
+  const real = errs.filter(e => !/ERR_INTERNET_DISCONNECTED|Failed to load resource|fonts\.g/.test(e));
+  console.log(JSON.stringify({ R, errs: real, fails: Object.values(R).filter(v => v !== 'PASS').length }, null, 1));
+})();
