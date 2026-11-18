@@ -37,7 +37,7 @@ def main():
         path = os.path.join(a.out, f"{it['key']}-{v}.m4a")
         if os.path.exists(path) and it["key"] not in redo: continue
         voice = VOICES[v]; uk = voice[0] == "b"
-        ph = g2p["gb" if uk else "us"](it["text"])[0]
+        ph = g2p["gb" if uk else "us"](it.get("say", it["text"]))[0]
         audio, sr = tts.create(ph, voice=voice, speed=it.get("speed", 1.0), lang="en-gb" if uk else "en-us", is_phonemes=True)
         audio = shape(np.asarray(audio, dtype=np.float32), sr)
         with tempfile.NamedTemporaryFile(suffix=".wav") as w:

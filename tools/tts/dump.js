@@ -17,7 +17,8 @@ const add = (text, voices, speed) => { const key = chunkId(text); const it = ite
 DECK.forEach(c => { const n = parseInt(chunkId(c.en).slice(1), 36); const main = MAIN[n % MAIN.length]; const sex = main[1];
   const pool = (c.lvl === "B1" || c.lvl === "B2") ? ALT_GB : ALT_US; const alt = pool[sex][Math.floor(n / 8) % pool[sex].length];
   add(c.en, [main, alt]); (c.alts || []).forEach(a => add(a, [main])); });
-Object.keys(WORDS).forEach(w => add(w, ["af_heart"]));
+/* a lone word is read as a one-word sentence, a little slower: the model clips and blurs bare short words */
+Object.keys(WORDS).forEach(w => { add(w, ["af_heart"], 0.95); items.get(chunkId(w)).say = w[0].toUpperCase() + w.slice(1) + "."; });
 /* episodes are real-life listening: recorded a little faster than the study sentences, faster again at higher levels */
 const EP_SPEED = { A1: 1.05, A2: 1.05, B1: 1.1, B2: 1.15 };
 EPISODES.forEach(e => e.scenes.forEach(s => s.lines.forEach(l => add(l.en, [e.cast[l.who].v], EP_SPEED[e.lvl] || 1.1))));
