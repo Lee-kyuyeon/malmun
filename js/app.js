@@ -6,13 +6,18 @@ const inSession = () => !!(session && !session.done) || !!(talk && talk.active);
 function route(){
   let name = (location.hash||"#home").slice(1);
   if (name === "words") { wordOnlyNext = true; history.replaceState(null, "", "#learn"); name = "learn"; }
-  const v = VIEWS[name] ? name : "home";
+  const quickCafe = name === "abroad-cafe";
+  const cafeTalk = name === "talk-cafe";
+  const v = quickCafe ? "abroad" : cafeTalk ? "talk" : VIEWS[name] ? name : "home";
   closeSheet(); setFocusMode(false); speaker = null; hush();
   const tab = TAB_OF[v] || v;
   document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.tab===tab) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
   const app = $("#app"); app.replaceChildren();
   if (!S.onboarded && v !== "science" && v !== "placement") { viewOnboarding(app); window.scrollTo(0,0); return; }
-  VIEWS[v](app); window.scrollTo(0,0); updateTabBadges(); updateAppBadge();
+  if (quickCafe) startEpisode(EPISODES.find(e=>e.id==="cafe"), true);
+  else if (cafeTalk) viewTalk(app, "카페·식당");
+  else VIEWS[v](app);
+  window.scrollTo(0,0); updateTabBadges(); updateAppBadge();
   if (v === "home" || v === "me" || v === "course") setTimeout(()=>{ if (!inSession()) flushCelebration(); }, 450);
 }
 window.addEventListener("hashchange", () => { stopDict(); session = null; if (talk) talk.active = false; route(); });

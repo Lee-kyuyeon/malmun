@@ -29,22 +29,24 @@ let stopCur = null, clipsUnlocked = false;
 /* iOS plays media only after a tap: start the shared player once inside the first tap so later automatic plays work */
 const SILENT = "data:audio/wav;base64,UklGRiYAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQIAAAAAAA==";
 function unlockClips(){ if (clipsUnlocked || !player || !player.paused) return; clipsUnlocked = true;
-  try { player.src = SILENT; const p = player.play(); if (p) p.then(()=>player.pause()).catch(()=>{}); } catch(e) {} }
+  try { player.src = SILENT; const p = player.play(); if (p) p.then(()=>{ if (player.src === SILENT) player.pause(); }).catch(()=>{}); } catch(e) {} }
 addEventListener("pointerdown", unlockClips, {capture:true}); addEventListener("keydown", unlockClips, {capture:true});
 function playClip(src, rate, onStart){ return new Promise(res => {
-  let done = false; const end = ok => { if (done) return; done = true; if (stopCur === stop) stopCur = null; player.onended = player.onerror = player.onplaying = null; res(ok); };
-  const stop = () => { try { player.pause(); } catch(e) {} end(true); };
+  let done = false; let timer; const end = ok => { if (done) return; done = true; clearTimeout(timer); if (stopCur === stop) stopCur = null; player.onended = player.onerror = player.onplaying = null; res(ok); };
+  const stop = () => { try { player.pause(); } catch(e) {} end(null); };
   if (stopCur) stopCur(); stopCur = stop;
   try { player.src = src; player.defaultPlaybackRate = player.playbackRate = rate; if ("preservesPitch" in player) player.preservesPitch = true;
     player.onplaying = onStart; player.onended = () => end(true); player.onerror = () => end(false);
-    const p = player.play(); if (p) p.catch(() => end(false)); setTimeout(() => end(true), 20000);
+    const p = player.play(); if (p) p.catch(() => end(false)); timer = setTimeout(() => { player.pause(); end(false); }, 20000);
   } catch(e) { end(false); } }); }
 function hush(){ if (stopCur) stopCur(); try { speechSynthesis.cancel(); } catch(e) {} }
-function speakTTS(text, rate, onStart, m){ return new Promise(res => { if (!("speechSynthesis" in window)) return res();
+function speakTTS(text, rate, onStart, m){ return new Promise(res => { if (!("speechSynthesis" in window)) return res(false);
+  const timer = setTimeout(() => done(false), 12000);
+  function done(ok){ clearTimeout(timer); res(ok); }
   try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang="en-US"; if (enVoice) u.voice=enVoice; u.rate = rate;
     u.onstart = onStart; u.onboundary = () => { if (m) { m.classList.add("open"); setTimeout(()=>m.classList.remove("open"), 90); } };
-    u.onend = res; u.onerror = res; speechSynthesis.speak(u); setTimeout(res, 12000);
-  } catch(_) { res(); } }); }
+    u.onend = () => done(true); u.onerror = () => done(false); speechSynthesis.speak(u);
+  } catch(_) { done(false); } }); }
 /* opts.alt: the other recorded voice · opts.exact: play at this rate, ignoring the speed setting */
 async function say(text, rate=1, btn, who, opts={}){
   const m = who || speaker;
@@ -52,10 +54,12 @@ async function say(text, rate=1, btn, who, opts={}){
   let flap = null; const onStart = () => { if (m && !flap) { setMood(m,"talk"); flap = setInterval(()=>m.classList.toggle("open", Math.random() > .35), 120); } };
   const r = opts.exact ? rate : rate * (S.settings.rate||1);
   const src = player && clipFor(text, opts.alt);
+  hush();
   const ok = src ? await playClip(src, r, onStart) : false;
-  if (!ok) { if (stopCur) stopCur(); await speakTTS(text, r, onStart, m); }
+  const played = ok === false ? await speakTTS(text, r, onStart, m) : ok;
   clearInterval(flap); if (m) { m.classList.remove("open"); if (m.classList.contains("talk")) setMood(m,"idle"); }
   if (btn) btn.setAttribute("aria-pressed","false");
+  return played === true;
 }
 /* lets the learner keep every recorded clip for offline use (the service worker stores what is fetched) */
 function clipList(){ return hasClips() ? Object.entries(AUDIO).flatMap(([k,v]) => [...v].map(i => "audio/"+k+"-"+i+".m4a")) : []; }

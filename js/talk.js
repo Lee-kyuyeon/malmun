@@ -1,14 +1,15 @@
 /* 재잘 · AI role-play. Classic script: shares globals with the other js/ files, loaded in order by index.html; call functions from later files only inside functions, never at load time. */
 "use strict";
 /* ---------- TALK: AI role-play with recasts, hints, missions ---------- */
-function viewTalk(app){
+function viewTalk(app, preferredTag){
   const m = mascot(80); speaker = m;
   app.append(h("p",{class:"eyebrow"},"AI 상황극"), h("section",{class:"greet"}, m, h("div",{class:"bubble"}, h("b",{},"말로 써 봐야 남아!"), "상황을 고르면 내가 역할을 맡을게. 틀려도 괜찮아, 힌트 주고 다시 말할 기회를 줄게.")),
     h("p",{class:"ctx"},"AI 대화는 이 기기 안에서 처리돼요. 음성 입력은 브라우저의 음성인식 서비스를 써요."));
   const setup = h("section",{class:"card-s"});
   const list = h("div",{class:"scen"});
   const li = LEVELS.indexOf(myLevel());
-  [...SCENARIOS].sort((a,b)=>Math.abs(LEVELS.indexOf(a.lvl)-li)-Math.abs(LEVELS.indexOf(b.lvl)-li)).forEach(sc => list.append(h("button",{onclick:()=>startTalk(sc)}, h("span",{class:"lvl"}, sc.lvl), h("div",{}, h("div",{class:"t"}, sc.t), h("div",{class:"d"}, sc.d + (sc.lvl===myLevel() ? " · 내 레벨" : ""))), h("span",{class:"mono muted","aria-hidden":"true"},"→"))));
+  const distance = sc => Math.abs(LEVELS.indexOf(sc.lvl)-li);
+  [...SCENARIOS].sort((a,b)=>Number(b.tag===preferredTag)-Number(a.tag===preferredTag) || distance(a)-distance(b)).forEach(sc => list.append(h("button",{onclick:()=>startTalk(sc)}, h("span",{class:"lvl"}, sc.lvl), h("div",{}, h("div",{class:"t"}, sc.t), h("div",{class:"d"}, sc.d + (sc.lvl===myLevel() ? " · 내 레벨" : ""))), h("span",{class:"mono muted","aria-hidden":"true"},"→"))));
   app.append(setup, list);
   const gate = () => list.querySelectorAll("button").forEach(b => b.disabled = !llm.engine);
   gate();

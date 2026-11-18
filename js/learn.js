@@ -34,7 +34,7 @@ function viewHome(app){
   app.append(h("button",{class:"cta alt",onclick:()=>{ sfx("tap"); location.hash="#talk"; }},
     h("div",{}, h("b",{},"AI와 상황극"), h("span",{}, "배운 표현을 실제 대화에 써 보기")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
   { const er = earRate(); app.append(h("button",{class:"cta alt","data-cta":"abroad",onclick:()=>{ sfx("tap"); location.hash="#abroad"; }},
-    h("div",{}, h("b",{},"앵두와 해외살이"), h("span",{}, er==null ? "자막 없이 듣고 움직이며 귀 트이기" : `귀 트임 ${er}% · 자막 없이 듣고 움직이기`)), h("span",{class:"arrow","aria-hidden":"true"},"→"))); }
+    h("div",{}, h("b",{},"앵두와 해외살이"), h("span",{}, er==null ? "자막 없이 듣고 움직이며 귀 트이기" : `처음 듣기 ${er}% · 자막 없이 듣고 움직이기`)), h("span",{class:"arrow","aria-hidden":"true"},"→"))); }
   const ic = installCard(); if (ic) app.append(ic);
   const bc = backupCard(); if (bc) app.append(bc);
   app.append(missionsCard(), raceCard());
@@ -347,7 +347,11 @@ function renderRecap(){
   if (s.newWords && s.newWords.length) app.append(h("section",{class:"card-s"}, h("h2",{class:"sec-h"}, `오늘 단어장에 담은 단어 ${s.newWords.length}개`),
     h("div",{class:"wchips"}, ...s.newWords.map(w => { const e = wordEntry(w); return h("button",{class:"wchip",type:"button",onclick:()=>openWord(w)}, h("b",{}, w), e ? e.ko : ""); })),
     h("p",{class:"ctx"},"다음 세션부터 뜻 고르기와 빈칸 채우기로 복습해요.")));
-  app.append(h("button",{class:"cta",onclick:()=>{ location.hash="#talk"; }}, h("div",{}, h("b",{},"배운 표현으로 AI와 대화"), h("span",{},"말로 써 봐야 오래 남아요")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
+  const practicedCafe = !s.wordOnly && s.steps.some(step=>cardById(step.id)?.tag === "카페·식당");
+  if (practicedCafe) app.append(h("button",{class:"cta",onclick:()=>{ location.hash="#abroad-cafe"; }},
+    h("div",{}, h("b",{},"카페에서 한 장면 연습하기"), h("span",{},"점원의 말을 듣고 영어로 주문해 봐요")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
+  else if (!s.wordOnly) app.append(h("button",{class:"cta",onclick:()=>{ location.hash="#talk"; }},
+    h("div",{}, h("b",{},"배운 표현으로 AI와 대화"), h("span",{},"말로 써 봐야 오래 남아요")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
   app.append(h("button",{class:"cta alt",onclick:()=>{ session=null; location.hash="#home"; route(); }}, h("div",{}, h("b",{},"홈으로")), h("span",{class:"arrow","aria-hidden":"true"},"→")));
   app.append(h("button",{class:"ghost",type:"button","data-act":"share-card",style:"align-self:center",onclick:shareCard},"오늘 기록 카드 공유하기"));
 }

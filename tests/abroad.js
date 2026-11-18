@@ -13,7 +13,7 @@ async function open(state, hash = '') {
   p.on('console', m => { if (m.type() === 'error' && !/ERR_FILE_NOT_FOUND|net::|Failed to load resource/.test(m.text())) errs.push('console: ' + m.text()); });
   await p.goto(file + hash); await p.waitForTimeout(600);
   /* playback is not under test here: make every line finish at once */
-  await p.evaluate(() => { window.say = async () => {}; });
+  await p.evaluate(() => { window.say = async () => true; });
   return { p, ctx };
 }
 // plays one scene: optional wrong pick first, optional help presses, then the right answer
@@ -21,6 +21,7 @@ async function scene(p, i, { wrong = false, help = 0 } = {}) {
   const right = await p.evaluate(i => abroad.e.scenes[i].opts.find(o => o[1] === true)[0], i);
   for (let k = 0; k < help; k++) await p.click('[data-act="help"]');
   if (wrong) { const w = await p.evaluate(i => abroad.e.scenes[i].opts.find(o => o[1] !== true)[0], i); await p.click(`.opt:text-is("${w}")`); }
+  await p.waitForFunction(() => abroad.cur.heard);
   await p.click(`.opt:text-is("${right}")`);
   await p.waitForSelector('.fb'); await p.click('.fb button.primary'); await p.waitForTimeout(150);
 }
@@ -60,6 +61,7 @@ async function scene(p, i, { wrong = false, help = 0 } = {}) {
     await p.click(`.opt:text-is("${wrong[0]}")`);
     ok('wrong_shows_consequence', (await p.textContent('.conseq')).includes(wrong[1].slice(0, 10)) && !(await p.$('.fb')));
     await p.screenshot({ path: out + '/ab-wrong.png' });
+    await p.waitForFunction(() => abroad.cur.heard);
     await p.click(`.opt:text-is("${right}")`); await p.waitForSelector('.fb');
     ok('right_reveals_subtitles', (await p.$$('.fb .sub-line')).length >= 1 && (await p.textContent('.fb')).includes('귀 팁'));
     await p.screenshot({ path: out + '/ab-solved.png' });
@@ -69,6 +71,7 @@ async function scene(p, i, { wrong = false, help = 0 } = {}) {
     ok('help_ladder', !!(await p.$('.keys')) && !!(await p.$('.subs .prompt-en')) && !!(await p.$('.subs.ko')) && !(await p.$('[data-act="help"]')));
     await p.screenshot({ path: out + '/ab-help.png' });
     const right2 = await p.evaluate(() => abroad.e.scenes[1].opts.find(o => o[1] === true)[0]);
+    await p.waitForFunction(() => abroad.cur.heard);
     await p.click(`.opt:text-is("${right2}")`); await p.waitForSelector('.fb'); await p.click('.fb button.primary'); await p.waitForTimeout(150);
     // one "say that again" is free; a second replay is recorded; the slower replay counts as help
     await p.click('.listen-card .speak.jumbo'); await scene(p, 2);
@@ -79,21 +82,50 @@ async function scene(p, i, { wrong = false, help = 0 } = {}) {
     for (let i = 4; i < N; i++) await scene(p, i, { help: i === 4 ? 1 : 0 });
     await p.waitForTimeout(300);
     const ear = await p.evaluate(() => S.ear), clean = N - 5 + 1, want = '0010' + '0' + '1'.repeat(N - 5);
-    ok('episode_end_stats', ear.eps.arrive.best === clean && ear.clean === clean && ear.scenes === N && ear.recent.join('') === want, { ear, want });
+    ok('episode_end_stats', ear.eps.arrive.best === clean && ear.clean === clean && ear.scenes === N && ear.firstListens.join('') === want, { ear, want });
     ok('episode_end_screen', (await p.textContent('.celebrate')).includes(`${clean}장면`) && (await p.$$('.card-s .sub-line')).length === lines);
     await p.screenshot({ path: out + '/ab-end.png', fullPage: true });
-    // 4) replaying adds to the meter, but the total only grows by the improvement
+    // 4) replaying improves the episode best without changing first-listen results
     await p.click('.actionbar .ghost'); await p.waitForTimeout(200);
     for (let i = 0; i < N; i++) await scene(p, i);
     await p.waitForTimeout(300);
     const ear2 = await p.evaluate(() => ({ e: S.ear, open: epUnlocked(1) }));
-    ok('replay_counts_improvement_only', ear2.e.clean === N && ear2.e.eps.arrive.best === N && ear2.e.eps.arrive.plays === 2 && ear2.e.recent.length === 2 * N && ear2.open, ear2);
+    ok('replay_counts_improvement_only', ear2.e.clean === N && ear2.e.eps.arrive.best === N && ear2.e.eps.arrive.plays === 2 && ear2.e.firstListens.length === N && ear2.open, ear2);
     await ctx.close(); }
 
   // 5) a B1 learner can start every episode up to B1 right away; B2 ones wait for the one before
   { const { p, ctx } = await open({ level: 'B1' }, '#abroad');
     const st = await p.evaluate(() => [...document.querySelectorAll('[data-ep]')].map((x, i) => [EPISODES[i].lvl, x.disabled]));
     ok('level_unlocks', st.every(([l, d], i) => i === 0 || d === (l === 'B2')), st);
+    await ctx.close(); }
+
+  // A failed clip permits progress without earning a listening result.
+  { const { p, ctx } = await open({ level: 'A1' }, '#abroad');
+    await p.evaluate(() => { window.say = async () => false; });
+    await p.click('[data-ep="arrive"]');
+    await p.getByText('음성이 재생되지 않았어요.', { exact: false }).waitFor();
+    const right = await p.evaluate(() => abroad.e.scenes[0].opts.find(o => o[1] === true)[0]);
+    await p.getByRole('button', { name: right, exact: true }).click();
+    ok('failed_audio_excluded', await p.evaluate(() => !abroad.res[0].clean && earRate() === null));
+    await ctx.close(); }
+
+  // A finished cafe session offers one listening scene even while the full episode is locked.
+  { const { p, ctx } = await open({ level: 'A1' });
+    await p.evaluate(() => {
+      session = buildSession();
+      session.steps = [{ id:'c01', type:'listen' }];
+      renderRecap();
+    });
+    await p.getByRole('button', { name: /카페에서 한 장면 연습하기/ }).click();
+    await p.waitForFunction(() => abroad?.quick && abroad.cur.heard);
+    await p.getByRole('button', { name: '오트 우유', exact: true }).click();
+    await p.getByRole('button', { name: '영어로 답해 보기' }).click();
+    await p.locator('#answer').fill('An iced latte with almond milk, please.');
+    await p.getByRole('button', { name: '확인', exact: true }).click();
+    await p.getByText('주문에 필요한 말을 담았어요').waitFor();
+    await p.getByRole('button', { name: 'AI 상황극에서 더 말하기' }).click();
+    await p.locator('.scen button').first().waitFor();
+    ok('cafe_recap_to_talk', (await p.locator('.scen button').first().innerText()).includes('카페에서 주문하기'));
     await ctx.close(); }
 
   await b.close();
