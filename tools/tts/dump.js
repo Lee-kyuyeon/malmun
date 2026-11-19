@@ -22,4 +22,6 @@ Object.keys(WORDS).forEach(w => { add(w, ["af_heart"], 0.95); items.get(chunkId(
 /* episodes are real-life listening: recorded a little faster than the study sentences, faster again at higher levels */
 const EP_SPEED = { A1: 1.05, A2: 1.05, B1: 1.1, B2: 1.15 };
 EPISODES.forEach(e => e.scenes.forEach(s => s.lines.forEach(l => add(l.en, [e.cast[l.who].v], EP_SPEED[e.lvl] || 1.1))));
+/* vocabulary-course example sentences last, so the words themselves are recorded first; main voice rotates like the deck */
+Object.values(WORDS).forEach(e => { if (!e.e || !e.e.en) return; const n = parseInt(chunkId(e.e.en).slice(1), 36); add(e.e.en, [MAIN[n % MAIN.length]]); });
 process.stdout.write(JSON.stringify([...items.values()]));

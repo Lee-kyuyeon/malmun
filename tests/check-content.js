@@ -2,7 +2,7 @@
 // dictionary coverage, morphology on long words, IPA, scenarios.
 // Usage: node tests/check-content.js content.js [--missing]   (--missing prints every word missing from WORDS as JSON)
 const fs = require('fs'), vm = require('vm'); const ctx = {}; vm.createContext(ctx);
-vm.runInContext(fs.readFileSync(process.argv[2], 'utf8') + ';this.D=DECK;this.SC=SCENARIOS;this.W=WORDS;this.IG=WORD_IGNORE;this.PR=typeof PROMPTS==="undefined"?[]:PROMPTS;', ctx);
+vm.runInContext(fs.readFileSync(process.argv[2], 'utf8') + ';this.D=DECK;this.SC=SCENARIOS;this.W=WORDS;this.IG=WORD_IGNORE;this.PR=typeof PROMPTS==="undefined"?[]:PROMPTS;this.VO=typeof VOCAB_ORDER==="undefined"?[]:VOCAB_ORDER;', ctx);
 const D = ctx.D, W = ctx.W, IG = new Set(ctx.IG), errs = [], warn = [];
 const LEVELS = ["A1", "A2", "B1", "B2", "C1"], MIN_PER_CELL = 25;
 const STOP = new Set("i me my mine you your yours we our us he him his she her it its they them their a an the to of in on at for with and or but is am are was were be been being does did done have has had having will would can could should shall may might must this that these those there here what where when how who whom which why not no so up out about as by from if then than too very just let s ll d ve re t m into over under after before again all any some each every both more most less much many own same such only also yet still even now well get got gotten going gone came took made put say said see seen give know want need like one two three ten seven first oh hi hey yes please getting other off another myself yourself".split(" "));
@@ -48,6 +48,14 @@ if (minCell < MIN_PER_CELL) errs.push(`a situation × level cell has only ${minC
 ctx.SC.forEach(s => { if (!tags.includes(s.tag)) errs.push('scenario tag not in deck ' + s.id); if (!LEVELS.includes(s.lvl)) errs.push('scenario bad lvl ' + s.id);
   if (!Array.isArray(s.missions) || s.missions.length !== 3) errs.push('scenario needs 3 missions ' + s.id); });
 const scenIds = new Set(); ctx.SC.forEach(s => { if (scenIds.has(s.id)) errs.push('dup scenario id ' + s.id); scenIds.add(s.id); });
+/* vocabulary course: every listed word is in the dictionary; every example uses its word (or a form) and has Korean */
+ctx.VO.forEach(w => { if (!W[w]) errs.push('VOCAB_ORDER word not in WORDS: ' + w); });
+if (new Set(ctx.VO).size !== ctx.VO.length) errs.push('VOCAB_ORDER has duplicates');
+let examples = 0;
+Object.values(W).forEach(e => { if (!e.e) return; examples++;
+  const fs = new Set([e.w, ...e.forms]); const ts = (e.e.en || '').toLowerCase().match(/[a-z][a-z'-]*/g) || [];
+  if (!ts.some(t => fs.has(t.replace(/'s$/, '')))) errs.push(`example does not use "${e.w}": ${e.e.en}`);
+  if (!HANGUL.test(e.e.ko || '')) errs.push('example without Korean: ' + e.w); });
 /* every situation × level needs 3 speaking prompts with English and Korean */
 const prCell = {}; ctx.PR.forEach(p => { if (!p.en || !HANGUL.test(p.ko||'') || !LEVELS.includes(p.lvl)) errs.push('bad prompt ' + JSON.stringify(p).slice(0,60)); prCell[p.tag + '|' + p.lvl] = (prCell[p.tag + '|' + p.lvl] || 0) + 1; });
 tags.forEach(t => LEVELS.forEach(l => { if ((prCell[t + '|' + l] || 0) < 3) errs.push(`only ${prCell[t + '|' + l] || 0} speaking prompts for ${t} ${l}`); }));
@@ -56,7 +64,7 @@ Object.values(W).filter(e => !/^\/[^\/]+\/$/.test(e.ipa || '')).forEach(e => err
 Object.values(W).filter(e => e.ipa && (e.ipa.match(/[aeiouɑæɔəɪʊʌɜ]+/g) || []).length > 2 && !/[ˈ]/.test(e.ipa)).forEach(e => errs.push('no stress ' + e.w + ' ' + e.ipa));
 
 if (process.argv.includes('--missing')) { console.log(JSON.stringify([...missing.entries()])); process.exit(0); }
-console.log(JSON.stringify({ withIpa: Object.values(W).filter(e => e.ipa).length, chunks: D.length, situations: tags.length, minPerCell: minCell, scenarios: ctx.SC.length, prompts: ctx.PR.length,
+console.log(JSON.stringify({ withIpa: Object.values(W).filter(e => e.ipa).length, chunks: D.length, situations: tags.length, minPerCell: minCell, scenarios: ctx.SC.length, prompts: ctx.PR.length, vocabCourse: ctx.VO.length, examples,
   scenarioTags: new Set(ctx.SC.map(s => s.tag)).size, words: Object.keys(W).length, wordsUsed: used.size, wordsWithMorphologyOrStory: withParts, errors: errs.length, warnings: warn.length }));
 if (warn.length) console.log('warnings:\n' + warn.join('\n'));
 if (errs.length) { console.log(errs.slice(0, 30).join('\n')); process.exit(1); }

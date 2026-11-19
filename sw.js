@@ -1,7 +1,7 @@
 /* 재잘 offline support: the app shell is cached so the home-screen app opens without a network.
    Own files: network first (updates land right away), cache when offline.
    Fonts and the pinned WebLLM library: cache first. Model weights are cached by WebLLM itself. */
-const VERSION = "jaejal-2026-11-18h";
+const VERSION = "jaejal-2026-11-19a";
 const AUDIO_CACHE = "jaejal-audio-1"; /* recorded voices: kept across app updates, filled as clips are played or saved for offline */
 const SHELL = ["./", "index.html", "app.css", "js/core.js", "js/device.js", "js/words.js", "js/game.js", "js/app.js", "js/learn.js", "js/talk.js", "js/screens.js", "js/pwa.js", "js/speak.js", "js/main.js", "content.js", "content-abroad.js", "audio/manifest.js", "js/abroad.js", "worker.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-512.png", "icons/apple-touch-icon.png", "icons/icon.svg"];
 

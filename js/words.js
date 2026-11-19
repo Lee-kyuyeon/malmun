@@ -48,13 +48,20 @@ function addWord(w, src, auto){
   save();
 }
 function removeWord(w){ if (S.words) { delete S.words[w]; delete S.cards["w:"+w]; save(); } }
+/* where a word was met: the learner's own sentence, else the first deck chunk using it, else the dictionary example.
+   The deck lookup is cached: the deck never changes while the app runs and the course has ~2,900 words */
+const SRC_CACHE = new Map();
 function srcFor(w){ const e = S.words && S.words[w]; if (e && e.src) return e.src;
+  if (SRC_CACHE.has(w)) return SRC_CACHE.get(w);
   const entry = wordEntry(w); const forms = entry ? [entry.w, ...(entry.forms||[])] : [w];
-  const c = DECK.find(c => toks(c.en).some(t => forms.includes(t.replace(/'s$/,"")))); return c ? {en:c.en, ko:c.ko} : null; }
+  const c = DECK.find(c => toks(c.en).some(t => forms.includes(t.replace(/'s$/,""))));
+  const r = c ? {en:c.en, ko:c.ko} : entry && entry.e ? {en:entry.e.en, ko:entry.e.ko} : null;
+  SRC_CACHE.set(w, r); return r; }
 /* ---------- word ladder: meet → recognise → cloze in its sentence → recall from Korean → cloze in a new sentence → make my own sentence ----------
    a correct answer moves the word up one rung, a miss moves it down one; FSRS still decides when it comes back */
 const STAGE_KO = ["새 단어","뜻 알아보기","문장 속 빈칸","한→영 떠올리기","다른 문장 빈칸","내 문장 만들기"];
-const WORD_NEW_PER_DAY = 5;
+const WORD_NEW_PER_DAY = 5; /* default; the learner picks 5/10/15 in settings */
+const wordsPerDay = () => S.settings.wordsPerDay || WORD_NEW_PER_DAY;
 /* words saved before the ladder existed start from their memory strength */
 const wordStage = w => { const e = S.words && S.words[w]; if (!e) return 0; if (typeof e.stage === "number") return e.stage; return S.cards["w:"+w] ? Math.min(3, 1 + Math.max(0, mastery("w:"+w)-1)) : 0; };
 function setStage(w, ok){ const e = S.words && S.words[w]; if (!e) return; const st = wordStage(w);
@@ -74,7 +81,15 @@ function wordStepFor(w){
   if (lvl === 4 || !llm.engine) { const c = otherContext(w, src && src.en); if (c && (lvl === 4 || Math.random() < .5)) return {type:"wordcloze", id:"w:"+w, ctx:c.id}; return {type:"wordrecall", id:"w:"+w}; }
   return {type:"wordmake", id:"w:"+w};
 }
-function wordNewLeft(){ const k = dayKey(); if (!S.wordNew || S.wordNew.day !== k) S.wordNew = {day:k, n:0}; return Math.max(0, WORD_NEW_PER_DAY - S.wordNew.n); }
+function wordNewLeft(){ const k = dayKey(); if (!S.wordNew || S.wordNew.day !== k) S.wordNew = {day:k, n:0}; return Math.max(0, wordsPerDay() - S.wordNew.n); }
+/* the vocabulary course: next words in frequency order that are not in the notebook yet */
+function vocabNext(n){ const out = []; if (typeof VOCAB_ORDER === "undefined") return out;
+  for (const w of VOCAB_ORDER) { if (out.length >= n) break; if (WORDS[w] && !(S.words && S.words[w])) out.push(w); } return out; }
+function courseAdd(w){ S.words = S.words || {}; if (!S.words[w]) S.words[w] = {added:Date.now(), src:null, misses:0, auto:true, stage:0, course:true}; }
+function vocabProgress(){ const all = typeof VOCAB_ORDER === "undefined" ? [] : VOCAB_ORDER;
+  const met = w => !!(S.words && S.words[w] && (S.cards["w:"+w] || wordStage(w) > 0));
+  const bands = []; for (let i = 0; i < all.length; i += 500) { const part = all.slice(i, i + 500); bands.push({from:i+1, to:i+part.length, met:part.filter(met).length, total:part.length}); }
+  return {met: all.filter(met).length, total: all.length, bands}; }
 /* every content word in an English sentence can be tapped to open its card and save it */
 function tapText(en, src){
   const el = h("span",{class:"taptext"});

@@ -87,6 +87,7 @@ function openSettings(){
       return h("label",{class:"setrow",for:id}, h("span",{class:"lab"}, h("b",{}, label), sub ? h("small",{}, sub) : ""), cb); };
     inner.append(seg("하루 목표", "목표 링이 이만큼 차면 오늘 완료", [10,30,50,100], "goal", o=>o+" XP"));
     inner.append(seg("보통 언제 공부할래?", "그 시간에 앱을 열면 앵두가 알려 줘요 (앱 밖 알림은 없어요)", Object.keys(STUDY_TIMES), "studyTime", o=>STUDY_TIMES[o]));
+    inner.append(seg("하루 새 단어", "단어 코스에서 하루에 만나는 새 단어 수", [5,10,15], "wordsPerDay", o=>o+"개"));
     inner.append(sw("sound","효과음","정답·오답·축하 소리"));
     if (navigator.vibrate) inner.append(sw("haptic","진동","정답·오답 때 짧게 떨림"));
     if (caps.dict) inner.append(sw("autosubmit","말 끝나면 바로 채점","마이크를 다시 누르지 않아도 돼요"));

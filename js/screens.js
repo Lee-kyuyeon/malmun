@@ -227,20 +227,30 @@ function viewWords(app){
     h("button",{"aria-pressed":String(wordScope==="mine"),onclick:()=>{ wordScope="mine"; route(); }}, `내 단어장 ${mine.length}`),
     h("button",{"aria-pressed":String(wordScope==="all"),onclick:()=>{ wordScope="all"; route(); }}, `전체 단어 ${Object.keys(WORDS).length}`));
   app.append(fl);
+  /* vocabulary course: frequency-ranked words, met so far, in bands of 500 */
+  { const vp = vocabProgress(); if (vp.total) app.append(h("section",{class:"card-s",id:"vocab-course"},
+      h("div",{class:"row",style:"justify-content:space-between"}, h("h2",{class:"sec-h"},"단어 코스"), h("span",{class:"chip"}, `${vp.met.toLocaleString()}/${vp.total.toLocaleString()}`)),
+      h("p",{class:"ctx",style:"margin-top:-6px"}, `영어에서 자주 쓰는 순서대로 하루 ${wordsPerDay()}개씩 (설정에서 바꿀 수 있어요). 아는 단어는 '이미 알아요'로 넘겨요.`),
+      h("div",{class:"stagebars"}, ...vp.bands.map(b => h("div",{class:"hbar"}, h("span",{style:"font-size:12px"}, `${b.from}~${b.to}`), h("span",{class:"t"}, h("i",{style:`width:${b.met/b.total*100}%`})), h("span",{class:"v"}, `${b.met}`)))),
+      h("button",{class:"primary","data-open":"wordcourse",onclick:()=>{ sfx("tap"); wordOnlyNext = true; location.hash = "#learn"; }}, "오늘의 단어 학습"))); }
   if (wordScope === "mine" && mine.length) { const now = Date.now();
     const dueN = mine.filter(w => S.cards["w:"+w] && S.cards["w:"+w].due <= now).length, newN = Math.min(mine.filter(w=>!S.cards["w:"+w]).length, wordNewLeft());
-    app.append(h("button",{class:"cta","data-open":"wordonly",onclick:()=>{ sfx("tap"); wordOnlyNext = true; location.hash = "#learn"; }}, h("div",{}, h("b",{},"단어만 복습하기"), h("span",{}, `복습 ${dueN}개 · 새 단어 ${newN}개 (하루 ${WORD_NEW_PER_DAY}개까지)`)), h("span",{class:"arrow","aria-hidden":"true"},"→")));
+    app.append(h("button",{class:"cta","data-open":"wordonly",onclick:()=>{ sfx("tap"); wordOnlyNext = true; location.hash = "#learn"; }}, h("div",{}, h("b",{},"단어만 복습하기"), h("span",{}, `복습 ${dueN}개 · 새 단어 ${newN}개 (하루 ${wordsPerDay()}개까지)`)), h("span",{class:"arrow","aria-hidden":"true"},"→")));
     app.append(h("p",{class:"ctx"},"단어는 만나기 → 뜻 알아보기 → 문장 속 빈칸 → 한→영 떠올리기 → 다른 문장 빈칸 → 내 문장 만들기 순서로 올라가요. 틀리면 한 칸 내려가요.")); }
   const list = (wordScope==="mine" ? mine.map(wordEntry).filter(Boolean) : Object.values(WORDS)).sort((a,b)=>a.band-b.band || a.w.localeCompare(b.w));
   if (!list.length) { const m = mascot(90); app.append(h("section",{class:"celebrate"}, m, h("p",{class:"muted"},"아직 비어 있어. 오늘의 5분에서 말하다 막힌 단어가 생기면 여기 모여."))); return; }
-  const box = h("div",{class:"cards"});
-  list.forEach(e => { const m = mastery("w:"+e.w);
+  /* the full dictionary has ~2,900 words: render in pages so the tab stays fast on phones */
+  const box = h("div",{class:"cards"}); const PAGE = 150; let shown = 0;
+  const more = h("button",{class:"ghost",type:"button","data-act":"more-words"}, "더 보기");
+  const renderMore = () => { list.slice(shown, shown + PAGE).forEach(row); shown += PAGE; more.hidden = shown >= list.length; more.textContent = `더 보기 (${Math.max(0, list.length - shown)}개 남음)`; };
+  const row = e => { const m = mastery("w:"+e.w);
     box.append(h("button",{class:"card",style:"border-left:0;border-right:0;border-bottom:0;background:transparent;text-align:left;width:100%",onclick:()=>openWord(e.w),"aria-label":e.w+" 단어 카드"},
       h("div",{class:"en"}, e.w, " ", e.ipa ? h("span",{class:"ipa",style:"font-size:13px;font-weight:400"}, e.ipa+" ") : "", h("span",{class:"chip band"+e.band,style:"font-weight:400"}, BAND_KO[e.band].split(" · ")[0]), (e.parts&&e.parts.length) ? h("span",{class:"chip",style:"font-weight:400;margin-left:4px"},"해부") : ""),
       h("div",{class:"ko"}, e.pos+" · "+e.ko),
       hasWord(e.w) ? h("div",{class:"m"}, h("div",{class:"meter"}, ...[1,2,3,4,5].map(k=>h("i",{class:k<=wordStage(e.w)?"on":""}))), h("span",{}, STAGE_KO[wordStage(e.w)]))
-        : h("div",{class:"m"}, h("div",{class:"meter"}, ...[0,1,2,3,4].map(k=>h("i",{class:k<=m-1||(k===0&&m>0)?"on":""}))), h("span",{}, MASTERY_LABEL[m])))); });
-  app.append(box);
+        : h("div",{class:"m"}, h("div",{class:"meter"}, ...[0,1,2,3,4].map(k=>h("i",{class:k<=m-1||(k===0&&m>0)?"on":""}))), h("span",{}, MASTERY_LABEL[m])))); };
+  more.onclick = renderMore; renderMore();
+  app.append(box, more);
 }
 
 /* ---------- SCIENCE ---------- */

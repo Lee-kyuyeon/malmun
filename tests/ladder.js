@@ -49,7 +49,7 @@ const ok = (n, c, x) => { R[n] = c ? 'PASS' : 'FAIL ' + JSON.stringify(x ?? '');
   const st = await p.evaluate(() => Object.fromEntries(Object.keys(S.words).map(w => [w, wordStage(w)])));
   ok('stages_up', st.reservation === 2 && st.luggage === 2 && st.refund === 2 && st.receipt === 3, st);
   ok('recap_word_title', (await p.textContent('.celebrate .eyebrow')).includes('단어'));
-  ok('new_count', await p.evaluate(() => S.wordNew.n) === 3);
+  ok('new_count', await p.evaluate(() => S.wordNew.n === wordsPerDay() && Object.values(S.words).filter(e => e.course).length === wordsPerDay() - 3), await p.evaluate(() => S.wordNew.n)); // 3 notebook words first, then course words up to the daily limit
 
   // ladder exercise selection
   const sel = await p.evaluate(() => { const r = {};

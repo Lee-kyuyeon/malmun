@@ -89,7 +89,9 @@ function buildSession(){
   return {steps: fixed, i:0, combo:0, xp:0, right:0, total:0, misses:{}, retried:new Set(), started:Date.now(), done:false, unit: unit && {id:unit.id, complete:unit.complete, lvl:unit.lvl}};
 }
 /* due words first (most-missed, most frequent), then new ones within today's limit; a new word is met, then checked a few steps later */
-function wordSteps(maxWords, maxNew){
+function wordSteps(maxWords, maxNew, course){
+  /* word-only sessions top up new words from the frequency-ranked course when the notebook has none waiting */
+  if (course) { const waiting = Object.keys(S.words||{}).filter(w => wordEntry(w) && !S.cards["w:"+w]).length; const need = Math.min(maxNew, wordNewLeft()) - waiting; if (need > 0) vocabNext(need).forEach(courseAdd); }
   const now = Date.now(); const all = Object.keys(S.words||{}).filter(w => wordEntry(w));
   const due = all.filter(w => S.cards["w:"+w] && S.cards["w:"+w].due <= now).sort((a,b)=>(S.cards["w:"+a].due-S.cards["w:"+b].due) || (S.words[b].misses-S.words[a].misses));
   const fresh = all.filter(w => !S.cards["w:"+w]).sort((a,b)=>(S.words[b].misses-S.words[a].misses) || (wordEntry(a).band-wordEntry(b).band)).slice(0, Math.min(maxNew, wordNewLeft()));
@@ -103,7 +105,7 @@ function wordSteps(maxWords, maxNew){
   return res;
 }
 function buildWordSession(){
-  const steps = wordSteps(8, WORD_NEW_PER_DAY);
+  const steps = wordSteps(8 + wordsPerDay(), wordsPerDay(), true);
   return {steps, i:0, combo:0, xp:0, right:0, total:0, misses:{}, retried:new Set(), started:Date.now(), done:false, wordOnly:true};
 }
 let wordOnlyNext = false;
@@ -283,8 +285,12 @@ function taskWordIntro(box, card, step){
   if (card.src) box.append(h("div",{class:"card-s",style:"gap:6px;padding:12px"}, h("div",{class:"ctx"},"이 문장에서 만났어"), h("div",{style:"font-weight:700"}, highlight(card.src.en, e.w)), h("div",{class:"ctx"}, card.src.ko), h("div",{class:"row"}, speakBtn(card.src.en,"문장 듣기"))));
   setTimeout(()=>say(e.w, 1, null, m), 300);
   const go = h("button",{class:"primary"}, "알겠어! 곧 물어봐");
-  go.onclick = () => { sfx("tap"); const k = dayKey(); wordNewLeft(); S.wordNew.n++; if (S.words[e.w]) S.words[e.w].stage = Math.max(1, S.words[e.w].stage||0); addXP(2); session.i++; renderStep(); };
-  actionBar(go);
+  go.onclick = () => { sfx("tap"); wordNewLeft(); S.wordNew.n++; if (S.words[e.w]) S.words[e.w].stage = Math.max(1, S.words[e.w].stage||0); addXP(2); session.i++; renderStep(); };
+  /* already known: skip the first rungs (straight to recall from Korean) and space it out as an easy card */
+  const known = h("button",{class:"ghost","data-act":"known"}, "이미 알아요");
+  known.onclick = () => { sfx("tap"); if (S.words[e.w]) { S.words[e.w].stage = 3; S.words[e.w].best = Math.max(S.words[e.w].best||0, 3); } schedule("w:"+e.w, 4);
+    session.steps = session.steps.filter((st, j) => j <= session.i || st.id !== "w:"+e.w); addXP(1); toast(`'${e.w}'는 아는 단어로 넘길게`); session.i++; renderStep(); };
+  actionBar(known, go);
 }
 function taskWordRecall(box, card, step){
   header(box, "이 뜻의 영어 단어는?");
