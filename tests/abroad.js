@@ -11,6 +11,8 @@ async function open(state, hash = '') {
   const p = await ctx.newPage();
   p.on('pageerror', e => errs.push('pageerror: ' + e.message));
   p.on('console', m => { if (m.type() === 'error' && !/ERR_FILE_NOT_FOUND|net::|Failed to load resource/.test(m.text())) errs.push('console: ' + m.text()); });
+  /* midday clock: before 7am or after 11pm a time-of-day badge celebration would cover the screen */
+  await p.clock.install({ time: new Date(2026, 10, 18, 12, 0, 0) }); await p.clock.resume();
   await p.goto(file + hash); await p.waitForTimeout(600);
   /* playback is not under test here: make every line finish at once */
   await p.evaluate(() => { window.say = async () => true; });
