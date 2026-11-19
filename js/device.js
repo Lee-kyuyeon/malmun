@@ -73,14 +73,14 @@ let rec = null, micStalls = 0;
 /* stop for good: abort() where stop() never fires "end" (seen in iPhone home-screen apps) */
 function killDict(){ const r = rec; rec = null; if (!r) return; try { r.abort(); } catch(e) { try { r.stop(); } catch(_) {} } document.querySelectorAll(".mic.live").forEach(m=>m.classList.remove("live")); }
 function refreshMics(){ document.querySelectorAll(".mic").forEach(m=>m.hidden=!caps.dict); }
-function micFor(field){
+function micFor(field, opts={}){
   const b = h("button",{class:"mic",type:"button","aria-label":"말해서 입력",html:ICON.mic});
   b.hidden = !caps.dict;
   b.onclick = () => {
     if (rec) { try { rec.stop(); } catch(e){} return; }
     hush();
     const r = new SR(); rec = r;
-    r.lang = "en-US"; r.interimResults = true; r.continuous = false; r.maxAlternatives = 1;
+    r.lang = "en-US"; r.interimResults = true; r.continuous = !!opts.continuous; r.maxAlternatives = 1;
     const base = field.value.trim() ? field.value.trim()+" " : "";
     /* speaking time for fluency (WPM): from the first recognized sound to the last result */
     let tFirst = 0, tLast = 0;

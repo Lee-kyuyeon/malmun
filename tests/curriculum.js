@@ -25,18 +25,18 @@ const ok = (n, c, x) => { R[n] = c ? 'PASS' : 'FAIL ' + JSON.stringify(x ?? '');
     return { units: units.length, sizes, sorted, ladder, noScen, exactScen, words: words.length, multi, perUnitDays, totalDays: Math.ceil(DECK.length / NEW_PER_DAY) };
   });
   ok('unit_size_25', m.sizes.every(n => n >= 25), m.sizes);
-  ok('units_48', m.units === 48, m.units);
+  ok('units_60', m.units === 60, m.units);
   ok('units_easy_first', m.sorted);
   const inc = k => m.ladder.every((x, i) => !i || x[k] > m.ladder[i - 1][k]);
   ok('ladder_words_up', inc('words'), m.ladder);
   ok('ladder_difficulty_up', inc('diff'), m.ladder);
   ok('every_unit_has_roleplay', m.noScen.length === 0, m.noScen);
-  ok('pacing_about_6_months', m.totalDays >= 170 && m.totalDays <= 230, m.totalDays);
+  ok('pacing_about_8_months', m.totalDays >= 230 && m.totalDays <= 280, m.totalDays);
   /* placement with simulated learners: right 90% at or below their level, 15% above it */
   const sim = await p.evaluate(() => {
     let seed = 7; const rnd = () => (seed = (seed * 1103515245 + 12345) % 2147483648) / 2147483648;
     const out = {};
-    for (const [k, start] of [[0, 0], [1, 0], [2, 1], [3, 2], [1, 1], [2, 2], [3, 0], [0, 2]]) {
+    for (const [k, start] of [[0, 0], [1, 0], [2, 1], [3, 2], [1, 1], [2, 2], [3, 0], [0, 2], [4, 3], [4, 4]]) {
       let hit = 0, near = 0; const N = 300;
       for (let t = 0; t < N; t++) { let theta = start; const used = new Set(), results = [];
         for (let i = 0; i < PLACE_ITEMS; i++) { const c = placementPick(theta, used); used.add(c.id); const li = LEVELS.indexOf(c.lvl);

@@ -1254,6 +1254,522 @@ DECK.push(
  C("온라인·SNS","B2","I have a love-hate relationship with social media.","SNS랑은 애증 관계야.")
 );
 
+/* ---------- phase 4: C1 (advanced) — hedging, discourse markers, idioms, negotiation ---------- */
+DECK.push(
+ /* 카페·식당 */
+ C("카페·식당","C1","I'd be inclined to go for the tasting menu, if you don't mind splurging a bit.","돈 좀 써도 괜찮다면, 난 코스 요리 쪽으로 하고 싶어.",[],"I'd be inclined to = ~하는 쪽으로 마음이 기울다."),
+ C("카페·식당","C1","Would you be able to accommodate a gluten-free diet?","글루텐 프리 식단도 맞춰 주실 수 있을까요?"),
+ C("카페·식당","C1","I hate to be a pain, but this isn't quite cooked through.","번거롭게 해서 죄송한데, 이게 속까지 안 익었네요."),
+ C("카페·식당","C1","Everything was lovely, but the wait was a bit much.","다 좋았는데 기다리는 시간이 좀 길었어요."),
+ C("카페·식당","C1","It's a bit of an acquired taste, to be honest.","솔직히 먹다 보면 익숙해지는 맛이야.",[],"acquired taste = 처음엔 낯설지만 점점 좋아지는 맛."),
+ C("카페·식당","C1","Let's book well in advance; it fills up quickly.","금방 차니까 넉넉히 미리 예약하자."),
+ C("카페·식당","C1","I'll leave the wine pairing entirely up to you.","와인 페어링은 전적으로 맡길게요."),
+ C("카페·식당","C1","That's not to say the food was bad, just overpriced.","음식이 별로였다는 건 아니고, 가격이 너무 비쌌다는 거야.",[],"That's not to say ~ = ~라는 뜻은 아니다."),
+ C("카페·식당","C1","Could we possibly get a table that's a little more private?","혹시 좀 더 조용한 자리가 있을까요?"),
+ C("카페·식당","C1","The atmosphere more than makes up for the prices.","분위기가 가격을 충분히 만회하고도 남아."),
+ C("카페·식당","C1","I'm trying to be mindful of what I eat these days.","요즘 먹는 걸 신경 쓰려고 해."),
+ C("카페·식당","C1","Shall we settle up and head somewhere for dessert?","계산하고 디저트 먹으러 다른 데 갈까?"),
+ C("카페·식당","C1","Having said that, I'd happily come back for the brunch.","그렇긴 해도 브런치 먹으러는 기꺼이 또 올 거야.",[],"Having said that = 그렇긴 하지만(앞말을 한발 물릴 때)."),
+ C("카페·식당","C1","It's nothing to write home about, but it does the job.","대단한 건 아닌데 그럭저럭 괜찮아."),
+ C("카페·식당","C1","I'd rather we didn't make a fuss about the mix-up.","주문 착오로 괜히 소란 피우지 않았으면 해."),
+ C("카페·식당","C1","Could you walk me through what's in the chef's special?","셰프 특선에 뭐가 들어가는지 하나씩 설명해 주실래요?"),
+ C("카페·식당","C1","We were hoping to linger a while, if that's all right.","괜찮으시면 좀 더 머물다 가고 싶어요."),
+ C("카페·식당","C1","I'm not a big drinker, so I'll stick to sparkling water.","술을 잘 안 마셔서 탄산수로 할게요."),
+ C("카페·식당","C1","The flavors are subtle but really well balanced.","맛이 은은한데 균형이 정말 잘 잡혀 있어."),
+ C("카페·식당","C1","On reflection, we may have over-ordered.","생각해 보니 너무 많이 시킨 것 같아."),
+ C("카페·식당","C1","It's on the pricey side, but you're paying for the experience.","좀 비싼 편이지만 경험에 돈을 내는 거지."),
+ C("카페·식당","C1","We'd like to put down a deposit for a group booking.","단체 예약 보증금을 걸고 싶어요."),
+ C("카페·식당","C1","Whatever you do, don't skip the dessert here.","무슨 일이 있어도 여기 디저트는 빼먹지 마."),
+ C("카페·식당","C1","I've gone off spicy food since my stomach started acting up.","위가 탈 나기 시작한 뒤로 매운 음식이 싫어졌어.",[],"go off = (먹던 것이) 싫어지다."),
+ C("카페·식당","C1","It's the kind of place you'd take someone to impress them.","누군가에게 잘 보이고 싶을 때 데려갈 만한 곳이야."),
+ /* 스몰토크 */
+ C("스몰토크","C1","I don't think we've been properly introduced.","정식으로 인사를 못 나눈 것 같네요."),
+ C("스몰토크","C1","So, what's keeping you busy these days?","그래서, 요즘 뭐 하느라 바빠?"),
+ C("스몰토크","C1","I couldn't help but notice your accent.","말투가 눈에 띄어서요."),
+ C("스몰토크","C1","If you don't mind my asking, what got you into that line of work?","실례가 안 된다면, 어떻게 그 일을 하게 됐어요?"),
+ C("스몰토크","C1","That must have been quite the experience.","꽤 대단한 경험이었겠네요."),
+ C("스몰토크","C1","I've lost track of how long it's been since we last caught up.","마지막으로 근황 나눈 게 언젠지도 모르겠다."),
+ C("스몰토크","C1","Correct me if I'm wrong, but didn't we meet at the conference?","제가 틀렸으면 말해 주세요, 학회에서 뵙지 않았어요?"),
+ C("스몰토크","C1","I'll let you get on with your evening.","이제 저녁 시간 편하게 보내세요.",[],"대화를 정중하게 마무리할 때."),
+ C("스몰토크","C1","It's been a pleasure chatting with you.","이야기 나눠서 정말 즐거웠어요."),
+ C("스몰토크","C1","Fancy seeing you here!","여기서 보다니 웬일이야!",[],"뜻밖의 장소에서 아는 사람을 만났을 때. 주로 영국식."),
+ C("스몰토크","C1","I've heard nothing but good things about you.","좋은 얘기만 들었어요."),
+ C("스몰토크","C1","Let's not leave it so long next time.","다음엔 이렇게 오래 연락 끊지 말자."),
+ C("스몰토크","C1","I'm not one for small talk, but this is nice.","원래 가벼운 대화는 잘 못 하는데, 이건 좋네."),
+ C("스몰토크","C1","How are you finding the new neighborhood?","새 동네는 어때요?",[],"How are you finding ~? = ~는 겪어 보니 어때?"),
+ C("스몰토크","C1","You'll have to fill me in on what I missed.","내가 놓친 거 좀 알려 줘."),
+ C("스몰토크","C1","I'd love to pick your brain about that sometime.","언제 그 얘기 좀 자세히 여쭤보고 싶어요.",[],"pick someone's brain = 지식이나 조언을 구하다."),
+ C("스몰토크","C1","That's a conversation for another day.","그건 다음에 얘기하자."),
+ C("스몰토크","C1","Our paths keep crossing, don't they?","우리 자꾸 마주치네, 그치?"),
+ C("스몰토크","C1","I'm glad we finally got the chance to sit down and talk.","드디어 앉아서 얘기할 기회가 생겨서 기뻐."),
+ C("스몰토크","C1","Anyway, enough about me. How have things been on your end?","아무튼 내 얘기는 그만. 넌 어떻게 지냈어?"),
+ C("스몰토크","C1","I'll take that as a compliment.","칭찬으로 들을게."),
+ C("스몰토크","C1","Now that you mention it, I do remember.","듣고 보니 기억나."),
+ C("스몰토크","C1","We seem to have a lot in common.","우리 공통점이 많은 것 같아."),
+ C("스몰토크","C1","Sorry, I didn't catch the end of that.","미안, 마지막 부분을 못 들었어."),
+ C("스몰토크","C1","Let me know if you're ever in town.","혹시 이 동네 오게 되면 연락해."),
+ /* 여행 */
+ C("여행","C1","I was wondering whether you could recommend somewhere off the tourist trail.","관광객이 잘 안 가는 곳을 추천해 주실 수 있을까 해서요."),
+ C("여행","C1","Our itinerary is fairly flexible, so we're open to suggestions.","일정이 꽤 유연해서 제안은 언제든 환영이에요."),
+ C("여행","C1","Given the delay, I'd expect some form of compensation.","지연을 생각하면 어떤 식으로든 보상이 있어야 한다고 봐요."),
+ C("여행","C1","Would it be possible to waive the change fee, given the circumstances?","상황을 감안해서 변경 수수료를 면제해 주실 수 있을까요?"),
+ C("여행","C1","We'd rather soak up the atmosphere than rush between sights.","명소 사이를 바쁘게 다니기보다 분위기를 즐기고 싶어요."),
+ C("여행","C1","I'm afraid the room doesn't quite live up to the description.","죄송하지만 방이 설명에 좀 못 미치네요."),
+ C("여행","C1","It's well worth the trek, provided the weather holds.","날씨만 버텨 주면 힘들게 갈 가치가 충분해."),
+ C("여행","C1","We got hopelessly lost, but it turned out to be the highlight of the trip.","완전히 길을 잃었는데 그게 여행의 하이라이트가 됐어."),
+ C("여행","C1","Is there any leeway on the checkout time?","체크아웃 시간에 여유를 좀 주실 수 있나요?"),
+ C("여행","C1","I'd like to lodge a formal complaint about the service.","서비스에 대해 정식으로 항의하고 싶어요."),
+ C("여행","C1","The locals were incredibly welcoming.","현지 사람들이 정말 따뜻하게 맞아 줬어."),
+ C("여행","C1","I tend to travel on a whim rather than plan everything.","난 다 계획하기보다 즉흥적으로 여행하는 편이야."),
+ C("여행","C1","We should factor in time for delays.","지연될 시간도 계산에 넣어야 해."),
+ C("여행","C1","It's a bit of a tourist trap, so I'd skip it.","거긴 좀 관광객용이라 나라면 안 가."),
+ C("여행","C1","Is there a less crowded way to get there?","거기 덜 붐비게 가는 방법이 있나요?"),
+ C("여행","C1","I'm still getting over the jet lag, so I'm taking it easy.","아직 시차 적응 중이라 쉬엄쉬엄하고 있어."),
+ C("여행","C1","The trip was a real eye-opener.","그 여행은 정말 눈이 뜨이는 경험이었어."),
+ C("여행","C1","We were upgraded free of charge, which was a pleasant surprise.","무료로 업그레이드돼서 뜻밖에 기분이 좋았어."),
+ C("여행","C1","I'd recommend booking well ahead during peak season.","성수기엔 훨씬 미리 예약하는 걸 추천해."),
+ C("여행","C1","Let's play it safe and get travel insurance.","안전하게 여행자 보험 들자."),
+ C("여행","C1","It's not the most convenient location, but the view makes up for it.","위치가 아주 편하진 않지만 경치가 그걸 만회해."),
+ C("여행","C1","I'd hate to miss our connection, so let's not cut it too fine.","환승 놓치기 싫으니까 너무 빠듯하게 잡지 말자.",[],"cut it fine = 시간을 빠듯하게 잡다."),
+ C("여행","C1","We ended up extending our stay on the spur of the moment.","즉흥적으로 숙박을 연장해 버렸어.",[],"on the spur of the moment = 충동적으로."),
+ C("여행","C1","Could you note on the booking that we'll be arriving late?","저희가 늦게 도착한다고 예약에 적어 두실래요?"),
+ C("여행","C1","Traveling solo forces you out of your comfort zone.","혼자 여행하면 익숙한 곳에서 벗어나게 돼."),
+ /* 직장·면접 */
+ C("직장·면접","C1","I'd like to push back on that a little, if I may.","괜찮다면 그 부분에 조금 반론을 제기하고 싶어요.",[],"push back = 이의를 제기하다."),
+ C("직장·면접","C1","Let's take a step back and reassess our priorities.","한발 물러서서 우선순위를 다시 따져 보죠."),
+ C("직장·면접","C1","With that in mind, I'd propose we revisit the timeline.","그걸 감안해서 일정을 다시 검토하자고 제안할게요."),
+ C("직장·면접","C1","I take your point, but the data suggests otherwise.","말씀하신 요지는 알지만, 데이터는 다르게 말해요."),
+ C("직장·면접","C1","Could we agree on the principle first and sort out the details later?","원칙부터 합의하고 세부 사항은 나중에 정리할까요?"),
+ C("직장·면접","C1","In my previous role, I was responsible for overseeing a team of eight.","이전 직무에서 8명 팀을 총괄했어요."),
+ C("직장·면접","C1","I thrive in fast-paced environments.","빠르게 돌아가는 환경에서 더 잘해요."),
+ C("직장·면접","C1","I'm looking for a role where I can make a tangible impact.","눈에 보이는 성과를 낼 수 있는 자리를 찾고 있어요."),
+ C("직장·면접","C1","To be perfectly honest, the timeline seems a bit ambitious.","아주 솔직히 말하면 일정이 좀 무리해 보여요."),
+ C("직장·면접","C1","Let's not get bogged down in the details.","세부 사항에 너무 매몰되지 맙시다."),
+ C("직장·면접","C1","I'd welcome any feedback on how I could improve.","개선할 점에 대한 피드백은 무엇이든 환영해요."),
+ C("직장·면접","C1","That's outside my area, but I can point you to the right person.","제 담당 밖이지만 맞는 분을 알려 드릴게요."),
+ C("직장·면접","C1","We need to manage the client's expectations.","고객의 기대치를 조절해야 해요."),
+ C("직장·면접","C1","I'm keen to hear what others think before we commit.","확정하기 전에 다른 분들 생각을 꼭 듣고 싶어요."),
+ C("직장·면접","C1","Let's take this up separately after the call.","통화 끝나고 따로 얘기하죠."),
+ C("직장·면접","C1","I'd argue that the risks outweigh the benefits.","위험이 이점보다 크다고 봐요."),
+ C("직장·면접","C1","What would success look like in the first six months?","첫 6개월 동안의 성공은 어떤 모습일까요?",[],"면접 끝에 면접관에게 하기 좋은 질문."),
+ C("직장·면접","C1","I'd be happy to take ownership of the rollout.","출시 진행은 제가 책임지고 맡을게요."),
+ C("직장·면접","C1","We're already at capacity, so something has to give.","이미 여력이 꽉 차서 뭔가는 포기해야 해요."),
+ C("직장·면접","C1","Let's agree on clear next steps and owners.","다음 단계와 담당자를 분명히 정합시다."),
+ C("직장·면접","C1","I appreciate the offer, but I'd like a few days to consider it.","제안 감사하지만 며칠 생각해 볼 시간을 주세요."),
+ C("직장·면접","C1","It's a fair point, and one we hadn't fully considered.","일리 있는 지적이고, 저희가 충분히 생각하지 못한 부분이에요."),
+ C("직장·면접","C1","Could you clarify what you mean by \"streamline\"?","'간소화'가 정확히 무슨 뜻인지 설명해 주실래요?"),
+ C("직장·면접","C1","I'd rather under-promise and over-deliver.","약속은 적게 하고 결과는 더 내는 쪽이 좋아요."),
+ C("직장·면접","C1","Going forward, let's flag issues as soon as they come up.","앞으로는 문제가 생기면 바로 알립시다."),
+ /* 감정·의견 */
+ C("감정·의견","C1","I can't say I'm thrilled about it, but I'll go along with it.","썩 내키진 않지만 따를게."),
+ C("감정·의견","C1","I'm in two minds about it.","그건 마음이 반반이야."),
+ C("감정·의견","C1","It's not that I disagree; I just see it differently.","반대한다기보다 내가 좀 다르게 볼 뿐이야."),
+ C("감정·의견","C1","I have to admit, you've got a point there.","인정할게, 그 말엔 일리가 있어."),
+ C("감정·의견","C1","I'm all for it, as long as it's done properly.","제대로만 한다면 난 대찬성이야."),
+ C("감정·의견","C1","It's hard not to take it personally.","개인적으로 받아들이지 않기가 어렵네."),
+ C("감정·의견","C1","I was taken aback by how blunt he was.","걔가 너무 직설적이라 당황했어."),
+ C("감정·의견","C1","It struck me as a little insensitive.","좀 무신경하게 느껴졌어."),
+ C("감정·의견","C1","I'm still processing what happened.","무슨 일이 있었는지 아직 정리하는 중이야."),
+ C("감정·의견","C1","I'd go as far as to say it's the best decision we've made.","우리가 내린 최고의 결정이라고까지 말하고 싶어."),
+ C("감정·의견","C1","Frankly, I've had enough of the excuses.","솔직히 핑계라면 이제 지긋지긋해."),
+ C("감정·의견","C1","It's a bit of a mixed bag.","좋은 것도 있고 나쁜 것도 있어."),
+ C("감정·의견","C1","I'm not entirely convinced, but I'm willing to give it a go.","완전히 납득된 건 아니지만 한번 해 볼 의향은 있어."),
+ C("감정·의견","C1","That really hit home for me.","그건 정말 와닿았어."),
+ C("감정·의견","C1","I didn't see that coming at all.","그건 전혀 예상 못 했어."),
+ C("감정·의견","C1","Let's not jump to conclusions.","섣불리 결론 내리지 말자."),
+ C("감정·의견","C1","Both options have their merits, which makes it tricky.","둘 다 장점이 있어서 정하기 까다로워."),
+ C("감정·의견","C1","It goes without saying that I'm grateful.","고마운 건 말할 필요도 없지."),
+ C("감정·의견","C1","I'm over it now, but it stung at the time.","이제 괜찮은데 그땐 좀 아팠어."),
+ C("감정·의견","C1","If I'm being completely honest, I felt a bit left out.","아주 솔직히 말하면 좀 소외감을 느꼈어."),
+ C("감정·의견","C1","I wouldn't read too much into it.","너무 깊게 생각하지 마."),
+ C("감정·의견","C1","That's a valid concern, and I share it.","타당한 걱정이고, 나도 같은 생각이야."),
+ C("감정·의견","C1","It's not ideal, but we'll make the best of it.","이상적이진 않지만 최선을 다해 보자."),
+ C("감정·의견","C1","I'm beginning to warm to the idea.","그 생각이 점점 마음에 들기 시작해.",[],"warm to = ~에 마음이 가다."),
+ C("감정·의견","C1","Honestly, it's been a bit of a rollercoaster.","솔직히 감정 기복이 꽤 심했어."),
+ /* 쇼핑 */
+ C("쇼핑","C1","I'm after something understated but well made.","수수하지만 잘 만든 걸 찾고 있어요.",[],"I'm after = I'm looking for. 영국·호주에서 흔한 구어."),
+ C("쇼핑","C1","Is there any flexibility on the price if I buy two?","두 개 사면 가격 조정이 좀 될까요?"),
+ C("쇼핑","C1","I'd like to know what your policy is on faulty items.","불량품에 대한 규정이 어떻게 되는지 알고 싶어요."),
+ C("쇼핑","C1","It's lovely, but I can't justify spending that much right now.","예쁘긴 한데 지금 그만큼 쓸 명분이 없네요."),
+ C("쇼핑","C1","I've been burned by cheap knockoffs before.","전에 싸구려 짝퉁에 데인 적이 있어요."),
+ C("쇼핑","C1","The reviews are mixed, so I'm a bit wary.","후기가 엇갈려서 좀 조심스러워요."),
+ C("쇼핑","C1","I'd rather invest in something that will last.","오래 쓸 수 있는 걸 사는 데 돈을 쓰고 싶어요."),
+ C("쇼핑","C1","Could you set it aside while I think it over?","생각해 보는 동안 따로 빼 두실 수 있을까요?"),
+ C("쇼핑","C1","I was led to believe it came with a warranty.","보증이 포함된 줄 알았어요.",[],"I was led to believe = (상대 말 때문에) ~라고 믿게 됐다."),
+ C("쇼핑","C1","This isn't what was advertised, so I'd like a full refund.","광고한 것과 달라서 전액 환불받고 싶어요."),
+ C("쇼핑","C1","I'm not one for brand names; quality matters more.","난 브랜드는 별로 안 따져. 품질이 더 중요해."),
+ C("쇼핑","C1","Retail therapy is my guilty pleasure.","쇼핑으로 스트레스 푸는 게 나만의 은근한 즐거움이야."),
+ C("쇼핑","C1","Buying the cheapest one is a false economy.","제일 싼 걸 사는 건 결국 손해야.",[],"false economy = 아끼는 것 같지만 결국 손해인 것."),
+ C("쇼핑","C1","I'd appreciate it if you could escalate this to a manager.","이 건을 매니저께 올려 주시면 감사하겠어요."),
+ C("쇼핑","C1","The sales assistant was a little too pushy for my liking.","점원이 좀 지나치게 사라고 몰아붙였어."),
+ C("쇼핑","C1","Do you offer any discount for loyal customers?","단골 고객 할인이 있나요?"),
+ C("쇼핑","C1","I'll hold off until the new model comes out.","새 모델 나올 때까지 기다릴게요."),
+ C("쇼핑","C1","It's been on my wish list for ages.","오랫동안 위시리스트에 있던 거야."),
+ C("쇼핑","C1","I'm not convinced it's worth the hype.","그렇게 화제가 될 만한지는 모르겠어."),
+ C("쇼핑","C1","Is it possible to have it delivered on a specific date?","특정 날짜에 배송받을 수 있을까요?"),
+ C("쇼핑","C1","The fit is spot on, but the color isn't quite me.","핏은 딱인데 색이 나랑 좀 안 어울려."),
+ C("쇼핑","C1","I'd like to raise an issue with the delivery service.","배송 서비스에 대해 문제를 제기하고 싶어요."),
+ C("쇼핑","C1","They've really jacked up the prices since last year.","작년보다 가격을 확 올렸네."),
+ C("쇼핑","C1","It works out cheaper in the long run.","길게 보면 그게 더 싸게 먹혀."),
+ C("쇼핑","C1","I'm trying to buy less but buy better.","덜 사고 더 좋은 걸 사려고 해."),
+ /* 전화·약속 */
+ C("전화·약속","C1","I'm calling to follow up on the email I sent last week.","지난주에 보낸 이메일 건으로 확인차 전화드렸어요."),
+ C("전화·약속","C1","Would it be possible to bring the meeting forward to Tuesday?","회의를 화요일로 앞당길 수 있을까요?",[],"bring forward = 앞당기다 (push back = 미루다)."),
+ C("전화·약속","C1","I'm afraid something's come up and I'll have to postpone.","죄송하지만 일이 생겨서 미뤄야 할 것 같아요."),
+ C("전화·약속","C1","Let me check my availability and get back to you.","제 일정 확인하고 다시 연락드릴게요."),
+ C("전화·약속","C1","Sorry, you're breaking up. Could you repeat that last part?","죄송해요, 소리가 끊겨요. 마지막 부분 다시 말씀해 주실래요?"),
+ C("전화·약속","C1","I'll pencil it in for now and confirm closer to the date.","일단 잡아 두고 날짜가 가까워지면 확정할게요."),
+ C("전화·약속","C1","Just to confirm, we're meeting at ten on Thursday?","확인차 여쭤요, 목요일 10시에 만나는 거 맞죠?"),
+ C("전화·약속","C1","I've been meaning to give you a call for ages.","오래전부터 전화하려고 했었어."),
+ C("전화·약속","C1","Would you mind if I called you back on a better line?","더 잘 들리는 데서 다시 전화드려도 될까요?"),
+ C("전화·약속","C1","I won't keep you long; it's just a quick question.","오래 붙잡지 않을게요, 간단한 질문 하나예요."),
+ C("전화·약속","C1","Shall we leave it open and decide on Friday?","정하지 말고 열어 뒀다가 금요일에 정할까?"),
+ C("전화·약속","C1","I'm running about fifteen minutes behind, apologies.","15분 정도 늦어지고 있어요, 죄송해요."),
+ C("전화·약속","C1","Is there a window on Monday that works for you?","월요일에 시간 비는 때가 있으세요?",[],"window = 비어 있는 짧은 시간."),
+ C("전화·약속","C1","I'd rather not discuss it over the phone.","그건 전화로 얘기하고 싶지 않아."),
+ C("전화·약속","C1","Could you let him know it's fairly urgent?","꽤 급한 일이라고 전해 주시겠어요?"),
+ C("전화·약속","C1","Sorry to cut it short, but I've got another call coming in.","짧게 끊어서 미안한데 다른 전화가 와서."),
+ C("전화·약속","C1","Let's lock in a date before everyone's calendars fill up.","다들 일정 차기 전에 날짜를 확정하자."),
+ C("전화·약속","C1","I'll send a calendar invite so it's in writing.","기록이 남게 일정 초대를 보낼게요."),
+ C("전화·약속","C1","Shall we say half past two, then?","그럼 2시 반으로 할까요?"),
+ C("전화·약속","C1","It's no trouble at all; I'm flexible.","전혀 문제없어요, 저는 시간 맞출 수 있어요."),
+ C("전화·약속","C1","I must have missed your call while I was in a meeting.","회의 중에 전화를 놓쳤나 봐요."),
+ C("전화·약속","C1","Let's reconfirm nearer the time.","날짜 가까워지면 다시 확인하자."),
+ C("전화·약속","C1","I hate to do this to you, but can we rearrange?","이러기 정말 미안한데, 일정 다시 잡을 수 있을까?"),
+ C("전화·약속","C1","Feel free to call my cell if anything changes.","바뀌는 게 있으면 편하게 휴대폰으로 전화 주세요."),
+ C("전화·약속","C1","I'll have my assistant coordinate the details with you.","세부 사항은 제 비서가 조율하도록 할게요."),
+ /* 병원·약국 */
+ C("병원·약국","C1","I've been having intermittent chest pain over the past week.","지난 일주일 동안 가슴 통증이 간간이 있었어요."),
+ C("병원·약국","C1","Could this be related to the medication I'm on?","지금 먹는 약과 관련이 있을 수 있나요?"),
+ C("병원·약국","C1","I'd like to understand the risks before I agree to the procedure.","시술에 동의하기 전에 위험을 알고 싶어요."),
+ C("병원·약국","C1","Is there anything I should avoid while taking this?","이거 먹는 동안 피해야 할 게 있나요?"),
+ C("병원·약국","C1","I've had a nagging cough that just won't go away.","떨어지지 않는 잔기침이 계속 있어요."),
+ C("병원·약국","C1","The symptoms seem to flare up whenever I'm stressed.","스트레스받을 때마다 증상이 심해지는 것 같아요.",[],"flare up = (증상이) 갑자기 심해지다."),
+ C("병원·약국","C1","Would you recommend seeing a specialist?","전문의를 만나 보는 게 좋을까요?"),
+ C("병원·약국","C1","My energy levels have been really low lately.","요즘 기력이 정말 떨어졌어요."),
+ C("병원·약국","C1","Are there any non-drug options I could try first?","약 말고 먼저 해 볼 수 있는 방법이 있을까요?"),
+ C("병원·약국","C1","I'd prefer something that won't make me drowsy.","졸리지 않은 약이면 좋겠어요."),
+ C("병원·약국","C1","Is it worth getting it checked out, or am I overreacting?","검사받아 볼 만한가요, 아니면 제가 과민한 걸까요?"),
+ C("병원·약국","C1","The doctor said it's nothing to worry about.","의사가 걱정할 거 없대."),
+ C("병원·약국","C1","I'm due for a follow-up appointment next month.","다음 달에 경과 진료가 잡혀 있어요."),
+ C("병원·약국","C1","It's a chronic condition, so I've learned to manage it.","만성 질환이라 관리하는 법을 익혔어요."),
+ C("병원·약국","C1","Could you write down the dosage so I don't forget?","잊지 않게 복용량을 적어 주실래요?"),
+ C("병원·약국","C1","I've been prescribed this before, and it worked well.","전에 이걸 처방받았는데 잘 들었어요."),
+ C("병원·약국","C1","My sleep has been all over the place lately.","요즘 수면 패턴이 엉망이에요."),
+ C("병원·약국","C1","I'd like a referral to a dermatologist.","피부과 진료 의뢰서를 받고 싶어요."),
+ C("병원·약국","C1","It's been dragging on for weeks now.","몇 주째 질질 끌고 있어요."),
+ C("병원·약국","C1","I'm worried it might be something more serious.","더 심각한 걸까 봐 걱정돼요."),
+ C("병원·약국","C1","How long before I can get back to exercising?","운동을 다시 하려면 얼마나 기다려야 해요?"),
+ C("병원·약국","C1","Prevention is better than cure.","예방이 치료보다 낫다."),
+ C("병원·약국","C1","I've cut out caffeine, but it hasn't made much difference.","카페인을 끊었는데 별 차이가 없어요."),
+ C("병원·약국","C1","Is this covered, or will I have to pay out of pocket?","이거 보험 적용돼요, 아니면 제가 직접 내야 해요?",[],"out of pocket = 자기 돈으로."),
+ C("병원·약국","C1","I'm on the road to recovery.","회복하는 중이에요."),
+ /* 집·생활 */
+ C("집·생활","C1","We've been meaning to redecorate, but we keep putting it off.","집을 새로 꾸미려고 했는데 계속 미루고 있어."),
+ C("집·생활","C1","Would you mind keeping the noise to a minimum after eleven?","11시 이후엔 소음을 최소한으로 해 주실 수 있을까요?"),
+ C("집·생활","C1","The landlord has been less than helpful about the repairs.","집주인이 수리 문제로 그다지 협조적이지 않아.",[],"less than helpful = 전혀 도움이 안 되는(완곡)."),
+ C("집·생활","C1","I'm not sure it's worth the hassle of moving.","이사하는 수고를 감수할 만한지 모르겠어."),
+ C("집·생활","C1","Let's split the costs based on how much each of us uses.","각자 쓰는 만큼 비용을 나누자."),
+ C("집·생활","C1","The humidity is starting to cause real problems.","습기가 진짜 문제를 일으키기 시작했어."),
+ C("집·생활","C1","I'd rather rent for now and keep my options open.","당분간은 월세로 살면서 선택지를 열어 두고 싶어."),
+ C("집·생활","C1","We need to have a proper conversation about the chores.","집안일에 대해 제대로 얘기 좀 해야 해."),
+ C("집·생활","C1","It's cozy, but it's a bit cramped for three.","아늑하긴 한데 셋이 살기엔 좀 비좁아."),
+ C("집·생활","C1","The neighbors have been really understanding about the renovation.","이웃들이 공사를 정말 잘 이해해 줬어."),
+ C("집·생활","C1","I've been trying to get rid of all the clutter.","잡동사니를 다 치워 버리려고 하고 있어."),
+ C("집·생활","C1","It's in a great location, but the rent is steep.","위치는 좋은데 월세가 비싸."),
+ C("집·생활","C1","Could you give me a rough estimate for the repairs?","수리비 대략적인 견적을 알려 주실래요?"),
+ C("집·생활","C1","I think we should get a second quote before we commit.","확정하기 전에 견적을 한 군데 더 받아 보자."),
+ C("집·생활","C1","Living with roommates has its ups and downs.","룸메이트와 사는 건 장단점이 있어."),
+ C("집·생활","C1","The heating bill went through the roof this winter.","이번 겨울 난방비가 엄청 올랐어.",[],"go through the roof = 천정부지로 치솟다."),
+ C("집·생활","C1","I'm a bit of a neat freak, I'll admit.","인정할게, 나 좀 깔끔 떠는 편이야."),
+ C("집·생활","C1","We should set aside a weekend to tackle the garage.","주말 하루 날 잡아서 차고 정리하자."),
+ C("집·생활","C1","It's not ideal, but it'll do for now.","이상적이진 않지만 당분간은 이걸로 충분해."),
+ C("집·생활","C1","The deposit should be returned in full, barring any damage.","파손이 없다면 보증금은 전액 돌려받아야 해요."),
+ C("집·생활","C1","Let's not let the dishes pile up this time.","이번엔 설거지 쌓아 두지 말자."),
+ C("집·생활","C1","I'd like to give notice that I'll be moving out.","이사 나간다고 미리 통보하고 싶어요."),
+ C("집·생활","C1","The place has a lot of character.","그 집은 개성이 넘쳐."),
+ C("집·생활","C1","We've finally got the place looking the way we want.","드디어 집을 원하는 모습으로 꾸몄어."),
+ C("집·생활","C1","Working from home has blurred the line between work and rest.","재택근무를 하니 일과 휴식의 경계가 흐려졌어."),
+ /* 학교·공부 */
+ C("학교·공부","C1","I'm struggling to structure my argument coherently.","주장을 논리적으로 구성하는 데 애를 먹고 있어요."),
+ C("학교·공부","C1","Could you elaborate on the methodology you used?","사용하신 연구 방법을 좀 더 자세히 설명해 주실래요?"),
+ C("학교·공부","C1","I'd like to challenge one of the assumptions in the reading.","읽기 자료의 가정 중 하나에 이의를 제기하고 싶어요."),
+ C("학교·공부","C1","The evidence for that claim seems rather thin.","그 주장의 근거가 좀 빈약해 보여요."),
+ C("학교·공부","C1","I'm aiming to submit a first draft by the end of the week.","이번 주말까지 초안을 내는 게 목표예요."),
+ C("학교·공부","C1","It's a fascinating topic, but the scope is too broad.","흥미로운 주제지만 범위가 너무 넓어요."),
+ C("학교·공부","C1","Could we narrow down the research question?","연구 질문을 좁힐 수 있을까요?"),
+ C("학교·공부","C1","I've been reading up on the subject over the break.","방학 동안 그 주제를 미리 공부해 뒀어요."),
+ C("학교·공부","C1","I'd appreciate it if you could look over my outline.","제 개요를 한번 봐 주시면 감사하겠어요."),
+ C("학교·공부","C1","That's a really thought-provoking point.","정말 생각할 거리를 주는 지적이네요."),
+ C("학교·공부","C1","I'm finding it hard to strike the right tone in my essay.","에세이 어조를 적절하게 잡기가 어려워요."),
+ C("학교·공부","C1","I tend to learn best by teaching others.","남을 가르치면서 가장 잘 배우는 편이에요."),
+ C("학교·공부","C1","Let's divide the reading and summarize it for each other.","읽을거리를 나눠서 서로 요약해 주자."),
+ C("학교·공부","C1","The lecture really broadened my perspective.","그 강의가 내 시야를 정말 넓혀 줬어."),
+ C("학교·공부","C1","I've hit a wall with this assignment.","이 과제에서 벽에 부딪혔어."),
+ C("학교·공부","C1","I need to brush up on statistics before the exam.","시험 전에 통계를 다시 다져야 해."),
+ C("학교·공부","C1","To what extent do you agree with the author?","저자 의견에 어느 정도 동의하세요?"),
+ C("학교·공부","C1","I'm considering a gap year before graduate school.","대학원 가기 전에 1년 쉬는 걸 고려 중이에요."),
+ C("학교·공부","C1","It's less about memorizing and more about understanding.","외우는 것보다 이해하는 게 중요해."),
+ C("학교·공부","C1","Could you point me toward some reliable sources?","믿을 만한 자료를 좀 알려 주실래요?"),
+ C("학교·공부","C1","I lost points for not citing properly.","인용을 제대로 안 해서 감점됐어."),
+ C("학교·공부","C1","Group projects only work if everyone pulls their weight.","조별 과제는 다들 제 몫을 해야 굴러가.",[],"pull one's weight = 제 몫을 하다."),
+ C("학교·공부","C1","I've finally found a study routine that works for me.","드디어 나한테 맞는 공부 루틴을 찾았어."),
+ C("학교·공부","C1","I'd like to discuss the possibility of an extension.","기한 연장 가능성에 대해 상의드리고 싶어요."),
+ C("학교·공부","C1","The more I learn, the more I realize how little I know.","배울수록 내가 얼마나 모르는지 깨닫게 돼."),
+ /* 취미·여가 */
+ C("취미·여가","C1","I've been meaning to take up something creative.","창의적인 걸 하나 시작하려고 했었어."),
+ C("취미·여가","C1","It's become something of an obsession, to be honest.","솔직히 거의 집착 수준이 됐어."),
+ C("취미·여가","C1","I find it incredibly grounding after a long week.","긴 한 주를 보내고 나면 마음을 정말 차분하게 잡아 줘."),
+ C("취미·여가","C1","I'm a jack of all trades, master of none.","이것저것 다 조금씩 하는데 잘하는 건 없어."),
+ C("취미·여가","C1","I've plateaued, so I'm thinking of getting a coach.","실력이 정체돼서 코치를 받아 볼까 해."),
+ C("취미·여가","C1","It's surprisingly addictive once you get going.","일단 시작하면 의외로 중독성 있어."),
+ C("취미·여가","C1","I'm not as competitive as I used to be.","예전만큼 승부욕이 강하진 않아."),
+ C("취미·여가","C1","It's a great excuse to get out of the house.","집 밖에 나갈 좋은 핑계야."),
+ C("취미·여가","C1","I'd love to turn it into a side hustle someday.","언젠가 이걸 부업으로 만들고 싶어."),
+ C("취미·여가","C1","I tend to lose interest once the novelty wears off.","새로움이 사라지면 흥미를 잃는 편이야."),
+ C("취미·여가","C1","We should make it a regular thing.","이걸 정기적으로 하자."),
+ C("취미·여가","C1","I'm trying to put my phone down and read more.","폰을 내려놓고 책을 더 읽으려고 해."),
+ C("취미·여가","C1","It took a while before it started to click.","감이 오기까지 시간이 좀 걸렸어."),
+ C("취미·여가","C1","I've rediscovered my love of drawing.","그림 그리는 즐거움을 다시 찾았어."),
+ C("취미·여가","C1","It's not everyone's cup of tea, but I love it.","모두의 취향은 아니지만 난 정말 좋아."),
+ C("취미·여가","C1","I'm completely hooked on this podcast.","이 팟캐스트에 완전히 빠졌어."),
+ C("취미·여가","C1","I like the sense of achievement when I finish something.","뭔가를 끝냈을 때의 성취감이 좋아."),
+ C("취미·여가","C1","We spent the whole afternoon browsing used bookstores.","오후 내내 헌책방을 구경했어."),
+ C("취미·여가","C1","I'm saving up for a proper set of gear.","제대로 된 장비를 사려고 돈 모으는 중이야."),
+ C("취미·여가","C1","I'd recommend starting small and building up gradually.","작게 시작해서 조금씩 늘려 가는 걸 추천해."),
+ C("취미·여가","C1","It's a nice change of pace from work.","일하다가 기분 전환하기 좋아."),
+ C("취미·여가","C1","I've joined a local league, which keeps me motivated.","동네 리그에 들어가서 의욕이 유지돼."),
+ C("취미·여가","C1","Once you're in the zone, time just disappears.","몰입하면 시간이 그냥 사라져.",[],"in the zone = 완전히 몰입한 상태."),
+ C("취미·여가","C1","I'm a bit of a night owl, so I tend to paint late.","올빼미족이라 밤늦게 그림을 그리는 편이야."),
+ C("취미·여가","C1","Some of my best memories come from those trips.","내 최고의 추억 중 몇은 그 여행들에서 나왔어."),
+ /* 온라인·SNS */
+ C("온라인·SNS","C1","I'm increasingly wary of how much data these apps collect.","이 앱들이 데이터를 얼마나 수집하는지 점점 경계하게 돼."),
+ C("온라인·SNS","C1","The way the algorithm amplifies outrage is concerning.","알고리즘이 분노를 증폭시키는 방식이 걱정스러워."),
+ C("온라인·SNS","C1","I'd hold off sharing it until it's been fact-checked.","사실 확인되기 전까진 공유하지 않을래."),
+ C("온라인·SNS","C1","It's easy to lose perspective when you're constantly online.","계속 온라인에 있으면 균형 감각을 잃기 쉬워."),
+ C("온라인·SNS","C1","I've unfollowed accounts that made me feel inadequate.","날 초라하게 만드는 계정들을 언팔했어."),
+ C("온라인·SNS","C1","That thread sparked a really heated debate.","그 글타래가 정말 뜨거운 논쟁을 불러일으켰어."),
+ C("온라인·SNS","C1","Context gets lost so easily in text messages.","문자로는 맥락이 너무 쉽게 사라져."),
+ C("온라인·SNS","C1","I'm trying to be more intentional about my screen time.","화면 보는 시간을 더 의식적으로 쓰려고 해."),
+ C("온라인·SNS","C1","Online, everyone seems to have an opinion on everything.","온라인에선 다들 모든 일에 의견이 있는 것 같아."),
+ C("온라인·SNS","C1","It's a fine line between sharing and oversharing.","공유와 과한 공유는 종이 한 장 차이야."),
+ C("온라인·SNS","C1","I'd rather discuss this in person than over text.","이건 문자보다 직접 만나서 얘기하고 싶어."),
+ C("온라인·SNS","C1","That post didn't age well.","그 게시물은 시간이 지나니 민망해졌네.",[],"age well = 시간이 지나도 괜찮다."),
+ C("온라인·SNS","C1","I suspect the reviews have been manipulated.","후기가 조작된 것 같아."),
+ C("온라인·SNS","C1","Going viral can be a blessing and a curse.","화제가 되는 건 축복이자 저주일 수 있어."),
+ C("온라인·SNS","C1","I've switched off most of my notifications to stay focused.","집중하려고 알림을 대부분 껐어."),
+ C("온라인·SNS","C1","It's worth double-checking the source before you share.","공유하기 전에 출처를 다시 확인해 볼 만해."),
+ C("온라인·SNS","C1","Remote meetings are efficient, but they can feel impersonal.","원격 회의는 효율적이지만 좀 삭막하게 느껴질 수 있어."),
+ C("온라인·SNS","C1","I'm seriously considering deleting my account.","계정 삭제를 진지하게 고민 중이야."),
+ C("온라인·SNS","C1","Social media gives you a distorted picture of other people's lives.","SNS는 남의 삶을 왜곡해서 보여 줘."),
+ C("온라인·SNS","C1","The comment was clearly taken out of context.","그 댓글은 분명히 맥락이 잘린 채 퍼졌어."),
+ C("온라인·SNS","C1","Using a password manager has been a game changer.","비밀번호 관리자를 쓰면서 완전히 달라졌어."),
+ C("온라인·SNS","C1","It's hard to switch off when your phone is always within reach.","폰이 늘 손 닿는 곳에 있으면 쉬기가 어려워."),
+ C("온라인·SNS","C1","I'd recommend muting the thread rather than arguing.","말싸움하기보다 그 글 알림을 끄는 걸 추천해."),
+ C("온라인·SNS","C1","Influencer marketing has become impossible to ignore.","인플루언서 마케팅은 이제 무시할 수 없게 됐어."),
+ C("온라인·SNS","C1","Technology should serve us, not the other way around.","기술은 우리를 위해 있어야지, 그 반대가 되면 안 돼.")
+);
+
+/* C1 role-plays: one per situation */
+SCENARIOS.push(
+ {id:"clientdinner",tag:"카페·식당",lvl:"C1",t:"거래처와 저녁 자리 이끌기",d:"레스토랑에서 거래처 Ms. Hart를 대접하기",persona:"Ms. Hart, a senior client who is polite but particular about food",setting:"An upscale restaurant. The learner is hosting an important client dinner.",missions:["메뉴를 추천하며 자연스럽게 주문 이끌기","음식 문제를 정중하게 해결하기","식사 끝에 감사와 다음 만남 제안하기"]},
+ {id:"networking",tag:"스몰토크",lvl:"C1",t:"네트워킹 행사에서 대화하기",d:"업계 행사에서 Jordan과 깊이 있는 대화",persona:"Jordan, an experienced founder at an industry networking event",setting:"A networking reception. Small talk is expected to turn into a meaningful conversation.",missions:["자연스럽게 대화 시작하고 상대 일에 질문하기","내 일을 간결하고 인상 깊게 소개하기","정중하게 대화를 마무리하고 연락처 교환하기"]},
+ {id:"compensation",tag:"여행",lvl:"C1",t:"항공사와 보상 협상하기",d:"취소된 항공편 보상을 직원 Morgan과 협상",persona:"Morgan, an airline service agent who follows policy closely",setting:"An airport service desk. The learner's flight was canceled and they missed a booked hotel night.",missions:["상황과 입은 손해를 차분히 설명하기","규정을 근거로 보상 요구하기","절충안을 받아들이거나 다른 안 제시하기"]},
+ {id:"offer",tag:"직장·면접",lvl:"C1",t:"입사 조건 협상하기",d:"인사 담당 Alex와 연봉·근무 조건 협상",persona:"Alex, an HR manager who wants to close the hire within budget",setting:"A video call after a job offer. Salary and remote work days are on the table.",missions:["제안에 대한 감사와 관심 표현하기","근거를 들어 조건 조정 요청하기","합의 내용을 정리하고 확인하기"]},
+ {id:"debate",tag:"감정·의견",lvl:"C1",t:"민감한 주제로 토론하기",d:"친구 Sam과 재택근무의 장단점 토론",persona:"Sam, a thoughtful friend who strongly prefers working in the office",setting:"A café. The two friends disagree about whether remote work is better.",missions:["내 입장을 이유와 함께 말하기","상대 의견의 일리를 인정하기","공통점을 찾아 정리하기"]},
+ {id:"escalate",tag:"쇼핑",lvl:"C1",t:"고가 제품 불량 협상하기",d:"매장 매니저 Dana와 불량 노트북 해결",persona:"Dana, a store manager who wants to avoid a full refund",setting:"An electronics store. The learner's expensive laptop has a recurring fault after two repairs.",missions:["지금까지의 경과를 정확히 설명하기","원하는 해결과 그 이유 말하기","합의가 안 되면 다음 단계를 정중하게 언급하기"]},
+ {id:"coordinate",tag:"전화·약속",lvl:"C1",t:"여러 사람 일정 조율하기",d:"동료 Riley와 전화로 워크숍 일정 맞추기",persona:"Riley, a busy colleague coordinating a workshop with several teams",setting:"A phone call. Three teams need to meet, and everyone's calendar is full.",missions:["가능한 시간대 제안하기","충돌하는 일정을 정중하게 조정하기","확정 내용과 다음 할 일 정리하기"]},
+ {id:"treatment",tag:"병원·약국",lvl:"C1",t:"치료 방법 상담하기",d:"Dr. Kim과 치료 선택지 상담",persona:"Dr. Kim, a specialist who explains options carefully",setting:"A specialist clinic. The learner has a chronic knee problem and several treatment options.",missions:["증상의 경과와 생활 영향 설명하기","각 치료의 위험과 효과 묻기","결정 전에 필요한 정보 정리하기"]},
+ {id:"depositdispute",tag:"집·생활",lvl:"C1",t:"보증금 분쟁 해결하기",d:"집주인 Mr. Lee와 보증금 공제 문제 협상",persona:"Mr. Lee, a landlord who wants to keep part of the deposit for repairs",setting:"A phone call after moving out. The landlord is deducting money for damage the learner says was already there.",missions:["공제에 동의하지 않는 이유 말하기","증거(사진·계약서)를 언급하기","합리적인 해결안 제안하기"]},
+ {id:"seminar",tag:"학교·공부",lvl:"C1",t:"세미나에서 논문 토론하기",d:"Dr. Evans의 세미나에서 의견 발표",persona:"Dr. Evans, a demanding seminar leader who challenges every claim",setting:"A graduate seminar discussing a controversial research paper.",missions:["논문의 핵심 주장 요약하기","근거의 약점 하나 지적하기","반론에 대응하며 내 입장 다듬기"]},
+ {id:"sidehustle",tag:"취미·여가",lvl:"C1",t:"취미를 부업으로 만드는 상담",d:"선배 Chris에게 수공예 부업 조언 구하기",persona:"Chris, a friend who turned a hobby into a successful small business",setting:"A weekend meetup. The learner wants to sell handmade goods online.",missions:["내 취미와 목표 설명하기","현실적인 어려움에 대해 묻기","조언을 바탕으로 첫 계획 정리하기"]},
+ {id:"techdebate",tag:"온라인·SNS",lvl:"C1",t:"SNS의 영향에 대해 토론하기",d:"동료 Taylor와 SNS 규제 토론",persona:"Taylor, a colleague who thinks social media does more good than harm",setting:"A lunch break. The conversation turns to whether social media should be more regulated.",missions:["내 의견을 근거와 함께 말하기","상대 논리의 허점을 정중하게 짚기","균형 잡힌 결론 제안하기"]}
+);
+
+/* ---------- 30-second speaking prompts: 3 per situation × level (js/speak.js) ---------- */
+const PROMPTS = [
+ {tag:"카페·식당",lvl:"A1",en:"What do you usually order at a café?",ko:"카페에서 보통 뭘 주문해?"},
+ {tag:"카페·식당",lvl:"A1",en:"Order a drink and a snack for yourself.",ko:"음료랑 간식을 하나씩 주문해 봐."},
+ {tag:"카페·식당",lvl:"A1",en:"What is your favorite food?",ko:"제일 좋아하는 음식이 뭐야?"},
+ {tag:"카페·식당",lvl:"A2",en:"Tell me about a restaurant you like and why.",ko:"좋아하는 식당 한 곳과 그 이유를 말해 줘."},
+ {tag:"카페·식당",lvl:"A2",en:"You're at a café with a friend. Order for both of you.",ko:"친구랑 카페에 왔어. 둘 다 먹을 걸 주문해 봐."},
+ {tag:"카페·식당",lvl:"A2",en:"What did you eat yesterday? Was it good?",ko:"어제 뭐 먹었어? 맛있었어?"},
+ {tag:"카페·식당",lvl:"B1",en:"Your order is wrong. Explain the problem politely and ask for a fix.",ko:"주문이 잘못 나왔어. 정중하게 문제를 말하고 해결을 부탁해 봐."},
+ {tag:"카페·식당",lvl:"B1",en:"Recommend a place to eat in your neighborhood and explain why.",ko:"동네 식당 한 곳을 추천하고 이유를 설명해 봐."},
+ {tag:"카페·식당",lvl:"B1",en:"Describe the best meal you've ever had.",ko:"지금까지 먹은 최고의 식사를 설명해 봐."},
+ {tag:"카페·식당",lvl:"B2",en:"You're hosting friends for dinner out. Suggest a place, handle a dietary need, and plan the bill.",ko:"친구들과 외식을 주최해. 장소를 제안하고, 식단 제한을 챙기고, 계산 방법을 정해 봐."},
+ {tag:"카페·식당",lvl:"B2",en:"Is it worth paying more for a nice restaurant? Give your opinion.",ko:"좋은 식당에 돈을 더 쓸 가치가 있을까? 의견을 말해 봐."},
+ {tag:"카페·식당",lvl:"B2",en:"Complain about slow service without sounding rude.",ko:"무례하지 않게 느린 서비스에 대해 항의해 봐."},
+ {tag:"카페·식당",lvl:"C1",en:"Persuade a client to try a restaurant they've never heard of.",ko:"거래처 사람에게 처음 들어 보는 식당에 가 보자고 설득해 봐."},
+ {tag:"카페·식당",lvl:"C1",en:"Discuss whether food reviews online can be trusted.",ko:"온라인 음식 후기를 믿을 수 있는지 논해 봐."},
+ {tag:"카페·식당",lvl:"C1",en:"Give balanced feedback to a restaurant owner who asked for your honest opinion.",ko:"솔직한 의견을 물어본 식당 주인에게 균형 잡힌 피드백을 줘 봐."},
+ {tag:"스몰토크",lvl:"A1",en:"Introduce yourself in a few sentences.",ko:"몇 문장으로 자기소개해 봐."},
+ {tag:"스몰토크",lvl:"A1",en:"How is the weather today? How do you feel?",ko:"오늘 날씨 어때? 기분은 어때?"},
+ {tag:"스몰토크",lvl:"A1",en:"Where do you live, and do you like it?",ko:"어디 살아? 거기 좋아?"},
+ {tag:"스몰토크",lvl:"A2",en:"What did you do last weekend?",ko:"지난 주말에 뭐 했어?"},
+ {tag:"스몰토크",lvl:"A2",en:"You meet a new coworker. Start a friendly conversation.",ko:"새 동료를 만났어. 친근하게 대화를 시작해 봐."},
+ {tag:"스몰토크",lvl:"A2",en:"Tell me about your plans for this week.",ko:"이번 주 계획을 말해 줘."},
+ {tag:"스몰토크",lvl:"B1",en:"Catch up with a friend you haven't seen in a year.",ko:"1년 동안 못 본 친구와 근황을 나눠 봐."},
+ {tag:"스몰토크",lvl:"B1",en:"Describe your hometown to someone who has never been there.",ko:"가 본 적 없는 사람에게 고향을 설명해 봐."},
+ {tag:"스몰토크",lvl:"B1",en:"You run into someone whose name you forgot. Handle it politely.",ko:"이름이 기억 안 나는 사람을 마주쳤어. 정중하게 넘겨 봐."},
+ {tag:"스몰토크",lvl:"B2",en:"Keep a conversation going with a stranger at a party.",ko:"파티에서 처음 본 사람과 대화를 이어 가 봐."},
+ {tag:"스몰토크",lvl:"B2",en:"Politely end a conversation that is going on too long.",ko:"너무 길어지는 대화를 정중하게 마무리해 봐."},
+ {tag:"스몰토크",lvl:"B2",en:"Talk about something interesting you learned recently.",ko:"최근에 알게 된 흥미로운 걸 이야기해 봐."},
+ {tag:"스몰토크",lvl:"C1",en:"Make a memorable first impression at a networking event.",ko:"네트워킹 행사에서 기억에 남는 첫인상을 남겨 봐."},
+ {tag:"스몰토크",lvl:"C1",en:"Steer an awkward conversation back to a comfortable topic.",ko:"어색해진 대화를 편한 주제로 자연스럽게 돌려 봐."},
+ {tag:"스몰토크",lvl:"C1",en:"Share a personal story that shows something about your values.",ko:"네 가치관이 드러나는 개인적인 이야기를 해 봐."},
+ {tag:"여행",lvl:"A1",en:"Where do you want to travel? Why?",ko:"어디로 여행 가고 싶어? 왜?"},
+ {tag:"여행",lvl:"A1",en:"Ask how to get to the station and say thank you.",ko:"역에 어떻게 가는지 묻고 고맙다고 말해 봐."},
+ {tag:"여행",lvl:"A1",en:"Check in at a hotel.",ko:"호텔에 체크인해 봐."},
+ {tag:"여행",lvl:"A2",en:"Tell me about a trip you took.",ko:"다녀온 여행 하나를 이야기해 줘."},
+ {tag:"여행",lvl:"A2",en:"Ask the hotel staff for help with two things.",ko:"호텔 직원에게 두 가지를 부탁해 봐."},
+ {tag:"여행",lvl:"A2",en:"What do you always pack when you travel?",ko:"여행 갈 때 늘 챙기는 게 뭐야?"},
+ {tag:"여행",lvl:"B1",en:"Tell me about a trip that didn't go as planned.",ko:"계획대로 안 된 여행 이야기를 해 줘."},
+ {tag:"여행",lvl:"B1",en:"Your flight is delayed. Talk to the airline staff about your options.",ko:"비행기가 지연됐어. 항공사 직원과 선택지를 이야기해 봐."},
+ {tag:"여행",lvl:"B1",en:"Recommend a place in your country to a foreign visitor.",ko:"외국인 방문객에게 우리나라 여행지를 추천해 봐."},
+ {tag:"여행",lvl:"B2",en:"Your room is not what you booked. Negotiate a solution.",ko:"예약한 방과 달라. 해결책을 협상해 봐."},
+ {tag:"여행",lvl:"B2",en:"Is it better to travel alone or with friends? Explain.",ko:"혼자 여행과 친구와의 여행 중 뭐가 나은지 설명해 봐."},
+ {tag:"여행",lvl:"B2",en:"Describe a place that changed how you see the world.",ko:"세상을 보는 눈을 바꿔 준 장소를 설명해 봐."},
+ {tag:"여행",lvl:"C1",en:"Argue for or against limiting tourism in popular cities.",ko:"인기 도시의 관광객 수를 제한하는 것에 찬반 의견을 말해 봐."},
+ {tag:"여행",lvl:"C1",en:"Persuade an airline agent to waive a fee, using the circumstances.",ko:"상황을 근거로 항공사 직원에게 수수료 면제를 설득해 봐."},
+ {tag:"여행",lvl:"C1",en:"Reflect on what traveling has taught you.",ko:"여행이 너에게 가르쳐 준 것을 돌아보며 말해 봐."},
+ {tag:"직장·면접",lvl:"A1",en:"What do you do? Where do you work or study?",ko:"무슨 일 해? 어디서 일하거나 공부해?"},
+ {tag:"직장·면접",lvl:"A1",en:"Describe your typical day.",ko:"보통의 하루를 설명해 봐."},
+ {tag:"직장·면접",lvl:"A1",en:"Ask a coworker for help with something.",ko:"동료에게 뭔가 도와달라고 부탁해 봐."},
+ {tag:"직장·면접",lvl:"A2",en:"Tell me about your job or your studies.",ko:"네 일이나 공부에 대해 이야기해 줘."},
+ {tag:"직장·면접",lvl:"A2",en:"Ask your manager for a day off.",ko:"매니저에게 하루 휴가를 요청해 봐."},
+ {tag:"직장·면접",lvl:"A2",en:"Explain why you will be late for a meeting.",ko:"회의에 늦는 이유를 설명해 봐."},
+ {tag:"직장·면접",lvl:"B1",en:"Answer the interview question: \"Tell me about yourself.\"",ko:"\"자기소개 해 주세요\"라는 면접 질문에 답해 봐."},
+ {tag:"직장·면접",lvl:"B1",en:"Describe a problem you solved at work or school.",ko:"일이나 학교에서 해결한 문제 하나를 설명해 봐."},
+ {tag:"직장·면접",lvl:"B1",en:"Give a short update on a project you're working on.",ko:"진행 중인 프로젝트 근황을 짧게 공유해 봐."},
+ {tag:"직장·면접",lvl:"B2",en:"Disagree with a teammate's idea and suggest an alternative.",ko:"팀원의 아이디어에 반대하고 대안을 제안해 봐."},
+ {tag:"직장·면접",lvl:"B2",en:"Answer the interview question: \"What is your biggest weakness?\"",ko:"\"가장 큰 약점이 뭐예요?\"라는 면접 질문에 답해 봐."},
+ {tag:"직장·면접",lvl:"B2",en:"Ask your manager to push back a deadline, with reasons.",ko:"이유를 들어 매니저에게 마감 연기를 요청해 봐."},
+ {tag:"직장·면접",lvl:"C1",en:"Negotiate a better offer without sounding ungrateful.",ko:"감사하지 않아 보이지 않게 더 나은 조건을 협상해 봐."},
+ {tag:"직장·면접",lvl:"C1",en:"Lead the end of a meeting: summarize decisions and assign next steps.",ko:"회의를 마무리해 봐. 결정 사항을 요약하고 다음 할 일을 나눠 줘."},
+ {tag:"직장·면접",lvl:"C1",en:"Give constructive criticism to a colleague whose work is late.",ko:"일이 늦어지는 동료에게 건설적인 비판을 해 봐."},
+ {tag:"감정·의견",lvl:"A1",en:"How do you feel today? Why?",ko:"오늘 기분이 어때? 왜?"},
+ {tag:"감정·의견",lvl:"A1",en:"What makes you happy?",ko:"뭐가 너를 행복하게 해?"},
+ {tag:"감정·의견",lvl:"A1",en:"What do you like and not like?",ko:"좋아하는 것과 싫어하는 걸 말해 봐."},
+ {tag:"감정·의견",lvl:"A2",en:"Tell me about a time you were really surprised.",ko:"정말 놀랐던 때를 이야기해 줘."},
+ {tag:"감정·의견",lvl:"A2",en:"Your friend got good news. Congratulate them.",ko:"친구가 좋은 소식을 들었어. 축하해 줘."},
+ {tag:"감정·의견",lvl:"A2",en:"What do you do when you are stressed?",ko:"스트레스받을 때 뭐 해?"},
+ {tag:"감정·의견",lvl:"B1",en:"Give your opinion on working from home.",ko:"재택근무에 대한 의견을 말해 봐."},
+ {tag:"감정·의견",lvl:"B1",en:"Comfort a friend who failed an exam.",ko:"시험에 떨어진 친구를 위로해 봐."},
+ {tag:"감정·의견",lvl:"B1",en:"Describe a decision you're proud of.",ko:"자랑스러운 결정 하나를 설명해 봐."},
+ {tag:"감정·의견",lvl:"B2",en:"Do you agree that social media makes people less happy? Explain.",ko:"SNS가 사람들을 덜 행복하게 만든다는 데 동의해? 설명해 봐."},
+ {tag:"감정·의견",lvl:"B2",en:"Talk about something you changed your mind about.",ko:"생각이 바뀐 일 하나를 이야기해 봐."},
+ {tag:"감정·의견",lvl:"B2",en:"Politely disagree with a friend's strong opinion.",ko:"친구의 강한 의견에 정중하게 반대해 봐."},
+ {tag:"감정·의견",lvl:"C1",en:"Weigh the pros and cons of a four-day work week.",ko:"주 4일 근무의 장단점을 따져 봐."},
+ {tag:"감정·의견",lvl:"C1",en:"Explain a complicated feeling you had about a recent event.",ko:"최근 일에 대해 느낀 복잡한 감정을 설명해 봐."},
+ {tag:"감정·의견",lvl:"C1",en:"Defend an unpopular opinion you hold.",ko:"네가 가진 소수 의견 하나를 변호해 봐."},
+ {tag:"쇼핑",lvl:"A1",en:"What do you want to buy? Why?",ko:"뭘 사고 싶어? 왜?"},
+ {tag:"쇼핑",lvl:"A1",en:"Ask about the price and the size of a jacket.",ko:"재킷 가격과 사이즈를 물어봐."},
+ {tag:"쇼핑",lvl:"A1",en:"Describe what you are wearing today.",ko:"오늘 입은 옷을 설명해 봐."},
+ {tag:"쇼핑",lvl:"A2",en:"Return an item that doesn't fit.",ko:"안 맞는 물건을 반품해 봐."},
+ {tag:"쇼핑",lvl:"A2",en:"Tell me about the last thing you bought.",ko:"마지막으로 산 물건 이야기를 해 줘."},
+ {tag:"쇼핑",lvl:"A2",en:"Do you prefer shopping online or in stores? Why?",ko:"온라인 쇼핑과 매장 쇼핑 중 뭐가 좋아? 왜?"},
+ {tag:"쇼핑",lvl:"B1",en:"Your online order arrived damaged. Explain and ask for a refund.",ko:"온라인 주문이 파손돼서 왔어. 설명하고 환불을 요청해 봐."},
+ {tag:"쇼핑",lvl:"B1",en:"Help a friend choose between two phones.",ko:"친구가 휴대폰 두 개 중에 고르는 걸 도와줘."},
+ {tag:"쇼핑",lvl:"B1",en:"Describe a purchase you regret.",ko:"후회하는 구매 하나를 설명해 봐."},
+ {tag:"쇼핑",lvl:"B2",en:"Negotiate a better price at a market.",ko:"시장에서 가격을 더 깎아 봐."},
+ {tag:"쇼핑",lvl:"B2",en:"Is it better to buy cheap things often or expensive things rarely?",ko:"싼 걸 자주 사는 것과 비싼 걸 가끔 사는 것 중 뭐가 나을까?"},
+ {tag:"쇼핑",lvl:"B2",en:"Explain how you decide whether something is worth the money.",ko:"돈을 쓸 가치가 있는지 어떻게 판단하는지 설명해 봐."},
+ {tag:"쇼핑",lvl:"C1",en:"Escalate a complaint to a manager after two failed repairs.",ko:"두 번 수리에 실패한 뒤 매니저에게 항의를 올려 봐."},
+ {tag:"쇼핑",lvl:"C1",en:"Discuss the effects of fast fashion.",ko:"패스트 패션의 영향을 논해 봐."},
+ {tag:"쇼핑",lvl:"C1",en:"Convince a friend to stop impulse buying, without lecturing them.",ko:"잔소리하지 않으면서 친구에게 충동구매를 멈추라고 설득해 봐."},
+ {tag:"전화·약속",lvl:"A1",en:"Call a friend and make plans for tomorrow.",ko:"친구에게 전화해서 내일 약속을 잡아 봐."},
+ {tag:"전화·약속",lvl:"A1",en:"Leave a short message for a friend.",ko:"친구에게 짧은 메시지를 남겨 봐."},
+ {tag:"전화·약속",lvl:"A1",en:"Tell your friend you are late and where you are.",ko:"친구에게 늦는다고, 지금 어디인지 말해 봐."},
+ {tag:"전화·약속",lvl:"A2",en:"Change a plan with a friend because something came up.",ko:"일이 생겨서 친구와 약속을 바꿔 봐."},
+ {tag:"전화·약속",lvl:"A2",en:"Make a dinner reservation by phone.",ko:"전화로 저녁 예약을 해 봐."},
+ {tag:"전화·약속",lvl:"A2",en:"Invite a friend to a movie and agree on a time.",ko:"친구를 영화에 초대하고 시간을 정해 봐."},
+ {tag:"전화·약속",lvl:"B1",en:"Call to reschedule a doctor's appointment.",ko:"병원 예약을 바꾸려고 전화해 봐."},
+ {tag:"전화·약속",lvl:"B1",en:"Leave a voicemail for a coworker about an urgent issue.",ko:"급한 일로 동료에게 음성 메시지를 남겨 봐."},
+ {tag:"전화·약속",lvl:"B1",en:"Find a time that works for three busy friends.",ko:"바쁜 친구 셋이 모두 되는 시간을 찾아 봐."},
+ {tag:"전화·약속",lvl:"B2",en:"Cancel plans at the last minute and make it up to your friend.",ko:"막판에 약속을 취소하고 친구에게 만회할 방법을 말해 봐."},
+ {tag:"전화·약속",lvl:"B2",en:"The line keeps cutting out. Manage the call so nothing important is lost.",ko:"전화가 자꾸 끊겨. 중요한 내용을 놓치지 않게 통화를 이끌어 봐."},
+ {tag:"전화·약속",lvl:"B2",en:"Set up a meeting with someone you've never met.",ko:"처음 연락하는 사람과 미팅 일정을 잡아 봐."},
+ {tag:"전화·약속",lvl:"C1",en:"Coordinate a workshop across three teams with conflicting schedules.",ko:"일정이 겹치는 세 팀의 워크숍을 조율해 봐."},
+ {tag:"전화·약속",lvl:"C1",en:"Politely push back when someone keeps changing the meeting time.",ko:"회의 시간을 계속 바꾸는 사람에게 정중하게 이의를 제기해 봐."},
+ {tag:"전화·약속",lvl:"C1",en:"Follow up on an unanswered email without sounding impatient.",ko:"조급해 보이지 않게, 답이 없는 이메일 건으로 다시 연락해 봐."},
+ {tag:"병원·약국",lvl:"A1",en:"Tell the doctor where it hurts.",ko:"의사에게 어디가 아픈지 말해 봐."},
+ {tag:"병원·약국",lvl:"A1",en:"Ask for medicine for a cold.",ko:"감기약을 달라고 해 봐."},
+ {tag:"병원·약국",lvl:"A1",en:"How do you feel today? Are you sick?",ko:"오늘 몸은 어때? 아파?"},
+ {tag:"병원·약국",lvl:"A2",en:"Describe your symptoms and when they started.",ko:"증상과 언제부터 그랬는지 설명해 봐."},
+ {tag:"병원·약국",lvl:"A2",en:"Ask the pharmacist how to take your medicine.",ko:"약사에게 약 먹는 방법을 물어봐."},
+ {tag:"병원·약국",lvl:"A2",en:"Tell me what you do to stay healthy.",ko:"건강을 지키려고 하는 일을 이야기해 줘."},
+ {tag:"병원·약국",lvl:"B1",en:"Explain an injury and how it happened.",ko:"다친 곳과 어떻게 다쳤는지 설명해 봐."},
+ {tag:"병원·약국",lvl:"B1",en:"Call in sick to work and explain your situation.",ko:"회사에 아파서 결근한다고 연락하고 상황을 설명해 봐."},
+ {tag:"병원·약국",lvl:"B1",en:"Ask the doctor about side effects and alternatives.",ko:"의사에게 부작용과 다른 방법을 물어봐."},
+ {tag:"병원·약국",lvl:"B2",en:"Describe a health problem that affects your daily life.",ko:"일상에 영향을 주는 건강 문제를 설명해 봐."},
+ {tag:"병원·약국",lvl:"B2",en:"Give advice to a friend who can't sleep well.",ko:"잠을 잘 못 자는 친구에게 조언해 봐."},
+ {tag:"병원·약국",lvl:"B2",en:"Is it better to see a doctor early or wait? Explain.",ko:"일찍 병원에 가는 것과 기다리는 것 중 뭐가 나은지 설명해 봐."},
+ {tag:"병원·약국",lvl:"C1",en:"Discuss your treatment options and the risks you're willing to accept.",ko:"치료 선택지와 감수할 수 있는 위험을 논의해 봐."},
+ {tag:"병원·약국",lvl:"C1",en:"Explain why prevention matters more than cure.",ko:"예방이 치료보다 왜 중요한지 설명해 봐."},
+ {tag:"병원·약국",lvl:"C1",en:"Describe how a chronic condition can affect someone's work and relationships.",ko:"만성 질환이 일과 관계에 어떤 영향을 주는지 설명해 봐."},
+ {tag:"집·생활",lvl:"A1",en:"Describe your room.",ko:"네 방을 설명해 봐."},
+ {tag:"집·생활",lvl:"A1",en:"What do you do every morning?",ko:"매일 아침 뭐 해?"},
+ {tag:"집·생활",lvl:"A1",en:"Ask someone to help you at home.",ko:"집에서 도와달라고 부탁해 봐."},
+ {tag:"집·생활",lvl:"A2",en:"Tell your roommate which chores you will do.",ko:"룸메이트에게 네가 할 집안일을 말해 봐."},
+ {tag:"집·생활",lvl:"A2",en:"Something in your home is broken. Explain the problem.",ko:"집에 뭔가 고장 났어. 문제를 설명해 봐."},
+ {tag:"집·생활",lvl:"A2",en:"Describe your perfect weekend at home.",ko:"집에서 보내는 완벽한 주말을 설명해 봐."},
+ {tag:"집·생활",lvl:"B1",en:"Ask your landlord to fix something and when they can come.",ko:"집주인에게 수리를 부탁하고 언제 올 수 있는지 물어봐."},
+ {tag:"집·생활",lvl:"B1",en:"Your neighbor is too loud. Talk to them politely.",ko:"이웃이 너무 시끄러워. 정중하게 이야기해 봐."},
+ {tag:"집·생활",lvl:"B1",en:"Describe the place you'd like to live in the future.",ko:"앞으로 살고 싶은 집을 설명해 봐."},
+ {tag:"집·생활",lvl:"B2",en:"Set fair rules for sharing an apartment.",ko:"아파트를 같이 쓰는 공정한 규칙을 정해 봐."},
+ {tag:"집·생활",lvl:"B2",en:"Is it better to rent or to buy a home? Explain.",ko:"집은 빌리는 게 나을까, 사는 게 나을까? 설명해 봐."},
+ {tag:"집·생활",lvl:"B2",en:"Talk about the pros and cons of living alone.",ko:"혼자 사는 것의 장단점을 이야기해 봐."},
+ {tag:"집·생활",lvl:"C1",en:"Negotiate the return of your deposit with a difficult landlord.",ko:"까다로운 집주인과 보증금 반환을 협상해 봐."},
+ {tag:"집·생활",lvl:"C1",en:"Discuss how working from home changes family life.",ko:"재택근무가 가족생활을 어떻게 바꾸는지 논해 봐."},
+ {tag:"집·생활",lvl:"C1",en:"Persuade your housemates to cut energy costs together.",ko:"같이 사는 사람들에게 에너지 비용을 함께 줄이자고 설득해 봐."},
+ {tag:"학교·공부",lvl:"A1",en:"What subjects do you like? Why?",ko:"좋아하는 과목이 뭐야? 왜?"},
+ {tag:"학교·공부",lvl:"A1",en:"Ask your teacher a question about the homework.",ko:"선생님께 숙제에 대해 질문해 봐."},
+ {tag:"학교·공부",lvl:"A1",en:"Why are you learning English?",ko:"왜 영어를 배워?"},
+ {tag:"학교·공부",lvl:"A2",en:"Tell me about your best teacher.",ko:"최고의 선생님 이야기를 해 줘."},
+ {tag:"학교·공부",lvl:"A2",en:"Explain how you study for a test.",ko:"시험공부를 어떻게 하는지 설명해 봐."},
+ {tag:"학교·공부",lvl:"A2",en:"You missed a class. Ask a classmate what you missed.",ko:"수업을 빠졌어. 친구에게 뭘 놓쳤는지 물어봐."},
+ {tag:"학교·공부",lvl:"B1",en:"Ask your professor for an extension and explain why.",ko:"교수님께 기한 연장을 요청하고 이유를 설명해 봐."},
+ {tag:"학교·공부",lvl:"B1",en:"Describe the best way to learn a language.",ko:"언어를 배우는 가장 좋은 방법을 설명해 봐."},
+ {tag:"학교·공부",lvl:"B1",en:"Talk about a mistake that taught you something.",ko:"뭔가를 가르쳐 준 실수 이야기를 해 봐."},
+ {tag:"학교·공부",lvl:"B2",en:"Divide tasks fairly in a group project.",ko:"조별 과제 일을 공평하게 나눠 봐."},
+ {tag:"학교·공부",lvl:"B2",en:"Should university be free? Give your opinion.",ko:"대학은 무료여야 할까? 의견을 말해 봐."},
+ {tag:"학교·공부",lvl:"B2",en:"Explain a difficult idea you learned in simple terms.",ko:"배운 어려운 개념을 쉽게 풀어 설명해 봐."},
+ {tag:"학교·공부",lvl:"C1",en:"Challenge an argument in a reading and support your view.",ko:"읽은 글의 주장에 반론하고 네 입장을 뒷받침해 봐."},
+ {tag:"학교·공부",lvl:"C1",en:"Discuss whether AI tools help or hurt learning.",ko:"AI 도구가 학습에 도움이 되는지 해가 되는지 논해 봐."},
+ {tag:"학교·공부",lvl:"C1",en:"Summarize a topic you know well for someone new to it.",ko:"잘 아는 주제를 처음 접하는 사람에게 요약해 줘."},
+ {tag:"취미·여가",lvl:"A1",en:"What do you do on weekends?",ko:"주말에 뭐 해?"},
+ {tag:"취미·여가",lvl:"A1",en:"Tell me about your hobby.",ko:"네 취미를 말해 줘."},
+ {tag:"취미·여가",lvl:"A1",en:"What sports do you like?",ko:"어떤 운동 좋아해?"},
+ {tag:"취미·여가",lvl:"A2",en:"Tell me about a movie or show you liked.",ko:"좋았던 영화나 드라마 이야기를 해 줘."},
+ {tag:"취미·여가",lvl:"A2",en:"Invite a friend to do your hobby with you.",ko:"친구에게 네 취미를 같이 하자고 해 봐."},
+ {tag:"취미·여가",lvl:"A2",en:"What did you do for fun when you were a kid?",ko:"어릴 때 재미로 뭐 했어?"},
+ {tag:"취미·여가",lvl:"B1",en:"Describe a hobby you'd like to start and why.",ko:"시작하고 싶은 취미와 그 이유를 설명해 봐."},
+ {tag:"취미·여가",lvl:"B1",en:"Recommend a book, show, or game to a friend.",ko:"친구에게 책이나 드라마, 게임을 추천해 봐."},
+ {tag:"취미·여가",lvl:"B1",en:"How do you relax after a busy week?",ko:"바쁜 한 주를 보내고 어떻게 쉬어?"},
+ {tag:"취미·여가",lvl:"B2",en:"Talk about a hobby you gave up and why.",ko:"그만둔 취미와 그 이유를 이야기해 봐."},
+ {tag:"취미·여가",lvl:"B2",en:"Are hobbies more fun alone or with others? Explain.",ko:"취미는 혼자가 재밌을까, 함께가 재밌을까? 설명해 봐."},
+ {tag:"취미·여가",lvl:"B2",en:"Describe how a hobby has changed you.",ko:"취미가 너를 어떻게 바꿨는지 설명해 봐."},
+ {tag:"취미·여가",lvl:"C1",en:"Discuss whether turning a hobby into a job is a good idea.",ko:"취미를 직업으로 바꾸는 게 좋은 생각인지 논해 봐."},
+ {tag:"취미·여가",lvl:"C1",en:"Explain why some people find repetitive hobbies relaxing.",ko:"어떤 사람들은 왜 반복적인 취미에서 편안함을 느끼는지 설명해 봐."},
+ {tag:"취미·여가",lvl:"C1",en:"Persuade a busy friend to make time for a hobby.",ko:"바쁜 친구에게 취미 생활할 시간을 내라고 설득해 봐."},
+ {tag:"온라인·SNS",lvl:"A1",en:"What apps do you use every day?",ko:"매일 쓰는 앱이 뭐야?"},
+ {tag:"온라인·SNS",lvl:"A1",en:"Describe a photo you posted.",ko:"올린 사진 하나를 설명해 봐."},
+ {tag:"온라인·SNS",lvl:"A1",en:"How much time do you spend on your phone?",ko:"폰을 얼마나 오래 봐?"},
+ {tag:"온라인·SNS",lvl:"A2",en:"Tell me about a video you watched recently.",ko:"최근에 본 영상 이야기를 해 줘."},
+ {tag:"온라인·SNS",lvl:"A2",en:"Ask a friend to help you with a phone problem.",ko:"친구에게 폰 문제를 도와달라고 해 봐."},
+ {tag:"온라인·SNS",lvl:"A2",en:"Do you like posting on social media? Why?",ko:"SNS에 글 올리는 거 좋아해? 왜?"},
+ {tag:"온라인·SNS",lvl:"B1",en:"Explain how you protect your account online.",ko:"온라인에서 계정을 어떻게 지키는지 설명해 봐."},
+ {tag:"온라인·SNS",lvl:"B1",en:"Talk about something that went viral and what you think of it.",ko:"화제가 된 것 하나와 네 생각을 이야기해 봐."},
+ {tag:"온라인·SNS",lvl:"B1",en:"Give tips for a good video call.",ko:"화상 통화를 잘하는 팁을 줘 봐."},
+ {tag:"온라인·SNS",lvl:"B2",en:"Should social media have age limits? Explain.",ko:"SNS에 나이 제한이 있어야 할까? 설명해 봐."},
+ {tag:"온라인·SNS",lvl:"B2",en:"How do you decide whether something online is true?",ko:"온라인 정보가 사실인지 어떻게 판단해?"},
+ {tag:"온라인·SNS",lvl:"B2",en:"Describe the good and bad sides of working online.",ko:"온라인으로 일하는 것의 좋은 점과 나쁜 점을 설명해 봐."},
+ {tag:"온라인·SNS",lvl:"C1",en:"Discuss how algorithms shape what we believe.",ko:"알고리즘이 우리가 믿는 것을 어떻게 만드는지 논해 봐."},
+ {tag:"온라인·SNS",lvl:"C1",en:"Argue for or against stricter rules for social media companies.",ko:"SNS 회사에 더 엄격한 규칙을 두는 것에 찬반 의견을 말해 봐."},
+ {tag:"온라인·SNS",lvl:"C1",en:"Reflect on how your online habits have changed over the years.",ko:"몇 년 사이 네 온라인 습관이 어떻게 바뀌었는지 돌아보며 말해 봐."}
+];
+
 /* ---------- WORDS: headword → {pos, ko, band, forms, parts, story, idiom}
    band ≈ frequency: 1 = top ~1,000, 2 = ~1,001–3,000, 3 = rarer (approximate, after NGSL/COCA ranks).
    parts "a=b|c=d" = word parts and their meanings; story = one-line memory hook (etymology or image). ---------- */
@@ -2398,8 +2914,392 @@ W("relationship","명사","관계",1,{p: "relation=관계|ship=~상태"});
 W("shower","명사","샤워",1);
 W("nighter","명사","(all-nighter) 밤샘",3,{s: "all-nighter = 밤(night)을 통째로(all) 새우는 것."});
 
+/* ---------- phase 4 words (C1 chunks) ---------- */
+W("bookstore","명사","서점",2,{f:"bookstores",p:"book=책|store=가게"});
+W("humidity","명사","습기, 습도",2,{p:"humid=축축한|ity=~성질"});
+F("cook","cooked");
+F("fill","fills");
+F("happy","happily");
+F("drink","drinker");
+F("balance","balanced");
+F("pay","paying");
+F("book","booking");
+F("chat","chatting");
+F("find","finding");
+F("path","paths");
+F("sight","sights");
+F("hold","holds");
+F("local","locals");
+F("welcome","welcoming");
+F("delay","delays");
+F("upgrade","upgraded");
+F("extend","extending");
+F("arrive","arriving");
+F("perfect","perfectly");
+F("seem","seems");
+F("consider","considered");
+F("different","differently");
+F("item","items");
+F("spend","spending");
+F("cheap","cheapest");
+F("calendar","calendars");
+F("near","nearer");
+F("check","checked checking");
+F("base","based");
+F("understand","understanding");
+F("roommate","roommates");
+F("heat","heating heated");
+F("teach","teaching");
+F("cite","citing");
+F("project","projects");
+F("pull","pulls");
+F("build","building");
+F("join","joined");
+F("app","apps");
+F("share","sharing");
+F("account","accounts");
+F("easy","easily");
+F("message","messages");
+F("overshare","oversharing");
+F("meeting","meetings");
+F("serious","seriously");
+F("delete","deleting");
+F("give","gives");
+F("mute","muting");
+W("inclined","형용사","(be inclined to) ~하는 쪽으로 마음이 기운",3,{p:"in=~쪽으로|cline=기울다|ed=~된",s:"한쪽으로 기울어진 마음."});
+W("tasting","명사","(tasting menu) 맛보기 코스",3);
+W("accommodate","동사","(요구를) 맞춰 주다, 수용하다",2,{p:"ac=~에|commod=알맞은|ate=~하다",s:"알맞게 맞춰 주는 것."});
+W("gluten","명사","글루텐",3);
+W("diet","명사","식단",2);
+W("acquired","형용사","(acquired taste) 길들여야 좋아지는",3,{p:"ac=~에|quire=구하다|ed=~된",s:"애써 얻어야 하는 맛."});
+W("taste","명사","맛, 취향",1);
+W("advance","명사","(in advance) 미리",1);
+W("pairing","명사","(음식과 술의) 페어링, 짝짓기",3,{p:"pair=짝|ing=~하기"});
+W("entirely","부사","전적으로",2,{p:"entire=전체의|ly=~하게"});
+W("overpriced","형용사","너무 비싼",3,{p:"over=지나치게|price=가격|ed=~된"});
+W("possibly","부사","혹시, 아마",1,{p:"possible=가능한|ly=~하게"});
+W("atmosphere","명사","분위기",2,{p:"atmo=증기|sphere=구",s:"원래 지구를 둘러싼 공기층을 뜻했어요."});
+W("mindful","형용사","신경 쓰는, 의식하는",3,{p:"mind=마음|ful=~가득한"});
+W("brunch","명사","브런치",2,{s:"breakfast + lunch를 합친 말이에요."});
+W("fuss","명사","소란, 야단",2);
+W("mix","명사","(mix-up) 혼동, 착오",1);
+W("hope","동사","바라다",1,{f:"hoping hoped"});
+W("linger","동사","오래 머무르다",3);
+W("stick","동사","(stick to) 고수하다, 붙이다",1);
+W("sparkling","형용사","탄산이 든",2,{p:"sparkle=반짝이다|ing=~하는"});
+W("subtle","형용사","은은한, 미묘한",2);
+W("reflection","명사","(on reflection) 다시 생각해 보니, 반사",2,{p:"re=다시|flect=구부리다|ion=~것",s:"생각을 다시 되돌려 보는 것."});
+W("whatever","대명사","무엇이든",1,{p:"what=무엇|ever=언제나"});
+W("skip","동사","건너뛰다",2);
+W("act","동사","(act up) 말썽을 부리다, 행동하다",1,{f:"acting"});
+W("impress","동사","깊은 인상을 주다",2);
+W("introduce","동사","소개하다",1,{p:"intro=안으로|duce=이끌다",f:"introduced"});
+W("accent","명사","말투, 억양",2);
+W("correct","동사","바로잡다",1);
+W("conference","명사","학회, 회의",2,{p:"con=함께|fer=나르다|ence=~것",s:"함께 의견을 가져와 나누는 자리."});
+W("evening","명사","저녁",1);
+W("fancy","동사","(Fancy seeing you here!) 이런 데서 보다니",2);
+W("see","동사","보다",1,{f:"seeing"});
+W("brain","명사","뇌, (pick one's brain) 조언을 구하다",1);
+W("cross","동사","건너다, (paths cross) 마주치다",1,{f:"crossing"});
+W("remember","동사","기억하다",1,{p:"re=다시|member=마음에 두다"});
+W("common","형용사","(in common) 공통의",1);
+W("town","명사","동네, 도시",1);
+W("wonder","동사","궁금하다, (I was wondering) 혹시 ~할까 해서요",1,{f:"wondering"});
+W("trail","명사","길, (off the tourist trail) 관광객이 잘 안 가는",2);
+W("itinerary","명사","여행 일정",3,{p:"itiner=길|ary=~것",s:"라틴어 iter(여행길)에서 왔어요."});
+W("fairly","부사","꽤",1);
+W("flexible","형용사","유연한",2,{p:"flex=구부리다|ible=~할 수 있는"});
+W("suggestion","명사","제안",1,{p:"sug=아래에서|gest=가져오다|ion=~것",f:"suggestions"});
+W("given","전치사","~을 고려하면",1);
+W("compensation","명사","보상",2,{p:"compensate=보상하다|ion=~것"});
+W("circumstance","명사","상황, 사정",2,{f:"circumstances",p:"circum=둘레|stance=서 있음",s:"나를 둘러싸고 있는 것들."});
+W("soak","동사","(soak up) 흠뻑 즐기다, 적시다",3);
+W("rush","동사","서두르다",1);
+W("description","명사","설명, 묘사",2,{p:"de=아래로|script=쓰다|ion=~것"});
+W("trek","명사","힘든 여정",3);
+W("provided","접속사","~라면",2,{p:"pro=앞에|vide=보다|ed=~된"});
+W("hopelessly","부사","완전히, 절망적으로",3,{p:"hope=희망|less=~없는|ly=~하게"});
+W("highlight","명사","하이라이트, 가장 좋은 부분",2,{p:"high=높은|light=빛",s:"가장 밝게 비추는 부분."});
+W("leeway","명사","여유, 재량",3,{s:"원래 배가 바람에 밀려 옆으로 흘러갈 수 있는 여유 공간을 뜻하는 항해 용어예요."});
+W("lodge","동사","(lodge a complaint) 정식으로 제기하다",3);
+W("formal","형용사","공식적인",1);
+W("incredibly","부사","믿을 수 없을 만큼",2,{p:"in=아니다|cred=믿다|ibly=~할 수 있게",s:"믿을 수 없을 만큼."});
+W("whim","명사","(on a whim) 즉흥적으로",3);
+W("pleasant","형용사","기분 좋은",2,{p:"please=기쁘게 하다|ant=~한"});
+W("ahead","부사","미리, 앞에",1);
+W("peak","명사","정점, (peak season) 성수기",2);
+W("season","명사","철, 시즌",1);
+W("convenient","형용사","편리한",1,{p:"con=함께|veni=오다|ent=~한",s:"모두가 오기 좋은."});
+W("location","명사","위치",1,{p:"locate=위치하다|ion=~것"});
+W("view","명사","경치, 견해",1);
+W("connection","명사","환승편, 연결",1,{p:"connect=연결하다|ion=~것"});
+W("spur","명사","(on the spur of the moment) 즉흥적으로",3,{s:"spur는 말을 차는 박차예요. 박차를 받은 듯 순간적으로."});
+W("solo","부사","혼자",2);
+W("force","동사","억지로 ~하게 하다",1,{f:"forces"});
+W("comfort","명사","편안함, (comfort zone) 익숙한 영역",1);
+W("zone","명사","구역, (in the zone) 몰입한 상태",2);
+W("reassess","동사","재평가하다",3,{p:"re=다시|assess=평가하다"});
+W("priority","명사","우선순위",1,{f:"priorities",p:"prior=먼저|ity=~것"});
+W("revisit","동사","다시 검토하다",3,{p:"re=다시|visit=찾아가다"});
+W("timeline","명사","일정, 시간표",2,{p:"time=시간|line=줄"});
+W("data","명사","데이터",1);
+W("otherwise","부사","다르게, 그렇지 않으면",1,{p:"other=다른|wise=방식으로"});
+W("principle","명사","원칙",1,{p:"princip=첫째|le=~것",s:"가장 먼저 오는 것."});
+W("sort","동사","(sort out) 정리하다, 해결하다",1);
+W("previous","형용사","이전의",1,{p:"pre=앞의|vi=길|ous=~한",s:"앞서 지나온 길의."});
+W("role","명사","직무, 역할",1);
+W("responsible","형용사","책임이 있는",1,{p:"respons=응답하다|ible=~할 수 있는",s:"응답할 수 있는 사람이 책임자."});
+W("oversee","동사","감독하다",3,{f:"overseeing",p:"over=위에서|see=보다"});
+W("team","명사","팀",1);
+W("eight","숫자","여덟, 8",1);
+W("thrive","동사","잘 해내다, 번창하다",2);
+W("pace","명사","속도, (change of pace) 기분 전환",2,{f:"paced"});
+W("environment","명사","환경",1,{f:"environments",p:"en=안에|viron=둘레|ment=~것",s:"나를 둘러싼 것."});
+W("tangible","형용사","눈에 보이는, 실재하는",3,{p:"tang=만지다|ible=~할 수 있는",s:"손으로 만질 수 있는."});
+W("impact","명사","영향, 성과",1);
+W("ambitious","형용사","야심 찬, 무리한",2,{p:"ambit=돌아다니다|ious=~한",s:"표를 얻으려 돌아다니던 사람에서 나온 말."});
+W("bog","동사","(get bogged down) 수렁에 빠지다",3,{f:"bogged",s:"bog는 늪이에요."});
+W("improve","동사","개선하다",1);
+W("area","명사","분야, 지역",1);
+W("manage","동사","관리하다",1);
+W("client","명사","고객",1);
+W("expectation","명사","기대",2,{f:"expectations",p:"expect=기대하다|ation=~것"});
+W("keen","형용사","간절히 원하는",2);
+W("others","대명사","다른 사람들",1);
+W("separately","부사","따로",2,{p:"separate=분리된|ly=~하게"});
+W("argue","동사","주장하다, 말다툼하다",1,{f:"arguing"});
+W("risk","명사","위험",1,{f:"risks"});
+W("outweigh","동사","~보다 크다",3,{p:"out=넘어서|weigh=무게가 나가다"});
+W("benefit","명사","이점",1,{f:"benefits"});
+W("success","명사","성공",1);
+W("ownership","명사","(take ownership) 책임지고 맡음, 소유",2,{p:"own=소유하다|er=~하는 사람|ship=~상태"});
+W("rollout","명사","출시, 도입",3,{p:"roll=굴리다|out=밖으로"});
+W("already","부사","이미",1);
+W("capacity","명사","수용력, (at capacity) 꽉 찬",2,{p:"capac=담을 수 있는|ity=~것"});
+W("owner","명사","담당자, 주인",1,{f:"owners"});
+W("offer","명사","제안",1);
+W("fully","부사","완전히",1);
+W("streamline","동사","간소화하다",3,{p:"stream=흐름|line=선",s:"물 흐름을 따라 매끄럽게 만든 선에서 왔어요."});
+W("promise","동사","약속하다",1);
+W("flag","동사","(문제를) 알리다, 표시하다",2);
+W("issue","명사","문제",1,{f:"issues"});
+W("thrilled","형용사","매우 기쁜",2,{p:"thrill=짜릿함|ed=~된"});
+W("along","부사","(go along with) 따르다",1);
+W("admit","동사","인정하다",1);
+W("aback","부사","(taken aback) 깜짝 놀란",3);
+W("blunt","형용사","직설적인, 무딘",3);
+W("insensitive","형용사","무신경한",3,{p:"in=아니다|sensitive=민감한"});
+W("process","동사","받아들이다, 처리하다",1,{f:"processing"});
+W("decision","명사","결정",1,{p:"decide=결정하다|ion=~것"});
+W("frankly","부사","솔직히",2);
+W("willing","형용사","기꺼이 ~하는",1);
+W("hit","동사","(hit home) 와닿다, 치다",1);
+W("jump","동사","(jump to conclusions) 섣불리 결론 내리다",1);
+W("conclusion","명사","결론",1,{f:"conclusions",p:"con=완전히|clus=닫다|ion=~것",s:"완전히 닫아 마무리하는 것."});
+W("merit","명사","장점",3,{f:"merits"});
+W("tricky","형용사","까다로운",2);
+W("say","동사","(it goes without saying) 말할 것도 없다",1,{f:"saying"});
+W("sting","동사","따끔하게 아프다",3,{f:"stung"});
+F("feel","felt");
+W("valid","형용사","타당한",2);
+W("concern","명사","걱정, 우려",1,{f:"concerning"});
+W("ideal","형용사","이상적인",2);
+W("begin","동사","시작하다",1,{f:"beginning"});
+W("rollercoaster","명사","롤러코스터, 감정 기복",3,{p:"roller=굴러가는|coaster=썰매"});
+W("understated","형용사","수수한, 절제된",3,{p:"under=아래로|state=말하다|ed=~된",s:"덜 드러내 말한 듯한."});
+W("flexibility","명사","융통성",2,{p:"flexible=유연한|ity=~성질"});
+W("faulty","형용사","결함 있는",3);
+W("justify","동사","정당화하다",2,{p:"just=올바른|ify=~하게 하다"});
+W("burn","동사","(be burned) 데다, 손해 보다",1,{f:"burned"});
+W("knockoff","명사","모조품",3,{f:"knockoffs",s:"knock off = 빨리 찍어 내다에서 '짝퉁'이 됐어요."});
+W("review","명사","후기",1,{f:"reviews"});
+W("wary","형용사","조심스러운",3);
+W("invest","동사","투자하다",2);
+W("aside","부사","(set aside) 따로 떼어 두다",2);
+F("lead","led");
+W("advertise","동사","광고하다",2,{p:"ad=~쪽으로|vert=돌리다|ise=~하다",f:"advertised"});
+W("matter","동사","중요하다",1,{f:"matters"});
+W("retail","명사","소매, (retail therapy) 쇼핑으로 기분 풀기",3);
+W("therapy","명사","치료",2);
+W("false","형용사","거짓의, (false economy) 결국 손해인 절약",2);
+W("economy","명사","경제, 절약",1);
+W("escalate","동사","(윗선에) 올리다, 악화되다",3,{p:"e=밖으로|scal=사다리|ate=~하다",s:"사다리를 타고 위로 올라가는 것."});
+W("assistant","명사","점원, 비서",2,{p:"assist=돕다|ant=~하는 사람"});
+W("pushy","형용사","강매하는, 밀어붙이는",3);
+W("liking","명사","(for my liking) 내 취향에는",3);
+W("loyal","형용사","충성스러운, 단골의",2);
+W("customer","명사","고객",1,{p:"custom=습관|er=~하는 사람",f:"customers"});
+W("model","명사","모델, 기종",1);
+W("wish","명사","바람, (wish list) 위시리스트",1);
+W("list","명사","목록",1);
+W("hype","명사","과장된 화제",3);
+W("specific","형용사","특정한",1,{p:"speci=종류|fic=만드는"});
+W("raise","동사","(문제를) 제기하다, 올리다",1);
+W("jack","동사","(jack up) 가격을 확 올리다, (jack of all trades) 팔방미인",3,{f:"jacked"});
+F("send","sent");
+W("postpone","동사","미루다",2,{p:"post=뒤에|pone=두다"});
+W("availability","명사","시간 여유, 이용 가능성",2,{p:"available=이용 가능한|ity=~성질"});
+W("part","명사","부분",1);
+W("fifteen","숫자","열다섯, 15",1);
+W("apology","명사","사과",2,{f:"apologies"});
+W("discuss","동사","논의하다",1);
+W("invite","명사","초대(장)",1);
+W("past","전치사","(half past two) ~시 지나서",1);
+W("reconfirm","동사","재확인하다",3,{p:"re=다시|confirm=확인하다"});
+W("cell","명사","휴대폰",2);
+W("coordinate","동사","조율하다",2,{p:"co=함께|ordin=순서|ate=~하다",s:"함께 순서를 맞추는 것."});
+W("intermittent","형용사","간헐적인",3,{p:"inter=사이에|mitt=보내다|ent=~한",s:"사이사이에 보내지는."});
+W("chest","명사","가슴",1);
+W("related","형용사","관련된",1);
+W("procedure","명사","시술, 절차",2,{p:"proceed=진행하다|ure=~것"});
+W("nag","동사","계속 괴롭히다",3,{f:"nagging"});
+W("flare","동사","(flare up) 확 심해지다",3);
+W("whenever","접속사","~할 때마다",1,{p:"when=언제|ever=언제나"});
+W("specialist","명사","전문의",2,{p:"special=특별한|ist=~하는 사람"});
+W("level","명사","수준",1,{f:"levels"});
+W("non","접두사","~이 아닌",2);
+W("drug","명사","약",1);
+W("overreact","동사","과민 반응하다",3,{f:"overreacting",p:"over=지나치게|react=반응하다"});
+W("chronic","형용사","만성의",3,{s:"그리스어 chronos(시간)에서 왔어요. 시간이 오래 가는 병."});
+W("condition","명사","질환, 상태",1,{p:"con=함께|dit=말하다|ion=~것"});
+W("dosage","명사","복용량",3,{p:"dose=1회분|age=~것"});
+W("prescribe","동사","처방하다",2,{f:"prescribed",p:"pre=미리|scribe=쓰다"});
+W("referral","명사","진료 의뢰",3,{p:"refer=보내다|al=~것"});
+W("dermatologist","명사","피부과 의사",3,{p:"derma=피부|logist=전문가"});
+W("exercise","동사","운동하다",1,{p:"ex=밖으로|erc=가두다|ise=~하다",f:"exercising"});
+W("prevention","명사","예방",2,{p:"pre=먼저|vent=오다|ion=~것",s:"먼저 와서 막는 것."});
+W("cure","명사","치료",2);
+W("caffeine","명사","카페인",2,{s:"커피(독일어 Kaffee)에서 이름을 땄어요."});
+W("pocket","명사","주머니, (out of pocket) 자기 돈으로",1);
+W("road","명사","길",1);
+W("recovery","명사","회복",2,{p:"recover=회복하다|y=~것"});
+W("redecorate","동사","다시 꾸미다",3,{p:"re=다시|decorate=꾸미다"});
+W("put","동사","(put off) 미루다",1,{f:"putting"});
+W("minimum","명사","최소",2);
+W("eleven","숫자","열하나, 11",1);
+W("helpful","형용사","도움이 되는",1);
+W("hassle","명사","귀찮은 일",2);
+W("cost","명사","비용",1,{f:"costs"});
+W("damp","명사","습기",3);
+W("cause","동사","일으키다",1);
+W("proper","형용사","제대로 된",1);
+W("cozy","형용사","아늑한",2);
+W("cramped","형용사","비좁은",3);
+W("renovation","명사","수리, 공사",2,{p:"re=다시|nov=새로운|ation=~것",s:"다시 새롭게 만드는 것."});
+W("rid","동사","(get rid of) 없애다",2);
+W("clutter","명사","잡동사니",3);
+W("rough","형용사","대략적인",1);
+W("estimate","명사","견적, 추정",2,{p:"estim=값을 매기다|ate=~하다"});
+W("quote","명사","견적",2);
+W("ups","명사","(ups and downs) 좋은 일과 나쁜 일",2);
+W("downs","명사","(ups and downs) 나쁜 일",2);
+W("roof","명사","지붕, (go through the roof) 치솟다",1);
+W("winter","명사","겨울",1);
+W("neat","형용사","깔끔한, (neat freak) 깔끔쟁이",2);
+W("freak","명사","(~ freak) ~광",3);
+W("tackle","동사","(일을) 처리하다, 달려들다",2);
+W("garage","명사","차고",2);
+W("barring","전치사","~이 없다면",3,{p:"bar=막다|ing=~하는"});
+W("pile","동사","(pile up) 쌓이다",2);
+W("character","명사","개성, 성격",1,{s:"그리스어 kharaktēr(새긴 자국)에서 왔어요. 사람마다 새겨진 특징."});
+W("blur","동사","흐리게 하다",3,{f:"blurred"});
+W("structure","동사","구성하다",1,{p:"struct=쌓다|ure=~것"});
+W("coherently","부사","논리 정연하게",3,{p:"co=함께|her=붙다|ently=~하게",s:"생각이 서로 딱 붙어 있게."});
+W("methodology","명사","연구 방법론",3,{p:"method=방법|ology=학문"});
+W("assumption","명사","가정",2,{f:"assumptions",p:"as=~에|sumpt=취하다|ion=~것",s:"일단 사실로 취해 두는 것."});
+W("evidence","명사","증거, 근거",1,{p:"e=밖으로|vid=보다|ence=~것",s:"밖으로 보이게 드러난 것."});
+W("claim","명사","주장",1);
+W("aim","동사","목표로 하다",1,{f:"aiming"});
+W("submit","동사","제출하다",2);
+W("draft","명사","초안",2);
+W("fascinating","형용사","매우 흥미로운",2,{p:"fascinate=매혹하다|ing=~하는"});
+W("topic","명사","주제",1);
+W("broad","형용사","넓은",1);
+W("narrow","동사","좁히다",1);
+W("research","명사","연구",1,{p:"re=다시|search=찾다"});
+W("subject","명사","주제, 과목",1);
+W("outline","명사","개요",2,{p:"out=바깥|line=선"});
+W("provoke","동사","(thought-provoking) 생각을 불러일으키다",3,{f:"provoking"});
+W("tone","명사","어조",2);
+W("summarize","동사","요약하다",2,{p:"summary=요약|ize=~하다"});
+W("broaden","동사","넓히다",3,{f:"broadened"});
+W("perspective","명사","관점",2,{p:"per=꿰뚫어|spect=보다|ive=~것"});
+W("statistics","명사","통계(학)",2,{p:"state=국가|istics=~학",s:"국가의 수치를 다루던 학문에서 왔어요."});
+W("extent","명사","정도",2);
+W("author","명사","저자",1);
+W("gap","명사","틈, (gap year) 1년 쉬는 기간",2);
+W("graduate","형용사","(graduate school) 대학원",2,{p:"grad=단계|uate=~하다"});
+W("school","명사","학교",1);
+W("memorize","동사","암기하다",2,{f:"memorizing",p:"memory=기억|ize=~하다"});
+W("toward","전치사","~쪽으로",1);
+W("reliable","형용사","믿을 만한",2,{p:"rely=의지하다|able=~할 수 있는"});
+W("mark","명사","점수",1,{f:"marks"});
+F("find","found");
+W("routine","명사","일과, 루틴",2);
+W("possibility","명사","가능성",1,{p:"possible=가능한|ity=~성질"});
+W("realize","동사","깨닫다",1);
+W("creative","형용사","창의적인",1,{p:"create=만들다|ive=~한"});
+W("become","동사","되다",1);
+W("obsession","명사","집착",3,{p:"ob=앞에|sess=앉다|ion=~것"});
+W("grounding","형용사","마음을 차분하게 잡아 주는",3,{p:"ground=땅|ing=~하는",s:"땅에 발을 딛게 해 주는."});
+W("trade","명사","일, 기술, (jack of all trades) 팔방미인",2,{f:"trades"});
+W("master","명사","달인",1);
+W("none","대명사","아무것도",1);
+W("plateau","동사","정체되다",3,{f:"plateaued"});
+W("coach","명사","코치",2);
+W("surprisingly","부사","놀랍게도",2,{p:"surprise=놀라게 하다|ingly=~하게"});
+W("addictive","형용사","중독성 있는",3,{p:"addict=중독되다|ive=~한"});
+W("hustle","명사","(side hustle) 부업",3);
+W("novelty","명사","새로움",3,{p:"novel=새로운|ty=~성질"});
+W("wear","동사","(wear off) 사라지다, 입다",1,{f:"wears"});
+W("regular","형용사","정기적인",1);
+W("rediscover","동사","다시 발견하다",3,{f:"rediscovered",p:"re=다시|discover=발견하다"});
+W("achievement","명사","성취",2,{p:"achieve=이루다|ment=~것"});
+F("spend","spent");
+W("whole","형용사","전체의",1);
+W("browse","동사","둘러보다",2,{f:"browsing"});
+W("secondhand","형용사","중고의",3,{p:"second=두 번째|hand=손",s:"두 번째 손을 거친."});
+W("bookshop","명사","서점",2,{f:"bookshops",p:"book=책|shop=가게"});
+W("gear","명사","장비",2);
+W("gradually","부사","점차",2,{p:"grade=단계|ually=~하게"});
+W("league","명사","리그",2);
+W("disappear","동사","사라지다",1,{f:"disappears",p:"dis=반대|appear=나타나다"});
+W("owl","명사","올빼미, (night owl) 밤에 활동하는 사람",2);
+W("increasingly","부사","점점 더",2,{p:"increase=늘다|ingly=~하게"});
+W("collect","동사","모으다",1);
+W("amplify","동사","증폭시키다",3,{f:"amplifies",p:"ampl=큰|ify=~하게 하다"});
+W("outrage","명사","분노",3,{p:"out=넘어서|rage=분노"});
+W("fact","명사","사실, (fact-check) 사실 확인",1);
+W("constantly","부사","끊임없이",2,{p:"con=완전히|stant=서 있다|ly=~하게"});
+W("unfollow","동사","팔로우를 끊다",3,{f:"unfollowed",p:"un=반대|follow=따르다"});
+W("inadequate","형용사","부족한, 초라한",3,{p:"in=아니다|adequate=충분한"});
+W("thread","명사","글타래, 실",2);
+W("spark","동사","불러일으키다",2,{f:"sparked"});
+W("debate","명사","논쟁, 토론",1);
+W("context","명사","맥락",2,{p:"con=함께|text=짜다",s:"함께 짜인 글의 흐름."});
+W("intentional","형용사","의도적인",3,{p:"intent=의도|ional=~의"});
+W("age","동사","(age well) 시간이 지나도 괜찮다",1);
+W("suspect","동사","의심하다, ~인 것 같다",2);
+W("manipulate","동사","조작하다",3,{f:"manipulated",p:"mani=손|pul=채우다|ate=~하다",s:"손으로 주무르는 것."});
+W("curse","명사","저주",2);
+W("focus","동사","집중하다",1,{f:"focused"});
+W("efficient","형용사","효율적인",2,{p:"ef=밖으로|fic=만들다|ient=~한",s:"결과를 잘 만들어 내는."});
+W("impersonal","형용사","삭막한, 인간미 없는",3,{p:"im=아니다|personal=개인적인"});
+W("distort","동사","왜곡하다",3,{f:"distorted",p:"dis=떨어져|tort=비틀다"});
+W("changer","명사","(game changer) 판도를 바꾸는 것",3);
+W("reach","명사","(within reach) 손 닿는 곳",1);
+W("impossible","형용사","불가능한",1,{p:"im=아니다|possible=가능한"});
+W("ignore","동사","무시하다",1);
+W("technology","명사","기술",1,{p:"techno=기술|logy=학문"});
+W("serve","동사","봉사하다, 쓰이다",1);
+W("lovely","형용사","아주 좋은, 사랑스러운",1);
+W("opener","명사","(eye-opener) 눈을 뜨게 하는 경험",3);
+
 /* American IPA from the CMU Pronouncing Dictionary (heteronyms set by part of speech) */
 const IPA = {"account":"/əˈkaʊnt/","ad":"/æd/","adapt":"/əˈdæpt/","address":"/ˈædres/","advocate":"/ˈædvəkət/","afraid":"/əˈfreɪd/","ages":"/ˈeɪdʒəz/","ago":"/əˈɡoʊ/","agree":"/əˈɡri/","airport":"/ˈerˌpɔrt/","allergic":"/əˈlɜrdʒɪk/","allergy":"/ˈælərdʒi/","ambulance":"/ˈæmbjələns/","americano":"/əˌmerɪˈkɑnoʊ/","ankle":"/ˈæŋkəl/","answer":"/ˈænsər/","anything":"/ˈeniˌθɪŋ/","anyway":"/ˈeniˌweɪ/","app":"/æp/","appointment":"/əˈpɔɪntmənt/","appreciate":"/əˈpriʃiˌeɪt/","approach":"/əˈproʊtʃ/","around":"/əˈraʊnd/","arrive":"/əˈraɪv/","ask":"/æsk/","assignment":"/əˈsaɪnmənt/","back":"/bæk/","bad":"/bæd/","bag":"/bæɡ/","bail":"/beɪl/","bake":"/beɪk/","bargain":"/ˈbɑrɡən/","base":"/beɪs/","beat":"/bit/","bed":"/bed/","behind":"/bɪˈhaɪnd/","believe":"/bɪˈliv/","bell":"/bel/","best":"/best/","better":"/ˈbetər/","between":"/bɪˈtwin/","big":"/bɪɡ/","bill":"/bɪl/","bit":"/bɪt/","bite":"/baɪt/","black":"/blæk/","blessing":"/ˈblesɪŋ/","blue":"/blu/","book":"/bʊk/","borrow":"/ˈbɑˌroʊ/","break":"/breɪk/","breakfast":"/ˈbrekfəst/","bright":"/braɪt/","brush":"/brʌʃ/","build":"/bɪld/","burnt":"/bɜrnt/","bus":"/bʌs/","busy":"/ˈbɪzi/","buy":"/baɪ/","cafe":"/kəˈfeɪ/","call":"/kɔl/","camera":"/ˈkæmərə/","camp":"/kæmp/","cancel":"/ˈkænsəl/","card":"/kɑrd/","carousel":"/ˈkerəˌsel/","cash":"/kæʃ/","cashier":"/kæˈʃɪr/","catch":"/kætʃ/","celebrate":"/ˈseləˌbreɪt/","change":"/tʃeɪndʒ/","channel":"/ˈtʃænəl/","charge":"/tʃɑrdʒ/","charger":"/ˈtʃɑrdʒər/","chat":"/tʃæt/","cheap":"/tʃip/","check":"/tʃek/","checkup":"/ˈtʃeˌkʌp/","chef":"/ʃef/","chord":"/kɔrd/","chore":"/tʃɔr/","circle":"/ˈsɜrkəl/","clarify":"/ˈklerəˌfaɪ/","class":"/klæs/","clean":"/klin/","clear":"/klɪr/","click":"/klɪk/","close":"/kloʊz/","coffee":"/ˈkɑfi/","cold":"/koʊld/","come":"/kʌm/","comment":"/ˈkɑment/","complain":"/kəmˈpleɪn/","complaint":"/kəmˈpleɪnt/","compliment":"/ˈkɑmpləment/","connect":"/kəˈnekt/","consider":"/kənˈsɪdər/","conversation":"/ˌkɑnvərˈseɪʃən/","convinced":"/kənˈvɪnst/","cook":"/kʊk/","couch":"/kaʊtʃ/","cough":"/kɑf/","counter":"/ˈkaʊntər/","couple":"/ˈkʌpəl/","cover":"/ˈkʌvər/","cram":"/kræm/","crash":"/kræʃ/","cup":"/kʌp/","curate":"/ˈkjʊrət/","cut":"/kʌt/","damage":"/ˈdæmədʒ/","date":"/deɪt/","day":"/deɪ/","deadline":"/ˈdedˌlaɪn/","deal":"/dil/","declutter":"/diˈklʌtər/","delay":"/dɪˈleɪ/","delicious":"/dɪˈlɪʃəs/","deposit":"/dəˈpɑzɪt/","detour":"/ˈditʊr/","detox":"/ˈdiˌtɑks/","devil":"/ˈdevəl/","die":"/daɪ/","difference":"/ˈdɪfərəns/","different":"/ˈdɪfərənt/","digital":"/ˈdɪdʒətəl/","dinner":"/ˈdɪnər/","direct":"/dəˈrekt/","disagree":"/dɪsəˈɡri/","disappointed":"/ˌdɪsəˈpɔɪntɪd/","discount":"/ˈdɪskaʊnt/","disguise":"/dɪsˈɡaɪz/","dish":"/dɪʃ/","distance":"/ˈdɪstəns/","divide":"/dɪˈvaɪd/","dizzy":"/ˈdɪzi/","do":"/du/","doctor":"/ˈdɑktər/","dog":"/dɔɡ/","doomscrolling":"/ˈdumˌskroʊlɪŋ/","door":"/dɔr/","down":"/daʊn/","draw":"/drɔ/","driver":"/ˈdraɪvər/","due":"/du/","ear":"/ir/","early":"/ˈɜrli/","easy":"/ˈizi/","eat":"/it/","economics":"/ˌekəˈnɑmɪks/","effect":"/ɪˈfekt/","elaborate":"/ɪˈlæbəˌreɪt/","email":"/iˈmeɪl/","english":"/ˈɪŋɡlɪʃ/","essay":"/ˈeseɪ/","evenly":"/ˈivənli/","everyone":"/ˈevriˌwʌn/","everything":"/ˈevriˌθɪŋ/","exam":"/ɪɡˈzæm/","example":"/ɪɡˈzæmpəl/","exchange":"/ɪksˈtʃeɪndʒ/","explain":"/ɪkˈspleɪn/","extension":"/ɪkˈstenʃən/","eye":"/aɪ/","fan":"/fæn/","far":"/fɑr/","feed":"/fid/","feedback":"/ˈfidˌbæk/","feel":"/fil/","feeling":"/ˈfilɪŋ/","fence":"/fens/","fever":"/ˈfivər/","few":"/fju/","file":"/faɪl/","finally":"/ˈfaɪnəli/","find":"/faɪnd/","fit":"/fɪt/","fix":"/fɪks/","flight":"/flaɪt/","fly":"/flaɪ/","follow":"/ˈfɑloʊ/","food":"/fud/","foodie":"/ˈfudi/","forget":"/fərˈɡet/","form":"/fɔrm/","forward":"/ˈfɔrwərd/","free":"/fri/","freeze":"/friz/","freezing":"/ˈfrizɪŋ/","friday":"/ˈfraɪdeɪ/","friend":"/frend/","front":"/frʌnt/","full":"/fʊl/","fun":"/fʌn/","funny":"/ˈfʌni/","game":"/ɡeɪm/","gift":"/ɡɪft/","go":"/ɡoʊ/","good":"/ɡʊd/","grab":"/ɡræb/","grain":"/ɡreɪn/","grammar":"/ˈɡræmər/","great":"/ɡreɪt/","group":"/ɡrup/","guest":"/ɡest/","guilty":"/ˈɡɪlti/","guitar":"/ɡɪˈtɑr/","gym":"/dʒɪm/","hand":"/hænd/","happy":"/ˈhæpi/","head":"/hed/","headache":"/ˈheˌdeɪk/","hear":"/hir/","heart":"/hɑrt/","heater":"/ˈhitər/","help":"/help/","hike":"/haɪk/","hobby":"/ˈhɑbi/","hold":"/hoʊld/","home":"/hoʊm/","homework":"/ˈhoʊmˌwɜrk/","honest":"/ˈɑnəst/","honestly":"/ˈɑnəstli/","hooked":"/hʊkt/","hot":"/hɑt/","hour":"/ˈaʊər/","hungry":"/ˈhʌŋɡri/","hurt":"/hɜrt/","ice":"/aɪs/","impulse":"/ˈɪmpəls/","include":"/ˌɪnˈklud/","insurance":"/ˌɪnˈʃʊrəns/","internet":"/ˈɪntərˌnet/","item":"/ˈaɪtəm/","jacket":"/ˈdʒækət/","jet":"/dʒet/","job":"/dʒɑb/","join":"/dʒɔɪn/","keep":"/kip/","key":"/ki/","kind":"/kaɪnd/","lag":"/læɡ/","landlord":"/ˈlændˌlɔrd/","last":"/læst/","late":"/leɪt/","lately":"/ˈleɪtli/","later":"/ˈleɪtər/","launch":"/lɔntʃ/","laundry":"/ˈlɔndri/","lead":"/lid/","leak":"/lik/","learn":"/lɜrn/","lease":"/lis/","leave":"/liv/","lecture":"/ˈlektʃər/","leftovers":"/ˈlefˌtoʊvərz/","light":"/laɪt/","link":"/lɪŋk/","little":"/ˈlɪtəl/","local":"/ˈloʊkəl/","lock":"/lɑk/","long":"/lɔŋ/","look":"/lʊk/","lost":"/lɔst/","lot":"/lɑt/","loud":"/laʊd/","love":"/lʌv/","luggage":"/ˈlʌɡədʒ/","machine":"/məˈʃin/","major":"/ˈmeɪdʒər/","make":"/meɪk/","manager":"/ˈmænədʒər/","map":"/mæp/","marketing":"/ˈmɑrkətɪŋ/","match":"/mætʃ/","meal":"/mil/","mean":"/min/","media":"/ˈmidiə/","medicine":"/ˈmedəsən/","medium":"/ˈmidiəm/","meet":"/mit/","meeting":"/ˈmitɪŋ/","mend":"/mend/","menu":"/ˈmenju/","message":"/ˈmesədʒ/","mild":"/maɪld/","milk":"/mɪlk/","minute":"/ˈmɪnɪt/","miss":"/mɪs/","mistake":"/mɪˈsteɪk/","mixed":"/mɪkst/","moment":"/ˈmoʊmənt/","mood":"/mud/","moon":"/mun/","morning":"/ˈmɔrnɪŋ/","move":"/muv/","movie":"/ˈmuvi/","music":"/ˈmjuzɪk/","mute":"/mjut/","name":"/neɪm/","negotiate":"/nəˈɡoʊʃiˌeɪt/","negotiation":"/nɪˌɡoʊʃiˈeɪʃən/","neighbor":"/ˈneɪbər/","nerve":"/nɜrv/","nervous":"/ˈnɜrvəs/","new":"/nu/","next":"/nekst/","nice":"/naɪs/","night":"/naɪt/","noise":"/nɔɪz/","noon":"/nun/","notch":"/nɑtʃ/","nothing":"/ˈnʌθɪŋ/","number":"/ˈnʌmbər/","offline":"/ˈɔˌflaɪn/","often":"/ˈɔfən/","online":"/ˈɔnˌlaɪn/","open":"/ˈoʊpən/","opinion":"/əˈpɪnjən/","option":"/ˈɑpʃən/","order":"/ˈɔrdər/","outside":"/ˈaʊtˈsaɪd/","overhear":"/ˈoʊvərˈhir/","overnight":"/ˈoʊvərˈnaɪt/","overwhelmed":"/ˌoʊvərˈwelmd/","pack":"/pæk/","package":"/ˈpækədʒ/","page":"/peɪdʒ/","pain":"/peɪn/","paper":"/ˈpeɪpər/","pass":"/pæs/","password":"/ˈpæˌswɜrd/","path":"/pæθ/","patience":"/ˈpeɪʃəns/","pay":"/peɪ/","peanut":"/ˈpinət/","pen":"/pen/","pencil":"/ˈpensəl/","penicillin":"/ˌpenəˈsɪlən/","people":"/ˈpipəl/","perfect":"/ˈpɜrfɪkt/","pharmacy":"/ˈfɑrməsi/","phone":"/foʊn/","photo":"/ˈfoʊˌtoʊ/","photography":"/fəˈtɑɡrəfi/","pick":"/pɪk/","picture":"/ˈpɪktʃər/","pill":"/pɪl/","pipe":"/paɪp/","place":"/pleɪs/","plan":"/plæn/","plant":"/plænt/","plate":"/pleɪt/","platform":"/ˈplætˌfɔrm/","play":"/pleɪ/","pleasure":"/ˈpleʒər/","point":"/pɔɪnt/","poisoning":"/ˈpɔɪzənɪŋ/","policy":"/ˈpɑləsi/","possible":"/ˈpɑsəbəl/","post":"/poʊst/","practice":"/ˈpræktəs/","prescription":"/prəˈskrɪpʃən/","price":"/praɪs/","private":"/ˈpraɪvət/","professionally":"/prəˈfeʃənəli/","project":"/ˈprɑdʒekt/","pronunciation":"/proʊˌnʌnsiˈeɪʃən/","properly":"/ˈprɑpərli/","propose":"/prəˈpoʊz/","push":"/pʊʃ/","question":"/ˈkwestʃən/","quickly":"/ˈkwɪkli/","quite":"/kwaɪt/","range":"/reɪndʒ/","rather":"/ˈræðər/","read":"/rid/","ready":"/ˈredi/","real":"/ril/","really":"/ˈrɪli/","receipt":"/rɪˈsit/","recharge":"/riˈtʃɑrdʒ/","recommend":"/ˌrekəˈmend/","recover":"/rɪˈkʌvər/","refill":"/ˈrifɪl/","refund":"/ˈrifʌnd/","reinvent":"/ˌriɪnˈvent/","renew":"/rɪˈnu/","rent":"/rent/","request":"/rɪˈkwest/","reschedule":"/riˈskedʒul/","reservation":"/ˌrezərˈveɪʃən/","restroom":"/ˈreˌstrum/","return":"/rɪˈtɜrn/","right":"/raɪt/","ring":"/rɪŋ/","rip":"/rɪp/","room":"/rum/","run":"/rʌn/","rusty":"/ˈrʌsti/","sad":"/sæd/","sale":"/seɪl/","salt":"/sɔlt/","sauce":"/sɔs/","save":"/seɪv/","schedule":"/ˈskedʒul/","scope":"/skoʊp/","screen":"/skrin/","seat":"/sit/","second":"/ˈsekənd/","section":"/ˈsekʃən/","seem":"/sim/","semester":"/səˈmestər/","send":"/send/","sense":"/sens/","serious":"/ˈsɪriəs/","service":"/ˈsɜrvəs/","share":"/ʃer/","shoe":"/ʃu/","shop":"/ʃɑp/","short":"/ʃɔrt/","shot":"/ʃɑt/","show":"/ʃoʊ/","sick":"/sɪk/","side":"/saɪd/","sign":"/saɪn/","since":"/sɪns/","sink":"/sɪŋk/","size":"/saɪz/","sleep":"/slip/","slow":"/sloʊ/","slowly":"/ˈsloʊli/","small":"/smɔl/","sneeze":"/sniz/","soccer":"/ˈsɑkər/","social":"/ˈsoʊʃəl/","someday":"/ˈsʌmˌdeɪ/","someone":"/ˈsʌmˌwʌn/","something":"/ˈsʌmθɪŋ/","sometime":"/ˈsʌmˌtaɪm/","soon":"/sun/","sore":"/sɔr/","sorry":"/ˈsɑri/","sound":"/saʊnd/","speak":"/spik/","speaker":"/ˈspikər/","special":"/ˈspeʃəl/","spell":"/spel/","spend":"/spend/","spicy":"/ˈspaɪsi/","split":"/splɪt/","splurge":"/splɜrdʒ/","spot":"/spɑt/","sprain":"/spreɪn/","stand":"/stænd/","start":"/stɑrt/","station":"/ˈsteɪʃən/","steak":"/steɪk/","stock":"/stɑk/","stomach":"/ˈstʌmək/","stop":"/stɑp/","store":"/stɔr/","story":"/ˈstɔri/","strength":"/streŋkθ/","stretch":"/stretʃ/","strike":"/straɪk/","student":"/ˈstudənt/","study":"/ˈstʌdi/","subtitle":"/ˈsʌbˌtaɪtəl/","sugar":"/ˈʃʊɡər/","sunday":"/ˈsʌnˌdeɪ/","sure":"/ʃʊr/","swallow":"/ˈswɑloʊ/","swamped":"/swɔmpt/","swim":"/swɪm/","symptom":"/ˈsɪmptəm/","table":"/ˈteɪbəl/","tag":"/tæɡ/","take":"/teɪk/","talk":"/tɔk/","taxi":"/ˈtæksi/","tea":"/ti/","terrible":"/ˈterəbəl/","test":"/test/","text":"/tekst/","textbook":"/ˈtekstˌbʊk/","thank":"/θæŋk/","thin":"/θɪn/","thing":"/θɪŋ/","think":"/θɪŋk/","throat":"/θroʊt/","through":"/θru/","thursday":"/ˈθɜrzˌdeɪ/","ticket":"/ˈtɪkət/","time":"/taɪm/","tired":"/ˈtaɪərd/","today":"/təˈdeɪ/","toilet":"/ˈtɔɪlət/","tomorrow":"/təˈmɑroʊ/","tonight":"/təˈnaɪt/","top":"/tɑp/","torn":"/tɔrn/","total":"/ˈtoʊtəl/","touch":"/tʌtʃ/","train":"/treɪn/","transfer":"/trænsˈfɜr/","trash":"/træʃ/","troll":"/troʊl/","trouble":"/ˈtrʌbəl/","try":"/traɪ/","turn":"/tɜrn/","twice":"/twaɪs/","twist":"/twɪst/","understand":"/ˌʌndərˈstænd/","unsubscribe":"/ənsəbˈskraɪb/","until":"/ənˈtɪl/","unwind":"/ənˈwaɪnd/","update":"/ʌpˈdeɪt/","upgrade":"/ˈʌpɡreɪd/","utilities":"/juˈtɪlətiz/","vacation":"/veɪˈkeɪʃən/","vegetarian":"/ˌvedʒəˈteˌriən/","video":"/ˈvɪdioʊ/","viral":"/ˈvaɪrəl/","wait":"/weɪt/","walk":"/wɔk/","warranty":"/ˈwɔrənti/","wash":"/wɑʃ/","watch":"/wɑtʃ/","water":"/ˈwɔtər/","way":"/weɪ/","weather":"/ˈweðər/","week":"/wik/","weekend":"/ˈwiˌkend/","weird":"/wɪrd/","wheel":"/wil/","whose":"/huz/","window":"/ˈwɪndoʊ/","wine":"/waɪn/","within":"/wɪˈðɪn/","without":"/wɪˈθaʊt/","word":"/wɜrd/","work":"/wɜrk/","world":"/wɜrld/","worried":"/ˈwʌrid/","worry":"/ˈwʌri/","worth":"/wɜrθ/","wrap":"/ræp/","wrong":"/rɔŋ/","year":"/jɪr/","yoga":"/ˈjoʊɡə/"};
 /* phase 3 headwords (tools/ipa.py) */
 Object.assign(IPA, {"decide":"/dɪˈsaɪd/","able":"/ˈeɪbəl/","abroad":"/əˈbrɔd/","absent":"/ˈæbsənt/","accidentally":"/ˌæksəˈdentəli/","ace":"/eɪs/","add":"/æd/","affect":"/əˈfekt/","afternoon":"/ˌæftərˈnun/","agenda":"/əˈdʒendə/","air":"/er/","alarm":"/əˈlɑrm/","alcohol":"/ˈælkəˌhɑl/","algorithm":"/ˈælɡəˌrɪðəm/","allow":"/əˈlaʊ/","almost":"/ˈɔlˌmoʊst/","alone":"/əˈloʊn/","always":"/ˈɔlˌweɪz/","amazing":"/əˈmeɪzɪŋ/","angry":"/ˈæŋɡri/","annoyed":"/əˈnɔɪd/","antibiotic":"/ˌæntibaɪˈɑtɪk/","anyone":"/ˈeniˌwʌn/","apartment":"/əˈpɑrtmənt/","apologize":"/əˈpɑləˌdʒaɪz/","apply":"/əˈplaɪ/","argument":"/ˈɑrɡjəmənt/","arm":"/ɑrm/","audience":"/ˈɑdiəns/","authentication":"/ɔˌθentəˈkeɪʃən/","available":"/əˈveɪləbəl/","avoid":"/əˈvɔɪd/","away":"/əˈweɪ/","balance":"/ˈbæləns/","ballpark":"/ˈbɔlˌpɑrk/","bandage":"/ˈbændɪdʒ/","bathroom":"/ˈbæˌθrum/","battery":"/ˈbætəri/","beach":"/bitʃ/","bearings":"/ˈberɪŋz/","because":"/bɪˈkɔz/","beside":"/bɪˈsaɪd/","binge":"/bɪndʒ/","biology":"/baɪˈɑlədʒi/","bleed":"/blid/","blog":"/blɔɡ/","blood":"/blʌd/","blow":"/bloʊ/","board":"/bɔrd/","boat":"/boʊt/","bored":"/bɔrd/","box":"/bɑks/","brand":"/brænd/","breathe":"/brið/","bring":"/brɪŋ/","budget":"/ˈbʌdʒɪt/","buffer":"/ˈbʌfər/","bug":"/bʌɡ/","business":"/ˈbɪznəs/","bye":"/baɪ/","cache":"/kæʃ/","calendar":"/ˈkæləndər/","car":"/kɑr/","care":"/ker/","careful":"/ˈkerfəl/","carpet":"/ˈkɑrpət/","case":"/keɪs/","casual":"/ˈkæʒəwəl/","cat":"/kæt/","center":"/ˈsentər/","challenge":"/ˈtʃæləndʒ/","chamber":"/ˈtʃeɪmbər/","chance":"/tʃæns/","checkout":"/ˈtʃekˌaʊt/","cheer":"/tʃɪr/","cite":"/saɪt/","city":"/ˈsɪti/","clearance":"/ˈklɪrəns/","clickbait":"/ˈklɪkˌbeɪt/","clog":"/klɑɡ/","closer":"/ˈkloʊsər/","cloud":"/klaʊd/","club":"/klʌb/","coat":"/koʊt/","coincidence":"/koʊˈɪnsɪdəns/","color":"/ˈkʌlər/","comic":"/ˈkɑmɪk/","commit":"/kəˈmɪt/","company":"/ˈkʌmpəˌni/","compare":"/kəmˈper/","compensate":"/ˈkɑmpənˌseɪt/","competitive":"/kəmˈpetətɪv/","complement":"/ˈkɑmpləmənt/","completely":"/kəmˈplitli/","concert":"/ˈkɑnsərt/","conditioning":"/kənˈdɪʃənɪŋ/","confirm":"/kənˈfɜrm/","constructive":"/kənˈstrʌktɪv/","cool":"/kul/","coupon":"/ˈkuˌpɔn/","crack":"/kræk/","crave":"/kreɪv/","criticism":"/ˈkrɪtɪˌsɪzəm/","crowd":"/kraʊd/","curve":"/kɜrv/","dabble":"/ˈdæbəl/","dance":"/dæns/","decaf":"/ˈdiˌkæf/","defective":"/dɪˈfektɪv/","delete":"/dɪˈlit/","deliver":"/dɪˈlɪvər/","delivery":"/dɪˈlɪvəri/","dentist":"/ˈdentəst/","depend":"/dɪˈpend/","designer":"/dɪˈzaɪnər/","desk":"/desk/","dessert":"/dɪˈzɜrt/","detail":"/dɪˈteɪl/","dial":"/ˈdaɪəl/","direction":"/dəˈrekʃən/","dirty":"/ˈdɜrti/","discussion":"/dɪˈskʌʃən/","dishwasher":"/ˈdɪʃˌwɑʃər/","dm":"/ˌdiˈem/","dose":"/doʊs/","double":"/ˈdʌbəl/","download":"/ˈdaʊnˌloʊd/","drag":"/dræɡ/","drink":"/drɪŋk/","drop":"/drɑp/","drowsy":"/ˈdraʊzi/","dull":"/dʌl/","during":"/ˈdʊrɪŋ/","dutch":"/dʌtʃ/","echo":"/ˈekoʊ/","edged":"/edʒd/","effortless":"/ˈefərtləs/","egg":"/eɡ/","electricity":"/ɪˌlekˈtrɪsəti/","else":"/els/","empty":"/ˈempti/","end":"/end/","energy":"/ˈenərdʒi/","enjoy":"/ˌenˈdʒɔɪ/","enough":"/ɪˈnʌf/","ever":"/ˈevər/","exactly":"/ɪɡˈzæktli/","excited":"/ɪkˈsaɪtəd/","excuse":"/ɪkˈskjuz/","exhausted":"/ɪɡˈzɔstɪd/","exit":"/ˈeɡzɪt/","expect":"/ɪkˈspekt/","expensive":"/ɪkˈspensɪv/","experience":"/ɪkˈspɪriəns/","extend":"/ɪkˈstend/","extra":"/ˈekstrə/","face":"/feɪs/","factor":"/ˈfæktər/","fail":"/feɪl/","fair":"/fer/","fake":"/feɪk/","fall":"/fɔl/","familiar":"/fəˈmɪljər/","family":"/ˈfæməli/","fast":"/fæst/","faucet":"/ˈfɔsət/","fault":"/fɔlt/","favorite":"/ˈfeɪvərɪt/","fed":"/fed/","fee":"/fi/","festival":"/ˈfestəvəl/","figure":"/ˈfɪɡjər/","fill":"/fɪl/","final":"/ˈfaɪnəl/","fine":"/faɪn/","finger":"/ˈfɪŋɡər/","finish":"/ˈfɪnɪʃ/","fishing":"/ˈfɪʃɪŋ/","five":"/faɪv/","fixer":"/ˈfɪksər/","flavor":"/ˈfleɪvər/","flu":"/flu/","follower":"/ˈfɑloʊər/","foot":"/fʊt/","four":"/fɔr/","fresh":"/freʃ/","fridge":"/frɪdʒ/","fries":"/fraɪz/","furniture":"/ˈfɜrnɪtʃər/","gate":"/ɡeɪt/","give":"/ɡɪv/","glad":"/ɡlæd/","grade":"/ɡreɪd/","grateful":"/ˈɡreɪtfəl/","groceries":"/ˈɡroʊsəriz/","ground":"/ɡraʊnd/","hack":"/hæk/","half":"/hæf/","halfway":"/ˈhæfˈweɪ/","hang":"/hæŋ/","happen":"/ˈhæpən/","hard":"/hɑrd/","hate":"/heɪt/","headline":"/ˈhedˌlaɪn/","heat":"/hit/","hello":"/həˈloʊ/","high":"/haɪ/","himself":"/hɪmˈself/","hole":"/hoʊl/","homebody":"/ˈhoʊmˌbɑdi/","hospital":"/ˈhɑˌspɪtəl/","hotel":"/hoʊˈtel/","house":"/haʊs/","huge":"/hjudʒ/","idea":"/aɪˈdiə/","influencer":"/ˈɪnfluənsər/","inside":"/ˌɪnˈsaɪd/","installment":"/ˌɪnˈstɔlmənt/","instead":"/ˌɪnˈsted/","interest":"/ˈɪntrəst/","interrupt":"/ˌɪntəˈrʌpt/","itchy":"/ˈɪtʃi/","kid":"/kɪd/","knee":"/ni/","knit":"/nɪt/","korea":"/kəˈriə/","laid":"/leɪd/","laptop":"/ˈlæpˌtɑp/","large":"/lɑrdʒ/","latte":"/ˈlɑteɪ/","layover":"/ˈleɪˌoʊvər/","leg":"/leɡ/","library":"/ˈlaɪbreˌri/","lifestyle":"/ˈlaɪfˌstaɪl/","lifetime":"/ˈlaɪfˌtaɪm/","limit":"/ˈlɪmət/","line":"/laɪn/","listen":"/ˈlɪsən/","listener":"/ˈlɪsənər/","live":"/lɪv/","livestream":"/ˈlaɪvˌstrim/","load":"/loʊd/","log":"/lɔɡ/","loop":"/lup/","lose":"/luz/","low":"/loʊ/","lunch":"/lʌntʃ/","lunchtime":"/ˈlʌntʃˌtaɪm/","main":"/meɪn/","marathon":"/ˈmerəˌθɑn/","math":"/mæθ/","medication":"/ˌmedəˈkeɪʃən/","memory":"/ˈmeməri/","mention":"/ˈmenʃən/","mess":"/mes/","mind":"/maɪnd/","mold":"/moʊld/","mom":"/mɑm/","monday":"/ˈmʌndi/","money":"/ˈmʌni/","month":"/mʌnθ/","motivated":"/ˈmoʊtəˌveɪtəd/","muscle":"/ˈmʌsəl/","museum":"/mjuˈziəm/","nap":"/næp/","napkin":"/ˈnæpkɪn/","nature":"/ˈneɪtʃər/","near":"/nɪr/","nearby":"/ˈnɪrˈbaɪ/","needle":"/ˈnidəl/","neighborhood":"/ˈneɪbərˌhʊd/","neither":"/ˈniðər/","never":"/ˈnevər/","news":"/nuz/","nighter":"/ˈnaɪtər/","nightmare":"/ˈnaɪtˌmer/","nine":"/naɪn/","nobody":"/ˈnoʊˌbɑˌdi/","nose":"/noʊz/","note":"/noʊt/","notice":"/ˈnoʊtəs/","notification":"/ˌnoʊtəfəˈkeɪʃən/","oat":"/oʊt/","obsessed":"/əbˈsest/","office":"/ˈɔfɪs/","okay":"/ˌoʊˈkeɪ/","once":"/wʌns/","onion":"/ˈʌnjən/","opportunity":"/ˌɑpərˈtunəti/","outdoors":"/ˈaʊtˈdɔrz/","overcharge":"/ˌoʊvərˈtʃɑrdʒ/","overcook":"/ˌoʊvərˈkʊk/","overrate":"/ˌoʊvərˈreɪt/","overshare":"/ˌoʊvərˈʃer/","paint":"/peɪnt/","painting":"/ˈpeɪntɪŋ/","park":"/pɑrk/","party":"/ˈpɑrti/","passport":"/ˈpæˌspɔrt/","pasta":"/ˈpɑstə/","pdf":"/ˌpidiˈef/","perfectionist":"/pərˈfekʃənəst/","person":"/ˈpɜrsən/","personally":"/ˈpɜrsənəli/","pet":"/pet/","phishing":"/ˈfɪʃɪŋ/","piano":"/piˈænoʊ/","pleasantly":"/ˈplezəntli/","plumber":"/ˈplʌmər/","podcast":"/ˈpɑdˌkæst/","pop":"/pɑp/","popular":"/ˈpɑpjələr/","portion":"/ˈpɔrʃən/","potential":"/pəˈtenʃəl/","prefer":"/prəˈfɜr/","presentation":"/ˌprezənˈteɪʃən/","pressure":"/ˈpreʃər/","pretty":"/ˈprɪti/","pricey":"/ˈpraɪsi/","print":"/prɪnt/","printer":"/ˈprɪntər/","prioritize":"/praɪˈɔrəˌtaɪz/","privacy":"/ˈpraɪvəsi/","probably":"/ˈprɑbəˌbli/","problem":"/ˈprɑbləm/","procrastinate":"/prəˈkræstəˌneɪt/","professor":"/prəˈfesər/","proud":"/praʊd/","pull":"/pʊl/","quality":"/ˈkwɑləti/","quick":"/kwɪk/","quiet":"/ˈkwaɪət/","rabbit":"/ˈræbət/","rain":"/reɪn/","rash":"/ræʃ/","rearrange":"/ˌriəˈreɪndʒ/","reception":"/rɪˈsepʃən/","recognize":"/ˈrekəɡˌnaɪz/","recur":"/rɪˈkɜr/","recycling":"/riˈsaɪkəlɪŋ/","relationship":"/rɪˈleɪʃənˌʃɪp/","relieve":"/rɪˈliv/","relieved":"/rɪˈlivd/","relocate":"/ˌriˈloʊkeɪt/","remote":"/rɪˈmoʊt/","repair":"/rɪˈper/","repeat":"/rɪˈpit/","rephrase":"/riˈfreɪz/","reply":"/rɪˈplaɪ/","report":"/riˈpɔrt/","reset":"/riˈset/","resource":"/ˈrisɔrs/","respect":"/rɪˈspekt/","respectfully":"/rɪˈspektfəli/","rest":"/rest/","restaurant":"/ˈrestəˌrɑnt/","result":"/rɪˈzʌlt/","rich":"/rɪtʃ/","roommate":"/ˈruˌmeɪt/","round":"/raʊnd/","route":"/rut/","rule":"/rul/","runny":"/ˈrʌni/","safe":"/seɪf/","salad":"/ˈsæləd/","salary":"/ˈsæləri/","saturday":"/ˈsætərdi/","scared":"/skerd/","scenic":"/ˈsinɪk/","scholarship":"/ˈskɑlərˌʃɪp/","selfie":"/ˈselfi/","sell":"/sel/","sensitive":"/ˈsensətɪv/","seoul":"/soʊl/","series":"/ˈsɪriz/","set":"/set/","setting":"/ˈsetɪŋ/","settle":"/ˈsetəl/","sharp":"/ʃɑrp/","ship":"/ʃɪp/","shipping":"/ˈʃɪpɪŋ/","shirt":"/ʃɜrt/","shoestring":"/ˈʃuˌstrɪŋ/","shower":"/ˈʃaʊər/","shut":"/ʃʌt/","sidetrack":"/ˈsaɪdˌtræk/","sight":"/saɪt/","sim":"/sɪm/","simple":"/ˈsɪmpəl/","sing":"/sɪŋ/","sit":"/sɪt/","situation":"/ˌsɪtʃuˈeɪʃən/","six":"/sɪks/","ski":"/ski/","skin":"/skɪn/","smoke":"/smoʊk/","somewhere":"/ˈsʌmˌwer/","song":"/sɔŋ/","source":"/sɔrs/","spare":"/sper/","sport":"/spɔrt/","spread":"/spred/","squeamish":"/ˈskwimɪʃ/","squeeze":"/skwiz/","stay":"/steɪ/","steal":"/stil/","steep":"/stip/","step":"/step/","straw":"/strɔ/","stream":"/strim/","stress":"/stres/","stressed":"/strest/","struggle":"/ˈstrʌɡəl/","stuck":"/stʌk/","stuff":"/stʌf/","stuffy":"/ˈstʌfi/","style":"/staɪl/","sugarcoat":"/ˈʃʊɡərˌkoʊt/","suggest":"/səˈdʒest/","summer":"/ˈsʌmər/","surgery":"/ˈsɜrdʒəri/","surprise":"/sərˈpraɪz/","surprised":"/sərˈpraɪzd/","swap":"/swɑp/","sweet":"/swit/","swelling":"/ˈswelɪŋ/","switch":"/swɪtʃ/","sword":"/sɔrd/","tailor":"/ˈteɪlər/","takeout":"/ˈteɪˌkaʊt/","talker":"/ˈtɔkər/","teach":"/titʃ/","tell":"/tel/","tend":"/tend/","tennis":"/ˈtenəs/","tentative":"/ˈtentətɪv/","term":"/tɜrm/","therapeutic":"/ˌθerəˈpjutɪk/","thesis":"/ˈθisəs/","thought":"/θɔt/","throw":"/θroʊ/","tight":"/taɪt/","tip":"/tɪp/","together":"/təˈɡeðər/","tongue":"/tʌŋ/","toothache":"/ˈtuθˌeɪk/","tourist":"/ˈtʊrəst/","towel":"/ˈtaʊəl/","track":"/træk/","traffic":"/ˈtræfɪk/","trap":"/træp/","travel":"/ˈtrævəl/","treat":"/trit/","treatment":"/ˈtritmənt/","trip":"/trɪp/","tuesday":"/ˈtuzdi/","tv":"/ˌtiˈvi/","twelve":"/twelv/","unless":"/ənˈles/","upper":"/ˈʌpər/","urgent":"/ˈɜrdʒənt/","use":"/juz/","usual":"/ˈjuʒəwəl/","usually":"/ˈjuʒuəli/","vacuum":"/ˈvækjum/","violin":"/vaɪəˈlɪn/","voice":"/vɔɪs/","waive":"/weɪv/","wake":"/weɪk/","wall":"/wɔl/","wallet":"/ˈwɔlət/","warm":"/wɔrm/","washable":"/ˈwɑʃəbəl/","weakness":"/ˈwiknəs/","website":"/ˈwebˌsaɪt/","weigh":"/weɪ/","weight":"/weɪt/","welcome":"/ˈwelkəm/","whether":"/ˈweðər/","while":"/waɪl/","wit":"/wɪt/","worse":"/wɜrs/","write":"/raɪt/","yesterday":"/ˈjestərˌdeɪ/","zipper":"/ˈzɪpər/"});
+/* phase 4 headwords (tools/ipa.py) */
+Object.assign(IPA, {"bookstore":"/ˈbʊkˌstɔr/","humidity":"/hjuˈmɪdəti/","aback":"/əˈbæk/","accent":"/əkˈsent/","accommodate":"/əˈkɑməˌdeɪt/","achievement":"/əˈtʃivmənt/","acquired":"/əˈkwaɪərd/","act":"/ækt/","addictive":"/əˈdɪktɪv/","admit":"/ədˈmɪt/","advance":"/ədˈvæns/","advertise":"/ˈædvərˌtaɪz/","age":"/eɪdʒ/","ahead":"/əˈhed/","aim":"/eɪm/","along":"/əˈlɔŋ/","already":"/ɔlˈredi/","ambitious":"/æmˈbɪʃəs/","amplify":"/ˈæmpləˌfaɪ/","apology":"/əˈpɑləˌdʒi/","area":"/ˈeriə/","argue":"/ˈɑrɡju/","aside":"/əˈsaɪd/","assistant":"/əˈsɪstənt/","assumption":"/əˈsʌmpʃən/","atmosphere":"/ˈætməsˌfɪr/","author":"/ˈɔθər/","availability":"/əˌveɪləˈbɪləti/","barring":"/ˈbɑrɪŋ/","become":"/bɪˈkʌm/","begin":"/bɪˈɡɪn/","benefit":"/ˈbenəfɪt/","blunt":"/blʌnt/","blur":"/blɜr/","bog":"/bɑɡ/","bookshop":"/ˈbʊkˌʃɑp/","brain":"/breɪn/","broad":"/brɔd/","broaden":"/ˈbrɔdən/","browse":"/braʊz/","brunch":"/brʌntʃ/","burn":"/bɜrn/","caffeine":"/kæˈfin/","capacity":"/kəˈpæsəti/","cause":"/kɑz/","cell":"/sel/","changer":"/ˈtʃeɪndʒər/","character":"/ˈkerɪktər/","chest":"/tʃest/","chronic":"/ˈkrɑnɪk/","circumstance":"/ˈsɜrkəmˌstæns/","claim":"/kleɪm/","client":"/ˈklaɪənt/","clutter":"/ˈklʌtər/","coach":"/koʊtʃ/","coherently":"/koʊˈhirəntli/","collect":"/kəˈlekt/","comfort":"/ˈkʌmfərt/","common":"/ˈkɑmən/","compensation":"/ˌkɑmpənˈseɪʃən/","concern":"/kənˈsɜrn/","conclusion":"/kənˈkluʒən/","condition":"/kənˈdɪʃən/","conference":"/ˈkɑnfərəns/","connection":"/kəˈnekʃən/","constantly":"/ˈkɑnstəntli/","context":"/ˈkɑntekst/","convenient":"/kənˈvinjənt/","coordinate":"/koʊˈɔrdənət/","correct":"/kəˈrekt/","cost":"/kɑst/","cozy":"/ˈkoʊzi/","cramped":"/kræmpt/","creative":"/kriˈeɪtɪv/","cross":"/krɔs/","cure":"/kjʊr/","curse":"/kɜrs/","customer":"/ˈkʌstəmər/","damp":"/dæmp/","data":"/ˈdeɪtə/","debate":"/dəˈbeɪt/","decision":"/dɪˈsɪʒən/","dermatologist":"/ˌdɜrməˈtɑlədʒɪst/","description":"/dɪˈskrɪpʃən/","diet":"/ˈdaɪət/","disappear":"/ˌdɪsəˈpɪr/","discuss":"/dɪˈskʌs/","distort":"/dɪˈstɔrt/","dosage":"/ˈdoʊsədʒ/","downs":"/daʊnz/","draft":"/dræft/","drug":"/drʌɡ/","economy":"/ɪˈkɑnəmi/","efficient":"/ɪˈfɪʃənt/","eight":"/eɪt/","eleven":"/ɪˈlevən/","entirely":"/ɪnˈtaɪərli/","environment":"/ɪnˈvaɪrənmənt/","escalate":"/ˈeskəˌleɪt/","estimate":"/ˈestəmət/","evening":"/ˈivnɪŋ/","evidence":"/ˈevədəns/","exercise":"/ˈeksərˌsaɪz/","expectation":"/ˌekspekˈteɪʃən/","extent":"/ɪkˈstent/","fact":"/fækt/","fairly":"/ˈferli/","false":"/fɔls/","fancy":"/ˈfænsi/","fascinating":"/ˈfæsəˌneɪtɪŋ/","faulty":"/ˈfɔlti/","fifteen":"/fɪfˈtin/","flag":"/flæɡ/","flare":"/fler/","flexibility":"/ˌfleksəˈbɪləti/","flexible":"/ˈfleksəbəl/","focus":"/ˈfoʊkəs/","force":"/fɔrs/","formal":"/ˈfɔrməl/","frankly":"/ˈfræŋkli/","freak":"/frik/","fully":"/ˈfʊli/","fuss":"/fʌs/","gap":"/ɡæp/","garage":"/ɡəˈrɑʒ/","gear":"/ɡɪr/","given":"/ˈɡɪvən/","gluten":"/ˈɡlutən/","gradually":"/ˈɡrædʒuəli/","graduate":"/ˈɡrædʒəwət/","grounding":"/ˈɡraʊndɪŋ/","hassle":"/ˈhæsəl/","helpful":"/ˈhelpfəl/","highlight":"/ˈhaɪˌlaɪt/","hit":"/hɪt/","hope":"/hoʊp/","hopelessly":"/ˈhoʊpləsli/","hustle":"/ˈhʌsəl/","hype":"/haɪp/","ideal":"/aɪˈdil/","ignore":"/ˌɪɡˈnɔr/","impact":"/ˌɪmˈpækt/","impersonal":"/ˌɪmˈpɜrsənəl/","impossible":"/ˌɪmˈpɑsəbəl/","impress":"/ˌɪmˈpres/","improve":"/ˌɪmˈpruv/","inadequate":"/ˌɪˈnædəkwət/","inclined":"/ˌɪnˈklaɪnd/","increasingly":"/ɪnˈkrisɪŋli/","incredibly":"/ɪnˈkredəbli/","insensitive":"/ˌɪnˈsensətɪv/","intentional":"/ˌɪnˈtenʃənəl/","intermittent":"/ˌɪntərˈmɪtənt/","introduce":"/ˌɪntrəˈdus/","invest":"/ˌɪnˈvest/","invite":"/ˌɪnˈvaɪt/","issue":"/ˈɪʃu/","itinerary":"/aɪˈtɪnəˌreri/","jack":"/dʒæk/","jump":"/dʒʌmp/","justify":"/ˈdʒʌstəˌfaɪ/","keen":"/kin/","knockoff":"/ˈnɑkˌɔf/","league":"/liɡ/","leeway":"/ˈliˌweɪ/","level":"/ˈlevəl/","liking":"/ˈlaɪkɪŋ/","linger":"/ˈlɪŋɡər/","list":"/lɪst/","location":"/loʊˈkeɪʃən/","lodge":"/lɑdʒ/","lovely":"/ˈlʌvli/","loyal":"/ˈlɔɪəl/","manage":"/ˈmænədʒ/","manipulate":"/məˈnɪpjəˌleɪt/","mark":"/mɑrk/","master":"/ˈmæstər/","matter":"/ˈmætər/","memorize":"/ˈmeməˌraɪz/","merit":"/ˈmerət/","methodology":"/ˌmeθəˈdɑlədʒi/","mindful":"/ˈmaɪndfəl/","minimum":"/ˈmɪnəməm/","mix":"/mɪks/","model":"/ˈmɑdəl/","nag":"/næɡ/","narrow":"/ˈneroʊ/","neat":"/nit/","non":"/nɑn/","none":"/nʌn/","novelty":"/ˈnɑvəlti/","obsession":"/əbˈseʃən/","offer":"/ˈɔfər/","opener":"/ˈoʊpənər/","others":"/ˈʌðərz/","otherwise":"/ˈʌðərˌwaɪz/","outline":"/ˈaʊtˌlaɪn/","outrage":"/ˈaʊˌtreɪdʒ/","outweigh":"/aʊtˈweɪ/","overpriced":"/ˈoʊvərˌpraɪst/","overreact":"/ˈoʊvərriˈækt/","oversee":"/ˈoʊvərˌsi/","owl":"/aʊl/","owner":"/ˈoʊnər/","ownership":"/ˈoʊnərˌʃɪp/","pace":"/peɪs/","pairing":"/ˈperɪŋ/","part":"/pɑrt/","past":"/pæst/","peak":"/pik/","perspective":"/pərˈspektɪv/","pile":"/paɪl/","plateau":"/plæˈtoʊ/","pleasant":"/ˈplezənt/","pocket":"/ˈpɑkət/","possibility":"/ˌpɑsəˈbɪləˌti/","possibly":"/ˈpɑsəbli/","postpone":"/poʊstˈpoʊn/","prescribe":"/prəˈskraɪb/","prevention":"/prɪˈvenʃən/","previous":"/ˈpriviəs/","principle":"/ˈprɪnsəpəl/","priority":"/praɪˈɔrəti/","procedure":"/prəˈsidʒər/","process":"/ˈprɑˌses/","promise":"/ˈprɑməs/","proper":"/ˈprɑpər/","provided":"/prəˈvaɪdɪd/","provoke":"/prəˈvoʊk/","pushy":"/ˈpʊʃi/","put":"/pʊt/","quote":"/kwoʊt/","raise":"/reɪz/","reach":"/ritʃ/","realize":"/ˈriəˌlaɪz/","reassess":"/riəˈses/","reconfirm":"/ˌrikənˈfɜrm/","recovery":"/rɪˈkʌvri/","redecorate":"/riˈdekəˌreɪt/","rediscover":"/ridɪˈskʌvər/","referral":"/rɪˈfʌrəl/","reflection":"/rɪˈflekʃən/","regular":"/ˈreɡjələr/","related":"/rɪˈleɪtɪd/","reliable":"/rɪˈlaɪəbəl/","remember":"/rɪˈmembər/","renovation":"/ˌrenəˈveɪʃən/","research":"/riˈsɜrtʃ/","responsible":"/riˈspɑnsəbəl/","retail":"/ˈriˌteɪl/","review":"/ˌriˈvju/","revisit":"/riˈvɪzɪt/","rid":"/rɪd/","risk":"/rɪsk/","road":"/roʊd/","role":"/roʊl/","rollercoaster":"/ˈroʊlərˌkoʊstər/","rollout":"/ˈroʊˌlaʊt/","roof":"/ruf/","rough":"/rʌf/","routine":"/ruˈtin/","rush":"/rʌʃ/","say":"/seɪ/","school":"/skul/","season":"/ˈsizən/","secondhand":"/ˈsekəndˌhænd/","see":"/si/","separately":"/ˈsepərətli/","serve":"/sɜrv/","skip":"/skɪp/","soak":"/soʊk/","solo":"/ˈsoʊˌloʊ/","sort":"/sɔrt/","spark":"/spɑrk/","sparkling":"/ˈspɑrklɪŋ/","specialist":"/ˈspeʃələst/","specific":"/spəˈsɪfɪk/","spur":"/spɜr/","statistics":"/stəˈtɪstɪks/","stick":"/stɪk/","sting":"/stɪŋ/","streamline":"/ˈstrimˌlaɪn/","structure":"/ˈstrʌktʃər/","subject":"/səbˈdʒekt/","submit":"/səbˈmɪt/","subtle":"/ˈsʌtəl/","success":"/səkˈses/","suggestion":"/səˈdʒestʃən/","summarize":"/ˈsʌməˌraɪz/","surprisingly":"/sərˈpraɪzɪŋli/","suspect":"/səˈspekt/","tackle":"/ˈtækəl/","tangible":"/ˈtændʒəbəl/","taste":"/teɪst/","tasting":"/ˈteɪstɪŋ/","team":"/tim/","technology":"/tekˈnɑlədʒi/","therapy":"/ˈθerəpi/","thread":"/θred/","thrilled":"/θrɪld/","thrive":"/θraɪv/","timeline":"/ˈtaɪmlaɪn/","tone":"/toʊn/","topic":"/ˈtɑpɪk/","toward":"/təˈwɔrd/","town":"/taʊn/","trade":"/treɪd/","trail":"/treɪl/","trek":"/trek/","tricky":"/ˈtrɪki/","understated":"/ˌʌndərˈsteɪtɪd/","unfollow":"/ʌnˈfɑloʊ/","ups":"/ʌps/","valid":"/ˈvælɪd/","view":"/vju/","wary":"/ˈweri/","wear":"/wer/","whatever":"/ˌwʌˈtevər/","whenever":"/weˈnevər/","whim":"/wɪm/","whole":"/hoʊl/","willing":"/ˈwɪlɪŋ/","winter":"/ˈwɪntər/","wish":"/wɪʃ/","wonder":"/ˈwʌndər/","zone":"/zoʊn/"});
 for (const [w, i] of Object.entries(IPA)) if (WORDS[w]) WORDS[w].ipa = i;

@@ -94,6 +94,7 @@ async function scene(p, i, { wrong = false, help = 0 } = {}) {
     ok('episode_end_screen', (await p.textContent('.celebrate')).includes(`${clean}장면`) && (await p.$$('.card-s .sub-line')).length === lines);
     await p.screenshot({ path: out + '/ab-end.png', fullPage: true });
     // 4) replaying improves the episode best without changing first-listen results
+    await p.waitForTimeout(700); await p.evaluate(() => closeSheet()); /* a badge popup (e.g. early bird before 7am) can cover the end screen */
     await p.click('.actionbar .ghost'); await p.waitForTimeout(200);
     for (let i = 0; i < N; i++) await scene(p, i);
     await p.waitForTimeout(300);

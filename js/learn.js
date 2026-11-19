@@ -83,7 +83,10 @@ function buildSession(){
     if (s.type==="listen") { if (fixed.includes(s)) continue; seenListen.add(s.id); } fixed.push(s); }
   /* up to 3 notebook words per session (at most 2 brand-new), placed between chunk steps */
   wordSteps(3, 2).forEach((st,i) => fixed.splice(Math.min(fixed.length, 2 + i*3), 0, st));
-  const unit = cur.units[from]; return {steps: fixed, i:0, combo:0, xp:0, right:0, total:0, misses:{}, retried:new Set(), started:Date.now(), done:false, unit: unit && {id:unit.id, complete:unit.complete, lvl:unit.lvl}};
+  const unit = cur.units[from];
+  /* once a day, a 30-second answer closes the session when the unit has enough known chunks to build one */
+  if (unit && S.speakDay !== k && speakReady(unit)) fixed.push({type:"speakout", id:unit.id});
+  return {steps: fixed, i:0, combo:0, xp:0, right:0, total:0, misses:{}, retried:new Set(), started:Date.now(), done:false, unit: unit && {id:unit.id, complete:unit.complete, lvl:unit.lvl}};
 }
 /* due words first (most-missed, most frequent), then new ones within today's limit; a new word is met, then checked a few steps later */
 function wordSteps(maxWords, maxNew){
@@ -114,13 +117,14 @@ function viewLearnStart(app){
 function renderStep(){
   const app = $("#app"); app.replaceChildren(); stopDict(); setFocusMode(true);
   const s = session; if (s.i >= s.steps.length) return renderRecap();
-  const step = s.steps[s.i], card = step.type.startsWith("word") ? wordCard(step.id) : cardById(step.id);
+  const step = s.steps[s.i], card = step.type === "speakout" ? {id: step.id} : step.type.startsWith("word") ? wordCard(step.id) : cardById(step.id);
   if (!card) { s.i++; return renderStep(); }
   const combo = h("span",{class:"combo","aria-label": s.combo>=2 ? `${s.combo}연속 정답` : ""});
   if (s.combo >= 2) combo.innerHTML = FLAME + `<span>${s.combo}</span>`;
   app.append(h("div",{class:"topbar"}, h("button",{class:"x","aria-label":"그만하기",onclick:()=>{ session=null; location.hash="#home"; route(); }},"×"),
     h("div",{class:"prog",role:"progressbar","aria-valuemin":"0","aria-valuemax":String(s.steps.length),"aria-valuenow":String(s.i)}, h("i",{style:`width:${Math.max(4, s.i/s.steps.length*100)}%`})), combo));
   const box = h("section",{class:"task"}); app.append(box);
+  if (step.type === "speakout") return taskSpeakout(box, step);
   ({listen:taskListen, tiles:taskTiles, recall:taskRecall, shadow:taskShadow, wordmean:taskWordMean, wordcloze:taskWordCloze, wordintro:taskWordIntro, wordrecall:taskWordRecall, wordmake:taskWordMake})[step.type](box, card, step);
 }
 const PRAISE = ["완벽해!","최고야!","원어민 같아!","입에 착 붙었어!","잘했어!"];
@@ -192,15 +196,15 @@ function taskTiles(box, card, step){
     finish(box, card, step, g.score, Date.now()-t0, ex); };
   box.append(slot, bank); actionBar(check);
 }
-function answerBox(box, ph, onSubmit){
+function answerBox(box, ph, onSubmit, opts={}){
   const ta = h("textarea",{id:"answer",rows:"2",placeholder:ph,"data-ph":ph,autocomplete:"off",autocapitalize:"off",spellcheck:"false","aria-label":"영어로 답하기"});
   const send = h("button",{class:"primary",disabled:true}, "확인");
   ta.addEventListener("input", ()=> send.disabled = !ta.value.trim());
   ta.addEventListener("keydown", e=>{ if (e.key==="Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); if (!send.disabled) send.click(); } });
   send.onclick = async () => { await stopDict(); ta.disabled = true; box.querySelectorAll(".mic").forEach(m=>m.remove()); onSubmit(ta.value); };
   ta._onSpoken = () => { if (S.settings.autosubmit && !send.disabled) setTimeout(()=>{ if (document.contains(send) && !ta.disabled) send.click(); }, 350); };
-  const mic = micFor(ta);
-  box.append(h("div",{class:"answer"}, mic, caps.dict ? h("p",{class:"mic-hint"}, S.settings.autosubmit ? "누르고 말하면 끝나는 대로 채점해요" : "누르고 말한 뒤 확인을 눌러요") : "", ta));
+  const mic = micFor(ta, opts);
+  box.append(h("div",{class:"answer"}, mic, caps.dict ? h("p",{class:"mic-hint"}, opts.continuous ? "누르면 계속 들어요. 다 말하면 마이크를 다시 누르고 확인" : S.settings.autosubmit ? "누르고 말하면 끝나는 대로 채점해요" : "누르고 말한 뒤 확인을 눌러요") : "", ta));
   actionBar(send);
   if (!matchMedia("(pointer:coarse)").matches && !caps.dict) ta.focus();
   return ta;
@@ -323,7 +327,7 @@ function renderRecap(){
   const m = mascot(130,"happy"); speaker = m;
   const xp = h("h1",{class:"big"}, "+0 XP"); const n = h("span",{}, "0");
   xp.replaceChildren("+", n, " XP");
-  app.append(h("section",{class:"celebrate"}, m, h("p",{class:"eyebrow"}, s.wordOnly ? "단어 복습 완료!" : "오늘의 5분 완료!"), xp,
+  app.append(h("section",{class:"celebrate"}, m, h("p",{class:"eyebrow"}, s.wordOnly ? "단어 복습 완료!" : s.speakOnly ? "30초 말하기 완료!" : "오늘의 5분 완료!"), xp,
     h("p",{class:"streakline",html:FLAME.replace("<svg",'<svg width="20" height="20" style="vertical-align:-4px"')}, " ", h("b",{}, streakNow()+"일"), " 연속! 내일도 만나")));
   countUp(n, s.xp); confetti(); sfx("fanfare"); haptic([20,60,20,60,40]);
   if (s.unit && !s.unit.complete) { const after = buildCurriculum(); const u = after.units.find(x=>x.id===s.unit.id);

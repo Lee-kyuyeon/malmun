@@ -10,20 +10,20 @@ function placementPool(L, used){
   const free = mid.filter(c=>!used.has(c.id)); return free.length ? free : all.filter(c=>!used.has(c.id));
 }
 function placementPick(theta, used){
-  const want = Math.max(0, Math.min(3, Math.round(theta)));
+  const want = Math.max(0, Math.min(LEVELS.length-1, Math.round(theta)));
   for (const d of [0,1,-1,2,-2,3,-3]) { const L = LEVELS[want+d]; if (!L) continue;
     const pool = placementPool(L, used); if (pool.length) return pool[Math.random()*pool.length|0]; }
   return null;
 }
 /* the first item moves a whole level so strong learners reach their level within 10 items, then the steps shrink */
-function placementUpdate(theta, i, ok){ const step = i === 0 ? 1 : i < 4 ? .5 : .25; return Math.max(0, Math.min(3, theta + (ok ? step : -step))); }
+function placementUpdate(theta, i, ok){ const step = i === 0 ? 1 : i < 4 ? .5 : .25; return Math.max(0, Math.min(LEVELS.length-1, theta + (ok ? step : -step))); }
 /* the level is the highest one answered at least 60% right (rounding the staircase estimate placed learners a level too high
    in simulation); a strong or weak 30-second speaking sample can move it by one level when the item answers allow it */
 function placementLevel(theta, results, speak){
   const acc = L => { const r = (results||[]).filter(x=>x.lvl===L); return r.length ? r.filter(x=>x.ok).length / r.length : null; };
   let best = 0; LEVELS.forEach((L,i) => { const a = acc(L); if (a !== null && a >= .6) best = Math.max(best, i); });
-  if (!results || !results.length) best = Math.max(0, Math.min(3, Math.floor(theta)));
-  if (speak === "strong" && best < 3 && (acc(LEVELS[best+1]) ?? 0) >= .5) best++;
+  if (!results || !results.length) best = Math.max(0, Math.min(LEVELS.length-1, Math.floor(theta)));
+  if (speak === "strong" && best < LEVELS.length-1 && (acc(LEVELS[best+1]) ?? 0) >= .5) best++;
   if (speak === "weak" && best > 0 && (acc(LEVELS[best]) ?? 1) < .8) best--;
   return LEVELS[best];
 }
@@ -129,6 +129,9 @@ function viewCourse(app){
   app.append(head);
   app.append(h("p",{class:"muted"}, S.placement ? `진단 결과 ${myLevel()} ${LEVEL_KO[myLevel()]}부터 시작했어요. 아래 단원은 건너뛰었지만 언제든 복습할 수 있어요.` : "아직 실력 진단 전이라 B1(중급)부터 시작해요. 진단하면 내 레벨에 맞는 단원부터 열려요."),
     h("div",{class:"row"}, h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash="#placement"; }}, S.placement ? "실력 다시 진단" : "실력 진단하기")));
+  { const cu = currentUnit(), ready = speakReady(cu);
+    app.append(h("button",{class:"cta alt","data-open":"speak",type:"button",onclick:()=>{ speakUnitNext = cu.id; location.hash = "#speak"; }},
+      h("div",{}, h("b",{},"30초 말하기"), h("span",{}, ready ? `${cu.lvl} · ${cu.tag} 표현으로 길게 답해 보기` : `이 단원 표현 ${SPEAK_MIN_LEARNED}개를 익히면 열려요 (지금 ${learnedIn(cu).length}개)`)), h("span",{class:"arrow","aria-hidden":"true"},"→"))); }
   LEVELS.forEach(L => {
     const us = units.filter(u=>u.lvl===L); if (!us.length) return;
     /* a level with nothing left to do (all skipped or finished) folds away so the current unit is near the top */
@@ -177,6 +180,7 @@ function viewMe(app){
   const wl = Object.keys(S.words||{}); if (wl.length) { const cnt = [0,0,0,0,0,0]; wl.forEach(w => cnt[wordStage(w)]++); const mx = Math.max(...cnt, 1);
     app.append(h("section",{class:"card-s",id:"word-ladder"}, h("h2",{class:"sec-h"}, `단어 ${wl.length}개 학습 단계`), h("div",{class:"stagebars"}, ...STAGE_KO.map((t,i)=>h("div",{class:"hbar"}, h("span",{style:"font-size:12px"}, t), h("span",{class:"t"}, h("i",{style:`width:${cnt[i]/mx*100}%`})), h("span",{class:"v"}, cnt[i]+"개")))),
       h("button",{class:"ghost",type:"button",onclick:()=>{ wordOnlyNext = true; location.hash = "#learn"; }},"단어만 복습하기"))); }
+  { const sg = speakGrowth(); if (sg) app.append(sg); }
   const errs = Object.entries(S.errors||{}).sort((a,b)=>b[1]-a[1]);
   if (errs.length) app.append(h("p",{class:"note"}, "자주 고친 유형", ...errs.slice(0,4).map(([k,v])=>h("span",{class:"chip warn"}, (ERR_KO[k]||"기타")+" "+v))));
   { const chip = (ok, on, off) => h("span",{class:"chip"+(ok?" ok":"")}, ok?on:off);
