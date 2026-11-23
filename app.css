@@ -603,3 +603,20 @@ details.lvl-sec>.pu{margin-top:10px;width:100%}
 .dict-out{display:flex;flex-direction:column;gap:10px}
 .dict-out:empty{display:none}
 .dict-row{border-left:0;border-right:0;border-bottom:0;background:transparent;text-align:left;width:100%}
+
+/* 발음 연습 */
+.pa-go{min-height:56px;font-size:18px}
+.pa-go.live{background:var(--coral);box-shadow:0 var(--press) 0 var(--coral-d)}
+.pa-level{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.pa-level i{display:block;height:100%;width:0;background:var(--mint);transition:width .08s}
+.pa-kpis .kpi b{font-size:22px}
+.pa-words{line-height:1.9}
+.pa-w{border:0;background:none;font:inherit;font-weight:800;padding:0 2px;border-radius:6px;cursor:pointer}
+.pa-w.ok{color:var(--good)}
+.pa-w.near{color:var(--butter-d);background:#FFF4D0}
+.pa-w.miss{color:var(--bad);background:var(--badbg);text-decoration:underline wavy}
+.pa-envs{display:flex;flex-direction:column;gap:4px}
+.env{display:flex;align-items:flex-end;gap:2px;height:36px}
+.env i{flex:1;border-radius:2px;min-width:2px}
+.env.nat i{background:var(--sky)}
+.env.me i{background:var(--mint)}

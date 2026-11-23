@@ -194,6 +194,7 @@ function openWord(w, src){
         body.append(h("p",{}, h("span",{class:"ctx"}, entry.pos+" · "), h("b",{}, entry.ko)), h("div",{class:"row"}, h("span",{class:"chip band"+entry.band}, BAND_KO[entry.band]), entry.ai ? h("span",{class:"chip"},"앵두가 정리한 뜻") : ""));
         const pv = partsView(entry); if (pv.childNodes.length) body.append(pv);
         const sv = synView(w); if (sv) body.append(sv);
+        if (canRecord()) body.append(h("div",{class:"row"}, h("button",{class:"ghost sm",type:"button","data-act":"pron",onclick:()=>{ const sc = src || srcFor(w); openPronounce(sc ? sc.en : w, sc ? sc.ko : entry.ko); }}, "발음 연습 (문장)")));
         if (hasWord(w)) { const st = wordStage(w); body.append(h("div",{style:"display:flex;flex-direction:column;gap:6px"}, h("div",{class:"ctx"}, `학습 단계 ${st}/5 · ${STAGE_KO[st]}`), h("div",{class:"ladder","aria-hidden":"true"}, ...[1,2,3,4,5].map(i=>h("i",{class:i<=st?"on":""}))))); }
       } else body.append(h("p",{class:"muted"}, llm.engine ? "앵두가 단어를 정리하는 중…" : "이 단어는 사전에 없어요. AI 대화 탭에서 모델을 준비하면 뜻과 어원을 정리해 줄게."));
       const sc = src || srcFor(w);

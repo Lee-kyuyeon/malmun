@@ -219,7 +219,7 @@ function resultExtra(ans, card){
   const g = grade(ans, card); const d = diffView(g); const ex = h("div",{style:"display:flex;flex-direction:column;gap:6px"});
   if (g.score < 0.99) ex.append(h("div",{class:"ctx"},"내 답"), d.mine, h("div",{class:"ctx"},"자연스러운 표현 (빠진 부분 강조)"), d.right);
   ex.append(h("p",{class:"tapnote"}, "단어를 눌러 담기: ", tapText(g.target, {en:card.en, ko:card.ko})));
-  ex.append(h("div",{class:"row"}, speakBtn(g.target,"원어민처럼 듣기")));
+  ex.append(h("div",{class:"row"}, speakBtn(g.target,"원어민처럼 듣기"), canRecord() ? h("button",{class:"ghost sm",type:"button","data-act":"pron",onclick:()=>openPronounce(g.target, card.ko)},"발음 점수 받기") : ""));
   if (g.score < 0.99) { const wc = wordChips(missedWords(ans, g.target), {en:card.en, ko:card.ko}); if (wc) ex.append(wc); }
   return {g, ex};
 }
@@ -237,7 +237,7 @@ function taskShadow(box, card, step){
   box.append(h("p",{class:"prompt-en"}, tapText(card.en, {en:card.en, ko:card.ko})), h("p",{class:"ctx"}, card.ko));
   const fast = h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span>원어민 속도</span>"}); fast.onclick = () => say(card.en, 1, fast, m);
   const slow = h("button",{class:"speak",type:"button","aria-pressed":"false",html:ICON.spk+"<span>천천히</span>"}); slow.onclick = () => say(card.en, .75, slow, m);
-  box.append(h("div",{class:"row"}, fast, slow));
+  box.append(h("div",{class:"row"}, fast, slow, canRecord() ? h("button",{class:"ghost sm",type:"button","data-act":"pron",onclick:()=>openPronounce(card.en, card.ko)},"발음 체크") : ""));
   const t0 = Date.now();
   if (caps.dict) {
     answerBox(box, "또는 여기에 입력", ans => { const {g, ex} = resultExtra(ans, card); finish(box, card, step, g.score, Date.now()-t0, ex); });
