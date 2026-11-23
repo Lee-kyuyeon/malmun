@@ -155,6 +155,7 @@ function viewCourse(app){
 function viewMe(app){
   const m = mascot(76); speaker = m;
   app.append(h("section",{class:"greet"}, m, h("div",{class:"bubble"}, h("b",{}, `지금 레벨 ${myLevel()} · ${LEVEL_KO[myLevel()]}`), "지금 목표는 '"+LEVEL_CAN[myLevel()]+"'야. 같이 해 보자!")));
+  app.append(gradeCard());
   const P = S.placement;
   const diag = h("section",{class:"card-s"}, h("h2",{class:"sec-h"},"실력 진단"));
   if (P) {

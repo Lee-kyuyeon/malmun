@@ -343,6 +343,8 @@ function renderRecap(){
         h("p",{class:"muted"}, nxt && nxt.id !== u.id ? `다음 단원 '${nxt.lvl} · ${nxt.tag}'이(가) 열렸어.` : "모든 단원을 끝냈어!"),
         u.scen ? h("button",{class:"ghost",type:"button",onclick:()=>{ location.hash="#talk"; }}, `단원 미션: ${u.scen.t}${u.scen.lvl!==u.lvl?` (${u.scen.lvl})`:""}`) : "")); } }
   setTimeout(()=>setMood(m,"idle"), 1600);
+  { const up = gradeCheck(); if (up) { const g = GRADES.find(x=>x.id===up.to);
+    app.append(h("section",{class:"card-s",id:"grade-up",style:"text-align:center;align-items:center"}, gradeEmblem(g, 64), h("b",{class:"sec-h"}, `어휘 등급 상승! ${up.from} → ${up.to}`), h("p",{class:"ctx"}, g.can))); } }
   app.append(h("div",{class:"kpis"},
     h("div",{class:"kpi"}, h("b",{}, acc+"%"), h("span",{},"정확도 (말하기·조립)")),
     h("div",{class:"kpi"}, h("b",{}, streakNow()+"일"), h("span",{},"연속 학습")),
