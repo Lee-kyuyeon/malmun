@@ -19,6 +19,12 @@ const ok = (n, c, x) => { R[n] = c ? 'PASS' : 'FAIL ' + JSON.stringify(x ?? '');
   const rot = await p.evaluate(() => { courseAdd('price'); const list = contextsFor('price'); const a = nextContext('price'); markContext('price', a.en); const b2 = nextContext('price'); return { n: list.length, diff: !!b2 && b2.en !== a.en }; });
   ok('contexts_rotate', rot.n >= 2 && rot.diff, rot);
 
+  // inflected forms the cloze accepts: real irregular/doubled forms in, made-up regular ones out
+  const fm = await p.evaluate(() => { const has = (w, f) => formsOf(w).has(f);
+    return { good: has('forgive','forgave') && has('infer','inferred') && has('panic','panicked') && has('win','won') && has('fight','fought'),
+             bad: ['forgive:forgived','infer:infered','panic:paniced','win:winned','fight:fighted'].filter(x => { const [w, f] = x.split(':'); return has(w, f); }) }; });
+  ok('forms_real_only', fm.good && fm.bad.length === 0, fm);
+
   // word cloze: one wrong try reveals a letter, then the right answer scores below 1 but counts as correct
   await p.evaluate(() => { courseAdd('borrow'); S.words.borrow.stage = 2; save(); });
   await run([{ type: 'wordcloze', id: 'w:borrow' }]); await p.waitForTimeout(300);

@@ -34,18 +34,31 @@ IRREGULAR = {"dive": "dove", "cling": "clung", "creep": "crept", "flee": "fled",
     "undergo": "underwent undergone", "withdraw": "withdrew withdrawn", "weave": "wove woven", "overlook": "overlooked", "mislead": "misled",
     "overpay": "overpaid", "arise": "arose arisen", "bind": "bound", "strive": "strove", "breed": "bred", "dwell": "dwelt", "seize": "seized"}
 
+REGULAR_OFF = {"forgive", "mislead", "proofread", "overcome", "undertake", "undergo", "withdraw", "weave", "arise", "dive", "cling",
+    "creep", "flee", "lend", "dig", "seek", "sweep", "bind", "breed", "dwell", "spit", "shine", "bet", "burst", "overpay", "lay"}
+UNCOUNTABLE = re.compile(r"(ness|ity|ism|ics|ship|ware|dom|hood|ment)$|^(scissors|jeans|goods|species|stairs|news|leisure|postage|tuition|"
+    r"meantime|renown|seaside|inexperience|furniture|machinery|equipment|jewelry|baggage|luggage|homework|wellness|nutrition|hygiene|"
+    r"fatigue|courtesy|acclaim|amateur|paperwork|stationery|mileage|clothing|footwear|attire|cotton|wool|flour|rubber|gasoline|calcium|"
+    r"aluminum|mercury|hydrogen|nitrogen|oxygen|sodium|potassium|algebra|calculus|anthropology|archaeology|genetics|linguistics|ethics|"
+    r"popcorn|bacon|pork|beef|tuna|vanilla|spaghetti|badminton|volleyball|chess|jazz|sunshine|gravity|freedom|wisdom|honesty|poverty)$")
+
 def inflect(w, pos):
+    """candidate forms by spelling rules; main() keeps only the ones that are real words (wordfreq Zipf ≥ 1.5)"""
     out = set(IRREGULAR.get(w, "").split())
-    v, n, a = "동사" in pos, "명사" in pos, "형용사" in pos
-    if v or n:
+    v, n = "동사" in pos, "명사" in pos
+    if n and w.endswith("man"): out.add(w[:-3] + "men")
+    elif (v or n) and not (n and not v and UNCOUNTABLE.search(w)):
         if re.search(r"(s|x|z|ch|sh)$", w): out.add(w + "es")
         elif re.search(r"[^aeiou]y$", w): out.add(w[:-1] + "ies")
         else: out.add(w + "s")
-    if v:
-        base = w[:-1] if w.endswith("e") else w[:-1] + "i" if re.search(r"[^aeiou]y$", w) else w
-        dbl = re.fullmatch(r"[^aeiou]*[aeiou][bdgklmnprt]", w) and len(w) <= 5
-        out.add((w + w[-1] if dbl else base) + "ed" if not w.endswith("e") else w + "d")
-        out.add((w + w[-1] if dbl else (w[:-1] if w.endswith("e") and not w.endswith("ee") else w)) + "ing")
+    if v and w not in REGULAR_OFF:
+        if w.endswith("ee"): out |= {w + "d", w + "ing"}
+        elif w.endswith("e"): out |= {w + "d", w[:-1] + "ing"}
+        elif re.search(r"[^aeiou]y$", w): out |= {w[:-1] + "ied", w + "ing"}
+        elif w.endswith("c"): out |= {w + "ked", w + "king"}
+        else:
+            out |= {w + "ed", w + "ing"}
+            if re.search(r"[^aeiou][aeiou][bdgklmnprt]$", w): out |= {w + w[-1] + "ed", w + w[-1] + "ing"}  # both spellings; the real one survives
     return out
 
 def main(lists_path, cmu_path):
@@ -68,7 +81,7 @@ def main(lists_path, cmu_path):
         for t in re.findall(r"[a-z][a-z'-]*", en.lower()):
             t = re.sub(r"'s$", "", t)
             if t != w and t.startswith(w[:max(3, len(w) - 2)]) and 0 < len(t) - len(w) <= 4: forms.add(t)
-        forms = sorted(x for x in forms if x != w and x not in owned and x not in rows)
+        forms = sorted(x for x in forms if x != w and x not in owned and x not in rows and (x in IRREGULAR.get(w, "").split() or wordfreq.zipf_frequency(x, "en") >= 1.5))
         ipa = IPA_TOOL.OVERRIDES.get(w) or (IPA_TOOL.convert(cmu[w]) if w in cmu else "")
         if not ipa: missing_ipa.append(w)
         new.append([w, pos, ko, band, " ".join(forms), en, eko, ipa])

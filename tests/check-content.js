@@ -55,7 +55,7 @@ if (new Set(ctx.VO).size !== ctx.VO.length) errs.push('VOCAB_ORDER has duplicate
 let examples = 0;
 Object.values(W).forEach(e => { if (!e.e) return; examples++;
   const fs = new Set([e.w, ...e.forms]); const ts = (e.e.en || '').toLowerCase().match(/[a-z][a-z'-]*/g) || [];
-  if (!ts.some(t => fs.has(t.replace(/'s$/, '')))) errs.push(`example does not use "${e.w}": ${e.e.en}`);
+  if (!ts.some(t => { t = t.replace(/'s$/, ''); return fs.has(t) || t.split('-').some(q => fs.has(q)); })) errs.push(`example does not use "${e.w}": ${e.e.en}`);
   if (!HANGUL.test(e.e.ko || '')) errs.push('example without Korean: ' + e.w); });
 /* goal courses: every listed word is in the dictionary, no duplicates */
 ctx.GC.forEach(c => { if (!c.words.length) errs.push('empty goal course ' + c.id); if (new Set(c.words).size !== c.words.length) errs.push('goal course has duplicates: ' + c.id);

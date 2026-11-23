@@ -40,7 +40,7 @@ const CLIMB_SEASONS = [
     {m:490, t:"멍때리는 별", e:"🌀", en:"space out", ko:"멍때리다", ex:"Sorry, I spaced out for a second.", exko:"미안, 잠깐 멍때렸어."},
     {m:590, t:"행운의 별자리", e:"⭐", en:"thank your lucky stars", ko:"천만다행으로 여기다", ex:"Thank your lucky stars nobody got hurt.", exko:"아무도 안 다친 걸 천만다행으로 여겨."},
     {m:690, t:"외계인 카페", e:"👽", en:"worlds apart", ko:"완전히 다른", ex:"My brother and I are worlds apart.", exko:"우리 형이랑 나는 완전히 달라."},
-    {m:800, t:"별 정원", e:"✨", en:"a star is born", ko:"새로운 스타의 탄생", ex:"After her first show, everyone said a star is born.", exko:"첫 공연이 끝나자 다들 스타가 탄생했다고 했어."}]}
+    {m:800, t:"별 정원", e:"✨", en:"a star is born", ko:"새로운 스타의 탄생", ex:"After her first show, everyone said, \"A star is born!\"", exko:"첫 공연이 끝나자 다들 스타가 탄생했다고 했어."}]}
 ];
 /* small surprises every 25 m between landmarks */
 const CLIMB_EVENTS = [

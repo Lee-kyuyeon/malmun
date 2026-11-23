@@ -144,3 +144,28 @@
 - 발음기호: 품사·예문에 맞춰 record(명사), object(동사), tear(눈물), wound(상처), conduct(동사), separate(형용사), associate(동사), survey(명사) 수정
 - 코스 순서(VOCAB_ORDER) 2,382개. 하루 5개 기준 약 16개월, 10개 기준 약 8개월. 아는 단어는 '이미 알아요'로 건너뜀
 - 한계: 빈도는 웹·자막·뉴스 등이 섞인 일반 영어 기준이라 회화 빈도와 조금 다르고(예: government, election 순위가 높음), 뜻과 예문은 원어민 검수를 거치지 않았습니다
+
+## 9. 새 콘텐츠 표현 검증 (2026-11-23)
+
+범위: 두 번째 예문 1,894개, 목표 단어장 새 단어 2,375개(뜻·품사·예문·변화형), 여행 엽서 관용구 30개, 기존 표현 1,501개 중 무작위 150개.
+
+방법
+- 자동: `tools/audit_content.py`로 5,818문장을 검사(변화형이 실제로 쓰이는지 wordfreq로 확인, 사전에 없는 철자, spaCy 품사 불일치, 뜻이 번역에 드러나는지). `tests/check-content.js` 오류 0개
+- 사람: 새 단어 2,375개와 두 번째 예문 1,894개를 전부 읽음. 엽서 30개 전부, 기존 표현 150개 표본
+
+찾아서 고친 것
+| 유형 | 개수 | 예 |
+|---|---|---|
+| 틀린 변화형(빈칸 문제에서 오답 철자를 정답으로 받던 것) | 193 (새 단어 127, 기존 사전 66) | forgived → forgave/forgiven, infered → inferred, paniced → panicked, winned → won, fighted → fought, businessmans → businessmen |
+| 첫 예문과 똑같던 두 번째 예문 | 264 | 새 문장으로 교체 |
+| 예문이 적힌 뜻과 다른 뜻으로 쓰인 경우 | 약 20 | dance, lodge, claim, suspect, stream, thirst, wrinkle 등 예문 교체 |
+| 뜻풀이가 예문·쓰임을 다 담지 못한 경우 | 약 35 | pop "펑 터지다, (pop up) 갑자기 뜨다", load "싣다, 불러오다", rough "대략적인, 거친", keen "열심인, (keen on) ~에 관심이 많은", related "관련된, 친척인", junior, physician, fraction, ethics 등 |
+| 번역 어색함 | 2 | counter: 계산대 → 카운터(집 안 문맥), wheel 예문 교체 |
+| 표준이 아닌 철자 | 4 | advertize(advertise 병기), housekeep, randomize, vend 뜻 보강 |
+| 엽서 | 1 | "everyone said a star is born" → 인용문으로 |
+
+- 기존 표현 150개 표본에서는 오류 0개(이전 전수 검수 결과가 유지됨)
+- 변화형 생성 규칙 수정(`tools/goals.py`): 불규칙 동사 목록, 강세 있는 끝 자음 겹침(refer·omit), -c → -cked, 셀 수 없는 명사·복수 표제어는 복수형 없음, -man → -men, 실제로 쓰이지 않는 형태는 버림
+- 회귀 테스트: `tests/cloze.js`의 forms_real_only가 forgived·infered·paniced·winned·fighted를 정답으로 받지 않는지 확인
+- 문장이 바뀐 곳의 음성 33개를 다시 녹음
+- 한계: 원어민 검수는 아직 거치지 않았고, spaCy 품사 경고 132건 대부분은 태거 오류로 판단해 그대로 둠
