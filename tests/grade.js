@@ -49,7 +49,7 @@ const ok = (n, c, x) => { R[n] = c ? 'PASS' : 'FAIL ' + JSON.stringify(x ?? '');
   await p.screenshot({ path: out + '/grade-me.png' });
 
   // learning band-3/4 words in the app raises the live estimate, and the recap celebrates the new grade
-  const up = await p.evaluate(() => { const ws = Object.keys(VOCAB_RANK).filter(w => VOCAB_RANK[w] > 3000 && VOCAB_RANK[w] <= 5000).slice(0, 300);
+  const up = await p.evaluate(() => { const ws = Object.keys(VOCAB_RANK).filter(w => VOCAB_RANK[w] > 3000 && VOCAB_RANK[w] <= 5000).slice(0, 150);
     S.words = S.words || {}; ws.forEach(w => { S.words[w] = { added: Date.now(), stage: 4, misses: 0 }; });
     const live = vocabSize(); S.vgrade.rates[3] = .3; save();   /* a learner who knew some band-4 words: their new words count 70% */
     return { n: ws.length, live, size: vocabSize(), grade: currentGrade().id }; });

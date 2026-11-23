@@ -2,8 +2,8 @@
 // dictionary coverage, morphology on long words, IPA, scenarios.
 // Usage: node tests/check-content.js content.js [--missing]   (--missing prints every word missing from WORDS as JSON)
 const fs = require('fs'), vm = require('vm'); const ctx = {}; vm.createContext(ctx);
-const exFile = require('path').join(require('path').dirname(process.argv[2]), 'content-examples.js');
-vm.runInContext(fs.readFileSync(process.argv[2], 'utf8') + (fs.existsSync(exFile) ? ';' + fs.readFileSync(exFile, 'utf8') : '') + ';this.EX2=typeof EX2==="undefined"?{}:EX2;this.D=DECK;this.SC=SCENARIOS;this.W=WORDS;this.IG=WORD_IGNORE;this.PR=typeof PROMPTS==="undefined"?[]:PROMPTS;this.VO=typeof VOCAB_ORDER==="undefined"?[]:VOCAB_ORDER;', ctx);
+const sib = f => { const p = require('path').join(require('path').dirname(process.argv[2]), f); return fs.existsSync(p) ? ';' + fs.readFileSync(p, 'utf8') : ''; };
+vm.runInContext(fs.readFileSync(process.argv[2], 'utf8') + sib('content-goals.js') + sib('content-examples.js') + ';this.GC=typeof GOAL_COURSES==="undefined"?[]:GOAL_COURSES;' + ';this.EX2=typeof EX2==="undefined"?{}:EX2;this.D=DECK;this.SC=SCENARIOS;this.W=WORDS;this.IG=WORD_IGNORE;this.PR=typeof PROMPTS==="undefined"?[]:PROMPTS;this.VO=typeof VOCAB_ORDER==="undefined"?[]:VOCAB_ORDER;', ctx);
 const D = ctx.D, W = ctx.W, IG = new Set(ctx.IG), errs = [], warn = [];
 const LEVELS = ["A1", "A2", "B1", "B2", "C1"], MIN_PER_CELL = 25;
 const STOP = new Set("i me my mine you your yours we our us he him his she her it its they them their a an the to of in on at for with and or but is am are was were be been being does did done have has had having will would can could should shall may might must this that these those there here what where when how who whom which why not no so up out about as by from if then than too very just let s ll d ve re t m into over under after before again all any some each every both more most less much many own same such only also yet still even now well get got gotten going gone came took made put say said see seen give know want need like one two three ten seven first oh hi hey yes please getting other off another myself yourself".split(" "));
@@ -57,6 +57,9 @@ Object.values(W).forEach(e => { if (!e.e) return; examples++;
   const fs = new Set([e.w, ...e.forms]); const ts = (e.e.en || '').toLowerCase().match(/[a-z][a-z'-]*/g) || [];
   if (!ts.some(t => fs.has(t.replace(/'s$/, '')))) errs.push(`example does not use "${e.w}": ${e.e.en}`);
   if (!HANGUL.test(e.e.ko || '')) errs.push('example without Korean: ' + e.w); });
+/* goal courses: every listed word is in the dictionary, no duplicates */
+ctx.GC.forEach(c => { if (!c.words.length) errs.push('empty goal course ' + c.id); if (new Set(c.words).size !== c.words.length) errs.push('goal course has duplicates: ' + c.id);
+  c.words.forEach(w => { if (!W[w]) errs.push(`goal course ${c.id} word not in WORDS: ${w}`); }); });
 /* second examples: the word (or a listed form) is in the sentence, Korean is present, and it differs from the first example */
 let ex2 = 0;
 Object.entries(ctx.EX2).forEach(([w, x]) => { const e = W[w]; if (!e) { errs.push('EX2 word not in WORDS: ' + w); return; } ex2++;
@@ -72,7 +75,7 @@ Object.values(W).filter(e => !/^\/[^\/]+\/$/.test(e.ipa || '')).forEach(e => err
 Object.values(W).filter(e => e.ipa && (e.ipa.match(/[aeiouɑæɔəɪʊʌɜ]+/g) || []).length > 2 && !/[ˈ]/.test(e.ipa)).forEach(e => errs.push('no stress ' + e.w + ' ' + e.ipa));
 
 if (process.argv.includes('--missing')) { console.log(JSON.stringify([...missing.entries()])); process.exit(0); }
-console.log(JSON.stringify({ withIpa: Object.values(W).filter(e => e.ipa).length, chunks: D.length, situations: tags.length, minPerCell: minCell, scenarios: ctx.SC.length, prompts: ctx.PR.length, vocabCourse: ctx.VO.length, examples, secondExamples: ex2,
+console.log(JSON.stringify({ withIpa: Object.values(W).filter(e => e.ipa).length, chunks: D.length, situations: tags.length, minPerCell: minCell, scenarios: ctx.SC.length, prompts: ctx.PR.length, vocabCourse: ctx.VO.length, examples, secondExamples: ex2, goalCourses: ctx.GC.map(c => c.id + ':' + c.words.length).join(' '),
   scenarioTags: new Set(ctx.SC.map(s => s.tag)).size, words: Object.keys(W).length, wordsUsed: used.size, wordsWithMorphologyOrStory: withParts, errors: errs.length, warnings: warn.length }));
 if (warn.length) console.log('warnings:\n' + warn.join('\n'));
 if (errs.length) { console.log(errs.slice(0, 30).join('\n')); process.exit(1); }

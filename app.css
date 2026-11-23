@@ -588,3 +588,9 @@ details.lvl-sec>.pu{margin-top:10px;width:100%}
 .pc-big .pc-e{font-size:54px}
 .pc-big b{font-size:22px}
 .hall-row{display:flex;flex-direction:column;gap:4px;padding:8px 0;border-top:1px solid var(--line)}
+
+/* 단어장 고르기 */
+.course-list{display:flex;flex-direction:column;gap:8px}
+.course-opt{display:flex;align-items:center;gap:10px;padding:12px 14px;width:100%}
+.course-opt.on{border-color:var(--mint);box-shadow:0 var(--press) 0 var(--mint-d);background:#E9F8F1}
+.date-in{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);width:100%}

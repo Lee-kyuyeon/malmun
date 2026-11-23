@@ -61,7 +61,8 @@ function srcFor(w){ const e = S.words && S.words[w]; if (e && e.src) return e.sr
    a correct answer moves the word up one rung, a miss moves it down one; FSRS still decides when it comes back */
 const STAGE_KO = ["새 단어","뜻 알아보기","문장 속 빈칸","한→영 떠올리기","다른 문장 빈칸","내 문장 만들기"];
 const WORD_NEW_PER_DAY = 5; /* default; the learner picks 5/10/15 in settings */
-const wordsPerDay = () => S.settings.wordsPerDay || WORD_NEW_PER_DAY;
+/* with an exam date, the daily amount is worked out so the course is finished a little before the exam (last 15% of days for review) */
+const wordsPerDay = () => goalDaily() || S.settings.wordsPerDay || WORD_NEW_PER_DAY;
 /* words saved before the ladder existed start from their memory strength */
 const wordStage = w => { const e = S.words && S.words[w]; if (!e) return 0; if (typeof e.stage === "number") return e.stage; return S.cards["w:"+w] ? Math.min(3, 1 + Math.max(0, mastery("w:"+w)-1)) : 0; };
 function setStage(w, ok){ const e = S.words && S.words[w]; if (!e) return; const st = wordStage(w);
@@ -111,12 +112,22 @@ function sameMeaning(typed, target){
   const ka = koSenses(a.ko); return koSenses(b.ko).some(x => ka.includes(x));
 }
 function wordNewLeft(){ const k = dayKey(); if (!S.wordNew || S.wordNew.day !== k) S.wordNew = {day:k, n:0}; return Math.max(0, wordsPerDay() - S.wordNew.n); }
-/* the vocabulary course: next words in frequency order that are not in the notebook yet */
-function vocabNext(n){ const out = []; if (typeof VOCAB_ORDER === "undefined") return out;
-  for (const w of VOCAB_ORDER) { if (out.length >= n) break; if (WORDS[w] && !(S.words && S.words[w])) out.push(w); } return out; }
+/* word courses: the everyday frequency course, plus goal courses (school, 수능, TOEIC, TOEFL/IELTS) from content-goals.js */
+const EXAM_COURSES = ["csat", "toeic", "academic"];
+function allCourses(){ return [{id:"basic", t:"기본 단어장", d:"영어에서 자주 쓰는 순서 (생활 영어)", src:"wordfreq", words: typeof VOCAB_ORDER === "undefined" ? [] : VOCAB_ORDER},
+  ...(typeof GOAL_COURSES === "undefined" ? [] : GOAL_COURSES)]; }
+function activeCourse(){ const id = (S.goal && S.goal.course) || "basic"; return allCourses().find(c => c.id === id) || allCourses()[0]; }
+const wordMet = w => !!(S.words && S.words[w] && (S.cards["w:"+w] || wordStage(w) > 0));
+function goalDays(){ if (!S.goal || !S.goal.date || !EXAM_COURSES.includes(S.goal.course)) return null; const d = daysBetween(dayKey(), S.goal.date); return d >= 1 ? d : null; }
+function goalDaily(){ const days = goalDays(); if (!days) return null;
+  const left = activeCourse().words.filter(w => WORDS[w] && !wordMet(w)).length; if (!left) return null;
+  return Math.max(3, Math.min(40, Math.ceil(left / Math.max(1, Math.floor(days * .85))))); }
+/* the next words of the chosen course that are not in the notebook yet */
+function vocabNext(n){ const out = [];
+  for (const w of activeCourse().words) { if (out.length >= n) break; if (WORDS[w] && !(S.words && S.words[w])) out.push(w); } return out; }
 function courseAdd(w){ S.words = S.words || {}; if (!S.words[w]) S.words[w] = {added:Date.now(), src:null, misses:0, auto:true, stage:0, course:true}; }
-function vocabProgress(){ const all = typeof VOCAB_ORDER === "undefined" ? [] : VOCAB_ORDER;
-  const met = w => !!(S.words && S.words[w] && (S.cards["w:"+w] || wordStage(w) > 0));
+function vocabProgress(){ const all = activeCourse().words.filter(w => WORDS[w]);
+  const met = wordMet;
   const bands = []; for (let i = 0; i < all.length; i += 500) { const part = all.slice(i, i + 500); bands.push({from:i+1, to:i+part.length, met:part.filter(met).length, total:part.length}); }
   return {met: all.filter(met).length, total: all.length, bands}; }
 /* every content word in an English sentence can be tapped to open its card and save it */

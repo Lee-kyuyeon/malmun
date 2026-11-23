@@ -2,7 +2,7 @@
 // Usage: node tools/tts/dump.js > items.json   (read by tools/tts/gen.py)
 const fs = require("fs"), path = require("path");
 const root = path.resolve(__dirname, "../..");
-const src = ["content.js", "content-abroad.js", "content-examples.js", "content-climb.js"].map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
+const src = ["content.js", "content-goals.js", "content-abroad.js", "content-examples.js", "content-climb.js"].map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
 const { DECK, WORDS, EPISODES, EX2, CLIMB_SEASONS, chunkId } = new Function(src + "\n;return {DECK, WORDS, EPISODES, EX2, CLIMB_SEASONS, chunkId};")();
 const VOICES = require("./voices.json");
 const vi = v => { const i = VOICES.indexOf(v); if (i < 0) throw new Error("unknown voice " + v); return i; };

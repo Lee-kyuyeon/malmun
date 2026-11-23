@@ -229,9 +229,10 @@ function viewWords(app){
     h("button",{"aria-pressed":String(wordScope==="all"),onclick:()=>{ wordScope="all"; route(); }}, `전체 단어 ${Object.keys(WORDS).length}`));
   app.append(fl);
   /* vocabulary course: frequency-ranked words, met so far, in bands of 500 */
-  { const vp = vocabProgress(); if (vp.total) app.append(h("section",{class:"card-s",id:"vocab-course"},
-      h("div",{class:"row",style:"justify-content:space-between"}, h("h2",{class:"sec-h"},"단어 코스"), h("span",{class:"chip"}, `${vp.met.toLocaleString()}/${vp.total.toLocaleString()}`)),
-      h("p",{class:"ctx",style:"margin-top:-6px"}, `영어에서 자주 쓰는 순서대로 하루 ${wordsPerDay()}개씩 (설정에서 바꿀 수 있어요). 아는 단어는 '이미 알아요'로 넘겨요.`),
+  { const vp = vocabProgress(), c = activeCourse(), dd = goalDays(); if (vp.total) app.append(h("section",{class:"card-s",id:"vocab-course"},
+      h("div",{class:"row",style:"justify-content:space-between;align-items:center"}, h("h2",{class:"sec-h"}, c.t), h("span",{class:"chip"}, `${vp.met.toLocaleString()}/${vp.total.toLocaleString()}`)),
+      h("p",{class:"ctx",style:"margin-top:-6px"}, dd ? `시험까지 D-${dd} · 남은 단어를 맞추려면 하루 ${wordsPerDay()}개씩. 아는 단어는 '이미 알아요'로 넘겨요.` : `${c.d} · 하루 ${wordsPerDay()}개씩. 아는 단어는 '이미 알아요'로 넘겨요.`),
+      h("button",{class:"ghost sm",type:"button","data-open":"course-pick",onclick:openCoursePicker}, "단어장 바꾸기 · 시험 날짜"),
       h("div",{class:"stagebars"}, ...vp.bands.map(b => h("div",{class:"hbar"}, h("span",{style:"font-size:12px"}, `${b.from}~${b.to}`), h("span",{class:"t"}, h("i",{style:`width:${b.met/b.total*100}%`})), h("span",{class:"v"}, `${b.met}`)))),
       h("button",{class:"primary","data-open":"wordcourse",onclick:()=>{ sfx("tap"); wordOnlyNext = true; location.hash = "#learn"; }}, "오늘의 단어 학습"))); }
   if (wordScope === "mine" && mine.length) { const now = Date.now();
@@ -252,6 +253,36 @@ function viewWords(app){
         : h("div",{class:"m"}, h("div",{class:"meter"}, ...[0,1,2,3,4].map(k=>h("i",{class:k<=m-1||(k===0&&m>0)?"on":""}))), h("span",{}, MASTERY_LABEL[m])))); };
   more.onclick = renderMore; renderMore();
   app.append(box, more);
+}
+
+/* 단어장 고르기: everyday, school, 수능, TOEIC, TOEFL/IELTS; exam courses take an exam date and work out the daily amount */
+function openCoursePicker(){
+  let pick = activeCourse().id, date = (S.goal && S.goal.date) || "";
+  openSheet("단어장 고르기", inner => {
+    const draw = () => {
+      inner.replaceChildren();
+      const list = h("div",{class:"course-list",role:"radiogroup","aria-label":"단어장"});
+      allCourses().forEach(c => { const tot = c.words.filter(w => WORDS[w]).length, met = c.words.filter(w => WORDS[w] && wordMet(w)).length;
+        list.append(h("button",{class:"course-opt press" + (c.id === pick ? " on" : ""),type:"button",role:"radio","aria-checked":String(c.id === pick),"data-course":c.id,onclick:()=>{ sfx("tap"); pick = c.id; draw(); }},
+          h("div",{style:"min-width:0;flex:1;text-align:left"}, h("b",{}, c.t), h("small",{class:"ctx",style:"display:block"}, c.d)),
+          h("span",{class:"chip"}, `${met}/${tot.toLocaleString()}`))); });
+      inner.append(list);
+      if (EXAM_COURSES.includes(pick)) {
+        const inp = h("input",{type:"date",value:date,min:dayKey(),"aria-label":"시험 날짜",class:"date-in"});
+        inp.onchange = () => { date = inp.value; draw(); };
+        const c = allCourses().find(x => x.id === pick), left = c.words.filter(w => WORDS[w] && !wordMet(w)).length;
+        const days = date ? daysBetween(dayKey(), date) : 0, per = days >= 1 ? Math.max(3, Math.min(40, Math.ceil(left / Math.max(1, Math.floor(days * .85))))) : 0;
+        inner.append(h("div",{class:"card-s",style:"gap:8px;padding:12px"}, h("label",{class:"ctx"}, "시험 날짜 (선택)"), inp,
+          h("p",{class:"ctx",id:"pace-note"}, days >= 1 ? `D-${days} · 남은 단어 ${left.toLocaleString()}개 → 하루 ${per}개씩이면 시험 ${Math.max(1, days - Math.floor(days*.85))}일 전에 다 보고 복습할 수 있어요.` + (per >= 40 ? " 하루 40개가 최대라 시간이 조금 모자라요. 자주 나오는 단어부터 나와요." : "") : "날짜를 넣으면 하루에 몇 개씩 하면 되는지 계산해 줘요. 비워 두면 설정의 하루 새 단어 수를 따라요.")));
+      }
+      const src = allCourses().find(x => x.id === pick).src;
+      inner.append(h("p",{class:"ctx"}, `출처: ${src}. 뜻·예문은 재잘이 직접 썼어요.`));
+      const ok = h("button",{class:"primary",type:"button","data-act":"save-course"}, "이 단어장으로 공부하기");
+      ok.onclick = () => { S.goal = {course:pick, date: EXAM_COURSES.includes(pick) && date ? date : null}; save(); closeSheet(); toast(`'${allCourses().find(x=>x.id===pick).t}'으로 바꿨어요 · 하루 ${wordsPerDay()}개`); route(); };
+      inner.append(ok);
+    };
+    draw();
+  });
 }
 
 /* ---------- SCIENCE ---------- */

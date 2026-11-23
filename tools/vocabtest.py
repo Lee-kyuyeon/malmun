@@ -58,6 +58,8 @@ def main():
         bands.append(sorted(rnd.sample(pool, 60)))
     fakes = [w for w in FAKES if wordfreq.zipf_frequency(w, "en") == 0 and not wn.synsets(w)]
     heads = set(re.findall(r'^W\("([a-z][a-z\'-]*)"', words_js, re.M))
+    goals = os.path.join(ROOT, "content-goals.js")  # goal-course words (tools/goals.py) count toward the grade too
+    if os.path.exists(goals): heads |= set(re.findall(r'\["([a-z][a-z\'-]*)","', open(goals, encoding="utf-8").read()))
     out = {"bands": bands, "fakes": fakes, "rank": {w: rank[w] for w in sorted(heads) if w in rank}}
     json.dump(out, sys.stdout, ensure_ascii=False)
     print(f"\nlemmas {len(order)} fakes {len(fakes)}/{len(FAKES)} ranked heads {len(out['rank'])}/{len(heads)}", file=sys.stderr)

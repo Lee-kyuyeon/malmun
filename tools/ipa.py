@@ -24,7 +24,9 @@ OVERRIDES = {"address":"/ˈædres/","elaborate":"/ɪˈlæbəˌreɪt/","perfect":
   "homebody":"/ˈhoʊmˌbɑdi/","fixer":"/ˈfɪksər/","nighter":"/ˈnaɪtər/","edged":"/edʒd/","dutch":"/dʌtʃ/","seoul":"/soʊl/","korea":"/kəˈriə/",
   "lunchtime":"/ˈlʌntʃˌtaɪm/","layover":"/ˈleɪˌoʊvər/","checkout":"/ˈtʃekˌaʊt/","sidetrack":"/ˈsaɪdˌtræk/","overcook":"/ˌoʊvərˈkʊk/",
   "overrate":"/ˌoʊvərˈreɪt/","overcharge":"/ˌoʊvərˈtʃɑrdʒ/","washable":"/ˈwɑʃəbəl/","shoestring":"/ˈʃuˌstrɪŋ/","toothache":"/ˈtuθˌeɪk/",
-  "influencer":"/ˈɪnfluənsər/","podcast":"/ˈpɑdˌkæst/","laptop":"/ˈlæpˌtɑp/","website":"/ˈwebˌsaɪt/","download":"/ˈdaʊnˌloʊd/"}
+  "influencer":"/ˈɪnfluənsər/","podcast":"/ˈpɑdˌkæst/","laptop":"/ˈlæpˌtɑp/","website":"/ˈwebˌsaɪt/","download":"/ˈdaʊnˌloʊd/",
+  "advertize":"/ˈædvərˌtaɪz/","distractor":"/dɪˈstræktər/","vend":"/vend/","fundraise":"/ˈfʌndˌreɪz/","repairperson":"/rɪˈperˌpɜrsən/",
+  "housekeep":"/ˈhaʊsˌkip/","destine":"/ˈdestɪn/","factorial":"/fækˈtɔriəl/","postgraduate":"/poʊstˈɡrædʒuət/"}
 
 def vowel(p): return re.sub(r"\d", "", p) in V or re.sub(r"\d", "", p) in ("AH", "ER")
 def sym(p):
