@@ -13,6 +13,9 @@ const ok = (n, c, x) => { R[n] = c ? 'PASS' : 'FAIL ' + JSON.stringify(x ?? '');
   ok('icons_200', icons.every(s => s === 200), icons);
   await p.evaluate(() => navigator.serviceWorker.ready); await p.reload(); await p.waitForTimeout(800);
   ok('sw_controls', await p.evaluate(() => !!navigator.serviceWorker.controller));
+  /* differential install: shell.json is cached with the per-file hashes and how many files were downloaded */
+  const shell = await p.evaluate(async () => { const r = await caches.match('shell.json'); return r ? r.json() : null; });
+  ok('sw_shell_manifest', shell && shell.files && shell.fetched === Object.keys(shell.files).length && shell.reused === 0, shell && { fetched: shell.fetched, reused: shell.reused });
   const cdp = await ctx.newCDPSession(p);
   const inst = await cdp.send('Page.getInstallabilityErrors');
   ok('installable', inst.installabilityErrors.length === 0, inst.installabilityErrors);

@@ -11,8 +11,8 @@ const run = (file, args) => new Promise(resolve => { const t0 = Date.now(); let 
   ch.on('close', code => resolve({ code, txt, ms: Date.now() - t0 })); });
 (async () => {
   await new Promise(r => server.listen(0, r)); const base = 'http://localhost:' + server.address().port; const index = path.join(root, 'index.html');
-  const suites = [['check-content', [path.join(root, 'content.js')]], ...['regression', 'ux', 'placement', 'words', 'talk', 'game', 'ladder', 'abroad'].map(n => [n, [index, out]]),
-    ['curriculum', [index]], ['speakout', [index, out]], ['wordcourse', [index, out]], ['grade', [index, out]], ['cloze', [index, out]], ['climb', [index, out]], ['goals', [index, out]], ['pwa', [base, out]], ['ios', [base, out]], ['perf', ['file://' + index]]];
+  const suites = [['check-content', [path.join(root, 'content.js')]], ['shell', []], ...['regression', 'ux', 'placement', 'words', 'talk', 'game', 'ladder', 'abroad'].map(n => [n, [index, out]]),
+    ['curriculum', [index]], ['speakout', [index, out]], ['wordcourse', [index, out]], ['grade', [index, out]], ['cloze', [index, out]], ['climb', [index, out]], ['goals', [index, out]], ['dict', [index, out]], ['pwa', [base, out]], ['ios', [base, out]], ['perf', ['file://' + index]]];
   const only = process.argv.slice(2); let failed = 0;
   for (const [name, args] of suites) { if (only.length && !only.includes(name)) continue;
     const r = await run(name + '.js', args);

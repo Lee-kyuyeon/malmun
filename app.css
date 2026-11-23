@@ -594,3 +594,12 @@ details.lvl-sec>.pu{margin-top:10px;width:100%}
 .course-opt{display:flex;align-items:center;gap:10px;padding:12px 14px;width:100%}
 .course-opt.on{border-color:var(--mint);box-shadow:0 var(--press) 0 var(--mint-d);background:#E9F8F1}
 .date-in{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);width:100%}
+
+/* 사전 검색 */
+.deck-body{display:flex;flex-direction:column;gap:18px}
+.dict-box{display:flex;flex-direction:column;gap:10px}
+.dict-q{font:inherit;font-size:16px;padding:12px 14px;border:2px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);width:100%}
+.dict-q:focus{border-color:var(--sky);outline:none}
+.dict-out{display:flex;flex-direction:column;gap:10px}
+.dict-out:empty{display:none}
+.dict-row{border-left:0;border-right:0;border-bottom:0;background:transparent;text-align:left;width:100%}

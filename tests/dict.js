@@ -1,0 +1,32 @@
+// Dictionary search: English prefix, inflected form → headword, Korean meaning, one-typo tolerance, chunk hits, UI in 표현함.
+const { chromium, devices } = require('playwright');
+const file = 'file://' + process.argv[2], out = process.argv[3]; const R = {}, errs = [];
+const ok = (n, c, x) => { R[n] = c ? 'PASS' : 'FAIL ' + JSON.stringify(x ?? ''); };
+(async () => {
+  const b = await chromium.launch();
+  const ctx = await b.newContext({ ...devices['Pixel 7'] });
+  await ctx.addInitScript(() => { if (!sessionStorage.getItem('seeded')) { localStorage.setItem('malmun.v1', JSON.stringify({ onboarded: true })); sessionStorage.setItem('seeded', '1'); } });
+  const p = await ctx.newPage();
+  p.on('pageerror', e => errs.push('pageerror: ' + e.message)); p.on('console', m => { if (m.type() === 'error' && !/Failed to load resource/.test(m.text())) errs.push('console: ' + m.text()); });
+  await p.goto(file); await p.waitForTimeout(600); await p.evaluate(() => closeSheet());
+  const r = await p.evaluate(() => { const w = q => dictSearch(q).words.map(e => e.w);
+    return { prefix: w('recei').slice(0, 3), form: w('borrowed')[0], ko: w('영수증'), typo: dictSearch('recieve'), chunk: dictSearch('iced americano').chunks.length, speed: (() => { const a = performance.now(); for (let i = 0; i < 20; i++) dictSearch('st'); return (performance.now() - a) / 20; })() }; });
+  ok('prefix', r.prefix.includes('receipt') && r.prefix.includes('receive'), r.prefix);
+  ok('form_to_head', r.form === 'borrow', r.form);
+  ok('korean', r.ko.includes('receipt'), r.ko);
+  ok('typo', r.typo.fuzzy && r.typo.words.some(e => e.w === 'receive'), r.typo.words.map(e => e.w));
+  ok('chunks', r.chunk >= 1, r.chunk);
+  ok('fast', r.speed < 30, r.speed);
+  await p.evaluate(() => { location.hash = '#deck'; }); await p.waitForTimeout(400);
+  await p.fill('.dict-q', '영수증'); await p.waitForTimeout(400);
+  const ui = await p.evaluate(() => ({ rows: document.querySelectorAll('#dict-results .dict-row').length, hidden: document.querySelector('.deck-body').hidden }));
+  await p.screenshot({ path: out + '/dict-search.png' });
+  ok('ui_results', ui.rows >= 1 && ui.hidden, ui);
+  await p.click('#dict-results [data-w="receipt"]'); await p.waitForTimeout(300);
+  ok('opens_card', (await p.textContent('.sheet')).includes('receipt'));
+  await p.evaluate(() => closeSheet()); await p.fill('.dict-q', ''); await p.waitForTimeout(300);
+  ok('clear_restores', await p.evaluate(() => !document.querySelector('.deck-body').hidden));
+  ok('no_overflow', !(await p.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)));
+  await b.close();
+  console.log(JSON.stringify({ R, errs, fails: Object.values(R).filter(v => v !== 'PASS').length }, null, 1));
+})();

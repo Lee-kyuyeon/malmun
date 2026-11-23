@@ -198,10 +198,11 @@ function viewDeck(app){
   const seg = h("div",{class:"seg2",role:"group","aria-label":"표현함 보기"},
     h("button",{type:"button","aria-pressed":String(deckMode==="chunks"),onclick:()=>{ deckMode="chunks"; route(); }},"표현"),
     h("button",{type:"button","aria-pressed":String(deckMode==="words"),onclick:()=>{ deckMode="words"; route(); }},"단어"));
-  app.append(seg);
-  if (deckMode === "words") return viewWords(app);
+  const body = h("div",{class:"deck-body"});
+  app.append(seg, dictSearchBox(body), body);
+  if (deckMode === "words") return viewWords(body);
   const cards = allCards(); const tags = ["전체", ...new Set(cards.map(c=>c.tag))];
-  app.append(h("p",{class:"eyebrow"},"표현함 · "+cards.length+"개"), h("h1",{class:"title"},"입에 붙일 덩어리들"),
+  body.append(h("p",{class:"eyebrow"},"표현함 · "+cards.length+"개"), h("h1",{class:"title"},"입에 붙일 덩어리들"),
     h("p",{class:"lead muted"},"단어 하나가 아니라 통째로 쓰는 표현을 모읍니다. 막대가 다섯 칸 차면 몇 주 동안 잊지 않는 상태예요."));
   const fl = h("div",{class:"filters",role:"group","aria-label":"상황별 보기"}); const fl2 = h("div",{class:"filters",role:"group","aria-label":"레벨별 보기"}); const list = h("div",{class:"cards"});
   const lv = ["모든 레벨", ...LEVELS];
@@ -217,7 +218,7 @@ function viewDeck(app){
     more.hidden = shown.length <= deckShow; more.textContent = `더 보기 (${shown.length - deckShow}개 남음)`; };
   let deckShow = 60; const more = h("button",{class:"ghost more-btn",type:"button","data-act":"deck-more",onclick:()=>{ deckShow += 60; draw(); }});
   const refilter = fn => () => { deckShow = 60; fn(); draw(); };
-  draw(); app.append(fl, fl2, list, more);
+  draw(); body.append(fl, fl2, list, more);
 }
 
 function viewWords(app){
