@@ -3,7 +3,7 @@
    Fonts and the pinned WebLLM library: cache first. Model weights are cached by WebLLM itself. */
 const VERSION = "jaejal-2026-11-23a";
 const AUDIO_CACHE = "jaejal-audio-1"; /* recorded voices: kept across app updates, filled as clips are played or saved for offline */
-const SHELL = ["./", "index.html", "app.css", "js/core.js", "js/device.js", "js/words.js", "js/game.js", "js/app.js", "js/learn.js", "js/talk.js", "js/screens.js", "js/pwa.js", "js/speak.js", "js/grade.js", "content-vocab.js", "js/main.js", "content.js", "content-abroad.js", "audio/manifest.js", "js/abroad.js", "worker.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-512.png", "icons/apple-touch-icon.png", "icons/icon.svg"];
+const SHELL = ["./", "index.html", "app.css", "js/core.js", "js/device.js", "js/words.js", "js/game.js", "js/app.js", "js/learn.js", "js/talk.js", "js/screens.js", "js/pwa.js", "js/speak.js", "js/grade.js", "content-vocab.js", "content-examples.js", "content-climb.js", "js/climb.js", "js/main.js", "content.js", "content-abroad.js", "audio/manifest.js", "js/abroad.js", "worker.js", "manifest.webmanifest", "icons/icon-192.png", "icons/icon-512.png", "icons/maskable-512.png", "icons/apple-touch-icon.png", "icons/icon.svg"];
 
 self.addEventListener("install", e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));

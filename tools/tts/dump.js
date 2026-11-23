@@ -2,8 +2,8 @@
 // Usage: node tools/tts/dump.js > items.json   (read by tools/tts/gen.py)
 const fs = require("fs"), path = require("path");
 const root = path.resolve(__dirname, "../..");
-const src = ["content.js", "content-abroad.js"].map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
-const { DECK, WORDS, EPISODES, chunkId } = new Function(src + "\n;return {DECK, WORDS, EPISODES, chunkId};")();
+const src = ["content.js", "content-abroad.js", "content-examples.js", "content-climb.js"].map(f => fs.readFileSync(path.join(root, f), "utf8")).join("\n;\n");
+const { DECK, WORDS, EPISODES, EX2, CLIMB_SEASONS, chunkId } = new Function(src + "\n;return {DECK, WORDS, EPISODES, EX2, CLIMB_SEASONS, chunkId};")();
 const VOICES = require("./voices.json");
 const vi = v => { const i = VOICES.indexOf(v); if (i < 0) throw new Error("unknown voice " + v); return i; };
 /* the main voice rotates over six American speakers; the second voice is the other sex, British from B1 up */
@@ -24,4 +24,8 @@ const EP_SPEED = { A1: 1.05, A2: 1.05, B1: 1.1, B2: 1.15 };
 EPISODES.forEach(e => e.scenes.forEach(s => s.lines.forEach(l => add(l.en, [e.cast[l.who].v], EP_SPEED[e.lvl] || 1.1))));
 /* vocabulary-course example sentences last, so the words themselves are recorded first; main voice rotates like the deck */
 Object.values(WORDS).forEach(e => { if (!e.e || !e.e.en) return; const n = parseInt(chunkId(e.e.en).slice(1), 36); add(e.e.en, [MAIN[n % MAIN.length]]); });
+/* second example sentences (review contexts) after that */
+Object.values(EX2).forEach(x => { const n = parseInt(chunkId(x.en).slice(1), 36); add(x.en, [MAIN[(n + 3) % MAIN.length]]); });
+/* travel postcards: the idiom and its example */
+CLIMB_SEASONS.forEach(s => s.marks.forEach(mk => { add(mk.en, ["af_heart"]); add(mk.ex, ["am_michael"]); }));
 process.stdout.write(JSON.stringify([...items.values()]));

@@ -67,9 +67,6 @@ const wordStage = w => { const e = S.words && S.words[w]; if (!e) return 0; if (
 function setStage(w, ok){ const e = S.words && S.words[w]; if (!e) return; const st = wordStage(w);
   e.stage = ok ? Math.min(5, Math.max(1, st) + 1) : Math.max(1, st - 1); e.best = Math.max(e.best||0, e.stage); }
 function formsOf(w){ const e = wordEntry(w); return new Set(e ? [e.w, ...(e.forms||[])] : [w]); }
-function otherContext(w, notEn){ const f = formsOf(w);
-  const list = DECK.filter(c => c.en !== notEn && toks(c.en).some(t => f.has(t.replace(/'s$/,""))));
-  return list.length ? list[Math.floor(Math.random()*list.length)] : null; }
 /* which exercise fits a word now; rung 5 needs the on-device AI, otherwise it alternates recall and new-context cloze */
 function wordStepFor(w){
   const st = wordStage(w), src = srcFor(w);
@@ -78,8 +75,40 @@ function wordStepFor(w){
   if (lvl <= 1) return {type:"wordmean", id:"w:"+w};
   if (lvl === 2) return src ? {type:"wordcloze", id:"w:"+w} : {type:"wordrecall", id:"w:"+w};
   if (lvl === 3) return {type:"wordrecall", id:"w:"+w};
-  if (lvl === 4 || !llm.engine) { const c = otherContext(w, src && src.en); if (c && (lvl === 4 || Math.random() < .5)) return {type:"wordcloze", id:"w:"+w, ctx:c.id}; return {type:"wordrecall", id:"w:"+w}; }
+  if (lvl === 4 || !llm.engine) { const c = nextContext(w, lvl === 4 && src ? src.en : null); if (c && (lvl === 4 || Math.random() < .6)) return {type:"wordcloze", id:"w:"+w, ctx:c.en}; return {type:"wordrecall", id:"w:"+w}; }
   return {type:"wordmake", id:"w:"+w};
+}
+/* every sentence the app has for a word: deck chunks, any dictionary example that uses it, and its second example (EX2).
+   Reviews rotate through them so a word is recalled in a sentence the learner has not just seen */
+const CTX_CACHE = new Map();
+function contextsFor(w){
+  if (CTX_CACHE.has(w)) return CTX_CACHE.get(w);
+  const f = formsOf(w), has = en => toks(en).some(t => f.has(t.replace(/'s$/,""))), out = [], seen = new Set();
+  const add = (en, ko) => { const k = en.toLowerCase(); if (!seen.has(k) && has(en)) { seen.add(k); out.push({en, ko}); } };
+  const e = wordEntry(w); if (e && e.e) add(e.e.en, e.e.ko);
+  if (typeof EX2 !== "undefined" && EX2[w]) add(EX2[w].en, EX2[w].ko);
+  DECK.forEach(c => { if (out.length < 12) add(c.en, c.ko); });
+  if (out.length < 4) Object.values(WORDS).forEach(x => { if (out.length < 8 && x.e && x.w !== w) add(x.e.en, x.e.ko); });
+  CTX_CACHE.set(w, out); return out;
+}
+/* a sentence other than the one shown last time, preferring ones never shown */
+function nextContext(w, notEn){
+  const list = contextsFor(w), rec = (S.words && S.words[w]) || {}, seen = rec.seenCtx || [];
+  const pool = list.filter(c => c.en !== notEn && c.en !== rec.lastCtx);
+  const fresh = pool.filter(c => !seen.includes(c.en));
+  const pick = fresh.length ? fresh : pool;
+  return pick.length ? pick[Math.floor(Math.random()*pick.length)] : null;
+}
+function markContext(w, en){ const rec = S.words && S.words[w]; if (!rec) return; const isNew = !(rec.seenCtx||[]).includes(en);
+  rec.lastCtx = en; rec.seenCtx = [...(rec.seenCtx||[]).filter(x => x !== en), en].slice(-6); return isNew; }
+/* bonus hint: the learner typed a word that means the same thing (WordNet synonym or the same Korean meaning) */
+const koSenses = ko => String(ko||"").split(/[,·/;]| 또는 /).map(s => s.replace(/\(.*?\)/g,"").trim()).filter(s => s.length >= 2);
+function sameMeaning(typed, target){
+  const t = (WORD_FORM.get(typed) || {}).w || typed; if (!t || t === target) return false;
+  const S1 = (typeof SYN !== "undefined" && SYN[target] && SYN[target].s) || [], S2 = (typeof SYN !== "undefined" && SYN[t] && SYN[t].s) || [];
+  if (S1.includes(t) || S2.includes(target)) return true;
+  const a = WORDS[t], b = WORDS[target]; if (!a || !b) return false;
+  const ka = koSenses(a.ko); return koSenses(b.ko).some(x => ka.includes(x));
 }
 function wordNewLeft(){ const k = dayKey(); if (!S.wordNew || S.wordNew.day !== k) S.wordNew = {day:k, n:0}; return Math.max(0, wordsPerDay() - S.wordNew.n); }
 /* the vocabulary course: next words in frequency order that are not in the notebook yet */
@@ -107,6 +136,13 @@ function highlight(en, w){
   en.split(/(\s+)/).forEach(tok => { const bare = tok.toLowerCase().replace(/[^a-z'-]/g,"").replace(/'s$/,"");
     el.append(forms.has(bare) ? h("mark",{class:"w"}, tok) : tok); });
   return el;
+}
+/* 비슷한 말 · 반대말 (WordNet, reviewed): each one opens its own card when the app knows it */
+function synView(w){
+  const d = typeof SYN !== "undefined" && SYN[w]; if (!d) return null;
+  const chip = x => { const e = WORDS[x]; return e ? h("button",{class:"wchip",type:"button",onclick:()=>openWord(x)}, h("b",{}, x), e.ko) : h("span",{class:"wchip"}, h("b",{}, x)); };
+  const row = (lab, list) => list && list.length ? h("div",{class:"synrow"}, h("span",{class:"ctx"}, lab), ...list.map(chip)) : "";
+  return h("div",{class:"syn"}, row("비슷한 말", d.s), row("반대말", d.a));
 }
 function partsView(entry){
   const box = h("div",{style:"display:flex;flex-direction:column;gap:8px"});
@@ -146,6 +182,7 @@ function openWord(w, src){
       if (entry) {
         body.append(h("p",{}, h("span",{class:"ctx"}, entry.pos+" · "), h("b",{}, entry.ko)), h("div",{class:"row"}, h("span",{class:"chip band"+entry.band}, BAND_KO[entry.band]), entry.ai ? h("span",{class:"chip"},"앵두가 정리한 뜻") : ""));
         const pv = partsView(entry); if (pv.childNodes.length) body.append(pv);
+        const sv = synView(w); if (sv) body.append(sv);
         if (hasWord(w)) { const st = wordStage(w); body.append(h("div",{style:"display:flex;flex-direction:column;gap:6px"}, h("div",{class:"ctx"}, `학습 단계 ${st}/5 · ${STAGE_KO[st]}`), h("div",{class:"ladder","aria-hidden":"true"}, ...[1,2,3,4,5].map(i=>h("i",{class:i<=st?"on":""}))))); }
       } else body.append(h("p",{class:"muted"}, llm.engine ? "앵두가 단어를 정리하는 중…" : "이 단어는 사전에 없어요. AI 대화 탭에서 모델을 준비하면 뜻과 어원을 정리해 줄게."));
       const sc = src || srcFor(w);
@@ -167,6 +204,7 @@ function wordInfo(entry){
   const box = h("div",{style:"display:flex;flex-direction:column;gap:8px"});
   box.append(h("p",{}, h("b",{}, entry.w), entry.ipa ? h("span",{class:"ipa"}, " "+entry.ipa) : "", " · ", entry.ko));
   const pv = partsView(entry); if (pv.childNodes.length) box.append(pv);
+  const sv = synView(entry.w); if (sv) box.append(sv);
   box.append(h("div",{class:"row"}, speakBtn(entry.w,"단어 듣기"), h("button",{class:"ghost",type:"button",onclick:()=>openWord(entry.w)},"단어 카드")));
   return box;
 }

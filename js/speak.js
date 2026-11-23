@@ -76,7 +76,7 @@ function taskSpeakout(box, step){
 function finishSpeakout(box, unit, q, targets, m, ai, score, ms){
   const s = session;
   m.used.forEach(c => schedule(c.id, 3)); /* using a chunk in your own answer is strong retrieval */
-  s.total++; if (score >= .6) s.right++;
+  s.total++; if (score >= .6) { s.right++; climb(3); }
   let gain = Math.round(10 + 20 * score); gain = addXP(gain); s.xp += gain;
   S.speakouts = [{t: Date.now(), d: dayKey(), unit: unit.id, lvl: unit.lvl, q: q.en, words: m.words, wpm: m.wpm, used: m.used.length, of: targets.length}, ...(S.speakouts||[])].slice(0, 30);
   S.speakDay = dayKey(); save();

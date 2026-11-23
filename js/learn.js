@@ -31,6 +31,7 @@ function viewHome(app){
   app.append(h("button",{class:"cta",onclick:()=>{ sfx("tap"); location.hash="#learn"; }},
     h("div",{}, h("b",{}, S.sessions? "오늘의 5분 이어가기":"첫 5분 시작하기"), h("span",{}, `${currentUnit().lvl} · ${currentUnit().tag} 단원 · 복습 ${due}개 · 새 표현 ${newLeft}개`)),
     h("span",{class:"arrow","aria-hidden":"true"},"→")));
+  app.append(climbCard());
   app.append(nextPracticeCard());
   const ic = installCard(); if (ic) app.append(ic);
   const bc = backupCard(); if (bc) app.append(bc);
@@ -73,7 +74,7 @@ function buildSession(){
   if (due.length + fresh.length < 5) extra = Object.entries(S.cards).filter(([id])=>!due.includes(id)&&cardById(id)).sort((a,b)=>a[1].due-b[1].due).slice(0, 5-due.length-fresh.length).map(([id])=>id);
   const steps = [];
   fresh.forEach(id => steps.push({type:"listen", id}));
-  const prod = shuffle([...fresh.map(id=>({type:"tiles", id})), ...[...due, ...extra].map((id,i)=>({type: i%3===2 ? "shadow":"recall", id}))]);
+  const prod = shuffle([...fresh.map(id=>({type:"tiles", id})), ...[...due, ...extra].map((id,i)=>({type: i%3===2 ? "shadow" : i%3===1 && clozeTarget(cardById(id)) ? "cloze" : "recall", id}))]);
   const firstHalf = steps.splice(0, Math.ceil(steps.length/2));
   const out = [...firstHalf]; let li = 0;
   prod.forEach((p,i)=>{ out.push(p); if (i%2===1 && li < steps.length) out.push(steps[li++]); });
@@ -127,7 +128,7 @@ function renderStep(){
     h("div",{class:"prog",role:"progressbar","aria-valuemin":"0","aria-valuemax":String(s.steps.length),"aria-valuenow":String(s.i)}, h("i",{style:`width:${Math.max(4, s.i/s.steps.length*100)}%`})), combo));
   const box = h("section",{class:"task"}); app.append(box);
   if (step.type === "speakout") return taskSpeakout(box, step);
-  ({listen:taskListen, tiles:taskTiles, recall:taskRecall, shadow:taskShadow, wordmean:taskWordMean, wordcloze:taskWordCloze, wordintro:taskWordIntro, wordrecall:taskWordRecall, wordmake:taskWordMake})[step.type](box, card, step);
+  ({listen:taskListen, tiles:taskTiles, recall:taskRecall, shadow:taskShadow, wordmean:taskWordMean, wordcloze:taskWordCloze, wordintro:taskWordIntro, wordrecall:taskWordRecall, wordmake:taskWordMake, cloze:taskCloze})[step.type](box, card, step);
 }
 const PRAISE = ["완벽해!","최고야!","원어민 같아!","입에 착 붙었어!","잘했어!"];
 function finish(box, card, step, score, ms, extra, opts={}){
@@ -136,7 +137,7 @@ function finish(box, card, step, score, ms, extra, opts={}){
   if (prod && card.word) setStage(card.word.w, score >= 0.6);
   if (prod) { s.total++; const g = gradeFrom(score, ms); schedule(card.id, g);
     if (!card.word && (!S.cards[card.id] || S.cards[card.id].reps===1)) { S.newCount++; }
-    if (score >= 0.6) { s.right++; s.combo++; } else { s.combo = 0; s.misses[card.id]=(s.misses[card.id]||0)+1;
+    if (score >= 0.6) { s.right++; s.combo++; climb(1); } else { s.combo = 0; s.misses[card.id]=(s.misses[card.id]||0)+1;
       if (!s.retried.has(card.id)) { s.retried.add(card.id); s.steps.splice(Math.min(s.i+3, s.steps.length), 0, card.word ? wordStepFor(card.word.w) : {type:"recall", id:card.id}); } } }
   const mult = Math.min(2, 1 + Math.max(0,s.combo-1)*0.2);
   let gain = Math.round((prod ? 10*score : 4) * mult) + (prod && score>=0.99 && ms<5000 ? 3 : 0);
@@ -144,7 +145,7 @@ function finish(box, card, step, score, ms, extra, opts={}){
   /* daily-mission events: only learning actions count */
   if (prod) { const isNew = !card.word && S.cards[card.id] && S.cards[card.id].reps === 1;
     track(card.word ? "word_review" : isNew ? "new_learned" : "review");
-    if (["recall","shadow","wordcloze","wordrecall","wordmake"].includes(step.type)) track("produce");
+    if (["recall","shadow","cloze","wordcloze","wordrecall","wordmake"].includes(step.type)) track("produce");
     if (step.type === "shadow") track("shadow");
     track("combo_max", s.combo, "max"); }
   else if (step.type === "shadow") track("shadow");
@@ -203,7 +204,10 @@ function answerBox(box, ph, onSubmit, opts={}){
   const send = h("button",{class:"primary",disabled:true}, "확인");
   ta.addEventListener("input", ()=> send.disabled = !ta.value.trim());
   ta.addEventListener("keydown", e=>{ if (e.key==="Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); if (!send.disabled) send.click(); } });
-  send.onclick = async () => { await stopDict(); ta.disabled = true; box.querySelectorAll(".mic").forEach(m=>m.remove()); onSubmit(ta.value); };
+  send.onclick = async () => { await stopDict(); ta.disabled = true; if (!opts.retry) box.querySelectorAll(".mic").forEach(m=>m.remove());
+    const r = await onSubmit(ta.value);
+    if (r === "retry" && document.contains(ta)) { ta.disabled = false; ta.value = ""; send.disabled = true; if (!matchMedia("(pointer:coarse)").matches || !caps.dict) ta.focus(); }
+    else if (opts.retry) box.querySelectorAll(".mic").forEach(m=>m.remove()); };
   ta._onSpoken = () => { if (S.settings.autosubmit && !send.disabled) setTimeout(()=>{ if (document.contains(send) && !ta.disabled) send.click(); }, 350); };
   const mic = micFor(ta, opts);
   box.append(h("div",{class:"answer"}, mic, caps.dict ? h("p",{class:"mic-hint"}, opts.continuous ? "누르면 계속 들어요. 다 말하면 마이크를 다시 누르고 확인" : S.settings.autosubmit ? "누르고 말하면 끝나는 대로 채점해요" : "누르고 말한 뒤 확인을 눌러요") : "", ta));
@@ -258,23 +262,51 @@ function taskWordMean(box, card, step){
   box.append(wrap);
   setTimeout(()=>say(e.w, 1, null, m), 300);
 }
+/* ---------- typing with a hint ladder (싸다보카-style): letters on demand, one more try, synonym = free bonus hint,
+   and "정답 보기" means typing the answer once before moving on ---------- */
+function blankText(word, shown){ return word.slice(0, shown) + "_".repeat(Math.max(1, word.length - shown)); }
+function clozeFlow(box, o){
+  /* o: {word (the exact form to type), forms (Set of accepted forms), target (headword, for synonyms), blanks: [elements to update], ph, onDone(score, info)} */
+  let shown = 1, hints = 0, tries = 0, bonus = 0, copy = false; const t0 = Date.now();
+  const draw = () => o.blanks.forEach(b => { b.textContent = copy ? o.word : blankText(o.word, shown); b.classList.toggle("revealed", copy); });
+  const note = h("p",{class:"cz-note",role:"status","aria-live":"polite"});
+  const hintBtn = h("button",{class:"ghost sm",type:"button","data-act":"hint"},"힌트 보기");
+  const showBtn = h("button",{class:"ghost sm",type:"button","data-act":"show"},"정답 보기");
+  const say1 = (txt, cls) => { note.textContent = txt; note.className = "cz-note " + (cls||""); };
+  hintBtn.onclick = () => { if (shown >= o.word.length - 1) return; sfx("tap"); shown++; hints++; draw(); say1(`힌트 ${hints}번 · 힌트를 쓰면 복습이 조금 더 빨리 돌아와요`);
+    if (shown >= o.word.length - 1) hintBtn.disabled = true; };
+  const reveal = (why) => { copy = true; draw(); hintBtn.remove(); showBtn.remove(); say1(`${why}정답을 한 번 따라 입력하면 넘어가요`, "warn"); sfx("bloop"); };
+  showBtn.onclick = () => reveal("");
+  box.append(h("div",{class:"row cz-tools"}, hintBtn, showBtn), note);
+  draw();
+  const said = ans => toks(ans).map(t => t.replace(/'s$/,""));
+  answerBox(box, o.ph || (caps.dict ? "또는 여기에 입력" : "빈칸 단어를 입력하세요"), ans => {
+    const w = said(ans);
+    if (copy) { if (w.some(t => o.forms.has(t))) { o.onDone(0.2, {shown:true, ms:Date.now()-t0}); return; } say1("철자를 한 번 더 확인해 봐요", "warn"); haptic([20,30,20]); return "retry"; }
+    if (w.some(t => o.forms.has(t))) { const score = tries + hints === 0 ? 1 : Math.max(0.6, 1 - 0.15*(hints + tries)); o.onDone(score, {hints, tries, ms:Date.now()-t0}); return; }
+    const syn = w.find(t => sameMeaning(t, o.target));
+    if (syn && bonus < 2) { bonus++; if (shown < o.word.length - 1) shown++; draw(); sfx("ding");
+      say1(`보너스 힌트! '${syn}'도 비슷한 뜻이야. 정답은 다른 단어야 · 불이익 없음`, "good"); return "retry"; }
+    tries++; haptic([30,40,30]);
+    if (tries === 1) { if (shown < o.word.length - 1) shown++; draw(); say1("아깝다! 한 글자 더 보여 줄게. 한 번 더!", "warn"); sfx("bloop"); return "retry"; }
+    reveal("두 번 다 아니었어. "); return "retry";
+  }, {retry:true});
+}
 function taskWordCloze(box, card, step){
   header(box, "빈칸에 들어갈 단어는?");
-  const e = card.word, ctxC = step.ctx ? cardById(step.ctx) : null, src = ctxC ? {en:ctxC.en, ko:ctxC.ko} : card.src; const t0 = Date.now();
-  if (ctxC) box.append(h("p",{class:"chip",style:"align-self:flex-start"},"처음 보는 문장이야"));
+  const e = card.word, src = step.ctx ? (contextsFor(e.w).find(c => c.en === step.ctx) || card.src) : card.src;
+  const isNew = markContext(e.w, src.en) && step.ctx;
+  if (isNew) box.append(h("p",{class:"chip",style:"align-self:flex-start"},"처음 보는 문장이야"));
   const forms = new Set([e.w, ...(e.forms||[])]);
-  let answerForm = e.w;
+  let answerForm = e.w; const blanks = [];
   const line = h("p",{class:"prompt-en"});
   src.en.split(/(\s+)/).forEach(tok => { const bare = tok.toLowerCase().replace(/[^a-z'-]/g,"").replace(/'s$/,"");
-    if (forms.has(bare)) { answerForm = bare; const tail = tok.slice(tok.toLowerCase().indexOf(bare)+bare.length); line.append(h("span",{class:"blank"}, bare[0] + "_".repeat(Math.max(2, bare.length-1))), tail); }
+    if (forms.has(bare) && !blanks.length) { answerForm = bare; const tail = tok.slice(tok.toLowerCase().indexOf(bare)+bare.length); const b = h("span",{class:"blank"}); blanks.push(b); line.append(b, tail); }
     else line.append(tok); });
   box.append(h("p",{class:"prompt-ko"}, src.ko), line);
-  answerBox(box, caps.dict ? "또는 여기에 입력" : "빈칸 단어를 입력하세요", ans => {
-    const said = toks(ans).map(t=>t.replace(/'s$/,""));
-    const ok = said.includes(answerForm) || said.some(t => forms.has(t));
+  clozeFlow(box, {word:answerForm, forms, target:e.w, blanks, onDone:(score, info) => {
     const ex = h("div",{style:"display:flex;flex-direction:column;gap:8px"}, h("p",{style:"font-weight:700"}, highlight(src.en, e.w)), h("div",{class:"row"}, speakBtn(src.en,"표현 듣기")), wordInfo(e));
-    finish(box, card, step, ok ? 1 : 0.2, Date.now()-t0, ex);
-  });
+    finish(box, card, step, score, info.ms, ex); }});
 }
 function taskWordIntro(box, card, step){
   const m = header(box, "새 단어를 만나 볼까?", "happy");
@@ -294,13 +326,31 @@ function taskWordIntro(box, card, step){
 }
 function taskWordRecall(box, card, step){
   header(box, "이 뜻의 영어 단어는?");
-  const e = card.word; const t0 = Date.now(); const forms = formsOf(e.w);
-  box.append(h("p",{class:"prompt-ko"}, e.ko), h("div",{class:"row"}, h("span",{class:"chip"}, e.pos), h("span",{class:"chip mono"}, e.w[0] + " " + "_ ".repeat(Math.max(1, e.w.length-1)).trim())));
-  answerBox(box, caps.dict ? "또는 여기에 입력" : "영어 단어를 입력하세요", ans => {
-    const said = toks(ans).map(t=>t.replace(/'s$/,"")); const ok = said.some(t => forms.has(t));
+  const e = card.word; const forms = formsOf(e.w); const b = h("span",{class:"blank mono"});
+  box.append(h("p",{class:"prompt-ko"}, e.ko), h("div",{class:"row"}, h("span",{class:"chip"}, e.pos), b));
+  clozeFlow(box, {word:e.w, forms, target:e.w, blanks:[b], ph: caps.dict ? "또는 여기에 입력" : "영어 단어를 입력하세요", onDone:(score, info) => {
     const ex = h("div",{style:"display:flex;flex-direction:column;gap:8px"}, wordInfo(e)); if (card.src) ex.prepend(h("p",{style:"font-weight:700"}, highlight(card.src.en, e.w)));
-    finish(box, card, step, ok ? 1 : 0.2, Date.now()-t0, ex);
-  });
+    finish(box, card, step, score, info.ms, ex); }});
+}
+/* chunk cloze: the deck sentence with its key word blanked, typed from the Korean meaning */
+function clozeTarget(card){
+  let best = null;
+  toks(card.en).forEach(t => { const e = lookupTok(t); if (!e || t.length < 3) return; const r = (typeof VOCAB_RANK !== "undefined" && VOCAB_RANK[e.w]) || 9000;
+    if (!best || r > best.r) best = {t, e, r}; });
+  return best;
+}
+function taskCloze(box, card, step){
+  header(box, "빈칸을 채워 문장을 완성해 봐!");
+  const tg = clozeTarget(card); if (!tg) return taskRecall(box, card, step);
+  const blanks = [], line = h("p",{class:"prompt-en"});
+  card.en.split(/(\s+)/).forEach(tok => { const bare = tok.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[’]/g,"'").replace(/[^a-z'-]/g,"");
+    if (!blanks.length && (bare === tg.t || bare.replace(/'s$/,"") === tg.t)) { const i = tok.toLowerCase().indexOf(tg.t); const b = h("span",{class:"blank"}); blanks.push(b); line.append(tok.slice(0, Math.max(0,i)), b, tok.slice(i + tg.t.length)); }
+    else line.append(tok); });
+  box.append(h("p",{class:"prompt-ko"}, card.ko), line, h("div",{class:"row"}, h("span",{class:"chip"}, card.tag+" · "+card.lvl)));
+  clozeFlow(box, {word:tg.t, forms:new Set([tg.t]), target:tg.e.w, blanks, onDone:(score, info) => {
+    const ex = h("div",{style:"display:flex;flex-direction:column;gap:8px"}, h("p",{style:"font-weight:700"}, highlight(card.en, tg.e.w)), h("div",{class:"row"}, speakBtn(card.en,"문장 듣기")), wordInfo(tg.e));
+    if (score < 0.6 && !hasWord(tg.e.w)) addWord(tg.e.w, {en:card.en, ko:card.ko}, true);
+    finish(box, card, step, score, info.ms, ex); }});
 }
 function taskWordMake(box, card, step){
   header(box, "이 단어로 짧은 문장을 말해 볼래?");
@@ -345,6 +395,7 @@ function renderRecap(){
   setTimeout(()=>setMood(m,"idle"), 1600);
   { const up = gradeCheck(); if (up) { const g = GRADES.find(x=>x.id===up.to);
     app.append(h("section",{class:"card-s",id:"grade-up",style:"text-align:center;align-items:center"}, gradeEmblem(g, 64), h("b",{class:"sec-h"}, `어휘 등급 상승! ${up.from} → ${up.to}`), h("p",{class:"ctx"}, g.can))); } }
+  { const cr = climbRecap(s); if (cr) app.append(cr); }
   app.append(h("div",{class:"kpis"},
     h("div",{class:"kpi"}, h("b",{}, acc+"%"), h("span",{},"정확도 (말하기·조립)")),
     h("div",{class:"kpi"}, h("b",{}, streakNow()+"일"), h("span",{},"연속 학습")),

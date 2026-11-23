@@ -54,7 +54,7 @@ const ok = (n, c, x) => { R[n] = c ? 'PASS' : 'FAIL ' + JSON.stringify(x ?? '');
   // ladder exercise selection
   const sel = await p.evaluate(() => { const r = {};
     S.words.reservation.stage = 3; r.s3 = wordStepFor('reservation').type;
-    S.words.reservation.stage = 4; const a = wordStepFor('reservation'); r.s4 = a.type; r.ctxDiff = a.ctx ? cardById(a.ctx).en !== srcFor('reservation').en : 'noctx';
+    S.words.reservation.stage = 4; const a = wordStepFor('reservation'); r.s4 = a.type; r.ctxDiff = a.ctx ? a.ctx !== srcFor('reservation').en : 'noctx';
     S.words.reservation.stage = 5; r.s5 = wordStepFor('reservation').type;
     llm.engine = {}; r.s5ai = wordStepFor('reservation').type; llm.engine = null;
     setStage('reservation', false); r.down = wordStage('reservation'); return r; });

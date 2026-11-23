@@ -108,6 +108,7 @@ const BADGES = [
   {id:"early", t:"일찍 일어난 새", d:"오전 7시 전에 공부하기", p:()=>[S.earlyBird?1:0,1], r:10},
   {id:"owl", t:"올빼미", d:"밤 11시 이후에 공부하기", p:()=>[S.nightOwl?1:0,1], r:10},
   {id:"ear10", t:"귀가 트였다", d:"해외살이 장면 10개를 자막 없이 알아듣기", p:()=>[(S.ear&&S.ear.clean)||0,10], r:20},
+  {id:"summit", t:"여행 완주", d:"앵두의 여행 한 시즌 끝까지 가기", p:()=>[((S.climb&&S.climb.hall)||[]).length,1], r:30},
   {id:"perfect", t:"완벽주의자", d:"정확도 100%로 세션 끝내기", p:()=>[S.perfectSessions||0,1], r:15}
 ];
 let badgeBusy = false;
@@ -279,6 +280,8 @@ function flushCelebration(){
   const q = S.pending || []; if (!q.length || document.querySelector(".sheet")) return;
   const c = q.shift(); S.pending = q; save();
   if (c.kind === "welcome") { welcomeBack(c.days); return; }
+  if (c.kind === "landmark") { landmarkSheet(c.id); return; }
+  if (c.kind === "summit") { summitSheet(); return; }
   if (c.kind === "calm") { openSheet("화 풀렸어!", inner => inner.append(h("section",{class:"celebrate"}, mascot(120,"happy"), h("h1",{class:"title"},"다시 와 줘서 고마워!"), h("p",{class:"muted"},"이제 화 다 풀렸어. 내일도 오면 더 좋아할 거야."), h("button",{class:"primary",onclick:closeSheet},"약속!")))); sfx("ding"); return; }
   if (c.kind === "streak") openSheet(`${c.n}일 연속!`, inner => inner.append(h("section",{class:"celebrate"}, mascot(120,"happy"), h("h1",{class:"big"}, `${c.n}일`), h("p",{class:"muted"}, `${c.n}일 동안 하루도 빠짐없이 했어! 체리 ${c.r}개를 줄게.`), h("button",{class:"primary",onclick:closeSheet},"계속 가자!"))));
   else if (c.kind === "badge") { const b = BADGES.find(x=>x.id===c.id); if (b) openSheet("새 배지!", inner => inner.append(h("section",{class:"celebrate"}, h("span",{class:"badge-ic big on",html:BADGE_SVG}), h("h1",{class:"title"}, b.t), h("p",{class:"muted"}, `${b.d} · 체리 +${b.r}`), h("button",{class:"primary",onclick:closeSheet},"좋아!")))); }

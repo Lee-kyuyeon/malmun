@@ -47,7 +47,7 @@ async function scene(p, i, { wrong = false, help = 0 } = {}) {
     ok('clip_lookup_word_case_and_unknown', /^audio\/x[0-9a-z]+-\d\.m4a$/.test(r.cap || '') && r.none === null, r);
     ok('clip_second_voice', r.alt, r);
     const ctas = await p.$$eval('.cta', c => c.map(x => x.innerText.split(String.fromCharCode(10))[0]));
-    ok('home_next_practice_listen', !!(await p.$('.next-practice[data-cta="listen"]')) && !ctas.some(t => t.includes('AI와 상황극') || t === '앵두와 해외살이') && ctas.length <= 3, ctas);
+    ok('home_next_practice_listen', !!(await p.$('.next-practice[data-cta="listen"]')) && !ctas.some(t => t.includes('AI와 상황극') || t === '앵두와 해외살이') && ctas.filter(t => !t.startsWith('앵두의')).length <= 3, ctas);
     await p.click('nav.tabs a[data-tab="talk"]'); await p.waitForTimeout(400);
     ok('practice_tab_opens_listening', await p.evaluate(() => location.hash === '#abroad' && !!document.querySelector('.practice-seg [data-mode="listen"][aria-pressed="true"]') && document.querySelector('nav.tabs a[data-tab="talk"]').getAttribute('aria-current') === 'page'));
     await p.click('.practice-seg [data-mode="talk"]'); await p.waitForTimeout(400);
