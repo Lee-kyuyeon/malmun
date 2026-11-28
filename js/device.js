@@ -76,12 +76,12 @@ function refreshMics(){ document.querySelectorAll(".mic").forEach(m=>m.hidden=!c
 function micFor(field, opts={}){
   const b = h("button",{class:"mic",type:"button","aria-label":"말해서 입력",html:ICON.mic});
   b.hidden = !caps.dict;
-  b.onclick = () => {
+  const listen = (replace = false) => {
     if (rec) { try { rec.stop(); } catch(e){} return; }
     hush();
     const r = new SR(); rec = r;
     r.lang = "en-US"; r.interimResults = true; r.continuous = !!opts.continuous; r.maxAlternatives = 1;
-    const base = field.value.trim() ? field.value.trim()+" " : "";
+    const base = !replace && field.value.trim() ? field.value.trim()+" " : "";
     /* speaking time for fluency (WPM): from the first recognized sound to the last result */
     let tFirst = 0, tLast = 0;
     /* no sound recognized within 8s: give up instead of showing "듣고 있어요…" forever; after two such stalls, switch to typing */
@@ -89,19 +89,22 @@ function micFor(field, opts={}){
       micStalls++; if (micStalls >= 2) { caps.dict = false; refreshMics(); toast("이 기기에서는 음성 인식이 응답하지 않아 타이핑으로 진행해요."); }
       else toast("음성 인식이 응답하지 않아요. 한 번 더 눌러 보거나 입력해 주세요.");
       if (typeof field._onStall === "function") field._onStall(micStalls); }, 8000);
-    r.onresult = e => { let fin = "", inter = ""; const now = Date.now(); if (!tFirst) tFirst = now; tLast = now;
+    r.onresult = e => { if (rec !== r) return; let fin = "", inter = ""; const now = Date.now(); if (!tFirst) tFirst = now; tLast = now;
       for (let i=0;i<e.results.length;i++){ const x = e.results[i]; if (x.isFinal) fin += x[0].transcript; else inter += x[0].transcript; }
-      field.value = (base + fin).trim(); field.placeholder = inter || "듣고 있어요…"; field.dispatchEvent(new Event("input")); };
+      if (fin.trim() || !replace) field.value = (base + fin).trim();
+      if (replace && fin.trim()) delete field.dataset.speechMs; field.placeholder = inter || "듣고 있어요…"; field.dispatchEvent(new Event("input")); };
     r.onerror = e => {
       if (e.error==="not-allowed"||e.error==="service-not-allowed") { caps.dict = false; refreshMics(); toast("마이크 권한이 없어 타이핑으로 진행해요."); }
       else if (e.error==="no-speech") toast("소리가 들리지 않았어요. 다시 눌러 말해 주세요.");
       else if (e.error==="network") toast("음성인식에 인터넷 연결이 필요해요.");
     };
-    r.onend = () => { clearTimeout(watchdog); b.classList.remove("live"); field.placeholder = field.dataset.ph || ""; if (rec === r) rec = null;
+    r.onend = () => { clearTimeout(watchdog); if (rec !== r) return; b.classList.remove("live"); field.placeholder = field.dataset.ph || ""; if (rec === r) rec = null;
       if (tFirst && tLast > tFirst) field.dataset.speechMs = String(Number(field.dataset.speechMs||0) + (tLast - tFirst) + 400);
       if (typeof field._onSpoken === "function" && field.value.trim()) field._onSpoken(); };
     try { r.start(); b.classList.add("live"); field.placeholder = "듣고 있어요…"; } catch(e) { rec = null; }
   };
+  b.onclick = () => listen();
+  b.recordAgain = () => listen(true);
   return b;
 }
 async function stopDict(){ const r = rec; if (!r) return; await new Promise(res => { r.addEventListener("end", res, {once:true}); try { r.stop(); } catch(e) { res(); } setTimeout(res, 1500); }); if (rec === r) killDict(); }

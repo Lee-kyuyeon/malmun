@@ -204,13 +204,16 @@ function answerBox(box, ph, onSubmit, opts={}){
   const send = h("button",{class:"primary",disabled:true}, "확인");
   ta.addEventListener("input", ()=> send.disabled = !ta.value.trim());
   ta.addEventListener("keydown", e=>{ if (e.key==="Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); if (!send.disabled) send.click(); } });
-  send.onclick = async () => { await stopDict(); ta.disabled = true; if (!opts.retry) box.querySelectorAll(".mic").forEach(m=>m.remove());
+  send.onclick = async () => { if (ta.disabled) return; ta.disabled = true; again.hidden = true; await stopDict(); if (!opts.retry) box.querySelectorAll(".mic").forEach(m=>m.remove());
     const r = await onSubmit(ta.value);
     if (r === "retry" && document.contains(ta)) { ta.disabled = false; ta.value = ""; send.disabled = true; if (!matchMedia("(pointer:coarse)").matches || !caps.dict) ta.focus(); }
     else if (opts.retry) box.querySelectorAll(".mic").forEach(m=>m.remove()); };
-  ta._onSpoken = () => { if (S.settings.autosubmit && !send.disabled) setTimeout(()=>{ if (document.contains(send) && !ta.disabled) send.click(); }, 350); };
   const mic = micFor(ta, opts);
-  box.append(h("div",{class:"answer"}, mic, caps.dict ? h("p",{class:"mic-hint"}, opts.continuous ? "누르면 계속 들어요. 다 말하면 마이크를 다시 누르고 확인" : S.settings.autosubmit ? "누르고 말하면 끝나는 대로 채점해요" : "누르고 말한 뒤 확인을 눌러요") : "", ta));
+  const again = h("button",{class:"ghost sm",type:"button"}, "다시 말하기");
+  again.hidden = true;
+  again.onclick = () => { if (!ta.disabled && !rec && caps.dict) mic.recordAgain(); };
+  ta._onSpoken = () => { again.hidden = !caps.dict || ta.disabled; };
+  box.append(h("div",{class:"answer"}, mic, caps.dict ? h("p",{class:"mic-hint"}, "인식된 답을 확인한 뒤 확인을 눌러요.") : "", ta, again));
   actionBar(send);
   if (!matchMedia("(pointer:coarse)").matches && !caps.dict) ta.focus();
   return ta;

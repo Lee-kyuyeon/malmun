@@ -18,7 +18,7 @@ const ICON = {
 /* ---------- state & persistence ---------- */
 const LS_KEY = "malmun.v1";
 const NEW_PER_DAY = 6;
-const SETTINGS_DEFAULT = {goal:50, sound:true, haptic:true, handsfree:false, autosubmit:true, showKo:false, rate:1, interests:[], studyTime:"", wordsPerDay:5};
+const SETTINGS_DEFAULT = {goal:50, sound:true, haptic:true, handsfree:false, showKo:false, rate:1, interests:[], studyTime:"", wordsPerDay:5};
 function blank(){ return {v:2,cards:{},xp:0,streak:0,bestStreak:0,lastDay:null,hist:{},custom:[],newDay:null,newCount:0,talks:0,sessions:0,errors:{},settings:{...SETTINGS_DEFAULT},onboarded:false,cherries:0,ledger:[],daily:null,freezes:0,freezeDays:[],freezeNotice:null,outfit:{},owned:[],badges:{},badgesSeen:[],boostUntil:0,selfRepairs:0,perfectSessions:0,fullTalks:0,earlyBird:false,nightOwl:false,pending:[],speakouts:[],lastSeen:null,welcomeDay:null,updatedAt:0}; }
 /* stored-state migrations: each step upgrades one schema version */
 const SCHEMA = 2;
