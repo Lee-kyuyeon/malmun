@@ -68,7 +68,6 @@ function taskSpeakout(box, step){
     const acc = ai && typeof ai.accuracy === "number" ? Math.max(0, Math.min(1, ai.accuracy)) : null;
     finishSpeakout(box, unit, q, targets, m, ai, speakScore(m, acc), Date.now() - t0);
   }, {continuous: true});
-  ta._onSpoken = null; /* no auto-submit after a pause: the learner decides when the answer is done */
   ta.addEventListener("input", start, {once: true});
   box.querySelectorAll(".mic").forEach(b => b.addEventListener("click", start, {once: true}));
 }

@@ -90,7 +90,6 @@ function openSettings(){
     inner.append(seg("하루 새 단어", "단어 코스에서 하루에 만나는 새 단어 수", [5,10,15], "wordsPerDay", o=>o+"개"));
     inner.append(sw("sound","효과음","정답·오답·축하 소리"));
     if (navigator.vibrate) inner.append(sw("haptic","진동","정답·오답 때 짧게 떨림"));
-    if (caps.dict) inner.append(sw("autosubmit","말 끝나면 바로 채점","마이크를 다시 누르지 않아도 돼요"));
     if (caps.dict) inner.append(sw("handsfree","핸즈프리 대화","AI가 말을 마치면 자동으로 듣기 시작 (일부 기기에선 동작하지 않아요)"));
     inner.append(sw("showKo","번역 먼저 보기","AI 대화에서 한국어 번역을 펼쳐 둬요"));
     inner.append(seg("원어민 말하기 속도", "", [0.8,1,1.2], "rate", o=>o===1?"보통":o<1?"천천히":"빠르게"));
